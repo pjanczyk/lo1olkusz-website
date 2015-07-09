@@ -44,13 +44,6 @@ $lnProvider = new HtmlLuckyNumberProvider;
 $ln = $lnProvider->getLuckyNumber($dom);
 $lnJson = json_encode($ln);
 
-if (!file_exists('ln')) {
-    mkdir('ln');
-}
-if (!file_exists('replacements')) {
-    mkdir('replacements');
-}
-
 $lnPath = 'ln/'.$ln['date'];
 $replsPath = 'replacements/'.$repls['date'];
 
