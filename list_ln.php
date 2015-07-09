@@ -7,6 +7,6 @@ include 'header.html';
 <?php
 
 require 'dirHelper.php';
-printLs('.', 'ln');
+printLs('ln', 'ln');
 
 include 'footer.html';

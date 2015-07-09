@@ -7,6 +7,6 @@ include 'header.html';
 <?php
 
 require 'dirHelper.php';
-printLs('.', 'replacements');
+printLs('replacements', 'replacements');
 
 include 'footer.html';
