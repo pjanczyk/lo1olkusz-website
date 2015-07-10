@@ -76,6 +76,7 @@ if (isset($_GET['what'])) {
 if (isset($what)) {
     include 'html/header.html';
     echo '<h4>' . $title .'</h4>';
+    echo Config::getDataDir() . $what . '<br/>';
     printFilesList(Config::getDataDir() . $what, $what);
     include 'html/footer.html';
 }
