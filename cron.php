@@ -28,7 +28,7 @@ error_reporting(E_STRICT);
 
 
 //run cron task
-require 'classes/CronTask.php';
+include 'classes/CronTask.php';
 
 $task = new \pjanczyk\lo1olkusz\CronTask;
 $task->run();
