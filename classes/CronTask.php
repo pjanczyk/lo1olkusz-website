@@ -42,7 +42,7 @@ class CronTask {
         $this->logger->log('CronTask', 'running task');
 
         //$dom = file_get_html("http://lo1.olkusz.pl/aktualnosci/zast");
-        $dom = file_get_html("zast.html");
+        $dom = file_get_html("correct_zast.html");
 
         $lnProvider = new LuckyNumberProvider;
         $ln = $lnProvider->getLuckyNumber($dom);

@@ -35,7 +35,6 @@ class LuckyNumberProvider {
     public function getLuckyNumber($dom) {
         $text = LuckyNumberProvider::findText($dom);
         if ($text === null) {
-            $this->errors[] = "Nie znaleziono na stronie danych o szczęśliwym numerku";
             return null;
         }
 
@@ -115,12 +114,12 @@ class LuckyNumberProvider {
             $date = $dateTime->format('Y-m-d');
         }
         else {
-            throw new \Exception("Niewłaściwy format daty: '{$datePart}''");
+            throw new \Exception("Niewłaściwy format daty: '{$datePart}'");
         }
 
         //parse number
         if (!is_numeric($numberPart)) {
-            throw new \Exception("Niewłaściwy format numeru: '{$numberPart}''");
+            throw new \Exception("Niewłaściwy format numeru: '{$numberPart}'");
         }
         $number = intval($numberPart);
 

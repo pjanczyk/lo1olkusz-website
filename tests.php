@@ -12,17 +12,17 @@ function printArray($array) {
 }
 
 require_once 'simple_html_dom.php';
-$dom = file_get_html("zast.html");
+$dom = file_get_html("correct_zast.html");
 ?>
 
 <h4>Replacements</h4>
 
 <?php
 
-include 'ReplacementsProvider.php';
+include 'classes/ReplacementsProvider.php';
 
 
-$replsProvider = new HtmlReplacementsProvider;
+$replsProvider = new \ReplacementsProvider;
 $repls = $replsProvider->getReplacements($dom);
 
 $errors = $replsProvider->getErrors();

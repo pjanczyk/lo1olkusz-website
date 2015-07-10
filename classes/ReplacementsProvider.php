@@ -51,7 +51,6 @@ class ReplacementsProvider {
      *              ...
      *          ]
      *      ]
-     * @throws \Exception on error
      */
 	public function getReplacements($dom) {
 
@@ -71,7 +70,8 @@ class ReplacementsProvider {
 		$date = ReplacementsProvider::parseDate(trim($h4->plaintext));
 
         if ($date === null) {
-            throw new \Exception("incorrect date format: ".$h4->plaintext);
+            $this->errors[] = "incorrect date format: ".$h4->plaintext;
+            return null;
         }
 
         //parse content
