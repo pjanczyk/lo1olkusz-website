@@ -52,23 +52,18 @@ class CronTask {
 
         $this->update('ln', $ln);
         $this->update('replacements', $repls);
-
-        $this->logger->log('CronTask', 'completed');
     }
 
     private function update($what, $array) {
         $json = json_encode($array);
-
-        $filePath = Config::getDataDir() . '/' . $what . '/' . $array['date'];
+        $relativePath = $what . '/' . $array['date'];
+        $filePath = Config::getDataDir() . '/' . $relativePath;
 
         //make sure all parent directories exist
         FileHelper::createParentDirectories($filePath);
 
         if (FileHelper::updateFile($filePath, $json)) {
-            $this->logger->log($what, "modified {$filePath}");
-        }
-        else {
-            $this->logger->log($what, "up-to-date {$filePath}");
+            $this->logger->log('CronTask', 'updated '. $relativePath);
         }
     }
 }
