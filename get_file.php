@@ -28,4 +28,6 @@ if (file_exists($path)) {
 }
 else {
     header('HTTP/1.0 404 Not Found');
+    header('Content-Type: application/json');
+    print '{"error":"file not found"}';
 }
