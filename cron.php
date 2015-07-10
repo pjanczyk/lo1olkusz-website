@@ -24,14 +24,16 @@
 //turn on reporting all errors
 ini_set('display_errors',1);
 ini_set('display_startup_errors',1);
-error_reporting(E_STRICT);
+error_reporting(-1);
 
-echo 'running cron<br>';
+echo 'running cron ';
 
 //run cron task
 include 'classes/CronTask.php';
 
+echo 'included ';
 $task = new \pjanczyk\lo1olkusz\CronTask;
+echo 'created ';
 $task->run();
 
-echo 'OK';
+echo 'OK ';
