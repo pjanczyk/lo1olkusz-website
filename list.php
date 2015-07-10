@@ -60,19 +60,16 @@ function printFilesList($dirPath, $urlPath = null) {
 
 date_default_timezone_set('Europe/Warsaw');
 
-if (isset($_GET['what'])) {
-    if ($_GET['what'] == 'ln') {
-        $what = 'ln';
-        $title = 'Lucky numbers';
-    }
-    else if ($_GET['what'] == 'replacements') {
-        $what = 'replacements';
-        $title = 'Replacements';
-    }
-}
+$map = [
+    'ln' => 'Lucky numbers',
+    'replacements' => 'Replacements',
+    'timetable' => 'Timetables'
+];
 
+if (isset($_GET['what']) && isset($map[$_GET['what']])) {
+    $what = $_GET['what'];
+    $title = $map[$what];
 
-if (isset($what)) {
     include 'html/header.html';
     echo '<h4>' . $title .'</h4>';
     echo Config::getDataDir() . $what . '<br/>';
@@ -81,4 +78,5 @@ if (isset($what)) {
 }
 else {
     header("HTTP/1.0 404 Not Found");
+    include 'html/404.html';
 }
