@@ -20,4 +20,12 @@
 
 //Created on 2015-07-10
 
-print file_get_contents($_ENV['OPENSHIFT_DATA_DIR'] . $_GET['p']);
+$path = $_ENV['OPENSHIFT_DATA_DIR'] . $_GET['p'];
+
+if (file_exists($path)) {
+    header('Content-Type: application/json');
+    print file_get_contents($path);
+}
+else {
+    header('HTTP/1.0 404 Not Found');
+}
