@@ -22,8 +22,8 @@
 
 namespace pjanczyk\lo1olkusz;
 
-require_once 'Config.php';
-require_once 'FileHelper.php';
+require_once 'classes/Config.php';
+require_once 'classes/FileHelper.php';
 
 class Logger {
 
