@@ -20,15 +20,30 @@
 
 //Created on 2015-07-09
 
+namespace pjanczyk\lo1olkusz;
 
-//turn on reporting all errors
-ini_set('display_errors',1);
-ini_set('display_startup_errors',1);
-error_reporting(E_STRICT);
+class Config {
+    private static $DATA_DIR;
+    private static $LOG_DIR;
+    private static $TIMEZONE;
 
+    public static function init() {
+        Config::$DATA_DIR = $_ENV['OPENSHIFT_DATA_DIR'];
+        Config::$LOG_DIR = $_ENV['OPENSHIFT_PHP_LOG_DIR'];
+        Config::$TIMEZONE = new \DateTimeZone('Europe/Warsaw');
+    }
 
-//run cron task
-require 'classes/CronTask.php';
+    public static function getDataDir() {
+        return Config::$DATA_DIR;
+    }
 
-$task = new \pjanczyk\lo1olkusz\CronTask;
-$task->run();
+    public static function getLogDir() {
+        return Config::$LOG_DIR;
+    }
+
+    public static function getTimeZone() {
+        return Config::$TIMEZONE;
+    }
+}
+
+Config::init();

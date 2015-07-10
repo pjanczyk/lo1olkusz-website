@@ -20,11 +20,33 @@
 
 //Created on 2015-07-09
 
-/**
- * How to use this file:
- *      $config = include('config.php');
- */
+namespace pjanczyk\lo1olkusz;
 
-return [
-    'data_dir' => $_ENV['OPENSHIFT_DATA_DIR']
-];
+require_once 'Config.php';
+require_once 'FileHelper.php';
+
+class Logger {
+
+    private $file;
+
+    public function __construct($fileName) {
+        $filePath = Config::getLogDir() . '/' . $fileName;
+        FileHelper::createParentDirectories($filePath);
+        $this->file = fopen($filePath, 'a');
+    }
+
+    public function log($tag, $msg) {
+        if ($this->file !== false) {
+            $date = new \DateTime('now', Config::getTimeZone());
+            $text = $date->format('Y-m-d H:i:s') . ' [' . $tag . '] ' . $msg . "\n";
+            fwrite($this->file, $text);
+        }
+    }
+
+    public function __destruct() {
+        if ($this->file !== false) {
+            fclose($this->file);
+        }
+    }
+
+}

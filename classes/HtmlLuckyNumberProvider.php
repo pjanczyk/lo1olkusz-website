@@ -20,7 +20,9 @@
 
 //Created on 2015-07-08
 
-require_once 'simple_html_dom.php';
+namespace pjanczyk\lo1olkusz;
+
+require_once '../simple_html_dom.php';
 
 class HtmlLuckyNumberProvider {
 
@@ -40,14 +42,14 @@ class HtmlLuckyNumberProvider {
         try {
             return HtmlLuckyNumberProvider::parseText($text);
         }
-        catch (Exception $e) {
+        catch (\Exception $e) {
             $this->errors[] = "Niewłaściwy format danych: ".$e->getMessage();
             return null;
         }
     }
 
     /**
-     * @param simple_html_dom $dom
+     * @param \simple_html_dom $dom
      * @return null|string , a text of a next paragraph after phrase "szczęśliwy numerek"
      *         or null if it wasn't found
      */
@@ -72,11 +74,14 @@ class HtmlLuckyNumberProvider {
 
     /**
      * Parses data of lucky number in format "31 XII - 13"
+     * @param string $text
+     * @return array
+     * @throws \Exception when $text is in invalid format
      */
     private static function parseText($text) {
         $parts = explode('-', $text);
         if (count($parts) !== 2) {
-            throw new Exception("W tekście powinien być tylko jeden myślnik: '{$text}'");
+            throw new \Exception("W tekście powinien być tylko jeden myślnik: '{$text}'");
         }
 
         $datePart = trim($parts[0]);
@@ -105,17 +110,17 @@ class HtmlLuckyNumberProvider {
             $month = $months[$array[1]];
             $year = intval(date('Y'));
 
-            $dateTime = new DateTime;
+            $dateTime = new \DateTime;
             $dateTime->setDate($year, $month, $day);
             $date = $dateTime->format('Y-m-d');
         }
         else {
-            throw new Exception("Niewłaściwy format daty: '{$datePart}''");
+            throw new \Exception("Niewłaściwy format daty: '{$datePart}''");
         }
 
         //parse number
         if (!is_numeric($numberPart)) {
-            throw new Exception("Niewłaściwy format numeru: '{$numberPart}''");
+            throw new \Exception("Niewłaściwy format numeru: '{$numberPart}''");
         }
         $number = intval($numberPart);
 

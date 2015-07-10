@@ -20,7 +20,9 @@
  
  //Created on 2015-07-08
 
-require_once 'simple_html_dom.php';
+namespace pjanczyk\lo1olkusz;
+
+require_once '../simple_html_dom.php';
 
 /**
  * Gets data of replacements from the official website, parsing it from html
@@ -37,7 +39,7 @@ class HtmlReplacementsProvider {
     /**
      * Parses replacements from html.
      * If them cannot be find or they are in incorrect format returns null.
-     * @param simple_html_dom $dom
+     * @param \simple_html_dom $dom
      * @return array in format
      *      [
      *          "date" => "yyyy-MM-dd",
@@ -49,18 +51,18 @@ class HtmlReplacementsProvider {
      *              ...
      *          ]
      *      ]
-     * @throws Exception on error
+     * @throws \Exception on error
      */
 	public function getReplacements($dom) {
 
-        /** @var simple_html_dom_node $itemPage */
+        /** @var \simple_html_dom_node $itemPage */
         $itemPage = $dom->find('div[class=item-page]', 0);
 		
 		if ($itemPage === null) return null;
 
-        /** @var simple_html_dom_node $h4 */
+        /** @var \simple_html_dom_node $h4 */
         $h4 = $itemPage->find('h4', 0);
-        /** @var simple_html_dom_node $table */
+        /** @var \simple_html_dom_node $table */
         $table = $itemPage->find('table', 0);
 		
 		if ($h4 === null || $table === null) return null;
@@ -69,7 +71,7 @@ class HtmlReplacementsProvider {
 		$date = HtmlReplacementsProvider::parseDate(trim($h4->plaintext));
 
         if ($date === null) {
-            throw new Exception("incorrect date format: ".$h4->plaintext);
+            throw new \Exception("incorrect date format: ".$h4->plaintext);
         }
 
         //parse content
@@ -80,7 +82,7 @@ class HtmlReplacementsProvider {
         $currentClassName = null;
         $ofCurrentClass = null;
 
-        /** @var simple_html_dom_node $row */
+        /** @var \simple_html_dom_node $row */
         foreach ($rows as $i => $row) {
             $cells = $row->find('th, td');
 
@@ -125,7 +127,7 @@ class HtmlReplacementsProvider {
     /**
      * Parses a date from a text in format "d MMMM yyyy".
      * @param string $dateText
-     * @return DateTime|null
+     * @return \DateTime|null
      */
 	private static function parseDate($dateText) {
 		$array = explode(' ', $dateText);
@@ -152,7 +154,7 @@ class HtmlReplacementsProvider {
             $month = $months[$array[1]];
             $year = intval($array[2]);
 
-            $dateTime = new DateTime;
+            $dateTime = new \DateTime;
             $dateTime->setDate($year, $month, $day);
             return $dateTime;
         }
