@@ -58,8 +58,7 @@ function printFilesList($dirPath, $urlPath = null) {
     endif;
 }
 
-
-
+date_default_timezone_set('Europe/Warsaw');
 
 if (isset($_GET['what'])) {
     if ($_GET['what'] == 'ln') {
