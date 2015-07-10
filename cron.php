@@ -32,3 +32,5 @@ require 'classes/CronTask.php';
 
 $task = new \pjanczyk\lo1olkusz\CronTask;
 $task->run();
+
+echo 'OK';
