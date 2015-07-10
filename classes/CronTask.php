@@ -26,8 +26,8 @@ require_once 'classes/Config.php';
 require_once 'classes/Logger.php';
 require_once 'classes/FileHelper.php';
 require_once 'simple_html_dom.php';
-require_once 'classes/HtmlReplacementsProvider.php';
-require_once 'classes/HtmlLuckyNumberProvider.php';
+require_once 'classes/ReplacementsProvider.php';
+require_once 'classes/LuckyNumberProvider.php';
 
 
 class CronTask {
@@ -44,14 +44,18 @@ class CronTask {
         //$dom = file_get_html("http://lo1.olkusz.pl/aktualnosci/zast");
         $dom = file_get_html("zast.html");
 
-        $lnProvider = new HtmlLuckyNumberProvider;
+        $lnProvider = new LuckyNumberProvider;
         $ln = $lnProvider->getLuckyNumber($dom);
+        $this->logErrors('LuckyNumberProvider', $lnProvider->getErrors());
 
-        $replsProvider = new HtmlReplacementsProvider;
+        $replsProvider = new ReplacementsProvider;
         $repls = $replsProvider->getReplacements($dom);
+        $this->logErrors('ReplacementsProvider', $lnProvider->getErrors());
 
         $this->update('ln', $ln);
         $this->update('replacements', $repls);
+
+        $this->logger->log('CronTask', 'completed');
     }
 
     private function update($what, $array) {
@@ -64,6 +68,12 @@ class CronTask {
 
         if (FileHelper::updateFile($filePath, $json)) {
             $this->logger->log('CronTask', 'updated '. $relativePath);
+        }
+    }
+
+    private function logErrors($tag, $errors) {
+        foreach ($errors as $error) {
+            $this->logger->log($tag, $error);
         }
     }
 }

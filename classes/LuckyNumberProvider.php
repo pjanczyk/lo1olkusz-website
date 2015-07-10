@@ -24,7 +24,7 @@ namespace pjanczyk\lo1olkusz;
 
 require_once 'simple_html_dom.php';
 
-class HtmlLuckyNumberProvider {
+class LuckyNumberProvider {
 
     private $errors = [];
 
@@ -33,14 +33,14 @@ class HtmlLuckyNumberProvider {
     }
 
     public function getLuckyNumber($dom) {
-        $text = HtmlLuckyNumberProvider::findText($dom);
+        $text = LuckyNumberProvider::findText($dom);
         if ($text === null) {
             $this->errors[] = "Nie znaleziono na stronie danych o szczęśliwym numerku";
             return null;
         }
 
         try {
-            return HtmlLuckyNumberProvider::parseText($text);
+            return LuckyNumberProvider::parseText($text);
         }
         catch (\Exception $e) {
             $this->errors[] = "Niewłaściwy format danych: ".$e->getMessage();

@@ -28,7 +28,7 @@ require_once 'simple_html_dom.php';
  * Gets data of replacements from the official website, parsing it from html
  * (Unfortunately there is no available api for this, e.g. using json)
  */
-class HtmlReplacementsProvider {
+class ReplacementsProvider {
 
     private $errors = [];
 
@@ -68,7 +68,7 @@ class HtmlReplacementsProvider {
 		if ($h4 === null || $table === null) return null;
 		
 		//parse date
-		$date = HtmlReplacementsProvider::parseDate(trim($h4->plaintext));
+		$date = ReplacementsProvider::parseDate(trim($h4->plaintext));
 
         if ($date === null) {
             throw new \Exception("incorrect date format: ".$h4->plaintext);

@@ -19,7 +19,7 @@ $dom = file_get_html("zast.html");
 
 <?php
 
-include 'HtmlReplacementsProvider.php';
+include 'ReplacementsProvider.php';
 
 
 $replsProvider = new HtmlReplacementsProvider;
@@ -56,7 +56,7 @@ else {
 
 <?php
 
-include 'HtmlLuckyNumberProvider.php';
+include 'LuckyNumberProvider.php';
 
 $lnProvider = new HtmlLuckyNumberProvider;
 $ln = $lnProvider->getLuckyNumber($dom);
