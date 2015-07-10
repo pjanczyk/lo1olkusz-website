@@ -39,6 +39,8 @@ class CronTask {
     }
 
     public function run() {
+        $this->logger->log('CronTask', 'running task');
+
         //$dom = file_get_html("http://lo1.olkusz.pl/aktualnosci/zast");
         $dom = file_get_html("zast.html");
 
@@ -50,6 +52,8 @@ class CronTask {
 
         $this->update('ln', $ln);
         $this->update('replacements', $repls);
+
+        $this->logger->log('CronTask', 'completed');
     }
 
     private function update($what, $array) {
