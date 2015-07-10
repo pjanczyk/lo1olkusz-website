@@ -22,12 +22,12 @@
 
 namespace pjanczyk\lo1olkusz;
 
-require_once './Config.php';
-require_once './Logger.php';
-require_once './FileHelper.php';
-require_once '../simple_html_dom.php';
-require_once './HtmlReplacementsProvider.php';
-require_once './HtmlLuckyNumberProvider.php';
+require_once 'classes/Config.php';
+require_once 'classes/Logger.php';
+require_once 'classes/FileHelper.php';
+require_once 'simple_html_dom.php';
+require_once 'classes/HtmlReplacementsProvider.php';
+require_once 'classes/HtmlLuckyNumberProvider.php';
 
 
 class CronTask {
