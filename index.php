@@ -1,61 +1,31 @@
 <?php
+/**
+ * Copyright 2015 Piotr Janczyk
+ *
+ * This file is part of I LO Olkusz Unofficial App.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-//require_once 'simple_html_dom.php';
-//require_once 'HtmlReplacementsProvider.php';
-//require_once 'HtmlLuckyNumberProvider.php';
-//
-//ini_set('display_errors',1);
-//ini_set('display_startup_errors',1);
-//error_reporting(-1);
-//
-//function updateFile($path, $newContent) {
-//
-//    if (!file_exists($path)) {
-//        $file = fopen($path, 'w');
-//        fwrite($file, $newContent);
-//        fclose($file);
-//        $updated = true;
-//    }
-//    else {
-//        $file = fopen($path, 'r+');
-//        $oldContent = fread($file, filesize($path));
-//        if (strcmp($newContent, $oldContent) !== 0) { //different
-//            fseek($file, 0);
-//            fwrite($file, $newContent);
-//            $updated = true;
-//        }
-//        else { //same
-//            $updated = false;
-//        }
-//        fclose($file);
-//    }
-//
-//    return $updated;
-//}
-//
-////$dom = file_get_html("http://lo1.olkusz.pl/aktualnosci/zast");
-//$dom = file_get_html("zast.html");
-//
-//$replsProvider = new HtmlReplacementsProvider;
-//$repls = $replsProvider->getReplacements($dom);
-//$replsJson = json_encode($repls);
-//
-//$lnProvider = new HtmlLuckyNumberProvider;
-//$ln = $lnProvider->getLuckyNumber($dom);
-//$lnJson = json_encode($ln);
-//
-//$lnPath = 'ln/'.$ln['date'];
-//$replsPath = 'replacements/'.$repls['date'];
-//
-//if (updateFile($lnPath, $lnJson)) {
-//    echo "UPDATED {$lnPath}<br>";
-//}
-//else {
-//    echo "OK {$lnPath}<br>";
-//}
-//if (updateFile($replsPath, $replsJson)) {
-//    echo "UPDATED {$replsPath}<br>";
-//}
-//else {
-//    echo "OK {$replsPath}<br>";
-//}
+//Created on 2015-07-10
+
+include 'classes/Config.php';
+
+$path = \pjanczyk\lo1olkusz\Config::getLogDir() . 'CronTask.log';
+
+
+include 'html/header.html';
+echo '<strong>' . $path . '</strong><br/>';
+echo file_get_contents($path);
+include 'html/footer.html';
