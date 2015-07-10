@@ -27,5 +27,7 @@ $path = \pjanczyk\lo1olkusz\Config::getLogDir() . 'CronTask.log';
 
 include 'html/header.html';
 echo '<strong>' . $path . '</strong><br/>';
+echo '<pre>';
 echo file_get_contents($path);
+echo '</pre>';
 include 'html/footer.html';
