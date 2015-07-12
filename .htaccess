@@ -1,4 +1,4 @@
-ErrorDocument 404 html/404.html
+ErrorDocument 404 /html/404.html
 
 RewriteEngine on
 RewriteRule ^((?:ln|replacements|timetable)/[0-9]{4}-[0-9]{2}-[0-9]{2})$ get_file.php?p=$1
