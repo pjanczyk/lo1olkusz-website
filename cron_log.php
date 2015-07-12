@@ -26,12 +26,18 @@ include 'classes/Config.php';
 
 use pjanczyk\lo1olkusz\Config;
 
+$path = Config::getLogDir() . 'cron.log';
+
+if (isset($_POST['clear'])) {
+    unlink($path);
+}
+
 ?>
 
 <h4>Cron log</h4>
 <a href="javascript:$.post('clear-cron-log');$('pre').empty()">Clear</a>
 <pre>
-    <?= file_get_contents(Config::getLogDir() . 'cron.log') ?>
+    <?= file_get_contents($path) ?>
 </pre>
 
 <?php

@@ -1,3 +1,5 @@
 RewriteEngine on
 RewriteRule ^((?:ln|replacements|timetable)/[0-9]{4}-[0-9]{2}-[0-9]{2})$ get_file.php?p=$1
 RewriteRule ^(ln|replacements|timetable)$ list.php?what=$1
+RewriteRule ^$ cron_log.php
+RewriteRule ^clear-cron-log$ cron_log.php?clear
