@@ -20,14 +20,17 @@
 
 //Created on 2015-07-10
 
+include 'html/header.html';
+
 include 'classes/Config.php';
 
-$path = \pjanczyk\lo1olkusz\Config::getLogDir() . 'CronTask.log';
+use pjanczyk\lo1olkusz\Config;
+?>
 
+<h4>Cron log</h4>
+<pre>
+    <?= file_get_contents(Config::getLogDir() . 'cron.log') ?>
+</pre>
 
-include 'html/header.html';
-echo '<strong>' . $path . '</strong><br/>';
-echo '<pre>';
-echo file_get_contents($path);
-echo '</pre>';
+<?php
 include 'html/footer.html';
