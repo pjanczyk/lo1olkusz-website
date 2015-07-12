@@ -24,7 +24,10 @@
 //turn on reporting all errors (they are written to stderr)
 error_reporting(E_ALL|E_STRICT);
 
-//run CronTask
 include 'classes/CronTask.php';
-$task = new \pjanczyk\lo1olkusz\CronTask;
+
+use pjanczyk\lo1olkusz\CronTask;
+
+//run CronTask
+$task = new CronTask;
 $task->run();

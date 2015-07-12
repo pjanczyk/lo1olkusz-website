@@ -48,23 +48,27 @@ class CronTask {
         echo "done\n";
     }
 
-    private function update($what, $array) {
-        $json = json_encode($array);
-        $relativePath = $what . '/' . $array['date'];
-        $filePath = Config::getDataDir() . '/' . $relativePath;
+    private function update($what, $data) {
+        if ($data !== null) {
+            $json = json_encode($data);
+            $relativePath = $what . '/' . $data['date'];
+            $filePath = Config::getDataDir() . '/' . $relativePath;
 
-        //make sure all parent directories exist
-        FileHelper::createParentDirectories($filePath);
+            //make sure all parent directories exist
+            FileHelper::createParentDirectories($filePath);
 
-        if (FileHelper::updateFile($filePath, $json)) {
-            echo "updated {$relativePath}\n";
+            if (FileHelper::updateFile($filePath, $json)) {
+                echo "updated {$relativePath}\n";
+            }
         }
     }
 
     private function logErrors($tag, $errors) {
-        echo $tag . ":\n";
-        foreach ($errors as $error) {
-            echo '    ' . $error . "\n";
+        if (count($errors) > 0) {
+            echo $tag . ":\n";
+            foreach ($errors as $error) {
+                echo '    ' . $error . "\n";
+            }
         }
     }
 }
