@@ -5,5 +5,3 @@ RewriteRule ^((?:ln|replacements|timetable)/[0-9]{4}-[0-9]{2}-[0-9]{2})$ get_fil
 RewriteRule ^(ln|replacements|timetable)$ list.php?what=$1 [L]
 RewriteRule ^$ cron_log.php [L]
 RewriteRule ^phpinfo$ phpinfo.php [L]
-
-RewriteRule \.(php|html)$ - [R=404]
