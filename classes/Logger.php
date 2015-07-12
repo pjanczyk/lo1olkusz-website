@@ -25,6 +25,8 @@ namespace pjanczyk\lo1olkusz;
 require_once 'classes/Config.php';
 require_once 'classes/FileHelper.php';
 
+use \DateTime;
+
 class Logger {
 
     private $file;
@@ -37,7 +39,7 @@ class Logger {
 
     public function log($tag, $msg) {
         if ($this->file !== false) {
-            $date = new \DateTime('now', Config::getTimeZone());
+            $date = new DateTime('now', Config::getTimeZone());
             $text = $date->format('Y-m-d H:i:s') . ' [' . $tag . '] ' . $msg . "\n";
             fwrite($this->file, $text);
         }

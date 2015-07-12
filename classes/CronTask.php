@@ -23,7 +23,6 @@
 namespace pjanczyk\lo1olkusz;
 
 require_once 'classes/Config.php';
-require_once 'classes/Logger.php';
 require_once 'classes/FileHelper.php';
 require_once 'simple_html_dom.php';
 require_once 'classes/ReplacementsProvider.php';
@@ -32,16 +31,10 @@ require_once 'classes/LuckyNumberProvider.php';
 
 class CronTask {
 
-    private $logger;
-
-    public function __construct() {
-        $this->logger = new Logger('CronTask.log');
-    }
-
     public function run() {
-        $this->logger->log('CronTask', 'running task');
+        echo "running task\n";
 
-        //$dom = file_get_html("http://lo1.olkusz.pl/aktualnosci/zast");
+        //$dom = file_get_html(Config::getUrl());
         $dom = file_get_html("correct_zast.html");
 
         $lnProvider = new LuckyNumberProvider;
@@ -55,7 +48,7 @@ class CronTask {
         $this->update('ln', $ln);
         $this->update('replacements', $repls);
 
-        $this->logger->log('CronTask', 'completed');
+        echo "done\n";
     }
 
     private function update($what, $array) {
@@ -67,13 +60,14 @@ class CronTask {
         FileHelper::createParentDirectories($filePath);
 
         if (FileHelper::updateFile($filePath, $json)) {
-            $this->logger->log('CronTask', 'updated '. $relativePath);
+            echo "updated {$relativePath}\n";
         }
     }
 
     private function logErrors($tag, $errors) {
+        echo $tag . ":\n";
         foreach ($errors as $error) {
-            $this->logger->log($tag, $error);
+            echo '    ' . $error . "\n";
         }
     }
 }

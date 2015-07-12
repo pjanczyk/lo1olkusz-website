@@ -44,6 +44,10 @@ class Config {
     public static function getTimeZone() {
         return Config::$TIMEZONE;
     }
+
+    public static function getUrl() {
+        return 'http://lo1.olkusz.pl/aktualnosci/zast';
+    }
 }
 
 Config::init();
