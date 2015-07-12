@@ -26,8 +26,9 @@ error_reporting(-1);
 
 include 'classes/Config.php';
 
-
-$pdo = new PDO($_ENV['OPENSHIFT_MYSQL_DB_URL']);
+$url = 'mysql:' . $_ENV['OPENSHIFT_MYSQL_DB_HOST'] . ':' . $_ENV['OPENSHIFT_MYSQL_DB_PORT'];
+echo $url;
+$pdo = new PDO($url, $_ENV['OPENSHIFT_MYSQL_DB_USERNAME'], $_ENV['OPENSHIFT_MYSQL_DB_PASSWORD']);
 $statement = $pdo->query("SELECT some_field FROM some_table");
 $row = $statement->fetch(PDO::FETCH_ASSOC);
 echo htmlentities($row['some_field']);
