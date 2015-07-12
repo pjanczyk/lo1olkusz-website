@@ -1,6 +1,6 @@
 #!/bin/bash
 export TZ="/usr/share/zoneinfo/Europe/Warsaw"
-NOW=$(date +%F)
+NOW=$(date +%F %T)
 FILE=${OPENSHIFT_LOG_DIR}/cron.log
 echo "[$NOW]" >> ${FILE}
 
