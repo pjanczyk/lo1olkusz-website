@@ -36,9 +36,7 @@ if (isset($_POST['clear'])) {
 
 <h4>Cron log</h4>
 <a href="javascript:$.post('', { clear: true });$('pre').empty()">Clear</a>
-<pre>
-    <?= file_get_contents($path) ?>
-</pre>
+<pre><?= file_get_contents($path) ?></pre>
 
 <?php
 include 'html/footer.html';
