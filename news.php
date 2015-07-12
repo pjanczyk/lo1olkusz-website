@@ -26,8 +26,8 @@ error_reporting(-1);
 
 include 'classes/Config.php';
 
-$url = 'mysql://' . $_ENV['OPENSHIFT_MYSQL_DB_HOST'] . ':' . $_ENV['OPENSHIFT_MYSQL_DB_PORT'];
-echo $url;
+$dsn = "mysql:host={$_ENV['OPENSHIFT_MYSQL_DB_HOST']}:{$_ENV['OPENSHIFT_MYSQL_DB_PORT']};dbname=lo1olkusz";
+echo $dsn;
 $pdo = new PDO($url, $_ENV['OPENSHIFT_MYSQL_DB_USERNAME'], $_ENV['OPENSHIFT_MYSQL_DB_PASSWORD']);
 $statement = $pdo->query("SELECT some_field FROM some_table");
 $row = $statement->fetch(PDO::FETCH_ASSOC);
