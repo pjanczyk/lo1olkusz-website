@@ -24,6 +24,8 @@ namespace pjanczyk\lo1olkusz;
 
 require_once 'simple_html_dom.php';
 
+use Exception;
+
 class LuckyNumberProvider {
 
     private $errors = [];
@@ -41,7 +43,7 @@ class LuckyNumberProvider {
         try {
             return LuckyNumberProvider::parseText($text);
         }
-        catch (\Exception $e) {
+        catch (Exception $e) {
             $this->errors[] = "Niewłaściwy format danych: ".$e->getMessage();
             return null;
         }
@@ -75,12 +77,12 @@ class LuckyNumberProvider {
      * Parses data of lucky number in format "31 XII - 13"
      * @param string $text
      * @return array
-     * @throws \Exception when $text is in invalid format
+     * @throws Exception when $text is in invalid format
      */
     private static function parseText($text) {
         $parts = explode('-', $text);
         if (count($parts) !== 2) {
-            throw new \Exception("W tekście powinien być tylko jeden myślnik: '{$text}'");
+            throw new Exception("W tekście powinien być tylko jeden myślnik: '{$text}'");
         }
 
         $datePart = trim($parts[0]);
@@ -114,12 +116,12 @@ class LuckyNumberProvider {
             $date = $dateTime->format('Y-m-d');
         }
         else {
-            throw new \Exception("Niewłaściwy format daty: '{$datePart}'");
+            throw new Exception("Niewłaściwy format daty: '{$datePart}'");
         }
 
         //parse number
         if (!is_numeric($numberPart)) {
-            throw new \Exception("Niewłaściwy format numeru: '{$numberPart}'");
+            throw new Exception("Niewłaściwy format numeru: '{$numberPart}'");
         }
         $number = intval($numberPart);
 
