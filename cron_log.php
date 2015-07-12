@@ -35,7 +35,7 @@ if (isset($_POST['clear'])) {
 ?>
 
 <h4>Cron log</h4>
-<a href="javascript:$.post('clear-cron-log');$('pre').empty()">Clear</a>
+<a href="javascript:$.post('/clear-cron-log');$('pre').empty()">Clear</a>
 <pre>
     <?= file_get_contents($path) ?>
 </pre>
