@@ -25,9 +25,11 @@ include 'html/header.html';
 include 'classes/Config.php';
 
 use pjanczyk\lo1olkusz\Config;
+
 ?>
 
 <h4>Cron log</h4>
+<a href="javascript:$.post('clear-cron-log');$('pre').empty()">Clear</a>
 <pre>
     <?= file_get_contents(Config::getLogDir() . 'cron.log') ?>
 </pre>
