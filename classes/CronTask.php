@@ -32,10 +32,7 @@ require_once 'classes/LuckyNumberProvider.php';
 class CronTask {
 
     public function run() {
-        echo "running task\n";
-
-        //$dom = file_get_html(Config::getUrl());
-        $dom = file_get_html("correct_zast.html");
+        $dom = file_get_html(Config::getUrl());
 
         $lnProvider = new LuckyNumberProvider;
         $ln = $lnProvider->getLuckyNumber($dom);
