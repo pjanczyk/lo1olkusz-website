@@ -65,7 +65,7 @@ class Data {
     }
 
     /**
-     * Returns all data having `last_modified` timestamp greater than $since
+     * Returns all data having last modified date greater than $since
      * @param int $since timestamp
      * @return array
      */
