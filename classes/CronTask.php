@@ -55,14 +55,14 @@ class CronTask {
             $repls = $replsProvider->getReplacements($dom);
             $this->logErrors('ReplacementsProvider', $lnProvider->getErrors());
 
-            $this->update('ln', $ln);
-            $this->update('replacements', $repls);
+            $this->update(Data::TYPE_LN, 'ln', $ln);
+            $this->update(Data::TYPE_REPLACEMENTS, 'replacements', $repls);
 
             echo "done\n";
         }
     }
 
-    private function update($what, $data) {
+    private function update($type, $what, $data) {
         if ($data !== null) {
             $json = json_encode($data);
             $relativePath = $what . '/' . $data['date'];
@@ -72,7 +72,7 @@ class CronTask {
             FileHelper::createParentDirectories($filePath);
 
             if (FileHelper::updateFile($filePath, $json)) {
-                $this->data->setLastModified($what, $data['date'], filemtime($filePath));
+                $this->data->setLastModified($type, $data['date'], filemtime($filePath));
                 echo "updated {$relativePath}\n";
             }
         }
