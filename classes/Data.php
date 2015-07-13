@@ -70,7 +70,7 @@ class Data {
      * @return array
      */
     public function getAllNew($since) {
-        $stmt = $this->db->prepare('SELECT `type`, `date`, `last_modified` FROM `data` WHERE `last_modified` > :since');
+        $stmt = $this->db->prepare('SELECT `type`, `date`, `last_modified` FROM `data` WHERE `last_modified` > FROM_UNIXTIME(:since)');
         $stmt->bindParam(':since', $since, PDO::PARAM_INT);
 
         return $stmt->fetchAll();
