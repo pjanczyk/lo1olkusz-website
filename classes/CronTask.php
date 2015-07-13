@@ -39,20 +39,27 @@ class CronTask {
     public function run() {
         $this->data = new Data(connectToDb());
 
-        $dom = file_get_html(Config::getUrl());
+        $url = Config::getUrl();
+        $dom = file_get_html($url);
 
-        $lnProvider = new LuckyNumberProvider;
-        $ln = $lnProvider->getLuckyNumber($dom);
-        $this->logErrors('LuckyNumberProvider', $lnProvider->getErrors());
+        if ($dom === false) {
+            echo "cannot get {$url}";
+        }
+        else {
 
-        $replsProvider = new ReplacementsProvider;
-        $repls = $replsProvider->getReplacements($dom);
-        $this->logErrors('ReplacementsProvider', $lnProvider->getErrors());
+            $lnProvider = new LuckyNumberProvider;
+            $ln = $lnProvider->getLuckyNumber($dom);
+            $this->logErrors('LuckyNumberProvider', $lnProvider->getErrors());
 
-        $this->update('ln', $ln);
-        $this->update('replacements', $repls);
+            $replsProvider = new ReplacementsProvider;
+            $repls = $replsProvider->getReplacements($dom);
+            $this->logErrors('ReplacementsProvider', $lnProvider->getErrors());
 
-        echo "done\n";
+            $this->update('ln', $ln);
+            $this->update('replacements', $repls);
+
+            echo "done\n";
+        }
     }
 
     private function update($what, $data) {
