@@ -73,7 +73,7 @@ if (isset($_GET['what']) && isset($map[$_GET['what']])) {
     include 'html/header.html';
     echo '<h4>' . $title .'</h4>';
     echo Config::getDataDir() . $what . '<br/>';
-    printFilesList(Config::getDataDir() . $what, $what);
+    printFilesList(Config::getDataDir() . $what, '/api/'. $what);
     include 'html/footer.html';
 }
 else {
