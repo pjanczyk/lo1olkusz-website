@@ -22,7 +22,7 @@
 
 namespace pjanczyk\lo1olkusz;
 
-include 'classes/Config.php';
+require_once 'classes/Config.php';
 
 use PDO;
 
