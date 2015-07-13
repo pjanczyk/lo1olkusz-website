@@ -18,25 +18,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//Created on 2015-07-12
+//Created on 2015-07-13
 
-ini_set('display_errors',1);
-ini_set('display_startup_errors',1);
-error_reporting(-1);
+namespace pjanczyk\lo1olkusz;
 
-require_once 'classes/Data.php';
-require_once 'classes/Database.php';
+include 'classes/Config.php';
 
-use pjanczyk\lo1olkusz\Data;
+use PDO;
 
-if (isset($_GET['since'])) {
-    $since = intval($_GET['since']);
+/**
+ * Opens connection to the database
+ * @return PDO
+ */
+function connectToDb() {
+    return new PDO(Config::getDbDSN(), Config::getDbUser(), Config::getDbPassword());
 }
-else {
-    $since = 0;
-}
-
-$data = new Data(\pjanczyk\lo1olkusz\connectToDb());
-$array = $data->getAllNew($since);
-
-print_r($array);

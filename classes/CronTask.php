@@ -27,11 +27,18 @@ require_once 'classes/FileHelper.php';
 require_once 'simple_html_dom.php';
 require_once 'classes/ReplacementsProvider.php';
 require_once 'classes/LuckyNumberProvider.php';
+require_once 'classes/Data.php';
+require_once 'classes/Database.php';
 
 
 class CronTask {
 
+    /** @var Data */
+    private $data;
+
     public function run() {
+        $this->data = new Data(connectToDb());
+
         $dom = file_get_html(Config::getUrl());
 
         $lnProvider = new LuckyNumberProvider;
@@ -58,6 +65,7 @@ class CronTask {
             FileHelper::createParentDirectories($filePath);
 
             if (FileHelper::updateFile($filePath, $json)) {
+                $this->data->setLastModified($what, $data['date'], filemtime($filePath));
                 echo "updated {$relativePath}\n";
             }
         }

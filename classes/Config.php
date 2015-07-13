@@ -22,23 +22,21 @@
 
 namespace pjanczyk\lo1olkusz;
 
+use DateTimeZone;
+
 class Config {
-    private static $DATA_DIR;
-    private static $LOG_DIR;
     private static $TIMEZONE;
 
     public static function init() {
-        Config::$DATA_DIR = $_ENV['OPENSHIFT_DATA_DIR'];
-        Config::$LOG_DIR = $_ENV['OPENSHIFT_PHP_LOG_DIR'];
-        Config::$TIMEZONE = new \DateTimeZone('Europe/Warsaw');
+        Config::$TIMEZONE = new DateTimeZone('Europe/Warsaw');
     }
 
     public static function getDataDir() {
-        return Config::$DATA_DIR;
+        return $_ENV['OPENSHIFT_DATA_DIR'];
     }
 
     public static function getLogDir() {
-        return Config::$LOG_DIR;
+        return $_ENV['OPENSHIFT_PHP_LOG_DIR'];
     }
 
     public static function getTimeZone() {
@@ -47,6 +45,18 @@ class Config {
 
     public static function getUrl() {
         return 'http://lo1.olkusz.pl/aktualnosci/zast';
+    }
+
+    public static function getDbDSN() {
+        return "mysql:host={$_ENV['OPENSHIFT_MYSQL_DB_HOST']}:{$_ENV['OPENSHIFT_MYSQL_DB_PORT']};dbname=lo1olkusz";
+    }
+
+    public static function getDbUser() {
+        return $_ENV['OPENSHIFT_MYSQL_DB_USERNAME'];
+    }
+
+    public static function getDbPassword() {
+        return $_ENV['OPENSHIFT_MYSQL_DB_PASSWORD'];
     }
 }
 
