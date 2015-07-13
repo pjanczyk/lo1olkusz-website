@@ -56,6 +56,7 @@ class Data {
      * @return bool
      */
     public function setLastModified($type, $date, $lastModified) {
+        echo '#!'.$lastModified.'!';
         $stmt = $this->db->prepare('INSERT INTO `data` (`type`,`date`,`last_modified`) VALUES (:type, :date, :last_modified) ON DUPLICATE KEY UPDATE `last_modified`=:last_modified');
         $stmt->bindParam(':type', $type, PDO::PARAM_INT);
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
