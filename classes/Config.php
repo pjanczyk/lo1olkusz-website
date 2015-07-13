@@ -44,8 +44,8 @@ class Config {
     }
 
     public static function getUrl() {
-        return 'tests/correct_zast.html';
-        //return 'http://lo1.olkusz.pl/aktualnosci/zast';
+        //return 'tests/correct_zast.html';
+        return 'http://lo1.olkusz.pl/aktualnosci/zast';
     }
 
     public static function getDbDSN() {
