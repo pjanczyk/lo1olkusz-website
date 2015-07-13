@@ -39,4 +39,4 @@ else {
 $data = new Data(\pjanczyk\lo1olkusz\connectToDb());
 $array = $data->getAllNew($since);
 
-print_r($array);
+echo json_encode($array);
