@@ -29,30 +29,31 @@ use pjanczyk\lo1olkusz\Config;
 
 $data = new Data(pjanczyk\lo1olkusz\connectToDb());
 
+$timetablePath = Config::getDataDir() . 'timetable';
+$apkPath = Config::getDataDir() . 'apk';
+
 $alerts = [];
 
 if (isset($_FILES['timetable-file'])
     && $_FILES['timetable-file']['error'] == UPLOAD_ERR_OK) {
 
     $tmpName = $_FILES['timetable-file']["tmp_name"];
-    $name = Config::getDataDir() . 'timetable';
-    if (move_uploaded_file($tmpName, $name)) {
+    if (move_uploaded_file($tmpName, $timetablePath)) {
         $alerts[] = 'Changed timetable file';
     }
 }
-if (isset($_POST['timetable-version'])) {
-    if ($data->setConfigValue('timetable', $_POST['timetable-version'])) {
-        $alerts[] = 'Changed timetable version';
-    }
-}
-
 if (isset($_FILES['apk-file'])
     && $_FILES['apk-file']['error'] == UPLOAD_ERR_OK) {
 
     $tmpName = $_FILES['apk-file']["tmp_name"];
-    $name = Config::getDataDir() . 'apk';
-    if (move_uploaded_file($tmpName, $name)) {
+    if (move_uploaded_file($tmpName, $apkPath)) {
         $alerts[] = 'Changed APK file';
+    }
+}
+
+if (isset($_POST['timetable-version'])) {
+    if ($data->setConfigValue('timetable', $_POST['timetable-version'])) {
+        $alerts[] = 'Changed timetable version';
     }
 }
 if (isset($_POST['apk-version'])) {
@@ -78,9 +79,16 @@ $config = $data->getConfig();
                 <h3 class="panel-title">Timetable</h3>
             </div>
             <div class="panel-body">
-                <?php if (isset($config['timetable'])): ?>
-                Current: <a href="/api/timetable.json">"<?= $config['timetable'] ?>"</a><br/><br/>
+                Version:
+                <?= isset($config['timetable']) ? '"'.$config['timetable'].'"' : 'not set' ?>
+                <br/>
+                File:
+                <?php if (file_exists($timetablePath)): ?>
+                    <a href="/api/timetable.json"><?=date('Y-m-d H:i:s', filemtime($timetablePath))?></a>
+                <?php else: ?>
+                    not set
                 <?php endif ?>
+                <br/>
 
                 <a class="show-next btn btn-default">Change</a>
 
@@ -104,9 +112,16 @@ $config = $data->getConfig();
                 <h3 class="panel-title">Autoupdate APK</h3>
             </div>
             <div class="panel-body">
-                <?php if (isset($config['version'])): ?>
-                Current: <a href="/api/lo1olkusz.apk">"<?= $config['version'] ?>"</a><br/><br/>
+                Version:
+                <?= isset($config['version']) ? '"'.$config['version'].'"' : 'not set' ?>
+                <br/>
+                File:
+                <?php if (file_exists($apkPath)): ?>
+                    <a href="/lo1olkusz.apk"><?=date('Y-m-d H:i:s', filemtime($apkPath))?></a>
+                <?php else: ?>
+                    not set
                 <?php endif ?>
+                <br/>
 
                 <a class="show-next btn btn-default">Change</a>
 
