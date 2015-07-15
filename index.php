@@ -51,6 +51,8 @@ if (isset($_GET['p']) && isset($pages[$_GET['p']])) {
 
 include 'html/header.php';
 
+echo '<h3>' . $pages[$currentPage]['title'] . '</h3>';
+
 include 'pages/' . $pages[$currentPage]['include'];
 
 include 'html/footer.php';
