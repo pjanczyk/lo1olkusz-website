@@ -97,7 +97,7 @@ $config = $data->getConfig();
                         <input type="text" class="form-control" name="timetable-version" id="timetable-version" placeholder="Version">
                     </div>
                     <div class="form-group">
-                        <label for="timetable-file">File:</label>
+                        <label for="timetable-file">File</label>
                         <input type="file" name="timetable-file" id="timetable-file">
                     </div>
                     <button type="submit" class="btn btn-default">Change</button>
@@ -130,7 +130,7 @@ $config = $data->getConfig();
                         <input type="text" class="form-control" name="apk-version" id="apk-version" placeholder="Version">
                     </div>
                     <div class="form-group">
-                        <label for="apk-file">APK file:</label>
+                        <label for="apk-file">File</label>
                         <input type="file" name="apk-file" id="apk-file">
                     </div>
                     <button type="submit" class="btn btn-default">Change</button>
