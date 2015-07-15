@@ -30,6 +30,8 @@ $data = new Data(pjanczyk\lo1olkusz\connectToDb());
 
 $config = $data->getConfig();
 
+if (isset($_POST['']))
+
 ?>
 
 <div class="row">
@@ -43,14 +45,14 @@ $config = $data->getConfig();
                 Current: <a href="/api/timetable.json"><?= $config['timetable'] ?></a>
                 <?php endif ?>
 
-                <form action="/timetable" method="post" enctype="multipart/form-data">
+                <form id="form-timetable" action="/timetable" method="post" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="version">Version</label>
-                        <input type="text" class="form-control" name="version" id="version" placeholder="Version">
+                        <label for="timetable-version">Version</label>
+                        <input type="text" class="form-control" name="timetable-version" id="timetable-version" placeholder="Version">
                     </div>
                     <div class="form-group">
-                        <label for="timetable">File:</label>
-                        <input type="file" name="timetable" id="timetable">
+                        <label for="timetable-file">File:</label>
+                        <input type="file" name="timetable-file" id="timetable-file">
                     </div>
                     <button type="submit" class="btn btn-default">Update</button>
                 </form>
@@ -64,17 +66,19 @@ $config = $data->getConfig();
             </div>
             <div class="panel-body">
                 <?php if (isset($config['version'])): ?>
-                Current: <a href="/api/lo1olkusz.apk"><?= $config['version'] ?></a>
+                Current: <a href="/api/lo1olkusz.apk"><?= $config['version'] ?></a><br/>
                 <?php endif ?>
 
-                <form action="/timetable" method="post" enctype="multipart/form-data">
+                <a href="javascript: $(this).slideUp(); $('#form-apk').slideDown()">Change</a>
+
+                <form id="form-apk" action="/timetable" method="post" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="version">Version</label>
-                        <input type="text" class="form-control" name="version" id="version" placeholder="Version">
+                        <label for="apk-version">Version</label>
+                        <input type="text" class="form-control" name="apk-version" id="apk-version" placeholder="Version">
                     </div>
                     <div class="form-group">
-                        <label for="apk">APK file:</label>
-                        <input type="file" name="apk" id="apk">
+                        <label for="apk-file">APK file:</label>
+                        <input type="file" name="apk-file" id="apk-file">
                     </div>
                     <button type="submit" class="btn btn-default">Update</button>
                 </form>
