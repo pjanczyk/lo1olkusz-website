@@ -51,7 +51,7 @@ if (isset($_POST['apk-version']) && isset($_FILES['apk-file'])) {
                 Current: <a href="/api/timetable.json"><?= $config['timetable'] ?></a><br/>
                 <?php endif ?>
 
-                <a class="show-next btn btn-link">Change</a>
+                <a class="show-next btn btn-default">Change</a>
 
                 <form id="form-timetable" action="/timetable" method="post" enctype="multipart/form-data">
                     <div class="form-group">
@@ -62,7 +62,7 @@ if (isset($_POST['apk-version']) && isset($_FILES['apk-file'])) {
                         <label for="timetable-file">File:</label>
                         <input type="file" name="timetable-file" id="timetable-file">
                     </div>
-                    <button type="submit" class="btn btn-default">Update</button>
+                    <button type="submit" class="btn btn-default">Change</button>
                 </form>
             </div>
         </div>
@@ -77,7 +77,7 @@ if (isset($_POST['apk-version']) && isset($_FILES['apk-file'])) {
                 Current: <a href="/api/lo1olkusz.apk"><?= $config['version'] ?></a><br/>
                 <?php endif ?>
 
-                <a class="show-next btn btn-link">Change</a>
+                <a class="show-next btn btn-default">Change</a>
 
                 <form id="form-apk" action="/timetable" method="post" enctype="multipart/form-data">
                     <div class="form-group">
@@ -88,7 +88,7 @@ if (isset($_POST['apk-version']) && isset($_FILES['apk-file'])) {
                         <label for="apk-file">APK file:</label>
                         <input type="file" name="apk-file" id="apk-file">
                     </div>
-                    <button type="submit" class="btn btn-default">Update</button>
+                    <button type="submit" class="btn btn-default">Change</button>
                 </form>
             </div>
         </div>
