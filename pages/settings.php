@@ -73,7 +73,7 @@ if (isset($_POST['apk-version']) && isset($_FILES['apk-file'])) {
 
                 <a class="show-next btn btn-default">Change</a>
 
-                <form id="form-timetable" action="/timetable" method="post" enctype="multipart/form-data">
+                <form action="/settings" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="timetable-version">Version</label>
                         <input type="text" class="form-control" name="timetable-version" id="timetable-version" placeholder="Version">
@@ -99,7 +99,7 @@ if (isset($_POST['apk-version']) && isset($_FILES['apk-file'])) {
 
                 <a class="show-next btn btn-default">Change</a>
 
-                <form id="form-apk" action="/timetable" method="post" enctype="multipart/form-data">
+                <form action="/settings" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="apk-version">Version</label>
                         <input type="text" class="form-control" name="apk-version" id="apk-version" placeholder="Version">
