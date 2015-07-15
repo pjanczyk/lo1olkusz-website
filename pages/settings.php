@@ -89,10 +89,11 @@ if (isset($_POST['']))
     </div>
 </div>
 
-<script type="javascript">
-    $("#show-next").click(function() {
-        $(this).slideUp();
-        $(this).next().slideDown();
-    });
+<script>
+$("#show-next").next().hide();
+$("#show-next").click(function() {
+    $(this).slideUp();
+    $(this).next().slideDown();
+});
 </script>
 
