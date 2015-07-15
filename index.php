@@ -45,10 +45,11 @@ $pages = [
 
 $currentPage = '';
 
-echo $_GET['p'];
 if (isset($_GET['p']) && isset($pages[$_GET['p']])) {
     $currentPage = $_GET['p'];
 }
+
+var_dump($pages);
 
 include 'html/header.php';
 
