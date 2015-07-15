@@ -51,7 +51,7 @@ if (isset($_GET['p']) && isset($pages[$_GET['p']])) {
 
 include 'html/header.php';
 
-echo '<h1>' . $pages[$currentPage]['title'] . '</h1>';
+echo '<div class="page-header"><h1>' . $pages[$currentPage]['title'] . '</h1></div>';
 
 include 'pages/' . $pages[$currentPage]['include'];
 

@@ -32,39 +32,44 @@ $config = $data->getConfig();
 
 ?>
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">Timetable</h3>
-    </div>
-    <div class="panel-body">
-        Current: <a href="/api/timetable.json"><?= $config['timetable'] ?></a>
-
-        <form action="/timetable" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="timetable">Select timetable file to upload:</label>
-                <input type="file" name="timetable" id="timetable">
-                <p class="help-block">File must be in <em>lo1olkusz app timetable</em> format</p>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Timetable</h3>
             </div>
-            <button type="submit" class="btn btn-default">Upload</button>
-        </form>
-    </div>
-</div>
+            <div class="panel-body">
+                Current: <a href="/api/timetable.json"><?= $config['timetable'] ?></a>
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">Autoupdate APK</h3>
-    </div>
-    <div class="panel-body">
-        Current: <a href="/api/lo1olkusz.apk"><?= $config['version'] ?></a>
-
-        <form action="/timetable" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="apk">Select timetable file to upload:</label>
-                <input type="file" name="apk" id="apk">
-                <p class="help-block">File must be in APK format</em> format</p>
+                <form action="/timetable" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="timetable">Select timetable file to upload:</label>
+                        <input type="file" name="timetable" id="timetable">
+                        <p class="help-block">File must be in <em>lo1olkusz app timetable</em> format</p>
+                    </div>
+                    <button type="submit" class="btn btn-default">Upload</button>
+                </form>
             </div>
-            <button type="submit" class="btn btn-default">Upload</button>
-        </form>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Autoupdate APK</h3>
+            </div>
+            <div class="panel-body">
+                Current: <a href="/api/lo1olkusz.apk"><?= $config['version'] ?></a>
+
+                <form action="/timetable" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="apk">Select timetable file to upload:</label>
+                        <input type="file" name="apk" id="apk">
+                        <p class="help-block">File must be in APK format</em> format</p>
+                    </div>
+                    <button type="submit" class="btn btn-default">Upload</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 
