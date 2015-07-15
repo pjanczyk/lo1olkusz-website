@@ -39,7 +39,9 @@ $config = $data->getConfig();
                 <h3 class="panel-title">Timetable</h3>
             </div>
             <div class="panel-body">
+                <?php if (isset($config['timetable'])): ?>
                 Current: <a href="/api/timetable.json"><?= $config['timetable'] ?></a>
+                <?php endif ?>
 
                 <form action="/timetable" method="post" enctype="multipart/form-data">
                     <div class="form-group">
@@ -61,7 +63,9 @@ $config = $data->getConfig();
                 <h3 class="panel-title">Autoupdate APK</h3>
             </div>
             <div class="panel-body">
+                <?php if (isset($config['version'])): ?>
                 Current: <a href="/api/lo1olkusz.apk"><?= $config['version'] ?></a>
+                <?php endif ?>
 
                 <form action="/timetable" method="post" enctype="multipart/form-data">
                     <div class="form-group">

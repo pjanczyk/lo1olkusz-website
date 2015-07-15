@@ -67,7 +67,7 @@ class Data {
     public function getLnAndReplacements() {
         $stmt = $this->db->prepare('SELECT `type`,`date`,`last_modified` FROM `data` WHERE `date` >= :date');
         $now = new DateTime('now', Config::getTimeZone());
-        $stmt->bindParam(':date', $now->format('Y-m-d'), PDO::PARAM_STR);;
+        $stmt->bindValue(':date', $now->format('Y-m-d'), PDO::PARAM_STR);;
         $stmt->bindColumn(1, $typeId);
         $stmt->bindColumn(2, $date);
         $stmt->bindColumn(3, $lastModified);
