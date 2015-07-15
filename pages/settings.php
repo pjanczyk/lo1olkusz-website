@@ -79,7 +79,7 @@ $config = $data->getConfig();
             </div>
             <div class="panel-body">
                 <?php if (isset($config['timetable'])): ?>
-                Current: <a href="/api/timetable.json"><?= $config['timetable'] ?></a><br/>
+                Current: <a href="/api/timetable.json">"<?= $config['timetable'] ?>"</a><br/><br/>
                 <?php endif ?>
 
                 <a class="show-next btn btn-default">Change</a>
@@ -105,7 +105,7 @@ $config = $data->getConfig();
             </div>
             <div class="panel-body">
                 <?php if (isset($config['version'])): ?>
-                Current: <a href="/api/lo1olkusz.apk"><?= $config['version'] ?></a><br/>
+                Current: <a href="/api/lo1olkusz.apk">"<?= $config['version'] ?>"</a><br/><br/>
                 <?php endif ?>
 
                 <a class="show-next btn btn-default">Change</a>
