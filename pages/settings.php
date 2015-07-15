@@ -47,7 +47,7 @@ $config = $data->getConfig();
                         <input type="file" name="timetable" id="timetable">
                         <p class="help-block">File must be in <em>lo1olkusz app timetable</em> format</p>
                     </div>
-                    <button type="submit" class="btn btn-default">Upload</button>
+                    <button type="submit" class="btn btn-default">Update</button>
                 </form>
             </div>
         </div>
@@ -66,7 +66,7 @@ $config = $data->getConfig();
                         <input type="file" name="apk" id="apk">
                         <p class="help-block">File must be in APK format</em> format</p>
                     </div>
-                    <button type="submit" class="btn btn-default">Upload</button>
+                    <button type="submit" class="btn btn-default">Update</button>
                 </form>
             </div>
         </div>
