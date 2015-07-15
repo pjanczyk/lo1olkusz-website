@@ -20,6 +20,10 @@
 
 //Created on 2015-07-09
 
+ini_set('display_errors',1);
+ini_set('display_startup_errors',1);
+error_reporting(E_ALL|E_STRICT);
+
 $pages = [
     '' => [
         'title' => 'Cron logs',
