@@ -45,7 +45,8 @@ if (isset($_POST['']))
                 Current: <a href="/api/timetable.json"><?= $config['timetable'] ?></a><br/>
                 <?php endif ?>
 
-                <a href="javascript:$(this).slideUp();$('#form-timetable').slideDown()">Change</a>
+                <a id="show-next" class="btn-link">Change</a>
+
                 <form id="form-timetable" action="/timetable" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="timetable-version">Version</label>
@@ -70,7 +71,7 @@ if (isset($_POST['']))
                 Current: <a href="/api/lo1olkusz.apk"><?= $config['version'] ?></a><br/>
                 <?php endif ?>
 
-                <a href="javascript:$(this).slideUp();$('#form-apk').slideDown()">Change</a>
+                <a id="show-next" class="btn-link">Change</a>
 
                 <form id="form-apk" action="/timetable" method="post" enctype="multipart/form-data">
                     <div class="form-group">
@@ -87,4 +88,11 @@ if (isset($_POST['']))
         </div>
     </div>
 </div>
+
+<script type="javascript">
+    $("#show-next").click(function() {
+        $(this).slideUp();
+        $(this).next().slideDown();
+    });
+</script>
 
