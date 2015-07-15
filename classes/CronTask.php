@@ -98,7 +98,7 @@ class CronTask {
     }
 
     private function updateStatus() {
-        $news = $this->data->getNews();;
+        $news = $this->data->getLnAndReplacements();
         $config = $this->data->getConfig();
         $json = json_encode($news + $config);
         FileHelper::updateFile(Config::getDataDir() . '/status', $json);
