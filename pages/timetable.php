@@ -24,14 +24,16 @@ require_once 'classes/Config.php';
 require_once 'classes/Database.php';
 require_once 'classes/Data.php';
 
-use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Data;
 
 $data = new Data(pjanczyk\lo1olkusz\connectToDb());
 
+$config = $data->getConfig();
+
 ?>
 
-<h4>Update timetable</h4>
+<h4>Timetable</h4>
+Current: <a href="/api/timetable.json"><?= $config['timetable'] ?></a>
 
 <form action="/timetable" method="post" enctype="multipart/form-data">
     <div class="form-group">
@@ -42,4 +44,5 @@ $data = new Data(pjanczyk\lo1olkusz\connectToDb());
     <button type="submit" class="btn btn-default">Upload</button>
 </form>
 
-<h4>Current timetable</h4>
+<h4>Autoupdate APK</h4>
+Current: <a href="/api/lo1olkusz.apk"><?= $config['version'] ?></a>
