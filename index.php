@@ -37,9 +37,9 @@ $pages = [
         'title' => 'Replacements',
         'include' => 'list.php'
     ],
-    'timetable' => [
-        'title' => 'Timetable',
-        'include' => 'timetable.php'
+    'settings' => [
+        'title' => 'Settings',
+        'include' => 'settings.php'
     ]
 ];
 
@@ -51,7 +51,7 @@ if (isset($_GET['p']) && isset($pages[$_GET['p']])) {
 
 include 'html/header.php';
 
-echo '<h3>' . $pages[$currentPage]['title'] . '</h3>';
+echo '<h1>' . $pages[$currentPage]['title'] . '</h1>';
 
 include 'pages/' . $pages[$currentPage]['include'];
 
