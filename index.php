@@ -18,25 +18,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//Created on 2015-07-10
+//Created on 2015-07-09
 
-include 'html/header.html';
+$pages = [
+    '' => [
+        'title' => 'Cron logs',
+        'include' => 'cron_log.php'
+    ],
+    'ln' => [
+        'title' => 'Lucky numbers',
+        'include' => 'list.php'
+    ],
+    'replacements' => [
+        'title' => 'Replacements',
+        'include' => 'list.php'
+    ],
+    'timetable' => [
+        'title' => 'Timetables',
+        'include' => 'list.php'
+    ]
+];
 
-include 'classes/Config.php';
+$currentPage = '';
 
-use pjanczyk\lo1olkusz\Config;
-
-$path = Config::getLogDir() . 'cron.log';
-
-if (isset($_POST['clear'])) {
-    unlink($path);
+if (isset($_GET['p']) && isset($pages[$_GET['p']])) {
+    $currentPage = $_GET['p'];
 }
 
-?>
+include 'html/header.php';
 
-<h4>Cron log</h4>
-<a href="javascript:$.post('', { clear: true });$('pre').empty()">Clear</a>
-<pre><?= file_get_contents($path) ?></pre>
+include 'pages/' . $pages[$currentPage]['include'];
 
-<?php
-include 'html/footer.html';
+include 'html/footer.php';

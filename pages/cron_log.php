@@ -18,25 +18,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//Created on 2015-07-12
+//Created on 2015-07-10
 
-ini_set('display_errors',1);
-ini_set('display_startup_errors',1);
-error_reporting(-1);
+include 'classes/Config.php';
 
-require_once 'classes/Data.php';
-require_once 'classes/Database.php';
+use pjanczyk\lo1olkusz\Config;
 
-use pjanczyk\lo1olkusz\Data;
+$path = Config::getLogDir() . 'cron.log';
 
-if (isset($_GET['since'])) {
-    $since = intval($_GET['since']);
+if (isset($_POST['clear'])) {
+    unlink($path);
 }
-else {
-    $since = 0;
-}
+?>
 
-$data = new Data(\pjanczyk\lo1olkusz\connectToDb());
-$array = $data->getAllNew($since);
-
-echo json_encode($array);
+<a href="javascript:$.post('', { clear: true });$('pre').empty()">Clear</a>
+<pre><?= file_get_contents($path) ?></pre>

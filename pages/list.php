@@ -59,24 +59,5 @@ function printFilesList($dirPath, $urlPath = null) {
 }
 
 date_default_timezone_set('Europe/Warsaw');
-
-$map = [
-    'ln' => 'Lucky numbers',
-    'replacements' => 'Replacements',
-    'timetable' => 'Timetables'
-];
-
-if (isset($_GET['what']) && isset($map[$_GET['what']])) {
-    $what = $_GET['what'];
-    $title = $map[$what];
-
-    include 'html/header.html';
-    echo '<h4>' . $title .'</h4>';
-    echo Config::getDataDir() . $what . '<br/>';
-    printFilesList(Config::getDataDir() . $what, '/api/'. $what);
-    include 'html/footer.html';
-}
-else {
-    header("HTTP/1.0 404 Not Found");
-    include 'html/404.html';
-}
+echo Config::getDataDir() . $currentPage . '<br/>';
+printFilesList(Config::getDataDir() . $currentPage, '/api/'. $currentPage);
