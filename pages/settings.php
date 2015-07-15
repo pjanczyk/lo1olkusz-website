@@ -30,11 +30,13 @@ $data = new Data(pjanczyk\lo1olkusz\connectToDb());
 
 $config = $data->getConfig();
 
-if (isset($_POST['timetable-version'] && isset($_FILES['timetable-file']))) {
+if (isset($_POST['timetable-version']) && isset($_FILES['timetable-file'])) {
 
 }
 
-if (isset($_POST['apk-version'] && isset($_FILES['apk-file'])))
+if (isset($_POST['apk-version']) && isset($_FILES['apk-file'])) {
+
+}
 
 ?>
 
