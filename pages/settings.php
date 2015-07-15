@@ -29,8 +29,6 @@ use pjanczyk\lo1olkusz\Config;
 
 $data = new Data(pjanczyk\lo1olkusz\connectToDb());
 
-$config = $data->getConfig();
-
 $alerts = [];
 
 if (isset($_FILES['timetable-file'])
@@ -62,6 +60,8 @@ if (isset($_POST['apk-version'])) {
         $alerts[] = 'Changed APK version';
     }
 }
+
+$config = $data->getConfig();
 
 ?>
 
