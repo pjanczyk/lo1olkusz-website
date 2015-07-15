@@ -90,7 +90,9 @@ if (isset($_POST['']))
 </div>
 
 <script>
-$("#show-next").next().hide();
+$("#show-next").each(function() {
+    $(this).next().hide();
+}next().hide();
 $("#show-next").click(function() {
     $(this).slideUp();
     $(this).next().slideDown();
