@@ -80,7 +80,7 @@ $config = $data->getConfig();
             </div>
             <div class="panel-body">
                 Version:
-                <?= isset($config['timetable']) ? '"'.$config['timetable'].'"' : 'not set' ?>
+                <?= isset($config['timetable']) ? '<pre>'.$config['timetable'].'</pre>' : 'not set' ?>
                 <br/>
                 File:
                 <?php if (file_exists($timetablePath)): ?>
@@ -113,7 +113,7 @@ $config = $data->getConfig();
             </div>
             <div class="panel-body">
                 Version:
-                <?= isset($config['version']) ? '"'.$config['version'].'"' : 'not set' ?>
+                <?= isset($config['version']) ? '<pre>'.$config['version'].'</pre>' : 'not set' ?>
                 <br/>
                 File:
                 <?php if (file_exists($apkPath)): ?>
