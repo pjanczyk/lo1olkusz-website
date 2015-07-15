@@ -33,9 +33,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <? foreach ($pages as $url => $page): ?>
-                    <li<? if ($currentPage == $url): ?> class="active"<? endif ?>><a href="/<?=$url?>"><?=$page['title']?></a></li>
-                <? endforeach ?>
+                <?php foreach ($pages as $url => $page): ?>
+                    <li<?php if ($currentPage == $url): ?> class="active"<?php endif ?>><a href="/<?=$url?>"><?=$page['title']?></a></li>
+                <?php endforeach ?>
             </ul>
         </div><!--/.nav-collapse -->
     </div>

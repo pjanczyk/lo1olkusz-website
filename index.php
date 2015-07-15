@@ -39,7 +39,7 @@ $pages = [
     ],
     'timetable' => [
         'title' => 'Timetable',
-        'include' => 'list.php'
+        'include' => 'timetable.php'
     ]
 ];
 
