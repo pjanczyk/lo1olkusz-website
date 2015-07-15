@@ -2,7 +2,8 @@ ErrorDocument 404 /html/404.html
 
 RewriteEngine on
 RewriteRule ^api/(.+)\.json$ api.php?p=$1
+RewriteRule ^(.+)$ index.php?p=$1
 #RewriteRule ^api/((?:ln|replacements|timetable)/[0-9]{4}-[0-9]{2}-[0-9]{2})\.json$ api.php?p=$1
-RewriteRule ^(ln|replacements|timetable)$ list.php?what=$1
-RewriteRule ^$ cron_log.php
-RewriteRule ^phpinfo$ phpinfo.php
+#RewriteRule ^(ln|replacements|timetable)$ list.php?what=$1
+#RewriteRule ^$ cron_log.php
+#RewriteRule ^phpinfo$ phpinfo.php
