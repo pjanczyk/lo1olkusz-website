@@ -31,34 +31,45 @@ $data = new Data(pjanczyk\lo1olkusz\connectToDb());
 
 $config = $data->getConfig();
 
-$timetableFileUpdated = false;
-$timetableDbUpdated = false;
-$apkFileUpdated = false;
-$apkDbUpdated = false;
+$alerts = [];
 
-if (isset($_POST['timetable-version']) && isset($_FILES['timetable-file'])) {
-    if ($_FILES['timetable-file']['error'] == UPLOAD_ERR_OK) {
-        $tmpName = $_FILES['timetable-file']["tmp_name"];
-        $name = Config::getDataDir() . 'timetable';
-        if (move_uploaded_file($tmpName, $name)) {
-            $timetableFileUpdated = true;
-            $timetableDbUpdated = $data->setConfigValue('timetable', $_POST['timetable-version']);
-        }
+if (isset($_FILES['timetable-file'])
+    && $_FILES['timetable-file']['error'] == UPLOAD_ERR_OK) {
+
+    $tmpName = $_FILES['timetable-file']["tmp_name"];
+    $name = Config::getDataDir() . 'timetable';
+    if (move_uploaded_file($tmpName, $name)) {
+        $alerts[] = 'Changed timetable file';
+    }
+}
+if (isset($_POST['timetable-version'])) {
+    if ($data->setConfigValue('timetable', $_POST['timetable-version'])) {
+        $alerts[] = 'Changed timetable version';
     }
 }
 
-if (isset($_POST['apk-version']) && isset($_FILES['apk-file'])) {
-    if ($_FILES['apk-file']['error'] == UPLOAD_ERR_OK) {
-        $tmpName = $_FILES['apk-file']["tmp_name"];
-        $name = Config::getDataDir() . 'timetable';
-        if (move_uploaded_file($tmpName, $name)) {
-            $timetableFileUpdated = true;
-            $timetableDbUpdated = $data->setConfigValue('version', $_POST['apk-version']);
-        }
+if (isset($_FILES['apk-file'])
+    && $_FILES['apk-file']['error'] == UPLOAD_ERR_OK) {
+
+    $tmpName = $_FILES['apk-file']["tmp_name"];
+    $name = Config::getDataDir() . 'apk';
+    if (move_uploaded_file($tmpName, $name)) {
+        $alerts[] = 'Changed APK file';
+    }
+}
+if (isset($_POST['apk-version'])) {
+    if ($data->setConfigValue('version', $_POST['apk-version'])) {
+        $alerts[] = 'Changed APK version';
     }
 }
 
 ?>
+
+<?php if ($alerts): ?>
+<div class="alert alert-success" role="alert">
+    <?= implode('<br/>', $alerts) ?>
+</div>
+<?php endif ?>
 
 <div class="row">
     <div class="col-sm-6">
