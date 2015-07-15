@@ -30,6 +30,8 @@ require_once 'classes/LuckyNumberProvider.php';
 require_once 'classes/Data.php';
 require_once 'classes/Database.php';
 
+use DateTime;
+
 
 class CronTask {
 
@@ -37,26 +39,31 @@ class CronTask {
     private $data;
 
     public function run() {
+        $now = new DateTime('now', Config::getTimeZone());
+        $forceUpdateStatus = ($now->format('Ym') == '0000');
+
         $this->data = new Data(connectToDb());
 
         $url = Config::getUrl();
         $dom = file_get_html($url);
 
         if ($dom === false) {
-            echo "cannot get {$url}";
+            echo "cannot get {$url}\n";
         }
         else {
-
             $lnProvider = new LuckyNumberProvider;
             $ln = $lnProvider->getLuckyNumber($dom);
             $this->logErrors('LuckyNumberProvider', $lnProvider->getErrors());
+            $updatedLn = $this->update(Data::TYPE_LN, 'ln', $ln);
 
             $replsProvider = new ReplacementsProvider;
             $repls = $replsProvider->getReplacements($dom);
             $this->logErrors('ReplacementsProvider', $lnProvider->getErrors());
+            $updatedRepls = $this->update(Data::TYPE_REPLACEMENTS, 'replacements', $repls);
 
-            $this->update(Data::TYPE_LN, 'ln', $ln);
-            $this->update(Data::TYPE_REPLACEMENTS, 'replacements', $repls);
+            if ($forceUpdateStatus || $updatedLn || $updatedRepls) {
+                $this->updateStatus();
+            }
 
             echo "done\n";
         }
@@ -74,8 +81,10 @@ class CronTask {
             if (FileHelper::updateFile($filePath, $json)) {
                 $this->data->setLastModified($type, $data['date'], filemtime($filePath));
                 echo "updated {$relativePath}\n";
+                return true;
             }
         }
+        return false;
     }
 
     private function logErrors($tag, $errors) {
@@ -85,5 +94,13 @@ class CronTask {
                 echo '    ' . $error . "\n";
             }
         }
+    }
+
+    private function updateStatus() {
+        $news = $this->data->getNews();;
+        $config = $this->data->getConfig();
+        $json = json_encode($news + $config);
+        FileHelper::updateFile(Config::getDataDir() . '/status', $json);
+        echo "updated status\n";
     }
 }

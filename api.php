@@ -20,14 +20,23 @@
 
 //Created on 2015-07-10
 
+
+//make sure path is specified and does not contain ".."
+if (!isset($_GET['p']) || strpos($_GET['p'], '..') !== false) {
+    header('HTTP/1.0 400 Bad Request');
+    header('Content-Type: application/json');
+    echo '{"error":"bad request"}';
+    exit;
+}
+
 $path = $_ENV['OPENSHIFT_DATA_DIR'] . $_GET['p'];
 
-if (file_exists($path)) {
-    header('Content-Type: application/json');
-    echo file_get_contents($path);
-}
-else {
+if (!file_exists($path)) {
     header('HTTP/1.0 404 Not Found');
     header('Content-Type: application/json');
-    echo '{"error":"file not found"}';
+    echo '{"error":"not found"}';
+    exit;
 }
+
+header('Content-Type: application/json');
+echo file_get_contents($path);

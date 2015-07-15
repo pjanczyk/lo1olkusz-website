@@ -23,6 +23,7 @@
 namespace pjanczyk\lo1olkusz;
 
 use PDO;
+use DateTime;
 
 /*
 CREATE TABLE IF NOT EXISTS `data` (
@@ -36,7 +37,6 @@ CREATE TABLE IF NOT EXISTS `data` (
 class Data {
     const TYPE_LN = 1;
     const TYPE_REPLACEMENTS = 2;
-    const TYPE_TIMETABLE = 3;
 
     /** @var PDO */
     private $db;
@@ -64,16 +64,66 @@ class Data {
         return $stmt->execute();
     }
 
-    /**
-     * Returns all data having last modified date greater than $since
-     * @param int $since timestamp
-     * @return array
-     */
-    public function getAllNew($since) {
-        $stmt = $this->db->prepare('SELECT `type`, `date`, `last_modified` FROM `data` WHERE `last_modified` > FROM_UNIXTIME(:since)');
-        $stmt->bindParam(':since', $since, PDO::PARAM_INT);
+//    /**
+//     * Returns data having `last_modified` date greater than $since:
+//     *  - TYPE_VERSION or TYPE_TIMETABLE: all
+//     *  - TYPE_LN or TYPE_REPLACEMENTS: having `date` >= 7 days ago
+//     *
+//     * @param int $since timestamp
+//     * @return array
+//     */
+//    public function getNews($since) {
+//        $stmt = $this->db->prepare(<<<SQL
+//SELECT `type`,`date`,`last_modified`
+//FROM `data`
+//WHERE `last_modified` > FROM_UNIXTIME(:since) AND
+//       (`type` IN (0, 1) OR `date` >= DATE_SUB(CURDATE(), INTERVAL 7 DAY))
+//SQL
+//        );
+//        $stmt->bindParam(':since', $since, PDO::PARAM_INT);
+//        $stmt->execute();
+//
+//        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+//    }
+
+    public function getLnAndReplacements() {
+        $stmt = $this->db->prepare('SELECT `type`,`date`,`last_modified` FROM `data` WHERE `date` >= :date');
+        $now = new DateTime('now', Config::getTimeZone());
+        $stmt->bindParam(':date', $now->format('Y-m-d'), PDO::PARAM_STR);;
+        $stmt->bindColumn(1, $typeId);
+        $stmt->bindColumn(2, $date);
+        $stmt->bindColumn(3, $lastModified);
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);;
+        $result = ['ln' => [], 'replacements' => []];
+        while ($row = $stmt->fetch(PDO::FETCH_BOUND)) {
+            switch ($typeId) {
+                case self::TYPE_LN:
+                    $typeName = 'ln';
+                    break;
+                case self::TYPE_REPLACEMENTS;
+                    $typeName = 'replacements';
+                    break;
+                default:
+                    continue;
+            }
+            $result[$typeName][] = ['date' => $date, 'last_modified' => $lastModified];
+        }
+
+        return $result;
+    }
+
+    public function getConfig() {
+        $stmt = $this->db->prepare('SELECT `name`,`value` FROM `config`');
+        $stmt->bindColumn(1, $name);
+        $stmt->bindColumn(2, $value);
+        $stmt->execute();
+
+        $result = [];
+        while ($row = $stmt->fetch(PDO::FETCH_BOUND)) {
+            $result[$name] = $value;
+        }
+
+        return $result;
     }
 }
