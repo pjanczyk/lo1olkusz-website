@@ -21,14 +21,25 @@
 //Created on 2015-07-15
 
 require_once 'classes/Config.php';
+require_once 'classes/Database.php';
+require_once 'classes/Data.php';
 
 use pjanczyk\lo1olkusz\Config;
+use pjanczyk\lo1olkusz\Data;
 
+$data = new Data(pjanczyk\lo1olkusz\connectToDb());
 
 ?>
 
+<h4>Update timetable</h4>
+
 <form action="/timetable" method="post" enctype="multipart/form-data">
-    Select timetable to upload:
-    <input type="file" name="timetable" id="timetable">
-    <input type="submit" value="Upload timetable" name="submit">
+    <div class="form-group">
+        <label for="timetable">Select timetable file to upload:</label>
+        <input type="file" name="timetable" id="timetable">
+        <p class="help-block">File must be in <em>lo1olkusz app timetable</em> format</p>
+    </div>
+    <button type="submit" class="btn btn-default">Upload</button>
 </form>
+
+<h4>Current timetable</h4>

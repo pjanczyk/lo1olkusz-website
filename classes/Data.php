@@ -64,28 +64,6 @@ class Data {
         return $stmt->execute();
     }
 
-//    /**
-//     * Returns data having `last_modified` date greater than $since:
-//     *  - TYPE_VERSION or TYPE_TIMETABLE: all
-//     *  - TYPE_LN or TYPE_REPLACEMENTS: having `date` >= 7 days ago
-//     *
-//     * @param int $since timestamp
-//     * @return array
-//     */
-//    public function getNews($since) {
-//        $stmt = $this->db->prepare(<<<SQL
-//SELECT `type`,`date`,`last_modified`
-//FROM `data`
-//WHERE `last_modified` > FROM_UNIXTIME(:since) AND
-//       (`type` IN (0, 1) OR `date` >= DATE_SUB(CURDATE(), INTERVAL 7 DAY))
-//SQL
-//        );
-//        $stmt->bindParam(':since', $since, PDO::PARAM_INT);
-//        $stmt->execute();
-//
-//        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-//    }
-
     public function getLnAndReplacements() {
         $stmt = $this->db->prepare('SELECT `type`,`date`,`last_modified` FROM `data` WHERE `date` >= :date');
         $now = new DateTime('now', Config::getTimeZone());

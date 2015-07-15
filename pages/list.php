@@ -45,7 +45,7 @@ if ($handle = opendir($dirPath)): ?>
         <?php while (false !== ($fileName = readdir($handle))):
             if ($fileName != "." && $fileName != ".."):
                 $filePath = $dirPath . '/' . $fileName;
-                $linkPath = $urlBase . $fileName ?>
+                $linkPath = $urlBase . '/' . $fileName ?>
                 <tr>
                     <td><?= $i++ ?></td>
                     <td><a href="<?= $linkPath ?>.json"><?= $fileName ?></a></td>
