@@ -45,7 +45,7 @@ if (isset($_POST['']))
                 Current: <a href="/api/timetable.json"><?= $config['timetable'] ?></a><br/>
                 <?php endif ?>
 
-                <a id="show-next" class="btn-link">Change</a>
+                <a id="show-next" class="btn btn-link">Change</a>
 
                 <form id="form-timetable" action="/timetable" method="post" enctype="multipart/form-data">
                     <div class="form-group">
@@ -71,7 +71,7 @@ if (isset($_POST['']))
                 Current: <a href="/api/lo1olkusz.apk"><?= $config['version'] ?></a><br/>
                 <?php endif ?>
 
-                <a id="show-next" class="btn-link">Change</a>
+                <a id="show-next" class="btn btn-link">Change</a>
 
                 <form id="form-apk" action="/timetable" method="post" enctype="multipart/form-data">
                     <div class="form-group">
