@@ -61,7 +61,8 @@ class CronTask {
             $this->logErrors('ReplacementsProvider', $lnProvider->getErrors());
             $updatedRepls = $this->update(Data::TYPE_REPLACEMENTS, 'replacements', $repls);
 
-            if ($forceUpdateStatus || $updatedLn || $updatedRepls) {
+            if ($forceUpdateStatus || $updatedLn || $updatedRepls
+                || !file_exists(Config::getDataDir() . '/status')) {
                 $this->updateStatus();
             }
 
