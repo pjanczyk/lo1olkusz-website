@@ -41,7 +41,11 @@ $config = $data->getConfig();
             <div class="panel-body">
                 Current: <a href="/api/timetable.json"><?= $config['timetable'] ?></a>
 
-                <form action="/timetable" method="post" enctype="multipart/form-data">
+                <form class="form-horizontal" action="/timetable" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="version">Version</label>
+                        <input type="text" class="form-control" name="version" id="version" placeholder="Version">
+                    </div>
                     <div class="form-group">
                         <label for="timetable">Select timetable file to upload:</label>
                         <input type="file" name="timetable" id="timetable">
@@ -60,7 +64,7 @@ $config = $data->getConfig();
             <div class="panel-body">
                 Current: <a href="/api/lo1olkusz.apk"><?= $config['version'] ?></a>
 
-                <form action="/timetable" method="post" enctype="multipart/form-data">
+                <form class="form-horizontal" action="/timetable" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="version">Version</label>
                         <input type="text" class="form-control" name="version" id="version" placeholder="Version">
