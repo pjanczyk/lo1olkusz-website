@@ -88,9 +88,9 @@ $config = $data->getConfig();
                 <?php else: ?>
                     not set
                 <?php endif ?>
-                <br/>
-
-                <a class="show-next btn btn-default">Change</a>
+            </div>
+            <div class="panel-footer">
+                <a class="show-next btn btn-link">Change</a>
 
                 <form action="/settings" method="post" enctype="multipart/form-data">
                     <div class="form-group">
@@ -121,9 +121,9 @@ $config = $data->getConfig();
                 <?php else: ?>
                     not set
                 <?php endif ?>
-                <br/>
-
-                <a class="show-next btn btn-default">Change</a>
+            </div>
+            <div class="panel-footer">
+                <a class="show-next btn btn-link">Change</a>
 
                 <form action="/settings" method="post" enctype="multipart/form-data">
                     <div class="form-group">
