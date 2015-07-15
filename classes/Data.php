@@ -104,4 +104,12 @@ class Data {
 
         return $result;
     }
+
+    public function setConfigValue($name, $value) {
+        $stmt = $this->db->prepare('INSERT INTO `config` (`name`,`value`) VALUES (:name,:value) ON DUPLICATE KEY UPDATE `value`=:value');
+        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+        $stmt->bindParam(':value', $value, PDO::PARAM_STR);
+
+        return $stmt->execute();
+    }
 }

@@ -25,17 +25,37 @@ require_once 'classes/Database.php';
 require_once 'classes/Data.php';
 
 use pjanczyk\lo1olkusz\Data;
+use pjanczyk\lo1olkusz\Config;
 
 $data = new Data(pjanczyk\lo1olkusz\connectToDb());
 
 $config = $data->getConfig();
 
-if (isset($_POST['timetable-version']) && isset($_FILES['timetable-file'])) {
+$timetableFileUpdated = false;
+$timetableDbUpdated = false;
+$apkFileUpdated = false;
+$apkDbUpdated = false;
 
+if (isset($_POST['timetable-version']) && isset($_FILES['timetable-file'])) {
+    if ($_FILES['timetable-file']['error'] == UPLOAD_ERR_OK) {
+        $tmpName = $_FILES['timetable-file']["tmp_name"];
+        $name = Config::getDataDir() . 'timetable';
+        if (move_uploaded_file($tmpName, $name)) {
+            $timetableFileUpdated = true;
+            $timetableDbUpdated = $data->setConfigValue('timetable', $_POST['timetable-version']);
+        }
+    }
 }
 
 if (isset($_POST['apk-version']) && isset($_FILES['apk-file'])) {
-
+    if ($_FILES['apk-file']['error'] == UPLOAD_ERR_OK) {
+        $tmpName = $_FILES['apk-file']["tmp_name"];
+        $name = Config::getDataDir() . 'timetable';
+        if (move_uploaded_file($tmpName, $name)) {
+            $timetableFileUpdated = true;
+            $timetableDbUpdated = $data->setConfigValue('version', $_POST['apk-version']);
+        }
+    }
 }
 
 ?>
