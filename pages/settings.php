@@ -62,9 +62,12 @@ $config = $data->getConfig();
 
                 <form action="/timetable" method="post" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="apk">Select timetable file to upload:</label>
+                        <label for="version">Version</label>
+                        <input type="text" class="form-control" name="version" id="version" placeholder="Version">
+                    </div>
+                    <div class="form-group">
+                        <label for="apk">APK file:</label>
                         <input type="file" name="apk" id="apk">
-                        <p class="help-block">File must be in APK format</em> format</p>
                     </div>
                     <button type="submit" class="btn btn-default">Update</button>
                 </form>
