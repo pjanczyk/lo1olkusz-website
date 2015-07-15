@@ -99,7 +99,7 @@ if (isset($_POST['apk-version']) && isset($_FILES['apk-file'])) {
 $(".show-next").each(function() {
     $(this).next().hide();
     $(this).click(function() {
-        $(this).slideUp();
+        $(this).hide();
         $(this).next().slideDown();
     });
 });
