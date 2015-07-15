@@ -27,7 +27,6 @@ require_once 'classes/FileHelper.php';
 require_once 'simple_html_dom.php';
 require_once 'classes/ReplacementsProvider.php';
 require_once 'classes/LuckyNumberProvider.php';
-require_once 'classes/Data.php';
 require_once 'classes/Database.php';
 
 use DateTime;
@@ -35,14 +34,14 @@ use DateTime;
 
 class CronTask {
 
-    /** @var Data */
+    /** @var Database */
     private $data;
 
     public function run() {
         $now = new DateTime('now', Config::getTimeZone());
         $forceUpdateStatus = ($now->format('Ym') == '0000');
 
-        $this->data = new Data(connectToDb());
+        $this->data = new Database;
 
         $url = Config::getUrl();
         $dom = file_get_html($url);
@@ -54,12 +53,12 @@ class CronTask {
             $lnProvider = new LuckyNumberProvider;
             $ln = $lnProvider->getLuckyNumber($dom);
             $this->logErrors('LuckyNumberProvider', $lnProvider->getErrors());
-            $updatedLn = $this->update(Data::TYPE_LN, 'ln', $ln);
+            $updatedLn = $this->update(Database::TYPE_LN, 'ln', $ln);
 
             $replsProvider = new ReplacementsProvider;
             $repls = $replsProvider->getReplacements($dom);
             $this->logErrors('ReplacementsProvider', $lnProvider->getErrors());
-            $updatedRepls = $this->update(Data::TYPE_REPLACEMENTS, 'replacements', $repls);
+            $updatedRepls = $this->update(Database::TYPE_REPLACEMENTS, 'replacements', $repls);
 
             if ($forceUpdateStatus || $updatedLn || $updatedRepls
                 || !file_exists(Config::getDataDir() . '/status')) {

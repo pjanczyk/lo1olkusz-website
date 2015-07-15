@@ -22,12 +22,11 @@
 
 require_once 'classes/Config.php';
 require_once 'classes/Database.php';
-require_once 'classes/Data.php';
 
-use pjanczyk\lo1olkusz\Data;
+use pjanczyk\lo1olkusz\Database;
 use pjanczyk\lo1olkusz\Config;
 
-$data = new Data(pjanczyk\lo1olkusz\connectToDb());
+$data = new Database;
 
 $timetablePath = Config::getDataDir() . 'timetable';
 $apkPath = Config::getDataDir() . 'apk';
@@ -117,7 +116,7 @@ $config = $data->getConfig();
                 <br/>
                 File:
                 <?php if (file_exists($apkPath)): ?>
-                    <a href="/lo1olkusz.apk"><?=date('Y-m-d H:i:s', filemtime($apkPath))?></a>
+                    <a href="/lo1olkusz-app.apk"><?=date('Y-m-d H:i:s', filemtime($apkPath))?></a>
                 <?php else: ?>
                     not set
                 <?php endif ?>
