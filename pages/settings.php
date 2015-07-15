@@ -42,9 +42,10 @@ if (isset($_POST['']))
             </div>
             <div class="panel-body">
                 <?php if (isset($config['timetable'])): ?>
-                Current: <a href="/api/timetable.json"><?= $config['timetable'] ?></a>
+                Current: <a href="/api/timetable.json"><?= $config['timetable'] ?></a><br/>
                 <?php endif ?>
 
+                <a href="javascript:$(this).slideUp();$('#form-timetable').slideDown()">Change</a>
                 <form id="form-timetable" action="/timetable" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="timetable-version">Version</label>
@@ -69,7 +70,7 @@ if (isset($_POST['']))
                 Current: <a href="/api/lo1olkusz.apk"><?= $config['version'] ?></a><br/>
                 <?php endif ?>
 
-                <a href="javascript: $(this).slideUp(); $('#form-apk').slideDown()">Change</a>
+                <a href="javascript:$(this).slideUp();$('#form-apk').slideDown()">Change</a>
 
                 <form id="form-apk" action="/timetable" method="post" enctype="multipart/form-data">
                     <div class="form-group">
