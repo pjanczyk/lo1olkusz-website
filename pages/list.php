@@ -24,7 +24,6 @@ require_once 'classes/Config.php';
 
 use pjanczyk\lo1olkusz\Config;
 
-
 date_default_timezone_set('Europe/Warsaw');
 
 $dirPath = Config::getDataDir() . $currentPage;
@@ -58,7 +57,3 @@ if ($handle = opendir($dirPath)): ?>
     </table>
     <?php closedir($handle);
 endif;
-
-
-
-printFilesList(Config::getDataDir() . $currentPage, '/api/'. $currentPage);
