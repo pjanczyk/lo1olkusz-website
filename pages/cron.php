@@ -66,7 +66,7 @@ if (isset($_POST['run-cron'])) {
     $("#run-cron").click(function() {
         $.post('', { 'run-cron': true }, function(data) {
             $(".page-header").after(
-                '<div class="alert alert-success" role="alert"><pre>' + data + '</pre></div>'
+                '<pre>' + data + '</pre>'
             );
         });
     })
