@@ -26,10 +26,40 @@ use pjanczyk\lo1olkusz\Config;
 
 $path = Config::getLogDir() . 'cron.log';
 
+//include 'html/header.php';
+
 if (isset($_POST['clear'])) {
-    unlink($path);
+    if (unlink($path)) {
+        echo '<pre>Cleared</pre>';
+    }
 }
+
+if (isset($_POST['run-cron'])) {
+    echo '<pre>';
+    include 'cron.php';
+    echo '</pre>';
+}
+
 ?>
 
-<a href="javascript:$.post('', { clear: true });$('pre').empty()">Clear</a>
+<div class="page-header"><h1>Cron</h1></div>
+
+<a id="clear-log" href="#">Clear log</a>
+<a id="run-cron" href="#">Run cron</a>
 <pre><?= file_get_contents($path) ?></pre>
+
+<script>
+    $("#clear-log").click(function() {
+        $.post('', { 'clear': true }, function(data) {
+            $(":root").html(data);
+        });
+    });
+    $("#run-cron").click(function() {
+        $.post('', { 'run-cron': true }, function(data) {
+            $(":root").html(data);
+        });
+    })
+</script>
+
+<?php
+//include 'html/footer.php';
