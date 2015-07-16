@@ -48,17 +48,19 @@ if (isset($_POST['run-cron'])) {
 </div>
 <br/>
 
-<pre><?= file_exists($path) ? file_get_contents($path) : '' ?></pre>
+<pre id="cron-log">
+    <?= file_exists($path) ? file_get_contents($path) : '' ?>
+</pre>
 
 <script>
     $("#clear-log").click(function() {
         $.post('', { 'clear-log': true }, function(data) {
             if (data == 'OK') {
-                $("pre").clear();
+                $("#cron-log").clear();
             }
             else {
                 $(".page-header").after(
-                    '<div class="alert alert-error" role="alert">' + data + '</div>'
+                    '<div class="alert alert-danger" role="alert">' + data + '</div>'
                 );
             }
         });
