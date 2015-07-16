@@ -26,6 +26,8 @@ require_once 'classes/Database.php';
 use pjanczyk\lo1olkusz\Database;
 use pjanczyk\lo1olkusz\Config;
 
+date_default_timezone_set('Europe/Warsaw');
+
 $data = new Database;
 
 $timetablePath = Config::getDataDir() . 'timetable';
