@@ -29,8 +29,12 @@ date_default_timezone_set('Europe/Warsaw');
 $dirPath = Config::getDataDir() . $currentPage;
 $urlBase = '/api/' . $currentPage;
 
-echo $dirPath . '<br/>';
+include 'html/header.php' ?>
 
+<div class="page-header"><h1><?=$pages[$currentPage]['title']?></h1></div>
+<?=$dirPath?><br/>
+
+<?php
 $i = 1;
 if ($handle = opendir($dirPath)): ?>
     <table class="table table-condensed" style="width: auto">
@@ -57,3 +61,5 @@ if ($handle = opendir($dirPath)): ?>
     </table>
     <?php closedir($handle);
 endif;
+
+include 'html/footer.php';

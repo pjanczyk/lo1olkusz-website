@@ -67,6 +67,10 @@ $config = $data->getConfig();
 
 ?>
 
+<?php include 'html/header.php' ?>
+
+<div class="page-header"><h1>Settings</h1></div>
+
 <?php if ($alerts): ?>
 <div class="alert alert-success" role="alert">
     <?= implode('<br/>', $alerts) ?>
@@ -151,4 +155,6 @@ $(".show-next").each(function() {
     });
 });
 </script>
+
+<?php include 'html/footer.php' ?>
 
