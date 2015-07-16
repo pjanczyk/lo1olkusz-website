@@ -22,6 +22,8 @@
 
 namespace pjanczyk\lo1olkusz;
 
+include 'classes/FileHelper.php';
+
 
 class Status {
     /**
