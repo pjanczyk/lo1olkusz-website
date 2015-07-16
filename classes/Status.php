@@ -18,37 +18,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//Created on 2015-07-09
+//Created on 2015-07-14
 
-ini_set('display_errors',1);
-ini_set('display_startup_errors',1);
-error_reporting(E_ALL|E_STRICT);
+namespace pjanczyk\lo1olkusz;
 
-$pages = [
-    'cron' => [
-        'title' => 'Cron',
-        'include' => 'cron.php'
-    ],
-    'ln' => [
-        'title' => 'Lucky numbers',
-        'include' => 'list.php'
-    ],
-    'replacements' => [
-        'title' => 'Replacements',
-        'include' => 'list.php'
-    ],
-    'settings' => [
-        'title' => 'Settings',
-        'include' => 'settings.php'
-    ]
-];
 
-if (isset($_GET['p']) && isset($pages[$_GET['p']])) {
-    $currentPage = $_GET['p'];
-    include 'pages/' . $pages[$currentPage]['include'];
+class Status {
+    /**
+     * @param Database $database
+     */
+    public static function update($database) {
+        $news = $database->getLnAndReplacements();
+        $config = $database->getConfig();
+        $json = json_encode($news + $config);
+        FileHelper::updateFile(Config::getDataDir() . '/status', $json);
+    }
 }
-else {
-    include 'pages/index.php';
-}
-
-

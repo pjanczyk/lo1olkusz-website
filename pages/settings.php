@@ -22,9 +22,11 @@
 
 require_once 'classes/Config.php';
 require_once 'classes/Database.php';
+require_once 'classes/Status.php';
 
 use pjanczyk\lo1olkusz\Database;
 use pjanczyk\lo1olkusz\Config;
+use pjanczyk\lo1olkusz\Status;
 
 date_default_timezone_set('Europe/Warsaw');
 
@@ -34,6 +36,7 @@ $timetablePath = Config::getDataDir() . 'timetable';
 $apkPath = Config::getDataDir() . 'apk';
 
 $alerts = [];
+$updateStatus = false;
 
 if (isset($_FILES['timetable-file'])
     && $_FILES['timetable-file']['error'] == UPLOAD_ERR_OK) {
@@ -55,12 +58,19 @@ if (isset($_FILES['apk-file'])
 if (isset($_POST['timetable-version'])) {
     if ($data->setConfigValue('timetable', $_POST['timetable-version'])) {
         $alerts[] = 'Changed timetable version';
+        $updateStatus = true;
     }
 }
 if (isset($_POST['apk-version'])) {
     if ($data->setConfigValue('version', $_POST['apk-version'])) {
         $alerts[] = 'Changed APK version';
+        $updateStatus = true;
     }
+}
+
+if ($updateStatus) {
+    Status::update($data);
+    $alerts[] = 'Updated status file';
 }
 
 $config = $data->getConfig();

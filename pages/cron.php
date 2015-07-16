@@ -52,7 +52,7 @@ if (isset($_POST['run-cron'])) {
 
 <script>
     $("#clear-log").click(function() {
-        $.post('', { 'clear-log': true }, function(data) {
+        $.post('cron', { 'clear-log': true }, function(data) {
             if (data == 'OK') {
                 $("#cron-log").empty();
             }
@@ -64,7 +64,7 @@ if (isset($_POST['run-cron'])) {
         });
     });
     $("#run-cron").click(function() {
-        $.post('', { 'run-cron': true }, function(data) {
+        $.post('cron', { 'run-cron': true }, function(data) {
             $(".page-header").after(
                 '<pre>' + data + '</pre>'
             );

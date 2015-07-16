@@ -28,6 +28,7 @@ require_once 'simple_html_dom.php';
 require_once 'classes/ReplacementsProvider.php';
 require_once 'classes/LuckyNumberProvider.php';
 require_once 'classes/Database.php';
+require_once 'classes/Status.php';
 
 use DateTime;
 
@@ -62,7 +63,8 @@ class CronTask {
 
             if ($forceUpdateStatus || $updatedLn || $updatedRepls
                 || !file_exists(Config::getDataDir() . '/status')) {
-                $this->updateStatus();
+                Status::update($this->data);
+                echo "updated status\n";
             }
 
             echo "done\n";
@@ -94,13 +96,5 @@ class CronTask {
                 echo '    ' . $error . "\n";
             }
         }
-    }
-
-    private function updateStatus() {
-        $news = $this->data->getLnAndReplacements();
-        $config = $this->data->getConfig();
-        $json = json_encode($news + $config);
-        FileHelper::updateFile(Config::getDataDir() . '/status', $json);
-        echo "updated status\n";
     }
 }
