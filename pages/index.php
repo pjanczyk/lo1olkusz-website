@@ -20,6 +20,19 @@
 
 //Created on 2015-07-13
 
+require_once 'classes/Config.php';
+
+use pjanczyk\lo1olkusz\Config;
+
+date_default_timezone_set('Europe/Warsaw');
+$statusPath = Config::getDataDir() . 'status';
+$statusTimestamp = file_exists($statusPath) ? filemtime($statusPath) : "not exist";
 ?>
 
+
+<?php include 'html/header.php' ?>
+
 <h4>Status file</h4>
+<a href="/api/status.json"><?=$statusTimestamp?></a>
+
+<?php include 'html/footer.php' ?>
