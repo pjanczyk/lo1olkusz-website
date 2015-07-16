@@ -26,7 +26,7 @@ use pjanczyk\lo1olkusz\Config;
 
 date_default_timezone_set('Europe/Warsaw');
 $statusPath = Config::getDataDir() . 'status';
-$statusTimestamp = file_exists($statusPath) ? date(filemtime($statusPath)) : "not exist";
+$statusTimestamp = file_exists($statusPath) ? date('Y-m-d H:i:s', filemtime($statusPath)) : "not exist";
 ?>
 
 
