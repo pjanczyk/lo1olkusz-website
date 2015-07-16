@@ -42,10 +42,11 @@ if (isset($_POST['run-cron'])) {
 
 <div class="page-header"><h1>Cron</h1></div>
 
-<div class="btn-group">
-    <a id="run-cron" class="btn btn-default" href="#">Run cron</a>
-    <a id="clear-log" class="btn btn-danger" href="#">Clear log</a>
+<div>
+    <a id="run-cron" class="btn btn-default btn-sm" href="#">Run cron</a>
+    <a id="clear-log" class="btn btn-danger btn-sm" href="#">Clear log</a>
 </div>
+<br/>
 
 <pre><?= file_exists($path) ? file_get_contents($path) : '' ?></pre>
 
