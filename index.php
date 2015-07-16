@@ -49,10 +49,4 @@ if (isset($_GET['p']) && isset($pages[$_GET['p']])) {
     $currentPage = $_GET['p'];
 }
 
-include 'html/header.php';
-
-echo '<div class="page-header"><h1>' . $pages[$currentPage]['title'] . '</h1></div>';
-
 include 'pages/' . $pages[$currentPage]['include'];
-
-include 'html/footer.php';

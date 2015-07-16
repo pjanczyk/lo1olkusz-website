@@ -26,8 +26,6 @@ use pjanczyk\lo1olkusz\Config;
 
 $path = Config::getLogDir() . 'cron.log';
 
-//include 'html/header.php';
-
 if (isset($_POST['clear'])) {
     if (unlink($path)) {
         echo '<pre>Cleared</pre>';
@@ -46,20 +44,17 @@ if (isset($_POST['run-cron'])) {
 
 <a id="clear-log" href="#">Clear log</a>
 <a id="run-cron" href="#">Run cron</a>
-<pre><?= file_get_contents($path) ?></pre>
+<pre><?= file_exists($path) ? file_get_contents($path) : '' ?></pre>
 
 <script>
     $("#clear-log").click(function() {
         $.post('', { 'clear': true }, function(data) {
-            $(":root").html(data);
+            $(":root").replaceWith(data);
         });
     });
     $("#run-cron").click(function() {
         $.post('', { 'run-cron': true }, function(data) {
-            $(":root").html(data);
+            $(":root").replaceWith(data);
         });
     })
 </script>
-
-<?php
-//include 'html/footer.php';
