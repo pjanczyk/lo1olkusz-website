@@ -26,35 +26,49 @@ use pjanczyk\lo1olkusz\Config;
 
 $path = Config::getLogDir() . 'cron.log';
 
-if (isset($_POST['clear'])) {
-    if (unlink($path)) {
-        echo '<pre>Cleared</pre>';
-    }
+if (isset($_POST['clear-log'])) {
+    unlink($path);
+    echo 'OK';
+    exit;
 }
 
 if (isset($_POST['run-cron'])) {
-    echo '<pre>';
     include 'cron.php';
-    echo '</pre>';
+    exit;
 }
-
 ?>
+
+<?php include 'html/header.php' ?>
 
 <div class="page-header"><h1>Cron</h1></div>
 
-<a id="clear-log" href="#">Clear log</a>
-<a id="run-cron" href="#">Run cron</a>
+<div class="btn-group">
+    <a id="run-cron" class="btn btn-default" href="#">Run cron</a>
+    <a id="clear-log" class="btn btn-danger" href="#">Clear log</a>
+</div>
+
 <pre><?= file_exists($path) ? file_get_contents($path) : '' ?></pre>
 
 <script>
     $("#clear-log").click(function() {
-        $.post('', { 'clear': true }, function(data) {
-            $(":root").replaceWith(data);
+        $.post('', { 'clear-log': true }, function(data) {
+            if (data == 'OK') {
+                $("pre").clear();
+            }
+            else {
+                $(".page-header").after(
+                    '<div class="alert alert-error" role="alert">' + data + '</div>'
+                );
+            }
         });
     });
     $("#run-cron").click(function() {
         $.post('', { 'run-cron': true }, function(data) {
-            $(":root").replaceWith(data);
+            $(".page-header").after(
+                '<div class="alert alert-success" role="alert"><pre>' + data + '</pre></div>'
+            );
         });
     })
 </script>
+
+<?php include 'html/footer.php' ?>
