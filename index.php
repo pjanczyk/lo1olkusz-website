@@ -27,7 +27,7 @@ error_reporting(E_ALL|E_STRICT);
 $pages = [
     '' => [
         'title' => 'Cron logs',
-        'include' => 'cron_log.php'
+        'include' => 'cron.php'
     ],
     'ln' => [
         'title' => 'Lucky numbers',
