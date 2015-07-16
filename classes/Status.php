@@ -22,7 +22,7 @@
 
 namespace pjanczyk\lo1olkusz;
 
-include 'classes/FileHelper.php';
+require_once 'classes/FileHelper.php';
 
 
 class Status {
