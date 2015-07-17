@@ -2,6 +2,8 @@
 
 ?>
 
+<?php include 'html/header.php' ?>
+
 <div class="page-header">
     <h1>Timetables</h1>
 </div>
@@ -49,3 +51,5 @@
     </form>
     </div>
 </div>
+
+<?php include 'html/footer.php' ?>
