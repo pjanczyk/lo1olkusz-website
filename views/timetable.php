@@ -15,6 +15,7 @@
             <tr>
                 <th>class</th>
                 <th>last modified</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -24,8 +25,8 @@
                     <td><?=$timetable['last_modified']?></td>
                     <td>
                         <div class="btn-group">
-                            <a href="/api/timetable/<?=urlencode($timetable['class'])?>" class="btn btn-default btn-xs">View</a>
-                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a href="/api/timetable/<?=urlencode($timetable['class'])?>" class="btn btn-default btn-sm">View</a>
+                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="caret"></span>
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
