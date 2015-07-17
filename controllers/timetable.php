@@ -8,16 +8,12 @@ use pjanczyk\lo1olkusz\Timetables;
 
 $model = new Timetables(Database::connect());
 
-if (isset($args[0])) {
-    if ($args[0] == 'add') {
-        include 'views/timetable_add.php';
-        exit;
-    }
-    if ($args[0] == 'edit' && isset($args[1])) {
+if (isset($args[0]) && ($args[0] == 'add' || $args[0] == 'edit')) {
+    if (isset($args[1])) {
         $class = $args[1];
-        include 'views/timetable_edit.php';
-        exit;
     }
+    include 'views/timetable_edit.php';
+    exit;
 }
 
 $alerts = [];
