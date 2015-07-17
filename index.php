@@ -47,8 +47,12 @@ $pages = [
     ]
 ];
 
-if (isset($_GET['p']) && isset($pages[$_GET['p']])) {
-    $currentPage = $_GET['p'];
+$get = isset($_GET['p']) ? $_GET['p'] : '';
+$args = explode('/', $get);
+$currentPage = $args[0];
+$args = array_slice($args, 1);
+
+if (isset($pages[$currentPage])) {
     include 'controllers/' . $pages[$currentPage]['include'];
 }
 else {

@@ -8,12 +8,28 @@ use pjanczyk\lo1olkusz\Timetables;
 
 $model = new Timetables(Database::connect());
 
-if (isset($_POST['class'], $_POST['timetable'], $_POST['delete'])) {
-    if ($_POST['delete']) {
-        $model->delete($_POST['class']);
+if (isset($args[0])) {
+    if ($args[0] == 'add') {
+        include 'views/timetable_add.php';
+        exit;
     }
-    else {
-        $model->set($_POST['class'], $_POST['timetable']);
+    if ($args[0] == 'edit' && isset($args[1])) {
+        $class = $args[1];
+        include 'views/timetable_edit.php';
+        exit;
+    }
+}
+
+$alerts = [];
+
+if (isset($_POST['edit'], $_POST['class'], $_POST['timetable'])) {
+    if ($model->set($_POST['class'], $_POST['timetable'])) {
+        $alerts[] = "Updated timetable of class \"{$_POST['class']}\"";
+    }
+}
+else if (isset($_POST['delete'], $_POST['class'])) {
+    if ($model->delete($_POST['class'])) {
+        $alerts[] = "Deleted timetable of class \"{$_POST['class']}\"";
     }
 }
 

@@ -26,6 +26,18 @@
                         </a>
                     </td>
                     <td><?=$timetable['last_modified']?></td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Actions
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="/timetable/edit/<?=urlencode($timetable['class'])?>">Edit</a></li>
+                                <li><a href="/timetable/delete/<?=urlencode($timetable['class'])?>">Delete</a></li>
+                            </ul>
+                        </div>
+                    </td>
                 </tr>
             <? endforeach ?>
             </tbody>
