@@ -4,7 +4,6 @@
     <h1>Timetables</h1>
 </div>
 
-<h2><?= $timetable !== false ? 'Edit' : 'Add'?></h2>
 <form class="form-horizontal" action="/timetable" method="post">
     <input type="hidden" name="edit" value="true"/>
     <div class="form-group">
@@ -27,7 +26,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="submit" class="btn btn-default">Save</button>
         </div>
     </div>
 </form>

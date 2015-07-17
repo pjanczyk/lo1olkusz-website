@@ -17,7 +17,7 @@
 <div class="btn-group" role="group">
     <a href="/timetable/add" class="btn btn-default">Add</a>
 </div>
-
+<br/>
 <table class="table table-condensed" style="width: auto">
     <thead>
     <tr>
