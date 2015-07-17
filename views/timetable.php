@@ -38,7 +38,7 @@
         </div>
         <div class="form-group">
             <label for="timetable">Timetable</label>
-            <textarea class="form-control" name="timetable" id="timetable" placeholder="Timetable content"/>
+            <textarea class="form-control" name="timetable" id="timetable" rows="10" placeholder="Timetable content"></textarea>
         </div>
         <div class="checkbox">
             <label>
