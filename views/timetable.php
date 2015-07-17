@@ -20,17 +20,14 @@
             <tbody>
             <?php foreach ($timetables as $timetable): ?>
                 <tr>
-                    <td>
-                        <a href="/api/timetable/<?=urlencode($timetable['class'])?>">
-                            <?=$timetable['class']?>
-                        </a>
-                    </td>
+                    <td><?=$timetable['class']?></td>
                     <td><?=$timetable['last_modified']?></td>
                     <td>
-                        <div class="dropdown">
-                            <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Actions
+                        <div class="btn-group">
+                            <a href="/api/timetable/<?=urlencode($timetable['class'])?>" class="btn btn-default btn-xs">View</a>
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a href="/timetable/edit/<?=urlencode($timetable['class'])?>">Edit</a></li>
