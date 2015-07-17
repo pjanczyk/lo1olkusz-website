@@ -9,11 +9,13 @@ use pjanczyk\lo1olkusz\Timetables;
 $model = new Timetables(Database::connect());
 
 if (isset($args[0])) {
-    if ($args[0] == 'add' || $args[0] == 'edit') {
+    if ($args[0] == 'add') {
         $timetable = false;
-        if (isset($args[1])) {
-            $timetable = $model->get($args[1]);
-        }
+        include 'views/timetable_edit.php';
+        exit;
+    }
+    if ($args[0] == 'edit' && isset($args[1])) {
+        $timetable = $model->get($args[1]);
         include 'views/timetable_edit.php';
         exit;
     }
