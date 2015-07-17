@@ -31,14 +31,18 @@ class Timetables {
     /**
      * Fetches a timetable of a class
      * @param string $class
-     * @return array|false ['last_modified','value']
+     * @return array|false ['class','last_modified','value']
      */
     public function get($class) {
         $stmt = $this->db->prepare('SELECT `last_modified`,`value` FROM `timetable` WHERE `class`=:class');
         $stmt->bindParam(':class', $class, PDO::PARAM_STR);
         $stmt->execute();
+        $timetable = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($timetable !== false) {
+            $timetable['class'] = $class;
+        }
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $timetable;
     }
 
     /**
