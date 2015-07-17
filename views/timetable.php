@@ -25,12 +25,13 @@
                     <td><?=$timetable['last_modified']?></td>
                     <td>
                         <div class="btn-group">
-                            <a href="/api/timetable/<?=urlencode($timetable['class'])?>" class="btn btn-default btn-sm">View</a>
-                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Actions
                                 <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <ul class="dropdown-menu">
+                                <li><a href="/api/timetable/<?=urlencode($timetable['class'])?>">View</a></li>
+                                <li role="separator" class="divider"></li>
                                 <li><a href="/timetable/edit/<?=urlencode($timetable['class'])?>">Edit</a></li>
                                 <li><a href="/timetable/delete/<?=urlencode($timetable['class'])?>">Delete</a></li>
                             </ul>
