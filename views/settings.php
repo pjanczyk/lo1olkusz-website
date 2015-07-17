@@ -19,62 +19,6 @@
  */
 
 //Created on 2015-07-15
-
-require_once 'classes/Config.php';
-require_once 'classes/Database.php';
-require_once 'classes/Status.php';
-
-use pjanczyk\lo1olkusz\Database;
-use pjanczyk\lo1olkusz\Config;
-use pjanczyk\lo1olkusz\Status;
-
-date_default_timezone_set('Europe/Warsaw');
-
-$data = new Database;
-
-$timetablePath = Config::getDataDir() . 'timetable';
-$apkPath = Config::getDataDir() . 'apk';
-
-$alerts = [];
-$updateStatus = false;
-
-if (isset($_FILES['timetable-file'])
-    && $_FILES['timetable-file']['error'] == UPLOAD_ERR_OK) {
-
-    $tmpName = $_FILES['timetable-file']["tmp_name"];
-    if (move_uploaded_file($tmpName, $timetablePath)) {
-        $alerts[] = 'Changed timetable file';
-    }
-}
-if (isset($_FILES['apk-file'])
-    && $_FILES['apk-file']['error'] == UPLOAD_ERR_OK) {
-
-    $tmpName = $_FILES['apk-file']["tmp_name"];
-    if (move_uploaded_file($tmpName, $apkPath)) {
-        $alerts[] = 'Changed APK file';
-    }
-}
-
-if (isset($_POST['timetable-version'])) {
-    if ($data->setConfigValue('timetable', $_POST['timetable-version'])) {
-        $alerts[] = 'Changed timetable version';
-        $updateStatus = true;
-    }
-}
-if (isset($_POST['apk-version'])) {
-    if ($data->setConfigValue('version', $_POST['apk-version'])) {
-        $alerts[] = 'Changed APK version';
-        $updateStatus = true;
-    }
-}
-
-if ($updateStatus) {
-    Status::update($data);
-    $alerts[] = 'Updated status file';
-}
-
-$config = $data->getConfig();
-
 ?>
 
 <?php include 'html/header.php' ?>
@@ -82,9 +26,9 @@ $config = $data->getConfig();
 <div class="page-header"><h1>Settings</h1></div>
 
 <?php if ($alerts): ?>
-<div class="alert alert-success" role="alert">
-    <?= implode('<br/>', $alerts) ?>
-</div>
+    <div class="alert alert-success" role="alert">
+        <?= implode('<br/>', $alerts) ?>
+    </div>
 <?php endif ?>
 
 <div class="row">
@@ -95,11 +39,15 @@ $config = $data->getConfig();
             </div>
             <div class="panel-body">
                 Version:
-                <?= isset($config['timetable']) ? '<code>'.$config['timetable'].'</code>' : 'not set' ?>
+                <?php if (isset($timetableVersion)): ?>
+                    <code><?=$timetableVersion?></code>
+                <?php else: ?>
+                    not set
+                <?php endif ?>
                 <br/>
                 File:
-                <?php if (file_exists($timetablePath)): ?>
-                    <a href="/api/timetable.json"><?=date('Y-m-d H:i:s', filemtime($timetablePath))?></a>
+                <?php if (isset($timetableFileLastModified)): ?>
+                    <a href="/api/timetable.json"><?=$timetableFileLastModified?></a>
                 <?php else: ?>
                     not set
                 <?php endif ?>
@@ -128,11 +76,15 @@ $config = $data->getConfig();
             </div>
             <div class="panel-body">
                 Version:
-                <?= isset($config['version']) ? '<code>'.$config['version'].'</code>' : 'not set' ?>
+                <?php if (isset($apkVersion)): ?>
+                    <code><?=$apkVersion?></code>
+                <?php else: ?>
+                    not set
+                <?php endif ?>
                 <br/>
                 File:
-                <?php if (file_exists($apkPath)): ?>
-                    <a href="/lo1olkusz-app.apk"><?=date('Y-m-d H:i:s', filemtime($apkPath))?></a>
+                <?php if (isset($apkFileLastModified)): ?>
+                    <a href="/lo1olkusz-app.apk"><?=$apkFileLastModified?></a>
                 <?php else: ?>
                     not set
                 <?php endif ?>
@@ -157,14 +109,13 @@ $config = $data->getConfig();
 </div>
 
 <script>
-$(".show-next").each(function() {
-    $(this).next().hide();
-    $(this).click(function() {
-        $(this).hide();
-        $(this).next().slideDown();
+    $(".show-next").each(function() {
+        $(this).next().hide();
+        $(this).click(function() {
+            $(this).hide();
+            $(this).next().slideDown();
+        });
     });
-});
 </script>
 
 <?php include 'html/footer.php' ?>
-

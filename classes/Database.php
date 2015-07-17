@@ -40,6 +40,10 @@ class Database {
     const TYPE_LN = 1;
     const TYPE_REPLACEMENTS = 2;
 
+    public static function connect() {
+        return new PDO(Config::getDbDSN(), Config::getDbUser(), Config::getDbPassword());
+    }
+
     /** @var PDO */
     private $db;
 

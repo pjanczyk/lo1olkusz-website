@@ -40,15 +40,19 @@ $pages = [
     'settings' => [
         'title' => 'Settings',
         'include' => 'settings.php'
+    ],
+    'timetable' => [
+        'title' => 'Timetables',
+        'include' => 'timetable.php'
     ]
 ];
 
 if (isset($_GET['p']) && isset($pages[$_GET['p']])) {
     $currentPage = $_GET['p'];
-    include 'pages/' . $pages[$currentPage]['include'];
+    include 'controllers/' . $pages[$currentPage]['include'];
 }
 else {
-    include 'pages/index.php';
+    include 'controllers/main.php';
 }
 
 

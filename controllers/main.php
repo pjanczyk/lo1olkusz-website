@@ -21,11 +21,21 @@
 //Created on 2015-07-13
 
 require_once 'classes/Config.php';
+require_once 'classes/Database.php';
+require_once 'classes/Status.php';
 
 use pjanczyk\lo1olkusz\Config;
+use pjanczyk\lo1olkusz\Database;
+use pjanczyk\lo1olkusz\Status;
 
 date_default_timezone_set('Europe/Warsaw');
 $statusPath = Config::getDataDir() . 'status';
+
+if ($_POST['update-status']) {
+    $db = new Database;
+    Status::update($db);
+}
+
 $statusTimestamp = file_exists($statusPath) ? date('Y-m-d H:i:s', filemtime($statusPath)) : "not exist";
 ?>
 
