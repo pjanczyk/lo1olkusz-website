@@ -34,11 +34,11 @@
     <form action="/timetable" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="class">Class</label>
-            <input type="text" class="form-control" name="class" id="class" placeholder="Class name">
+            <input type="text" class="form-control" name="class" id="class" placeholder="Class name"/>
         </div>
         <div class="form-group">
             <label for="timetable">Timetable</label>
-            <textarea class="form-control" name="timetable" id="timetable" placeholder="Timetable content">
+            <textarea class="form-control" name="timetable" id="timetable" placeholder="Timetable content"/>
         </div>
         <div class="checkbox">
             <label>
