@@ -6,6 +6,8 @@ require_once 'classes/Timetables.php';
 use pjanczyk\lo1olkusz\Database;
 use pjanczyk\lo1olkusz\Timetables;
 
+date_default_timezone_set('Europe/Warsaw');
+
 $model = new Timetables(Database::connect());
 
 if (isset($args[0])) {
