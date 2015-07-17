@@ -14,13 +14,6 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="timetable" class="col-sm-2 control-label">Timetable</label>
-            <div class="col-sm-10">
-                <pre class="form-control" id="timetable"
-                    ><?= $timetable !== false ? $timetable['value'] : '' ?></pre>
-            </div>
-        </div>
-        <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-default">Delete</button>
             </div>
