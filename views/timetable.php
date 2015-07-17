@@ -28,7 +28,7 @@
                     <td><?=$timetable['last_modified']?></td>
                     <td>
                         <div class="dropdown">
-                            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Actions
                                 <span class="caret"></span>
                             </button>
@@ -44,23 +44,7 @@
         </table>
     </div>
     <div class="col-sm-6">
-<h2>Change</h2>
-    <form action="/timetable" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="class">Class</label>
-            <input type="text" class="form-control" name="class" id="class" placeholder="Class name"/>
-        </div>
-        <div class="form-group">
-            <label for="timetable">Timetable</label>
-            <textarea class="form-control" name="timetable" id="timetable" rows="10" placeholder="Timetable content"></textarea>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox"> Delete
-            </label>
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-    </form>
+
     </div>
 </div>
 
