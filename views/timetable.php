@@ -8,6 +8,12 @@
     <h1>Timetables</h1>
 </div>
 
+<?php if ($alerts): ?>
+    <div class="alert alert-success" role="alert">
+        <?= implode('<br/>', $alerts) ?>
+    </div>
+<?php endif ?>
+
 <div class="row">
     <div class="col-sm-6">
         <table class="table table-condensed" style="width: auto">
