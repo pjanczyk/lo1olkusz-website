@@ -21,12 +21,12 @@ $alerts = [];
 
 if (isset($_POST['edit'], $_POST['class'], $_POST['timetable'])) {
     if ($model->set($_POST['class'], $_POST['timetable'])) {
-        $alerts[] = "Updated timetable of class \"{$_POST['class']}\"";
+        $alerts[] = "Saved timetable of \"{$_POST['class']}\"";
     }
 }
 else if (isset($_POST['delete'], $_POST['class'])) {
     if ($model->delete($_POST['class'])) {
-        $alerts[] = "Deleted timetable of class \"{$_POST['class']}\"";
+        $alerts[] = "Deleted timetable of \"{$_POST['class']}\"";
     }
 }
 
