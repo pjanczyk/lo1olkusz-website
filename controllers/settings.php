@@ -32,20 +32,11 @@ date_default_timezone_set('Europe/Warsaw');
 
 $data = new Database;
 
-$timetablePath = Config::getDataDir() . 'timetable';
 $apkPath = Config::getDataDir() . 'apk';
 
 $alerts = [];
 $updateStatus = false;
 
-if (isset($_FILES['timetable-file'])
-    && $_FILES['timetable-file']['error'] == UPLOAD_ERR_OK) {
-
-    $tmpName = $_FILES['timetable-file']["tmp_name"];
-    if (move_uploaded_file($tmpName, $timetablePath)) {
-        $alerts[] = 'Changed timetable file';
-    }
-}
 if (isset($_FILES['apk-file'])
     && $_FILES['apk-file']['error'] == UPLOAD_ERR_OK) {
 
@@ -55,12 +46,6 @@ if (isset($_FILES['apk-file'])
     }
 }
 
-if (isset($_POST['timetable-version'])) {
-    if ($data->setConfigValue('timetable', $_POST['timetable-version'])) {
-        $alerts[] = 'Changed timetable version';
-        $updateStatus = true;
-    }
-}
 if (isset($_POST['apk-version'])) {
     if ($data->setConfigValue('version', $_POST['apk-version'])) {
         $alerts[] = 'Changed APK version';
@@ -75,14 +60,8 @@ if ($updateStatus) {
 
 $config = $data->getConfig();
 
-if (isset($config['timetable'])) {
-    $timetableVersion = $config['timetable'];
-}
 if (isset($config['version'])) {
     $apkVersion = $config['version'];
-}
-if (file_exists($timetablePath)) {
-    $timetableFileLastModified = date('Y-m-d H:i:s', filemtime($timetablePath));
 }
 if (file_exists($apkPath)) {
     $apkFileLastModified = date('Y-m-d H:i:s', filemtime($apkPath));

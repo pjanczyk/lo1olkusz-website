@@ -1,4 +1,5 @@
 <?php
+/** @var array $args */
 
 require_once 'classes/Database.php';
 require_once 'classes/Timetables.php';
@@ -11,16 +12,19 @@ date_default_timezone_set('Europe/Warsaw');
 $model = new Timetables(Database::connect());
 
 if (isset($args[0])) {
+
     if ($args[0] == 'add') {
         $timetable = false;
         include 'views/timetable_edit.php';
         exit;
     }
+
     if ($args[0] == 'edit' && isset($args[1])) {
         $timetable = $model->get($args[1]);
         include 'views/timetable_edit.php';
         exit;
     }
+
     if ($args[0] == 'delete' && isset($args[1])) {
         $timetable = $model->get($args[1]);
         if ($timetable !== false) {
@@ -45,4 +49,4 @@ else if (isset($_POST['delete'], $_POST['class'])) {
 
 $timetables = $model->listAll();
 
-include 'views/timetable.php';
+include 'views/timetable_list.php';

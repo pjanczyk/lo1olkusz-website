@@ -8,11 +8,7 @@
     <h1>Timetables</h1>
 </div>
 
-<?php if ($alerts): ?>
-    <div class="alert alert-success" role="alert">
-        <?= implode('<br/>', $alerts) ?>
-    </div>
-<?php endif ?>
+<?php include 'views/alerts.php' ?>
 
 <div class="btn-group" role="group">
     <a href="/timetable/add" class="btn btn-default">Add</a>
@@ -38,7 +34,7 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="/api/timetable/<?=urlencode($timetable['class'])?>">View</a></li>
+                        <li><a href="/api/timetables/<?=urlencode($timetable['class'])?>">View</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="/timetable/edit/<?=urlencode($timetable['class'])?>">Edit</a></li>
                         <li><a class="timetable-delete" href="/timetable/delete/<?=urlencode($timetable['class'])?>">Delete</a></li>

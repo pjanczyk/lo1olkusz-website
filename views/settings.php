@@ -25,50 +25,9 @@
 
 <div class="page-header"><h1>Settings</h1></div>
 
-<?php if ($alerts): ?>
-    <div class="alert alert-success" role="alert">
-        <?= implode('<br/>', $alerts) ?>
-    </div>
-<?php endif ?>
+<?php include 'views/alerts.php' ?>
 
 <div class="row">
-    <div class="col-sm-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Timetable</h3>
-            </div>
-            <div class="panel-body">
-                Version:
-                <?php if (isset($timetableVersion)): ?>
-                    <code><?=$timetableVersion?></code>
-                <?php else: ?>
-                    not set
-                <?php endif ?>
-                <br/>
-                File:
-                <?php if (isset($timetableFileLastModified)): ?>
-                    <a href="/api/timetable.json"><?=$timetableFileLastModified?></a>
-                <?php else: ?>
-                    not set
-                <?php endif ?>
-            </div>
-            <div class="panel-footer">
-                <a class="show-next btn btn-link">Change</a>
-
-                <form action="/settings" method="post" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="timetable-version">Version</label>
-                        <input type="text" class="form-control" name="timetable-version" id="timetable-version" placeholder="Version">
-                    </div>
-                    <div class="form-group">
-                        <label for="timetable-file">File</label>
-                        <input type="file" name="timetable-file" id="timetable-file">
-                    </div>
-                    <button type="submit" class="btn btn-default">Change</button>
-                </form>
-            </div>
-        </div>
-    </div>
     <div class="col-sm-6">
         <div class="panel panel-default">
             <div class="panel-heading">
