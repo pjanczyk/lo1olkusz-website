@@ -47,6 +47,6 @@ else if (isset($_POST['delete'], $_POST['class'])) {
     }
 }
 
-$timetables = $model->listAll();
+$timetables = $model->getAll([Timetables::FIELD_CLASS, Timetables::FIELD_LAST_MODIFIED]);
 
 include 'views/timetable_list.php';

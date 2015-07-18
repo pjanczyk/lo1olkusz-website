@@ -6,6 +6,10 @@ use PDO;
 
 class Timetables {
 
+    const FIELD_CLASS = 'class';
+    const FIELD_LAST_MODIFIED = 'last_modified';
+    const FIELD_VALUE = 'value';
+
     /** @var PDO */
     private $db;
 
@@ -18,14 +22,24 @@ class Timetables {
     }
 
     /**
-     * Lists class and last modified time of each timetable
-     * @return array of arrays ['class','last_modified']
+     * Lists requested fields of timetables ordered by 'class'
+     * @param array $fields array of requested columns
+     * @return array
      */
-    public function listAll() {
-        $stmt = $this->db->prepare('SELECT `class`,`last_modified` FROM `timetable` ORDER BY `class`');
+    public function getAll($fields) {
+        if (count($fields) == 0) {
+            new \InvalidArgumentException('$fields cannot be an empty array');
+        }
+        $f = '`'.implode('`,`', $fields).'`';
+        $stmt = $this->db->prepare('SELECT '.$f.' FROM `timetable` ORDER BY `class`');
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (count($fields) == 1) {
+            return $stmt->fetchAll(PDO::FETCH_COLUMN);
+        }
+        else {
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
     }
 
     /**
