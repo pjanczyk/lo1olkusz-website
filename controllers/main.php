@@ -31,7 +31,7 @@ use pjanczyk\lo1olkusz\Status;
 date_default_timezone_set('Europe/Warsaw');
 $statusPath = Config::getDataDir() . 'status';
 
-if ($_POST['update-status']) {
+if (isset($_POST['update-status'])) {
     $db = new Database;
     Status::update($db);
 }
