@@ -2,9 +2,9 @@ ErrorDocument 404 /html/404.html
 
 RewriteEngine on
 RewriteRule ^api/(.+)$ api.php?p=$1
+RewriteRule ^download$ download.php
 RewriteCond $1 !^(css|js|fonts|index\.php|api\.php|download\.php)
 RewriteRule ^(.+)$ index.php?p=$1
-RewriteRule ^download$ download.php
 #RewriteRule ^api/((?:ln|replacements|timetable)/[0-9]{4}-[0-9]{2}-[0-9]{2})\.json$ api.php?p=$1
 #RewriteRule ^(ln|replacements|timetable)$ list.php?what=$1
 #RewriteRule ^$ cron_log.php
