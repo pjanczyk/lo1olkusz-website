@@ -28,7 +28,7 @@ if (!isset($_GET['p']) || strpos($_GET['p'], '..') !== false) {
     exit;
 }
 
-$args = explode('/', $_GET['p']);
+$args = explode('/', trim($_GET['p'], '/'));
 if ($args[0] == 'timetables') {
     include 'api/timetables.php';
 }
