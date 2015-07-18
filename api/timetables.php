@@ -10,18 +10,36 @@ use pjanczyk\lo1olkusz\Timetables;
 
 $model = new Timetables(Database::connect());
 
+function jsonBadRequest() {
+    header('HTTP/1.0 400 Bad request');
+    header('Content-Type: application/json');
+    echo json_encode([ 'error' => 'bad request' ]);
+}
+
+function jsonNotFound() {
+    header('HTTP/1.0 404 Not Found');
+    header('Content-Type: application/json');
+    echo json_encode([ 'error' => 'not found' ]);
+}
+
+function jsonOK($array) {
+    header('Content-Type: application/json');
+    echo json_encode($array);
+}
+
 if (count($args) == 1) { # /api/timetables
     $timetables = $model->getAll([Timetables::FIELD_CLASS]);
-    echo json_encode($timetables);
+    jsonOK($timetables);
 }
-if (count($args) == 2) { # /api/timetables/<class>
-    $class = $args[1];
-
-    $timetable = $model->get($class);
+else if (count($args) == 2) { # /api/timetables/<class>
+    $timetable = $model->get($args[1]);
     if ($timetable !== false) {
-        echo json_encode($timetable);
+        jsonOK($timetable);
     }
     else {
-        echo json_encode([ 'error' => 'not found' ]);
+        jsonNotFound();
     }
+}
+else {
+    jsonBadRequest();
 }
