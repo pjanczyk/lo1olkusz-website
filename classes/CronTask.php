@@ -26,6 +26,8 @@ require_once 'classes/Config.php';
 require_once 'classes/FileHelper.php';
 require_once 'simple_html_dom.php';
 require_once 'classes/ReplacementsProvider.php';
+require_once 'classes/LuckyNumbersTable.php';
+require_once 'classes/ReplacementsTable.php';
 require_once 'classes/LuckyNumberProvider.php';
 require_once 'classes/Database.php';
 require_once 'classes/Status.php';
