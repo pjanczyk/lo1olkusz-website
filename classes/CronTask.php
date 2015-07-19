@@ -56,9 +56,11 @@ class CronTask {
             $lnProvider = new LuckyNumberProvider;
             $webLn = $lnProvider->getLuckyNumber($dom);
             $this->logErrors('LuckyNumberProvider', $lnProvider->getErrors());
+            var_dump($webLn);
             if ($webLn !== null) {
                 $lnMgr = new LuckyNumbersTable($this->db);
                 $savedLn = $lnMgr->get($webLn->date);
+                var_dump($savedLn);
                 if ($savedLn === null || $webLn->value !== $savedLn->value) {
                     $lnMgr->set($webLn->date, $webLn->value);
                 }
