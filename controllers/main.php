@@ -31,9 +31,12 @@ use pjanczyk\lo1olkusz\Status;
 date_default_timezone_set('Europe/Warsaw');
 $statusPath = Config::getDataDir() . 'status';
 
+$alerts = [];
+
 if (isset($_POST['update-status'])) {
     $db = new Database;
     Status::update($db);
+    $alerts[] = 'Updated status';
 }
 
 $statusTimestamp = file_exists($statusPath) ? date('Y-m-d H:i:s', filemtime($statusPath)) : "not exist";
@@ -42,7 +45,13 @@ $statusTimestamp = file_exists($statusPath) ? date('Y-m-d H:i:s', filemtime($sta
 
 <?php include 'html/header.php' ?>
 
+<?php include 'views/alerts.php' ?>
+
 <h4>Status file</h4>
+<form action="/" method="post">
+    <input type="hidden" name="update-status" />
+    <button type="submit" class="btn btn-default">Update status</button>
+</form>
 <a href="/api/status.json"><?=$statusTimestamp?></a>
 
 <?php include 'html/footer.php' ?>
