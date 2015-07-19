@@ -35,7 +35,7 @@ $pages = [
     ],
     'replacements' => [
         'title' => 'Replacements',
-        'include' => 'list.php'
+        'include' => 'replacements.php'
     ],
     'settings' => [
         'title' => 'Settings',
