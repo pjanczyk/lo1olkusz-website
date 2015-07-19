@@ -34,6 +34,10 @@ class LuckyNumberProvider {
         return $this->errors;
     }
 
+    /**
+     * @param \simple_html_dom $dom
+     * @return LuckyNumber|null
+     */
     public function getLuckyNumber($dom) {
         $text = LuckyNumberProvider::findText($dom);
         if ($text === null) {
@@ -76,7 +80,7 @@ class LuckyNumberProvider {
     /**
      * Parses data of lucky number in format "31 XII - 13"
      * @param string $text
-     * @return array
+     * @return LuckyNumber
      * @throws Exception when $text is in invalid format
      */
     private static function parseText($text) {
@@ -125,9 +129,6 @@ class LuckyNumberProvider {
         }
         $number = intval($numberPart);
 
-        return [
-            "date" => $date,
-            "number" => $number
-        ];
+        return new LuckyNumber($date, $number, null);
     }
 }

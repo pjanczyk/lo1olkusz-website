@@ -24,26 +24,33 @@ require_once 'classes/Json.php';
 
 use pjanczyk\lo1olkusz\Json;
 
-//make sure path is specified and does not contain ".."
-if (!isset($_GET['p']) || strpos($_GET['p'], '..') !== false) {
-    header('HTTP/1.0 400 Bad Request');
-    header('Content-Type: application/json');
-    echo '{"error":"bad request"}';
+if (!isset($_GET['p'])) {
+    Json::badRequest();
     exit;
 }
 
 $args = explode('/', trim($_GET['p'], '/'));
-if ($args[0] == 'timetables') {
-    include 'api/timetables.php';
+
+$path = 'api/' . $args[0] . '.php';
+if (file_exists($path)) {
+    include $path;
 }
 else {
-    $path = $_ENV['OPENSHIFT_DATA_DIR'] . $_GET['p'];
-
-    if (!file_exists($path)) {
-        Json::notFound();
-        exit;
-    }
-
-    header('Content-Type: application/json');
-    readfile($path);
+    Json::badRequest();
 }
+
+
+//if ($args[0] == 'timetables') {
+//    include 'api/timetables.php';
+//}
+//else {
+//    $path = $_ENV['OPENSHIFT_DATA_DIR'] . $_GET['p'];
+//
+//    if (!file_exists($path)) {
+//        Json::notFound();
+//        exit;
+//    }
+//
+//    header('Content-Type: application/json');
+//    readfile($path);
+//}

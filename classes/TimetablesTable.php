@@ -4,7 +4,7 @@ namespace pjanczyk\lo1olkusz;
 
 use PDO;
 
-class Timetables {
+class TimetablesTable {
 
     const FIELD_CLASS = 'class';
     const FIELD_LAST_MODIFIED = 'last_modified';

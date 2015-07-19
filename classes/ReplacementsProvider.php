@@ -40,17 +40,7 @@ class ReplacementsProvider {
      * Parses replacements from html.
      * If them cannot be find or they are in incorrect format returns null.
      * @param \simple_html_dom $dom
-     * @return array in format
-     *      [
-     *          "date" => "yyyy-MM-dd",
-     *          "replacements" => [
-     *              string className => [
-     *                  int hour => string replacementText,
-     *                  ...
-     *              ],
-     *              ...
-     *          ]
-     *      ]
+     * @return array(Replacements)|null
      */
 	public function getReplacements($dom) {
 
@@ -73,31 +63,33 @@ class ReplacementsProvider {
             $this->errors[] = "incorrect date format: ".$h4->plaintext;
             return null;
         }
+        $date = $date->format("Y-m-d");
 
         //parse content
         $rows = $table->find('tr');
 
+        /** @var array(Replacements) $replacements */
         $replacements = [];
-
-        $currentClassName = null;
-        $ofCurrentClass = null;
+        /** @var Replacements $current */
+        $current = null;
 
         /** @var \simple_html_dom_node $row */
         foreach ($rows as $i => $row) {
             $cells = $row->find('th, td');
 
             if (count($cells) === 1) { //class name, e.g. | 2a |
-                if ($currentClassName !== null) {
-                    $replacements[$currentClassName] = $ofCurrentClass;
+                if ($current !== null) {
+                    $replacements[] = $current;
                 }
-                $currentClassName = $cells[0]->plaintext;
-                $ofCurrentClass = [];
+                $current = new Replacements;
+                $current->date = $date;
+                $current->class = $cells[0]->plaintext;
+                $current->value = [];
             }
             else if (count($cells) === 2) { //replacement entry, e.g. | 1 | j. niemiecki, mgr T. Wajdzik |
-                if ($currentClassName === null) {
-                    $currentClassName = "<nieznana>";
-                    $ofCurrentClass = [];
-                    $this->errors[] = "row: {$i}, no class name occured before replacement entry";
+                if ($current === null) {
+                    $this->errors[] = "row: {$i}, no class name occurred before replacement text";
+                    continue; //skip this row
                 }
 
                 $hourText = $cells[0]->plaintext;
@@ -105,23 +97,19 @@ class ReplacementsProvider {
 
                 if (!is_numeric($hourText)) {
                     $this->errors[] = "row: {$i}, invalid hour no.: '{$hourText}'";
-                    //skip this row
-                    continue;
+                    continue; //skip this row
                 }
                 $hour = intval($hourText);
 
-                $ofCurrentClass[$hour] = $text;
+                $current->value[$hour] = $text;
             }
         }
 
-        if ($currentClassName != null) {
-            $replacements[$currentClassName] = $ofCurrentClass;
+        if ($current != null) {
+            $replacements[] = $current;
         }
 
-        return [
-            "date" => $date->format("Y-m-d"),
-            "replacements" => $replacements
-        ];
+        return $replacements;
 	}
 
     /**

@@ -2,14 +2,14 @@
 /** @var array $args */
 
 require_once 'classes/Database.php';
-require_once 'classes/Timetables.php';
+require_once 'classes/TimetablesTable.php';
 
 use pjanczyk\lo1olkusz\Database;
-use pjanczyk\lo1olkusz\Timetables;
+use pjanczyk\lo1olkusz\TimetablesTable;
 
 date_default_timezone_set('Europe/Warsaw');
 
-$model = new Timetables(Database::connect());
+$model = new TimetablesTable(Database::connect());
 
 if (isset($args[0])) {
 
@@ -47,6 +47,6 @@ else if (isset($_POST['delete'], $_POST['class'])) {
     }
 }
 
-$timetables = $model->getAll([Timetables::FIELD_CLASS, Timetables::FIELD_LAST_MODIFIED]);
+$timetables = $model->getAll([TimetablesTable::FIELD_CLASS, TimetablesTable::FIELD_LAST_MODIFIED]);
 
 include 'views/timetable_list.php';

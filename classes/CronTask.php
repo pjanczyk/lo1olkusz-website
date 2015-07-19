@@ -35,14 +35,14 @@ use DateTime;
 
 class CronTask {
 
-    /** @var Database */
-    private $data;
+    /** @var \PDO */
+    private $db;
 
     public function run() {
         $now = new DateTime('now', Config::getTimeZone());
         $forceUpdateStatus = ($now->format('Ym') == '0000');
 
-        $this->data = new Database;
+        $this->db = Database::connect();
 
         $url = Config::getUrl();
         $dom = file_get_html($url);
@@ -52,41 +52,37 @@ class CronTask {
         }
         else {
             $lnProvider = new LuckyNumberProvider;
-            $ln = $lnProvider->getLuckyNumber($dom);
+            $webLn = $lnProvider->getLuckyNumber($dom);
             $this->logErrors('LuckyNumberProvider', $lnProvider->getErrors());
-            $updatedLn = $this->update(Database::TYPE_LN, 'ln', $ln);
+            if ($webLn !== null) {
+                $lnMgr = new LuckyNumbersTable($this->db);
+                $savedLn = $lnMgr->get($webLn->date);
+                if ($savedLn === null || $webLn->value !== $savedLn->value) {
+                    $lnMgr->set($webLn->date, $webLn->value);
+                }
+            }
 
             $replsProvider = new ReplacementsProvider;
-            $repls = $replsProvider->getReplacements($dom);
+            $webReplacements = $replsProvider->getReplacements($dom);
             $this->logErrors('ReplacementsProvider', $lnProvider->getErrors());
-            $updatedRepls = $this->update(Database::TYPE_REPLACEMENTS, 'replacements', $repls);
+            if ($webReplacements !== null) {
+                $replsMgr = new ReplacementsTable($this->db);
 
-            if ($forceUpdateStatus || $updatedLn || $updatedRepls
-                || !file_exists(Config::getDataDir() . '/status')) {
+                foreach ($webReplacements as $webReplacement) {
+                    $savedReplacement = $replsMgr->get($webReplacement->class, $webReplacement->date);
+                    if ($savedReplacement === null || $webReplacement->value !== $savedReplacement->value) {
+                        $replsMgr->set($webReplacement->class, $webReplacement->date, $webReplacement->value);
+                    }
+                }
+            }
+
+            if ($forceUpdateStatus || !file_exists(Config::getDataDir() . '/status')) {
                 Status::update($this->data);
                 echo "updated status\n";
             }
 
             echo "done\n";
         }
-    }
-
-    private function update($type, $what, $data) {
-        if ($data !== null) {
-            $json = json_encode($data);
-            $relativePath = $what . '/' . $data['date'];
-            $filePath = Config::getDataDir() . '/' . $relativePath;
-
-            //make sure all parent directories exist
-            FileHelper::createParentDirectories($filePath);
-
-            if (FileHelper::updateFile($filePath, $json)) {
-                $this->data->setLastModified($type, $data['date'], filemtime($filePath));
-                echo "updated {$relativePath}\n";
-                return true;
-            }
-        }
-        return false;
     }
 
     private function logErrors($tag, $errors) {
