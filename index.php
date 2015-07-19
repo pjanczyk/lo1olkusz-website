@@ -31,7 +31,7 @@ $pages = [
     ],
     'ln' => [
         'title' => 'Lucky numbers',
-        'include' => 'list.php'
+        'include' => 'ln.php'
     ],
     'replacements' => [
         'title' => 'Replacements',
