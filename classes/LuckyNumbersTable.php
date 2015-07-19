@@ -38,8 +38,8 @@ class LuckyNumbersTable {
 
         $ln = new LuckyNumber;
         $ln->date = $date;
-        $stmt->bindColumn('lastModified', $ln->lastModified);
-        $stmt->bindColumn('value', $ln->value);
+        $stmt->bindColumn('lastModified', $ln->lastModified, PDO::PARAM_STR);
+        $stmt->bindColumn('value', $ln->value, PDO::PARAM_INT);
 
         $stmt->execute();
 

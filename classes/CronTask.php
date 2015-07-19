@@ -63,6 +63,7 @@ class CronTask {
                 var_dump($savedLn);
                 if ($savedLn === null || $webLn->value !== $savedLn->value) {
                     $lnMgr->set($webLn->date, $webLn->value);
+                    echo "updated ln/{$webLn->date}\n";
                 }
             }
 
@@ -76,6 +77,7 @@ class CronTask {
                     $savedReplacement = $replsMgr->get($webReplacement->class, $webReplacement->date);
                     if ($savedReplacement === null || $webReplacement->value !== $savedReplacement->value) {
                         $replsMgr->set($webReplacement->class, $webReplacement->date, $webReplacement->value);
+                        echo "updated replacements/{$webReplacement->date}/{$webReplacement->class}\n";
                     }
                 }
             }
