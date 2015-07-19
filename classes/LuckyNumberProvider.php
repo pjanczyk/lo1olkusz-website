@@ -23,6 +23,7 @@
 namespace pjanczyk\lo1olkusz;
 
 require_once 'simple_html_dom.php';
+require_once 'classes/LuckyNumber.php';
 
 use Exception;
 
@@ -84,13 +85,15 @@ class LuckyNumberProvider {
      * @throws Exception when $text is in invalid format
      */
     private static function parseText($text) {
+        $ln = new LuckyNumber;
+
         $parts = explode('-', $text);
         if (count($parts) !== 2) {
             throw new Exception("W tekście powinien być tylko jeden myślnik: '{$text}'");
         }
 
         $datePart = trim($parts[0]);
-        $numberPart = trim($parts[1]);
+        $valuePart = trim($parts[1]);
 
         //parse date
         $array = explode(' ', $datePart);
@@ -117,18 +120,18 @@ class LuckyNumberProvider {
 
             $dateTime = new \DateTime;
             $dateTime->setDate($year, $month, $day);
-            $date = $dateTime->format('Y-m-d');
+            $ln->date = $dateTime->format('Y-m-d');
         }
         else {
             throw new Exception("Niewłaściwy format daty: '{$datePart}'");
         }
 
         //parse number
-        if (!is_numeric($numberPart)) {
-            throw new Exception("Niewłaściwy format numeru: '{$numberPart}'");
+        if (!is_numeric($valuePart)) {
+            throw new Exception("Niewłaściwy format numeru: '{$valuePart}'");
         }
-        $number = intval($numberPart);
+        $ln->value = intval($valuePart);
 
-        return new LuckyNumber($date, $number, null);
+        return $ln;
     }
 }

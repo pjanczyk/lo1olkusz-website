@@ -21,8 +21,8 @@
 //Created on 2015-07-10
 
 
-require_once __DIR__.'/../simple_html_dom.php';
-include __DIR__.'/../classes/LuckyNumberProvider.php';
+require_once 'simple_html_dom.php';
+include 'classes/LuckyNumberProvider.php';
 
 
 class LuckyNumberProviderTest extends PHPUnit_Framework_TestCase {
@@ -32,10 +32,13 @@ class LuckyNumberProviderTest extends PHPUnit_Framework_TestCase {
 
         $a = new \pjanczyk\lo1olkusz\LuckyNumberProvider;
         $result = $a->getLuckyNumber($dom);
-        $resultJson = json_encode($result);
-        $correctJson = '{"date":"2015-06-10","number":8}';
 
-        $this->assertEquals($correctJson, $resultJson);
+        $expected = new \pjanczyk\lo1olkusz\LuckyNumber;
+        $expected->date = "2015-06-10";
+        $expected->value = 8;
+        $expected->lastModified = null;
+
+        $this->assertEquals($expected, $result);
         $this->assertEquals([], $a->getErrors());
     }
 

@@ -32,10 +32,47 @@ class ReplacementsProviderTest extends PHPUnit_Framework_TestCase {
 
         $a = new \pjanczyk\lo1olkusz\ReplacementsProvider;
         $result = $a->getReplacements($dom);
-        $resultJson = json_encode($result);
-        $correctJson = '{"date":"2015-06-23","replacements":{"1a":{"5":"matematyka, mgr R. Dylewska"},"1b":{"1":"zaczyna o 9.55"},"1f":{"7":"gr. N6- j.niem, mgr T. Wajdzik"},"2a":{"1":"gr. N9- j.niem, mgr T. Wajdzik","8":"gr. N1- j.niem, mgr T. Wajdzik"},"2d":{"1":"gr. N9- j.niem, mgr T. Wajdzik","2":"gr. N4- j.niem, mgr T. Wajdzik"},"2e":{"1":"gr. N9- j.niem, mgr T. Wajdzik"}}}';
 
-        $this->assertEquals($correctJson, $resultJson);
+        $expected = [];
+
+        $last = new \pjanczyk\lo1olkusz\Replacements;
+        $last->date = "2015-06-23";
+        $last->class = "1a";
+        $last->value = '{"5":"matematyka, mgr R. Dylewska"}';
+        $expected[] = $last;
+
+        $last = new \pjanczyk\lo1olkusz\Replacements;
+        $last->date = "2015-06-23";
+        $last->class = "1b";
+        $last->value = '{"1":"zaczyna o 9.55"}';
+        $expected[] = $last;
+
+        $last = new \pjanczyk\lo1olkusz\Replacements;
+        $last->date = "2015-06-23";
+        $last->class = "1f";
+        $last->value = '{"7":"gr. N6- j.niem, mgr T. Wajdzik"}';
+        $expected[] = $last;
+
+        $last = new \pjanczyk\lo1olkusz\Replacements;
+        $last->date = "2015-06-23";
+        $last->class = "2a";
+        $last->value = '{"1":"gr. N9- j.niem, mgr T. Wajdzik","8":"gr. N1- j.niem, mgr T. Wajdzik"}';
+        $expected[] = $last;
+
+        $last = new \pjanczyk\lo1olkusz\Replacements;
+        $last->date = "2015-06-23";
+        $last->class = "2d";
+        $last->value = '{"1":"gr. N9- j.niem, mgr T. Wajdzik","2":"gr. N4- j.niem, mgr T. Wajdzik"}';
+        $expected[] = $last;
+
+        $last = new \pjanczyk\lo1olkusz\Replacements;
+        $last->date = "2015-06-23";
+        $last->class = "2e";
+        $last->value = '{"1":"gr. N9- j.niem, mgr T. Wajdzik"}';
+        $expected[] = $last;
+
+        $last = new \pjanczyk\lo1olkusz\Replacements;
+        $this->assertEquals($expected, $result);
         $this->assertEquals([], $a->getErrors());
     }
 

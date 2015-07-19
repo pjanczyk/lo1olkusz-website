@@ -23,9 +23,10 @@
 namespace pjanczyk\lo1olkusz;
 
 require_once 'classes/Config.php';
+require_once 'classes/SqlBuilder.php';
 
 use PDO;
-use DateTime;
+use pjanczyk\sql\SqlBuilder;
 
 /*
 CREATE TABLE IF NOT EXISTS `data` (
@@ -55,46 +56,12 @@ class Database {
     }
 
     /**
-     * Sets `last_modification` of data with specific type and date
-     * @param int $type TYPE_LN, TYPE_REPLACEMENTS or TYPE_TIMETABLE
-     * @param string $date
-     * @param int $lastModified timestamp to be set
-     * @return bool
+     * @param string $table
+     * @param array $columns
+     * @return \pjanczyk\sql\internal\SelectBuilder
      */
-    public function setLastModified($type, $date, $lastModified) {
-        $stmt = $this->db->prepare('INSERT INTO `data` (`type`,`date`,`last_modified`) VALUES (:type, :date, FROM_UNIXTIME(:last_modified)) ON DUPLICATE KEY UPDATE `last_modified`=FROM_UNIXTIME(:last_modified)');
-        $stmt->bindParam(':type', $type, PDO::PARAM_INT);
-        $stmt->bindParam(':date', $date, PDO::PARAM_STR);
-        $stmt->bindParam(':last_modified', $lastModified, PDO::PARAM_INT);
-
-        return $stmt->execute();
-    }
-
-    public function getLnAndReplacements() {
-        $stmt = $this->db->prepare('SELECT `type`,`date`,`last_modified` FROM `data` WHERE `date` >= :date');
-        $now = new DateTime('now', Config::getTimeZone());
-        $stmt->bindValue(':date', $now->format('Y-m-d'), PDO::PARAM_STR);;
-        $stmt->bindColumn(1, $typeId);
-        $stmt->bindColumn(2, $date);
-        $stmt->bindColumn(3, $lastModified);
-        $stmt->execute();
-
-        $result = ['ln' => [], 'replacements' => []];
-        while ($row = $stmt->fetch(PDO::FETCH_BOUND)) {
-            switch ($typeId) {
-                case self::TYPE_LN:
-                    $typeName = 'ln';
-                    break;
-                case self::TYPE_REPLACEMENTS;
-                    $typeName = 'replacements';
-                    break;
-                default:
-                    continue;
-            }
-            $result[$typeName][] = ['date' => $date, 'last_modified' => $lastModified];
-        }
-
-        return $result;
+    public function select($table, $columns) {
+        return SqlBuilder::select($table, $columns);
     }
 
     public function getConfig() {

@@ -9,8 +9,14 @@
 namespace pjanczyk\lo1olkusz;
 
 use PDO;
+use pjanczyk\sql\SqlBuilder;
 
 class LuckyNumbersTable {
+
+    const FIELD_CLASS = 'class';
+    const FIELD_DATE = 'date';
+    const FIELD_LAST_MODIFIED = 'lastModified';
+    const FIELD_VALUE = 'value';
 
     /** @var PDO */
     private $db;
@@ -42,6 +48,27 @@ class LuckyNumbersTable {
         }
         else {
             return null;
+        }
+    }
+
+    /**
+     * @param array $fields array of requested columns
+     * @return array
+     */
+    public function getAll($fields) {
+        $sql = SqlBuilder::select('ln', $fields)
+            ->orderAsc('date')
+            ->orderAsc('class')
+            ->sql();
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+
+        if (count($fields) == 1) {
+            return $stmt->fetchAll(PDO::FETCH_COLUMN);
+        }
+        else {
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     }
 
