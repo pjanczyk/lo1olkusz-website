@@ -11,6 +11,6 @@ date_default_timezone_set('Europe/Warsaw');
 
 $model = new LuckyNumbersTable(Database::connect());
 
-$lns = $model->getAll([LuckyNumbersTable::FIELD_CLASS, LuckyNumbersTable::FIELD_LAST_MODIFIED]);
+$lns = $model->getAll([LuckyNumbersTable::FIELD_DATE, LuckyNumbersTable::FIELD_LAST_MODIFIED]);
 
 include 'views/ln_list.php';
