@@ -20,34 +20,40 @@
 
 //Created on 2015-07-13
 
+namespace pjanczyk\lo1olkusz\Dashboard;
+
 use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Database;
 use pjanczyk\lo1olkusz\Status;
 
-date_default_timezone_set('Europe/Warsaw');
-$statusPath = Config::getDataDir() . 'status';
+class DefaultController extends Controller {
 
-$alerts = [];
+    public function index() {
+        $statusPath = Config::getDataDir() . 'status';
 
-if (isset($_POST['update-status'])) {
-    $db = new Database;
-    Status::update($db);
-    $alerts[] = 'Updated status';
+        $alerts = [];
+
+        if (isset($_POST['update-status'])) {
+            $db = new Database;
+            Status::update($db);
+            $alerts[] = 'Updated status';
+        }
+
+        $statusTimestamp = file_exists($statusPath) ? date('Y-m-d H:i:s', filemtime($statusPath)) : "not exist";
+        ?>
+
+
+        <?php include 'html/header.php' ?>
+
+        <?php include 'views/alerts.php' ?>
+
+        <h4>Status file</h4>
+        <form action="/" method="post">
+            <input type="hidden" name="update-status" />
+            <button type="submit" class="btn btn-default">Update status</button>
+        </form>
+        <a href="/api/status.json"><?=$statusTimestamp?></a>
+
+        <?php include 'html/footer.php';
+    }
 }
-
-$statusTimestamp = file_exists($statusPath) ? date('Y-m-d H:i:s', filemtime($statusPath)) : "not exist";
-?>
-
-
-<?php include 'html/header.php' ?>
-
-<?php include 'views/alerts.php' ?>
-
-<h4>Status file</h4>
-<form action="/" method="post">
-    <input type="hidden" name="update-status" />
-    <button type="submit" class="btn btn-default">Update status</button>
-</form>
-<a href="/api/status.json"><?=$statusTimestamp?></a>
-
-<?php include 'html/footer.php' ?>

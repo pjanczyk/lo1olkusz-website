@@ -20,49 +20,56 @@
 
 //Created on 2015-07-15
 
+namespace pjanczyk\lo1olkusz\Dashboard;
+
 use pjanczyk\lo1olkusz\Database;
 use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Status;
 
-date_default_timezone_set('Europe/Warsaw');
+class SettingsController extends Controller {
 
-$data = new Database;
+    public function index() {
+        global $apkVersion;
+        global $apkFileLastModified;
 
-$apkPath = Config::getDataDir() . 'apk';
+        $data = new Database;
 
-$alerts = [];
-$updateStatus = false;
+        $apkPath = Config::getDataDir() . 'apk';
 
-if (isset($_FILES['apk-file'])
-    && $_FILES['apk-file']['error'] == UPLOAD_ERR_OK) {
+        $alerts = [];
+        $updateStatus = false;
 
-    $tmpName = $_FILES['apk-file']["tmp_name"];
-    if (move_uploaded_file($tmpName, $apkPath)) {
-        $alerts[] = 'Changed APK file';
+        if (isset($_FILES['apk-file'])
+            && $_FILES['apk-file']['error'] == UPLOAD_ERR_OK) {
+
+            $tmpName = $_FILES['apk-file']["tmp_name"];
+            if (move_uploaded_file($tmpName, $apkPath)) {
+                $alerts[] = 'Changed APK file';
+            }
+        }
+
+        if (isset($_POST['apk-version'])) {
+            if ($data->setConfigValue('version', $_POST['apk-version'])) {
+                $alerts[] = 'Changed APK version';
+                $updateStatus = true;
+            }
+        }
+
+        if ($updateStatus) {
+            Status::update($data);
+            $alerts[] = 'Updated status file';
+        }
+
+        $config = $data->getConfig();
+
+        if (isset($config['version'])) {
+            $apkVersion = $config['version'];
+        }
+        if (file_exists($apkPath)) {
+            $apkFileLastModified = date('Y-m-d H:i:s', filemtime($apkPath));
+        }
+
+        include 'views/settings.php';
     }
 }
-
-if (isset($_POST['apk-version'])) {
-    if ($data->setConfigValue('version', $_POST['apk-version'])) {
-        $alerts[] = 'Changed APK version';
-        $updateStatus = true;
-    }
-}
-
-if ($updateStatus) {
-    Status::update($data);
-    $alerts[] = 'Updated status file';
-}
-
-$config = $data->getConfig();
-
-if (isset($config['version'])) {
-    $apkVersion = $config['version'];
-}
-if (file_exists($apkPath)) {
-    $apkFileLastModified = date('Y-m-d H:i:s', filemtime($apkPath));
-}
-
-
-include 'views/settings.php';
 
