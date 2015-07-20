@@ -1,5 +1,4 @@
 <?php
-/** @var array $args */
 
 namespace pjanczyk\lo1olkusz\Dashboard;
 
@@ -17,4 +16,3 @@ class replacements extends Controller {
         include 'views/replacements_list.php';
     }
 }
-

@@ -1,16 +1,19 @@
 <?php
-/** @var array $args */
 
-require_once 'classes/Database.php';
+namespace pjanczyk\lo1olkusz\Dashboard;
+
+require_once 'controllers/Controller.php';
 require_once 'classes/LuckyNumbersTable.php';
 
-use pjanczyk\lo1olkusz\Database;
 use pjanczyk\lo1olkusz\LuckyNumbersTable;
 
-date_default_timezone_set('Europe/Warsaw');
+class ln extends Controller {
 
-$model = new LuckyNumbersTable(Database::connect());
-
-$lns = $model->getAll([LuckyNumbersTable::FIELD_DATE, LuckyNumbersTable::FIELD_LAST_MODIFIED]);
-
-include 'views/ln_list.php';
+    public function index() {
+        $model = new LuckyNumbersTable($this->db);
+        global $lns;
+        $lns = $model->getAll([LuckyNumbersTable::FIELD_DATE,
+            LuckyNumbersTable::FIELD_LAST_MODIFIED, LuckyNumbersTable::FIELD_LAST_MODIFIED]);
+        include 'views/ln_list.php';
+    }
+}

@@ -63,7 +63,7 @@ function start() {
     $url = trim($url, '/');
     $url = filter_var($url, FILTER_SANITIZE_URL);
     $url = explode('/', $url);
-    $controllerName = isset($url[0]) ? $url[0] : 'default';
+    $controllerName = isset($url[0]) ? $url[0] : 'index';
     $controllerClass = 'pjanczyk\lo1olkusz\Dashboard\\' . $controllerName;
     $action = isset($url[1]) ? $url[1] : 'index';
     unset($url[0], $url[1]);
