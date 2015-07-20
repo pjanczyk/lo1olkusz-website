@@ -62,7 +62,7 @@ class CronTask {
                 $savedLn = $lnMgr->get($webLn->date);
                 var_dump($savedLn);
                 if ($savedLn === null || $webLn->value !== $savedLn->value) {
-                    $lnMgr->set($webLn->date, $webLn->value);
+                    $lnMgr->setValue($webLn->date, $webLn->value);
                     echo "updated ln/{$webLn->date}\n";
                 }
             }

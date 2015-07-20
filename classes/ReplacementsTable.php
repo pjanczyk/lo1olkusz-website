@@ -12,6 +12,11 @@ use PDO;
 
 class ReplacementsTable {
 
+    const FIELD_CLASS = 'class';
+    const FIELD_DATE = 'date';
+    const FIELD_LAST_MODIFIED = 'lastModified';
+    const FIELD_VALUE = 'value';
+
     /** @varPDO */
     private $db;
 

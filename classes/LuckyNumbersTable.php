@@ -8,6 +8,8 @@
 
 namespace pjanczyk\lo1olkusz;
 
+require_once 'classes/LuckyNumber.php';
+
 use PDO;
 use pjanczyk\sql\SqlBuilder;
 
@@ -35,15 +37,13 @@ class LuckyNumbersTable {
     public function get($date) {
         $stmt = $this->db->prepare('SELECT `lastModified`,`value` FROM `ln` WHERE `date`=:date');
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
-
-        $ln = new LuckyNumber;
-        $ln->date = $date;
-        $stmt->bindColumn('lastModified', $ln->lastModified, PDO::PARAM_STR);
-        $stmt->bindColumn('value', $ln->value, PDO::PARAM_INT);
-
         $stmt->execute();
 
-        if ($stmt->fetch(PDO::FETCH_BOUND) !== false) {
+        $ln = $stmt->fetchObject('pjanczyk\lo1olkusz\LuckyNumber');
+
+        if ($ln !== false) {
+            $ln->date = $date;
+
             return $ln;
         }
         else {
@@ -53,7 +53,7 @@ class LuckyNumbersTable {
 
     /**
      * @param array $fields array of requested columns
-     * @return array
+     * @return array(LuckyNumber)
      */
     public function getAll($fields) {
         $sql = SqlBuilder::select('ln', $fields)
@@ -64,12 +64,7 @@ class LuckyNumbersTable {
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
 
-        if (count($fields) == 1) {
-            return $stmt->fetchAll(PDO::FETCH_COLUMN);
-        }
-        else {
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\LuckyNumber');;
     }
 
     /**
@@ -77,7 +72,7 @@ class LuckyNumbersTable {
      * @param int $value
      * @return bool
      */
-    public function set($date, $value) {
+    public function setValue($date, $value) {
         $stmt = $this->db->prepare('INSERT INTO `ln` (`date`,`value`) VALUES (:date, :value) ON DUPLICATE KEY UPDATE `value`=:value');
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
         $stmt->bindParam(':value', $value, PDO::PARAM_INT);
