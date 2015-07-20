@@ -8,6 +8,8 @@
 
 namespace pjanczyk\lo1olkusz;
 
+require_once 'classes/ReplacementsTable.php';
+
 use PDO;
 use pjanczyk\sql\SqlBuilder;
 
