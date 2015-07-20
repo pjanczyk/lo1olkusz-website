@@ -8,7 +8,7 @@
 
 namespace pjanczyk\lo1olkusz;
 
-require_once 'classes/ReplacementsTable.php';
+require_once 'classes/Replacements.php';
 
 use PDO;
 use pjanczyk\sql\SqlBuilder;
@@ -71,7 +71,7 @@ class ReplacementsTable {
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\Replacements');;
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\Replacements');
     }
 
     /**
