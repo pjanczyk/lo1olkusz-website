@@ -20,10 +20,6 @@
 
 //Created on 2015-07-15
 
-require_once 'src/Config.php';
-require_once 'src/Database.php';
-require_once 'src/Status.php';
-
 use pjanczyk\lo1olkusz\Database;
 use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Status;

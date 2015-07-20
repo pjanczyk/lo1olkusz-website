@@ -20,8 +20,6 @@
 
 //Created on 2015-07-10
 
-include 'src/Config.php';
-
 use pjanczyk\lo1olkusz\Config;
 
 $path = Config::getLogDir() . 'cron.log';

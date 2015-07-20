@@ -2,9 +2,6 @@
 
 namespace pjanczyk\lo1olkusz\Dashboard;
 
-require_once 'controllers/Controller.php';
-require_once 'src/LuckyNumbersTable.php';
-
 use pjanczyk\lo1olkusz\LuckyNumbersTable;
 
 class LuckyNumbersController extends Controller {
