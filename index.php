@@ -82,7 +82,7 @@ function start() {
 
     $controllerName = $map[$mapKey];
     $controllerClass = 'pjanczyk\lo1olkusz\Dashboard\\' . $controllerName;
-    $controllerPath = 'controllers/' . $controllerName . '.php';
+    $controllerPath = 'src/Dashboard/' . $controllerName . '.php';
 
     $action = isset($url[1]) ? $url[1] : 'index';
     unset($url[0], $url[1]);
