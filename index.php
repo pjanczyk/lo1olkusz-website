@@ -63,7 +63,8 @@ function start() {
     $url = trim($url, '/');
     $url = filter_var($url, FILTER_SANITIZE_URL);
     $url = explode('/', $url);
-    $controllerName = 'pjanczyk\lo1olkusz\Dashboard\\' . (isset($url[0]) ? $url[0] : 'default');
+    $controllerName = isset($url[0]) ? $url[0] : 'default';
+    $controllerClass = 'pjanczyk\lo1olkusz\Dashboard\\' . $controllerName;
     $action = isset($url[1]) ? $url[1] : 'index';
     unset($url[0], $url[1]);
     $params = array_values($url);
@@ -71,7 +72,7 @@ function start() {
     $controllerPath = 'controllers/' . $controllerName . '.php';
     if (file_exists($controllerPath)) {
         require $controllerPath;
-        $controller = new $controllerName($db);
+        $controller = new $controllerClass($db);
         if (method_exists($controller, $action)) {
             call_user_func_array([$controller, $action], $params);
         }
@@ -79,6 +80,10 @@ function start() {
             header('HTTP/1.0 404 Not Found');
             include 'html/404.html';
         }
+    }
+    else {
+        header('HTTP/1.0 404 Not Found');
+        include 'html/404.html';
     }
 }
 
