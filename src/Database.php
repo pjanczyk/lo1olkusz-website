@@ -22,8 +22,8 @@
 
 namespace pjanczyk\lo1olkusz;
 
-require_once 'classes/Config.php';
-require_once 'classes/SqlBuilder.php';
+require_once 'src/Config.php';
+require_once 'src/SqlBuilder.php';
 
 use PDO;
 use pjanczyk\sql\SqlBuilder;

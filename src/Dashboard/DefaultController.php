@@ -20,9 +20,9 @@
 
 //Created on 2015-07-13
 
-require_once 'classes/Config.php';
-require_once 'classes/Database.php';
-require_once 'classes/Status.php';
+require_once 'src/Config.php';
+require_once 'src/Database.php';
+require_once 'src/Status.php';
 
 use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Database;

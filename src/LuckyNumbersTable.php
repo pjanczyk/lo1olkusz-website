@@ -8,7 +8,7 @@
 
 namespace pjanczyk\lo1olkusz;
 
-require_once 'classes/LuckyNumber.php';
+require_once 'src/LuckyNumber.php';
 
 use PDO;
 use pjanczyk\sql\SqlBuilder;

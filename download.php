@@ -1,6 +1,6 @@
 <?php
 
-require_once 'classes/Config.php';
+require_once 'src/Config.php';
 
 use pjanczyk\lo1olkusz\Config;
 

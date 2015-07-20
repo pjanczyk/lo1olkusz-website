@@ -24,7 +24,7 @@
 //turn on reporting all errors (they are written to stderr)
 error_reporting(E_ALL|E_STRICT);
 
-include 'classes/CronTask.php';
+include 'src/CronTask.php';
 
 use pjanczyk\lo1olkusz\CronTask;
 

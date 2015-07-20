@@ -20,7 +20,7 @@
 
 //Created on 2015-07-10
 
-require_once 'classes/Json.php';
+require_once 'src/Json.php';
 
 use pjanczyk\lo1olkusz\Json;
 

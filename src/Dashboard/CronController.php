@@ -20,7 +20,7 @@
 
 //Created on 2015-07-10
 
-include 'classes/Config.php';
+include 'src/Config.php';
 
 use pjanczyk\lo1olkusz\Config;
 

@@ -22,7 +22,7 @@
 
 
 require_once 'simple_html_dom.php';
-include 'classes/LuckyNumberProvider.php';
+include 'src/LuckyNumberProvider.php';
 
 
 class LuckyNumberProviderTest extends PHPUnit_Framework_TestCase {

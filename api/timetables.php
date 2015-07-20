@@ -2,9 +2,9 @@
 
 /** @var array $args */
 
-require_once 'classes/Database.php';
-require_once 'classes/TimetablesTable.php';
-require_once 'classes/Json.php';
+require_once 'src/Database.php';
+require_once 'src/TimetablesTable.php';
+require_once 'src/Json.php';
 
 use pjanczyk\lo1olkusz\Database;
 use pjanczyk\lo1olkusz\TimetablesTable;

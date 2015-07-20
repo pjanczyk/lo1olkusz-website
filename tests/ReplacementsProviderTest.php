@@ -22,7 +22,7 @@
 
 
 require_once __DIR__.'/../simple_html_dom.php';
-include __DIR__.'/../classes/ReplacementsProvider.php';
+include __DIR__ . '/../src/ReplacementsProvider.php';
 
 
 class ReplacementsProviderTest extends PHPUnit_Framework_TestCase {

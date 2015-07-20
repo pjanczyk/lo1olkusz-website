@@ -6,7 +6,7 @@
  * Time: 22:02
  */
 
-include 'classes/SqlBuilder.php';
+include 'src/SqlBuilder.php';
 
 use pjanczyk\sql\SqlBuilder;
 

@@ -3,7 +3,7 @@
 namespace pjanczyk\lo1olkusz\Dashboard;
 
 require_once 'controllers/Controller.php';
-require_once 'classes/ReplacementsTable.php';
+require_once 'src/ReplacementsTable.php';
 
 use pjanczyk\lo1olkusz\ReplacementsTable;
 

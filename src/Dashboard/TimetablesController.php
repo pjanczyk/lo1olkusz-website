@@ -2,7 +2,7 @@
 namespace pjanczyk\lo1olkusz\Dashboard;
 
 require_once 'controllers/Controller.php';
-require_once 'classes/TimetablesTable.php';
+require_once 'src/TimetablesTable.php';
 
 use pjanczyk\lo1olkusz\TimetablesTable;
 

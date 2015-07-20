@@ -24,7 +24,7 @@ ini_set('display_errors',1);
 ini_set('display_startup_errors',1);
 error_reporting(E_ALL|E_STRICT);
 
-require_once 'classes/Database.php';
+require_once 'src/Database.php';
 
 use pjanczyk\lo1olkusz\Database;
 
@@ -52,19 +52,19 @@ $menu = [
     ]
 ];
 
-$map = [
-    'replacements' => 'ReplacementsController',
-    'lucky-numbers' => 'LuckyNumbersController',
-    'timetables' => 'TimetablesController',
-    'settings' => 'SettingsController',
-    'cron' => 'CronController',
-    'default' => 'DefaultController'
-];
-
-$controllersNamespace = 'pjanczyk\lo1olkusz\Dashboard\\';
-
 
 function start() {
+    $map = [
+        'replacements' => 'ReplacementsController',
+        'lucky-numbers' => 'LuckyNumbersController',
+        'timetables' => 'TimetablesController',
+        'settings' => 'SettingsController',
+        'cron' => 'CronController',
+        'default' => 'DefaultController'
+    ];
+
+    $controllersNamespace = 'pjanczyk\lo1olkusz\Dashboard\\';
+
     date_default_timezone_set('Europe/Warsaw');
     $db = Database::connect();
 
