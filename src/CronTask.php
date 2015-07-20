@@ -22,15 +22,7 @@
 
 namespace pjanczyk\lo1olkusz;
 
-require_once 'src/Config.php';
-require_once 'src/FileHelper.php';
 require_once 'simple_html_dom.php';
-require_once 'src/ReplacementsProvider.php';
-require_once 'src/LuckyNumbersTable.php';
-require_once 'src/ReplacementsTable.php';
-require_once 'src/LuckyNumberProvider.php';
-require_once 'src/Database.php';
-require_once 'src/Status.php';
 
 use DateTime;
 

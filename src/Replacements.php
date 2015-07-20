@@ -8,7 +8,6 @@
 
 namespace pjanczyk\lo1olkusz;
 
-
 class Replacements {
     /** @var string */
     public $class;

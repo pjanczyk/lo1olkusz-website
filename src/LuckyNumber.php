@@ -8,7 +8,6 @@
 
 namespace pjanczyk\lo1olkusz;
 
-
 class LuckyNumber {
     /** @var string */
     public $date;

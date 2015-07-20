@@ -22,10 +22,7 @@
 
 namespace pjanczyk\lo1olkusz;
 
-require_once 'src/Config.php';
-require_once 'src/FileHelper.php';
-
-use \DateTime;
+use DateTime;
 
 class Logger {
 

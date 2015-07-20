@@ -23,7 +23,6 @@
 namespace pjanczyk\lo1olkusz;
 
 require_once 'simple_html_dom.php';
-require_once 'src/LuckyNumber.php';
 
 use Exception;
 

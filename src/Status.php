@@ -22,9 +22,6 @@
 
 namespace pjanczyk\lo1olkusz;
 
-require_once 'src/FileHelper.php';
-
-
 class Status {
     /**
      * @param Database $database
