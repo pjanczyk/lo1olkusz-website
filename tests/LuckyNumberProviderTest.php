@@ -20,9 +20,8 @@
 
 //Created on 2015-07-10
 
-
-require_once 'simple_html_dom.php';
-include 'src/LuckyNumberProvider.php';
+require 'autoloader.php';
+require_once 'libs/simple_html_dom.php';
 
 
 class LuckyNumberProviderTest extends PHPUnit_Framework_TestCase {

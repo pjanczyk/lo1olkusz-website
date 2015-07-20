@@ -6,7 +6,7 @@
  * Time: 22:02
  */
 
-include 'src/SqlBuilder.php';
+require 'autoloader.php';
 
 use pjanczyk\sql\SqlBuilder;
 

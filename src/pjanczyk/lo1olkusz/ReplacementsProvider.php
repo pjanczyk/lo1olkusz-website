@@ -22,7 +22,7 @@
 
 namespace pjanczyk\lo1olkusz;
 
-require_once 'simple_html_dom.php';
+require_once 'libs/simple_html_dom.php';
 
 /**
  * Gets data of replacements from the official website, parsing it from html
