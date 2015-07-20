@@ -25,6 +25,6 @@ class Json {
 
     public static function OK($array) {
         header('Content-Type: application/json');
-        echo json_encode($array);
+        echo json_encode($array, JSON_FORCE_OBJECT);
     }
 }

@@ -12,7 +12,7 @@ $model = new LuckyNumbersTable(Database::connect());
 
 if (count($args) == 2) { # /api/ln/<date>
     $ln = $model->get($args[1]);
-    if ($ln !== false) {
+    if ($ln !== null) {
         Json::OK($ln);
     }
     else {
