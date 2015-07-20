@@ -14,13 +14,13 @@
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($timetables as $t): ?>
+        <?php foreach ($replacements as $r): ?>
             <tr>
-                <td><?=$t->date?></td>
-                <td><?=$t->class?></td>
-                <td><?=$t->lastModified?></td>
+                <td><?=$r->date?></td>
+                <td><?=$r->class?></td>
+                <td><?=$r->lastModified?></td>
                 <td>
-                    <a class="btn btn-default btn-xs" href="/api/replacements/<?=$t->date?>/<?=$t->class?>">Show API</a>
+                    <a class="btn btn-default btn-xs" href="/api/replacements/<?=$r->date?>/<?=$r->class?>">Show API</a>
                 </td>
             </tr>
         <? endforeach ?>
