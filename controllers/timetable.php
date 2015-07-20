@@ -1,50 +1,56 @@
 <?php
-/** @var array $args */
+namespace pjanczyk\lo1olkusz\Dashboard;
 
+require_once 'controllers/Controller.php';
 require_once 'classes/TimetablesTable.php';
 
 use pjanczyk\lo1olkusz\TimetablesTable;
 
-date_default_timezone_set('Europe/Warsaw');
+class timetables extends Controller {
 
-$model = new TimetablesTable($db);
+    public function index() {
+        $model = new TimetablesTable($this->db);
+        $alerts = [];
 
-if (isset($args[0])) {
+        if (isset($_POST['edit'], $_POST['class'], $_POST['timetable'])) {
+            if ($model->set($_POST['class'], $_POST['timetable'])) {
+                $alerts[] = "Saved timetable of \"{$_POST['class']}\"";
+            }
+        }
+        else if (isset($_POST['delete'], $_POST['class'])) {
+            if ($model->delete($_POST['class'])) {
+                $alerts[] = "Deleted timetable of \"{$_POST['class']}\"";
+            }
+        }
 
-    if ($args[0] == 'add') {
+        global $timetables;
+        $timetables = $model->getAll([TimetablesTable::FIELD_CLASS, TimetablesTable::FIELD_LAST_MODIFIED]);
+
+        include 'views/timetable_list.php';
+    }
+
+    public function add() {
+        global $timetable;
         $timetable = false;
         include 'views/timetable_edit.php';
-        exit;
     }
 
-    if ($args[0] == 'edit' && isset($args[1])) {
-        $timetable = $model->get($args[1]);
+    public function edit($class) {
+        $model = new TimetablesTable($this->db);
+        global $timetable;
+        $timetable = $model->get($class);
         include 'views/timetable_edit.php';
-        exit;
     }
 
-    if ($args[0] == 'delete' && isset($args[1])) {
-        $timetable = $model->get($args[1]);
+    public function delete($class) {
+        $model = new TimetablesTable($this->db);
+        global $timetable;
+        $timetable = $model->get($class);
         if ($timetable !== false) {
             include 'views/timetable_delete.php';
-            exit;
+        }
+        else {
+            $this->index();
         }
     }
 }
-
-$alerts = [];
-
-if (isset($_POST['edit'], $_POST['class'], $_POST['timetable'])) {
-    if ($model->set($_POST['class'], $_POST['timetable'])) {
-        $alerts[] = "Saved timetable of \"{$_POST['class']}\"";
-    }
-}
-else if (isset($_POST['delete'], $_POST['class'])) {
-    if ($model->delete($_POST['class'])) {
-        $alerts[] = "Deleted timetable of \"{$_POST['class']}\"";
-    }
-}
-
-$timetables = $model->getAll([TimetablesTable::FIELD_CLASS, TimetablesTable::FIELD_LAST_MODIFIED]);
-
-include 'views/timetable_list.php';
