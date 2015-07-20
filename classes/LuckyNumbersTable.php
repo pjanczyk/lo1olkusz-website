@@ -15,7 +15,6 @@ use pjanczyk\sql\SqlBuilder;
 
 class LuckyNumbersTable {
 
-    const FIELD_CLASS = 'class';
     const FIELD_DATE = 'date';
     const FIELD_LAST_MODIFIED = 'lastModified';
     const FIELD_VALUE = 'value';
@@ -58,7 +57,6 @@ class LuckyNumbersTable {
     public function getAll($fields) {
         $sql = SqlBuilder::select('ln', $fields)
             ->orderAsc('date')
-            ->orderAsc('class')
             ->sql();
 
         $stmt = $this->db->prepare($sql);

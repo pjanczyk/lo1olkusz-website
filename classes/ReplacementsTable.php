@@ -9,6 +9,7 @@
 namespace pjanczyk\lo1olkusz;
 
 use PDO;
+use pjanczyk\sql\SqlBuilder;
 
 class ReplacementsTable {
 
@@ -33,25 +34,42 @@ class ReplacementsTable {
      * @return null|Replacements
      */
     public function get($class, $date) {
-        $stmt = $this->db->prepare('SELECT `value`,`lastModified` FROM `replacements`
-WHERE `date`=:date AND `class`=:class');
+        $sql = SqlBuilder::select('replacements', [self::FIELD_VALUE, self::FIELD_LAST_MODIFIED])
+            ->where('`date`=:date AND `class`=:class')
+            ->sql();
+
+        $stmt = $this->db->prepare($sql);
 
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
         $stmt->bindParam(':class', $class, PDO::PARAM_STR);
-
-        $replacements = new Replacements;
-        $replacements->class = $class;
-        $replacements->date = $date;
-        $stmt->bindColumn('value', $replacements->value);
-        $stmt->bindColumn('lastModified', $replacements->lastModified);
         $stmt->execute();
+        $replacements = $stmt->fetchObject('pjanczyk\lo1olkusz\Replacements');
 
-        if ($stmt->fetch(PDO::FETCH_BOUND) !== false) {
+        if ($replacements !== false) {
+            $replacements->class = $class;
+            $replacements->date = $date;
+
             return $replacements;
         }
         else {
             return null;
         }
+    }
+
+    /**
+     * @param array $fields array of requested columns
+     * @return array(LuckyNumber)
+     */
+    public function getAll($fields) {
+        $sql = SqlBuilder::select('replacements', $fields)
+            ->orderAsc('date')
+            ->orderAsc('class')
+            ->sql();
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\LuckyNumber');;
     }
 
     /**
