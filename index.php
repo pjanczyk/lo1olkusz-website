@@ -82,15 +82,13 @@ spl_autoload_register(function ($class) {
 
 function start() {
     $map = [
-        'replacements' => 'ReplacementsController',
-        'lucky-numbers' => 'LuckyNumbersController',
-        'timetables' => 'TimetablesController',
-        'settings' => 'SettingsController',
-        'cron' => 'CronController',
-        'default' => 'DefaultController'
+        'replacements' => 'pjanczyk\lo1olkusz\Dashboard\ReplacementsController',
+        'lucky-numbers' => 'pjanczyk\lo1olkusz\Dashboard\LuckyNumbersController',
+        'timetables' => 'pjanczyk\lo1olkusz\Dashboard\TimetablesController',
+        'settings' => 'pjanczyk\lo1olkusz\Dashboard\SettingsController',
+        'cron' => 'pjanczyk\lo1olkusz\Dashboard\CronController',
+        'default' => 'pjanczyk\lo1olkusz\Dashboard\DefaultController'
     ];
-
-    $controllersNamespace = 'pjanczyk\lo1olkusz\Dashboard\\';
 
     date_default_timezone_set('Europe/Warsaw');
     $db = Database::connect();
@@ -107,24 +105,24 @@ function start() {
         $mapKey = 'default';
     }
 
-    $controllerName = $map[$mapKey];
-    $controllerClass = 'pjanczyk\lo1olkusz\Dashboard\\' . $controllerName;
-    $controllerPath = 'src/Dashboard/' . $controllerName . '.php';
+    $controllerClass = $map[$mapKey];
 
     $action = isset($url[1]) ? $url[1] : 'index';
     unset($url[0], $url[1]);
     $params = array_values($url);
 
-    if (file_exists($controllerPath)) {
-        require $controllerPath;
+    //try {
         $controller = new $controllerClass($db);
-        if (method_exists($controller, $action)) {
-            call_user_func_array([$controller, $action], $params);
-        }
-        else {
-            header('HTTP/1.0 404 Not Found');
-            include 'html/404.html';
-        }
+//    }
+//    catch (Exception $e) {
+//        header('HTTP/1.0 404 Not Found');
+//        include 'html/404.html';
+//        exit;
+//    }
+
+
+    if (method_exists($controller, $action)) {
+        call_user_func_array([$controller, $action], $params);
     }
     else {
         header('HTTP/1.0 404 Not Found');
