@@ -24,39 +24,57 @@ ini_set('display_errors',1);
 ini_set('display_startup_errors',1);
 error_reporting(E_ALL|E_STRICT);
 
-$pages = [
-    'cron' => [
-        'title' => 'Cron',
-        'include' => 'cron.php'
-    ],
-    'ln' => [
-        'title' => 'Lucky numbers',
-        'include' => 'ln.php'
-    ],
-    'replacements' => [
-        'title' => 'Replacements',
-        'include' => 'replacements.php'
-    ],
-    'settings' => [
-        'title' => 'Settings',
-        'include' => 'settings.php'
-    ],
-    'timetable' => [
-        'title' => 'Timetables',
-        'include' => 'timetable.php'
-    ]
-];
+require_once 'classes/Database.php';
 
-$get = isset($_GET['p']) ? $_GET['p'] : '';
-$args = explode('/', $get);
-$currentPage = $args[0];
-$args = array_slice($args, 1);
+use pjanczyk\lo1olkusz\Database;
 
-if (isset($pages[$currentPage])) {
-    include 'controllers/' . $pages[$currentPage]['include'];
+//$pages = [
+//    'cron' => [
+//        'title' => 'Cron',
+//        'include' => 'cron.php'
+//    ],
+//    'ln' => [
+//        'title' => 'Lucky numbers',
+//        'include' => 'ln.php'
+//    ],
+//    'replacements' => [
+//        'title' => 'Replacements',
+//        'include' => 'replacements.php'
+//    ],
+//    'settings' => [
+//        'title' => 'Settings',
+//        'include' => 'settings.php'
+//    ],
+//    'timetable' => [
+//        'title' => 'Timetables',
+//        'include' => 'timetable.php'
+//    ]
+//];
+
+
+function start() {
+    date_default_timezone_set('Europe/Warsaw');
+    $db = Database::connect();
+
+    $url = isset($_GET['p']) ? $_GET['p'] : '';
+    $url = trim($url, '/');
+    $url = filter_var($url, FILTER_SANITIZE_URL);
+    $url = explode('/', $url);
+    $controllerName = isset($url[0]) ? $url[0] : 'default';
+    $action = isset($url[1]) ? $url[1] : 'index';
+    unset($url[0], $url[1]);
+    $params = array_values($url);
+
+    $controllerPath = 'controllers/' . $controllerName . '.php';
+    if (file_exists($controllerPath)) {
+        require $controllerPath;
+        $controller = new $controllerName($db);
+        if (method_exists($controller, $action)) {
+            call_user_func_array([$controller, $action], $params);
+        }
+        else {
+            header('HTTP/1.0 404 Not Found');
+            include 'html/404.html';
+        }
+    }
 }
-else {
-    include 'controllers/main.php';
-}
-
-

@@ -1,16 +1,20 @@
 <?php
 /** @var array $args */
 
-require_once 'classes/Database.php';
+namespace pjanczyk\lo1olkusz\dashboard;
+
+require_once 'controllers/Controller.php';
 require_once 'classes/ReplacementsTable.php';
 
-use pjanczyk\lo1olkusz\Database;
 use pjanczyk\lo1olkusz\ReplacementsTable;
 
-date_default_timezone_set('Europe/Warsaw');
+class replacements extends Controller {
 
-$model = new ReplacementsTable(Database::connect());
+    public function index() {
+        $model = new ReplacementsTable($this->db);
+        global $replacements;
+        $replacements = $model->getAll([ReplacementsTable::FIELD_DATE, ReplacementsTable::FIELD_CLASS, ReplacementsTable::FIELD_LAST_MODIFIED]);
+        include 'views/replacements_list.php';
+    }
+}
 
-$lns = $model->getAll([ReplacementsTable::FIELD_DATE, ReplacementsTable::FIELD_CLASS, ReplacementsTable::FIELD_LAST_MODIFIED]);
-
-include 'views/ln_list.php';

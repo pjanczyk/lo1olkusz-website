@@ -1,15 +1,13 @@
 <?php
 /** @var array $args */
 
-require_once 'classes/Database.php';
 require_once 'classes/TimetablesTable.php';
 
-use pjanczyk\lo1olkusz\Database;
 use pjanczyk\lo1olkusz\TimetablesTable;
 
 date_default_timezone_set('Europe/Warsaw');
 
-$model = new TimetablesTable(Database::connect());
+$model = new TimetablesTable($db);
 
 if (isset($args[0])) {
 
