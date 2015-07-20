@@ -53,7 +53,7 @@ $menu = [
 spl_autoload_register(function ($class) {
 
     // project-specific namespace prefix
-    $prefix = 'pjanczyk\\lo1olkusz\\';
+    $prefix = 'pjanczyk\\';
 
     // base directory for the namespace prefix
     $baseDir = __DIR__ . '/src/';

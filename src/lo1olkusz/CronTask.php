@@ -73,11 +73,10 @@ class CronTask {
                     }
                 }
             }
-
-            if ($forceUpdateStatus || !file_exists(Config::getDataDir() . '/status')) {
-                Status::update($this->data);
-                echo "updated status\n";
-            }
+//            if ($forceUpdateStatus || !file_exists(Config::getDataDir() . '/status')) {
+//                Status::update($this->data);
+//                echo "updated status\n";
+//            }
 
             echo "done\n";
         }

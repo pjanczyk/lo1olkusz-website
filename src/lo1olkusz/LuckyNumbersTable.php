@@ -60,7 +60,7 @@ class LuckyNumbersTable {
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\LuckyNumber');;
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\LuckyNumber');
     }
 
     /**

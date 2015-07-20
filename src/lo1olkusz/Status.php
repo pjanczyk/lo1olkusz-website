@@ -22,6 +22,11 @@
 
 namespace pjanczyk\lo1olkusz;
 
+/**
+ * @deprecated
+ * Class Status
+ * @package pjanczyk\lo1olkusz
+ */
 class Status {
     /**
      * @param Database $database
