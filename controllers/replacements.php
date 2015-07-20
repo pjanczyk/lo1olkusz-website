@@ -1,7 +1,7 @@
 <?php
 /** @var array $args */
 
-namespace pjanczyk\lo1olkusz\dashboard;
+namespace pjanczyk\lo1olkusz\Dashboard;
 
 require_once 'controllers/Controller.php';
 require_once 'classes/ReplacementsTable.php';

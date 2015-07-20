@@ -28,28 +28,31 @@ require_once 'classes/Database.php';
 
 use pjanczyk\lo1olkusz\Database;
 
-//$pages = [
-//    'cron' => [
-//        'title' => 'Cron',
-//        'include' => 'cron.php'
-//    ],
-//    'ln' => [
-//        'title' => 'Lucky numbers',
-//        'include' => 'ln.php'
-//    ],
-//    'replacements' => [
-//        'title' => 'Replacements',
-//        'include' => 'replacements.php'
-//    ],
-//    'settings' => [
-//        'title' => 'Settings',
-//        'include' => 'settings.php'
-//    ],
-//    'timetable' => [
-//        'title' => 'Timetables',
-//        'include' => 'timetable.php'
-//    ]
-//];
+$menu = [
+    [
+        'title' => 'Replacements',
+        'class' => 'pjanczyk\lo1olkusz\Controllers\Replacements',
+        'include' => 'controllers/Replacements.php'
+    ],
+    [
+        'title' => 'Lucky numbers',
+        'include' => 'ln.php'
+    ],
+    [
+        'title' => 'Replacements',
+        'include' => 'replacements.php'
+    ],
+    [
+        'title' => 'Settings',
+        'include' => 'settings.php'
+    ],
+    [
+        'title' => 'Timetables',
+        'include' => 'timetable.php'
+    ]
+];
+
+$controllersNamespace = 'pjanczyk\lo1olkusz\Dashboard\\';
 
 
 function start() {
@@ -60,7 +63,7 @@ function start() {
     $url = trim($url, '/');
     $url = filter_var($url, FILTER_SANITIZE_URL);
     $url = explode('/', $url);
-    $controllerName = isset($url[0]) ? $url[0] : 'default';
+    $controllerName = 'pjanczyk\lo1olkusz\Dashboard\\' . (isset($url[0]) ? $url[0] : 'default');
     $action = isset($url[1]) ? $url[1] : 'index';
     unset($url[0], $url[1]);
     $params = array_values($url);
