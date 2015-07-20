@@ -1,8 +1,8 @@
 <?php
 
-require_once 'src/Database.php';
-require_once 'src/ReplacementsTable.php';
-require_once 'src/Json.php';
+require_once 'src/lo1olkusz/Database.php';
+require_once 'src/lo1olkusz/ReplacementsTable.php';
+require_once 'src/lo1olkusz/Json.php';
 
 use pjanczyk\lo1olkusz\Database;
 use pjanczyk\lo1olkusz\ReplacementsTable;
