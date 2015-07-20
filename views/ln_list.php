@@ -1,4 +1,4 @@
-<?php include 'html/header.php' ?>
+<?php include 'views/header.php' ?>
 
     <div class="page-header">
         <h1>Lucky numbers</h1>
@@ -27,4 +27,4 @@
         </tbody>
     </table>
 
-<?php include 'html/footer.php' ?>
+<?php include 'views/footer.php' ?>

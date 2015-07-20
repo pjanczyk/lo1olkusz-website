@@ -21,7 +21,7 @@
 //Created on 2015-07-15
 ?>
 
-<?php include 'html/header.php' ?>
+<?php include 'views/header.php' ?>
 
 <div class="page-header"><h1>Settings</h1></div>
 
@@ -77,4 +77,4 @@
     });
 </script>
 
-<?php include 'html/footer.php' ?>
+<?php include 'views/footer.php' ?>

@@ -20,9 +20,17 @@
 
 //Created on 2015-07-10
 
-require_once 'src/Json.php';
+ini_set('display_errors',1);
+ini_set('display_startup_errors',1);
+error_reporting(E_ALL|E_STRICT);
 
+require 'autoloader.php';
+
+use pjanczyk\lo1olkusz\Database;
 use pjanczyk\lo1olkusz\Json;
+use pjanczyk\lo1olkusz\LuckyNumbersTable;
+use pjanczyk\lo1olkusz\ReplacementsTable;
+use pjanczyk\lo1olkusz\TimetablesTable;
 
 if (!isset($_GET['p'])) {
     Json::badRequest();
@@ -31,14 +39,61 @@ if (!isset($_GET['p'])) {
 
 $args = explode('/', trim($_GET['p'], '/'));
 
-$path = 'api/' . $args[0] . '.php';
-if (file_exists($path)) {
-    include $path;
+if ($args[0] == 'ln') {
+    $model = new LuckyNumbersTable(Database::connect());
+
+    if (count($args) == 2) { # /api/ln/<date>
+        $ln = $model->get($args[1]);
+        if ($ln !== null) {
+            Json::OK($ln);
+        }
+        else {
+            Json::notFound();
+        }
+    }
+    else {
+        Json::badRequest();
+    }
+}
+else if ($args[0] == 'replacements') {
+    $model = new ReplacementsTable(Database::connect());
+
+    if (count($args) == 3) { # /api/replacements/<date>/<class>
+        $replacements = $model->get($args[2], $args[1]);
+        if ($replacements !== false) {
+            Json::OK($replacements);
+        }
+        else {
+            Json::notFound();
+        }
+    }
+    else {
+        Json::badRequest();
+    }
+}
+else if ($args[0] = 'timetables') {
+    $model = new TimetablesTable(Database::connect());
+
+    if (count($args) == 1) { # /api/timetables
+        $timetables = $model->getAll([TimetablesTable::FIELD_CLASS]);
+        Json::OK($timetables);
+    }
+    else if (count($args) == 2) { # /api/timetables/<class>
+        $timetable = $model->get($args[1]);
+        if ($timetable !== false) {
+            Json::OK($timetable);
+        }
+        else {
+            Json::notFound();
+        }
+    }
+    else {
+        Json::badRequest();
+    }
 }
 else {
     Json::badRequest();
 }
-
 
 //if ($args[0] == 'timetables') {
 //    include 'api/timetables.php';

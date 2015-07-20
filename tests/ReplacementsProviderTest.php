@@ -21,7 +21,7 @@
 //Created on 2015-07-10
 
 
-require_once __DIR__.'/../simple_html_dom.php';
+require_once __DIR__ . '/../simple_html_dom.php';
 include __DIR__ . '/../src/ReplacementsProvider.php';
 
 

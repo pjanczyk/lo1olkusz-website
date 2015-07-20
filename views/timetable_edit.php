@@ -1,4 +1,4 @@
-<?php include 'html/header.php' ?>
+<?php include 'views/header.php' ?>
 
 <div class="page-header">
     <h1>Timetables</h1>
@@ -31,4 +31,4 @@
     </div>
 </form>
 
-<?php include 'html/footer.php' ?>
+<?php include 'views/footer.php' ?>
