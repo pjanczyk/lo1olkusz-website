@@ -20,8 +20,9 @@
 
 //Created on 2015-07-13
 
-namespace pjanczyk\lo1olkusz\Dashboard;
+namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
 
+use pjanczyk\MVC\Controller;
 use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Database;
 use pjanczyk\lo1olkusz\Status;
@@ -43,7 +44,7 @@ class DefaultController extends Controller {
         ?>
 
 
-        <?php include 'html/header.php' ?>
+        <?php include 'views/header.php' ?>
 
         <?php include 'views/alerts.php' ?>
 
@@ -52,8 +53,8 @@ class DefaultController extends Controller {
             <input type="hidden" name="update-status" />
             <button type="submit" class="btn btn-default">Update status</button>
         </form>
-        <a href="/api/status.json"><?=$statusTimestamp?></a>
+        <a href="/api/status"><?=$statusTimestamp?></a>
 
-        <?php include 'html/footer.php';
+        <?php include 'views/footer.php';
     }
 }

@@ -20,10 +20,10 @@
 
 //Created on 2015-07-10
 
-namespace pjanczyk\lo1olkusz\Dashboard;
+namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
 
+use pjanczyk\MVC\Controller;
 use pjanczyk\lo1olkusz\Config;
-
 
 class CronController extends Controller {
 

@@ -56,12 +56,12 @@ $menu = [
 
 function start() {
     $map = [
-        'replacements' => 'pjanczyk\lo1olkusz\Dashboard\ReplacementsController',
-        'lucky-numbers' => 'pjanczyk\lo1olkusz\Dashboard\LuckyNumbersController',
-        'timetables' => 'pjanczyk\lo1olkusz\Dashboard\TimetablesController',
-        'settings' => 'pjanczyk\lo1olkusz\Dashboard\SettingsController',
-        'cron' => 'pjanczyk\lo1olkusz\Dashboard\CronController',
-        'default' => 'pjanczyk\lo1olkusz\Dashboard\DefaultController'
+        'replacements' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\ReplacementsController',
+        'lucky-numbers' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\LuckyNumbersController',
+        'timetables' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\TimetablesController',
+        'settings' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\SettingsController',
+        'cron' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\CronController',
+        'default' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\DefaultController'
     ];
 
     date_default_timezone_set('Europe/Warsaw');

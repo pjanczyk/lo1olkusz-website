@@ -1,7 +1,8 @@
 <?php
 
-namespace pjanczyk\lo1olkusz\Dashboard;
+namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
 
+use pjanczyk\MVC\Controller;
 use pjanczyk\lo1olkusz\LuckyNumbersTable;
 
 class LuckyNumbersController extends Controller {

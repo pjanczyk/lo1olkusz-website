@@ -1,6 +1,6 @@
 <?php
 
-namespace pjanczyk\lo1olkusz\dashboard;
+namespace pjanczyk\MVC;
 
 
 abstract class Controller {

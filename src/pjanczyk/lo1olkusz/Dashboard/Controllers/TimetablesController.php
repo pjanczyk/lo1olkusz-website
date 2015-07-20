@@ -1,6 +1,7 @@
 <?php
-namespace pjanczyk\lo1olkusz\Dashboard;
+namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
 
+use pjanczyk\MVC\Controller;
 use pjanczyk\lo1olkusz\TimetablesTable;
 
 class TimetablesController extends Controller {
