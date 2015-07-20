@@ -4,7 +4,7 @@
         <h1>Timetables</h1>
     </div>
 
-    <form class="form-horizontal" action="/timetable" method="post">
+    <form class="form-horizontal" action="/timetables" method="post">
         <input type="hidden" name="delete" value="true"/>
         <input type="hidden" name="class" value="<?=$timetable['class']?>"/>
         <div class="form-group">

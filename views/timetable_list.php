@@ -11,7 +11,7 @@
 <?php include 'views/alerts.php' ?>
 
 <div class="btn-group" role="group">
-    <a href="/timetable/add" class="btn btn-default">Add</a>
+    <a href="/timetables/add" class="btn btn-default">Add</a>
 </div>
 <br/>
 <table class="table table-condensed" style="width: auto">
@@ -37,7 +37,7 @@
                         <li><a href="/api/timetables/<?=urlencode($timetable['class'])?>">View</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="/timetable/edit/<?=urlencode($timetable['class'])?>">Edit</a></li>
-                        <li><a class="timetable-delete" href="/timetable/delete/<?=urlencode($timetable['class'])?>">Delete</a></li>
+                        <li><a class="timetable-delete" href="/timetables/delete/<?=urlencode($timetable['class'])?>">Delete</a></li>
                     </ul>
                 </div>
             </td>
@@ -45,9 +45,5 @@
     <? endforeach ?>
     </tbody>
 </table>
-<script>
-    $('a.timetable-delete').click(function() {
-        $(post)
-    });
-</script>
+
 <?php include 'html/footer.php' ?>
