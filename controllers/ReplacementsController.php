@@ -7,7 +7,7 @@ require_once 'classes/ReplacementsTable.php';
 
 use pjanczyk\lo1olkusz\ReplacementsTable;
 
-class replacements extends Controller {
+class ReplacementsController extends Controller {
 
     public function index() {
         global $replacements;

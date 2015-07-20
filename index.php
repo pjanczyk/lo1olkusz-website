@@ -52,6 +52,15 @@ $menu = [
     ]
 ];
 
+$map = [
+    'replacements' => 'ReplacementsController',
+    'lucky-numbers' => 'LuckyNumbersController',
+    'timetables' => 'TimetablesController',
+    'settings' => 'SettingsController',
+    'cron' => 'CronController',
+    'default' => 'DefaultController'
+];
+
 $controllersNamespace = 'pjanczyk\lo1olkusz\Dashboard\\';
 
 
@@ -63,13 +72,22 @@ function start() {
     $url = trim($url, '/');
     $url = filter_var($url, FILTER_SANITIZE_URL);
     $url = explode('/', $url);
-    $controllerName = isset($url[0]) ? $url[0] : 'index';
+
+    if (isset($url[0], $map[$url[0]])) {
+        $mapKey = $url[0];
+    }
+    else {
+        $mapKey = 'default';
+    }
+
+    $controllerName = $map[$mapKey];
     $controllerClass = 'pjanczyk\lo1olkusz\Dashboard\\' . $controllerName;
+    $controllerPath = 'controllers/' . $controllerName . '.php';
+
     $action = isset($url[1]) ? $url[1] : 'index';
     unset($url[0], $url[1]);
     $params = array_values($url);
 
-    $controllerPath = 'controllers/' . $controllerName . '.php';
     if (file_exists($controllerPath)) {
         require $controllerPath;
         $controller = new $controllerClass($db);

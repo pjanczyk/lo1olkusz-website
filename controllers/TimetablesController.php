@@ -6,7 +6,7 @@ require_once 'classes/TimetablesTable.php';
 
 use pjanczyk\lo1olkusz\TimetablesTable;
 
-class timetables extends Controller {
+class TimetablesController extends Controller {
 
     public function index() {
         global $alerts;

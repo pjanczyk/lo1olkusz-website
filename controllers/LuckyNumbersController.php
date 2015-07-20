@@ -7,7 +7,7 @@ require_once 'classes/LuckyNumbersTable.php';
 
 use pjanczyk\lo1olkusz\LuckyNumbersTable;
 
-class ln extends Controller {
+class LuckyNumbersController extends Controller {
 
     public function index() {
         $model = new LuckyNumbersTable($this->db);
