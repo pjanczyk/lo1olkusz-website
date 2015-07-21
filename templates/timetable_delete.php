@@ -1,10 +1,5 @@
 <?php include 'templates/header.php' ?>
 
-<ol class="breadcrumb">
-    <li><a href="#">Settings</a></li>
-    <li class="active">Delete timetable</li>
-</ol>
-
 <div class="page-header">
     <h1>Delete timetable</h1>
 </div>

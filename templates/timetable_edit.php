@@ -1,10 +1,5 @@
 <?php include 'templates/header.php' ?>
 
-<ol class="breadcrumb">
-    <li><a href="#">Settings</a></li>
-    <li class="active"><?= $timetable !== null ? 'Edit timetable' : 'Add timetable'?></li>
-</ol>
-
 <div class="page-header">
     <h1><?= $timetable !== null ? 'Edit timetable' : 'Add timetable'?></h1>
 </div>
