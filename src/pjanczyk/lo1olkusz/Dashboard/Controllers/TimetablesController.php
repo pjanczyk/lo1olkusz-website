@@ -2,7 +2,7 @@
 namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
 
 use pjanczyk\MVC\Controller;
-use pjanczyk\lo1olkusz\TimetablesTable;
+use pjanczyk\lo1olkusz\TimetablesModel;
 
 class TimetablesController extends Controller {
 
@@ -10,7 +10,7 @@ class TimetablesController extends Controller {
         global $alerts;
         global $timetables;
 
-        $model = new TimetablesTable($this->db);
+        $model = new TimetablesModel($this->db);
         $alerts = [];
 
         if (isset($_POST['edit'], $_POST['class'], $_POST['timetable'])) {
@@ -24,7 +24,7 @@ class TimetablesController extends Controller {
             }
         }
 
-        $timetables = $model->getAll([TimetablesTable::FIELD_CLASS, TimetablesTable::FIELD_LAST_MODIFIED]);
+        $timetables = $model->getAll([TimetablesModel::FIELD_CLASS, TimetablesModel::FIELD_LAST_MODIFIED]);
 
         include 'views/timetable_list.php';
     }
@@ -39,7 +39,7 @@ class TimetablesController extends Controller {
     public function edit($class) {
         global $timetable;
 
-        $model = new TimetablesTable($this->db);
+        $model = new TimetablesModel($this->db);
         $timetable = $model->get($class);
         include 'views/timetable_edit.php';
     }
@@ -47,7 +47,7 @@ class TimetablesController extends Controller {
     public function delete($class) {
         global $timetable;
 
-        $model = new TimetablesTable($this->db);
+        $model = new TimetablesModel($this->db);
         $timetable = $model->get($class);
         if ($timetable !== false) {
             include 'views/timetable_delete.php';

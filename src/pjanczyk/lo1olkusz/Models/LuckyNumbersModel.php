@@ -9,30 +9,25 @@
 namespace pjanczyk\lo1olkusz;
 
 use PDO;
-use pjanczyk\sql\SqlBuilder;
+use pjanczyk\MVC\Model;
 
-class LuckyNumbersTable {
-
+class LuckyNumbersModel extends Model
+{
+    const TABLE = 'luckyNumbers';
     const FIELD_DATE = 'date';
     const FIELD_LAST_MODIFIED = 'lastModified';
     const FIELD_VALUE = 'value';
-
-    /** @var PDO */
-    private $db;
-
-    /**
-     * @param PDO $db
-     */
-    public function __construct($db) {
-        $this->db = $db;
-    }
 
     /**
      * @param string $date
      * @return LuckyNumber|null
      */
-    public function get($date) {
-        $stmt = $this->db->prepare('SELECT `lastModified`,`value` FROM `ln` WHERE `date`=:date');
+    public function get($date)
+    {
+        $stmt = $this->db->select(self::TABLE, [self::FIELD_LAST_MODIFIED, self::FIELD_VALUE])
+            ->where([self::FIELD_DATE => ':date'])
+            ->prepare();
+
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
         $stmt->execute();
 
@@ -42,8 +37,7 @@ class LuckyNumbersTable {
             $ln->date = $date;
 
             return $ln;
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -52,12 +46,12 @@ class LuckyNumbersTable {
      * @param array $fields array of requested columns
      * @return array(LuckyNumber)
      */
-    public function getAll($fields) {
-        $sql = SqlBuilder::select('ln', $fields)
-            ->orderAsc('date')
-            ->sql();
+    public function getAll($fields)
+    {
+        $stmt = $this->db->select(self::TABLE, $fields)
+            ->orderAsc(self::FIELD_DATE)
+            ->prepare();
 
-        $stmt = $this->db->prepare($sql);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\LuckyNumber');
@@ -68,8 +62,13 @@ class LuckyNumbersTable {
      * @param int $value
      * @return bool
      */
-    public function setValue($date, $value) {
-        $stmt = $this->db->prepare('INSERT INTO `ln` (`date`,`value`) VALUES (:date, :value) ON DUPLICATE KEY UPDATE `value`=:value');
+    public function setValue($date, $value)
+    {
+        $stmt = $this->db->insertOrUpdate(self::TABLE)
+            ->where([self::FIELD_DATE => ':date'])
+            ->set([self::FIELD_VALUE => ':value'])
+            ->prepare();
+
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
         $stmt->bindParam(':value', $value, PDO::PARAM_INT);
 

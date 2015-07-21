@@ -1,44 +1,29 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Piotrek
- * Date: 2015-07-19
- * Time: 14:50
- */
 
 namespace pjanczyk\lo1olkusz;
 
 use PDO;
-use pjanczyk\sql\SqlBuilder;
+use pjanczyk\MVC\Model;
 
-class ReplacementsTable {
-
+class ReplacementsModel extends Model
+{
+    const TABLE = 'replacements';
     const FIELD_CLASS = 'class';
     const FIELD_DATE = 'date';
     const FIELD_LAST_MODIFIED = 'lastModified';
     const FIELD_VALUE = 'value';
-
-    /** @varPDO */
-    private $db;
-
-    /**
-     * @param PDO $db
-     */
-    public function __construct($db) {
-        $this->db = $db;
-    }
 
     /**
      * @param string $class
      * @param string $date
      * @return null|Replacements
      */
-    public function get($class, $date) {
-        $sql = SqlBuilder::select('replacements', [self::FIELD_VALUE, self::FIELD_LAST_MODIFIED])
-            ->where('`date`=:date AND `class`=:class')
-            ->sql();
-
-        $stmt = $this->db->prepare($sql);
+    public function get($class, $date)
+    {
+        $stmt = $this->db
+            ->select(self::TABLE, ['value', 'lastModified'])
+            ->where([self::FIELD_DATE => ':date', self::FIELD_CLASS => ':class'])
+            ->prepare();
 
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
         $stmt->bindParam(':class', $class, PDO::PARAM_STR);
@@ -50,8 +35,7 @@ class ReplacementsTable {
             $replacements->date = $date;
 
             return $replacements;
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -60,13 +44,13 @@ class ReplacementsTable {
      * @param array $fields array of requested columns
      * @return array(LuckyNumber)
      */
-    public function getAll($fields) {
-        $sql = SqlBuilder::select('replacements', $fields)
-            ->orderAsc('date')
-            ->orderAsc('class')
-            ->sql();
+    public function getAll($fields)
+    {
+        $stmt = $this->db->select(self::TABLE, $fields)
+            ->orderAsc(self::FIELD_DATE)
+            ->orderAsc(self::FIELD_CLASS)
+            ->prepare();
 
-        $stmt = $this->db->prepare($sql);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\Replacements');
@@ -78,10 +62,12 @@ class ReplacementsTable {
      * @param int $value
      * @return bool
      */
-    public function set($class, $date, $value) {
-        $stmt = $this->db->prepare('INSERT INTO `replacements` (`class`,`date`,`value`)
-VALUES (:class,:date,:value)
-ON DUPLICATE KEY UPDATE `value`=:value');
+    public function set($class, $date, $value)
+    {
+        $stmt = $this->db->insertOrUpdate(self::TABLE)
+            ->where([self::FIELD_CLASS => ':class', self::FIELD_DATE => ':date'])
+            ->set([self::FIELD_VALUE => ':value'])
+            ->prepare();
 
         $stmt->bindParam(':class', $class, PDO::PARAM_STR);
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);

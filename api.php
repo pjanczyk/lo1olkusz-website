@@ -28,9 +28,9 @@ require 'autoloader.php';
 
 use pjanczyk\lo1olkusz\Database;
 use pjanczyk\lo1olkusz\Json;
-use pjanczyk\lo1olkusz\LuckyNumbersTable;
-use pjanczyk\lo1olkusz\ReplacementsTable;
-use pjanczyk\lo1olkusz\TimetablesTable;
+use pjanczyk\lo1olkusz\LuckyNumbersModel;
+use pjanczyk\lo1olkusz\ReplacementsModel;
+use pjanczyk\lo1olkusz\TimetablesModel;
 
 if (!isset($_GET['p'])) {
     Json::badRequest();
@@ -40,7 +40,7 @@ if (!isset($_GET['p'])) {
 $args = explode('/', trim($_GET['p'], '/'));
 
 if ($args[0] == 'ln') {
-    $model = new LuckyNumbersTable(Database::connect());
+    $model = new LuckyNumbersModel(Database::connect());
 
     if (count($args) == 2) { # /api/ln/<date>
         $ln = $model->get($args[1]);
@@ -56,7 +56,7 @@ if ($args[0] == 'ln') {
     }
 }
 else if ($args[0] == 'replacements') {
-    $model = new ReplacementsTable(Database::connect());
+    $model = new ReplacementsModel(Database::connect());
 
     if (count($args) == 3) { # /api/replacements/<date>/<class>
         $replacements = $model->get($args[2], $args[1]);
@@ -72,10 +72,10 @@ else if ($args[0] == 'replacements') {
     }
 }
 else if ($args[0] = 'timetables') {
-    $model = new TimetablesTable(Database::connect());
+    $model = new TimetablesModel(Database::connect());
 
     if (count($args) == 1) { # /api/timetables
-        $timetables = $model->getAll([TimetablesTable::FIELD_CLASS]);
+        $timetables = $model->getAll([TimetablesModel::FIELD_CLASS]);
         Json::OK($timetables);
     }
     else if (count($args) == 2) { # /api/timetables/<class>

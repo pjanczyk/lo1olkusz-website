@@ -23,46 +23,18 @@
 namespace pjanczyk\lo1olkusz;
 
 use PDO;
-use pjanczyk\sql\SqlBuilder;
+use pjanczyk\MVC\Model;
 
-/*
-CREATE TABLE IF NOT EXISTS `data` (
-  `type` tinyint(4) NOT NULL,
-  `date` date NOT NULL,
-  `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`type`,`date`)
-)
- */
+class SettingsModel extends Model {
 
-class Database {
-    const TYPE_LN = 1;
-    const TYPE_REPLACEMENTS = 2;
+    const TABLE = 'settings';
+    const FIELD_NAME = 'name';
+    const FIELD_VALUE = 'value';
 
-    public static function connect() {
-        return new PDO(Config::getDbDSN(), Config::getDbUser(), Config::getDbPassword());
-    }
+    public function getAll() {
+        $stmt = $this->db->select(self::TABLE, [self::FIELD_NAME, self::FIELD_VALUE])
+            ->prepare();
 
-    /** @var PDO */
-    private $db;
-
-    /**
-     * Opens connection to the database
-     */
-    public function __construct() {
-        $this->db = new PDO(Config::getDbDSN(), Config::getDbUser(), Config::getDbPassword());
-    }
-
-    /**
-     * @param string $table
-     * @param array $columns
-     * @return \pjanczyk\sql\internal\SelectBuilder
-     */
-    public function select($table, $columns) {
-        return SqlBuilder::select($table, $columns);
-    }
-
-    public function getConfig() {
-        $stmt = $this->db->prepare('SELECT `name`,`value` FROM `config`');
         $stmt->bindColumn(1, $name);
         $stmt->bindColumn(2, $value);
         $stmt->execute();
@@ -75,8 +47,12 @@ class Database {
         return $result;
     }
 
-    public function setConfigValue($name, $value) {
-        $stmt = $this->db->prepare('INSERT INTO `config` (`name`,`value`) VALUES (:name,:value) ON DUPLICATE KEY UPDATE `value`=:value');
+    public function setValue($name, $value) {
+        $stmt = $this->db->insertOrUpdate(self::TABLE)
+            ->where([self::FIELD_NAME=>':name'])
+            ->set([self::FIELD_VALUE=>':value'])
+            ->prepare();
+
         $stmt->bindParam(':name', $name, PDO::PARAM_STR);
         $stmt->bindParam(':value', $value, PDO::PARAM_STR);
 
