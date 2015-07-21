@@ -6,9 +6,10 @@
  * Time: 14:01
  */
 
-namespace pjanczyk\lo1olkusz;
+namespace pjanczyk\lo1olkusz\Models;
 
 use PDO;
+use pjanczyk\lo1olkusz\LuckyNumber;
 use pjanczyk\MVC\Model;
 
 class LuckyNumbersModel extends Model

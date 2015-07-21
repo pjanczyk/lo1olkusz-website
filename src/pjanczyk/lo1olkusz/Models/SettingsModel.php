@@ -20,7 +20,7 @@
 
 //Created on 2015-07-13
 
-namespace pjanczyk\lo1olkusz;
+namespace pjanczyk\lo1olkusz\Models;
 
 use PDO;
 use pjanczyk\MVC\Model;

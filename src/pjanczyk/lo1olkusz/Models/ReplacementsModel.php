@@ -1,8 +1,9 @@
 <?php
 
-namespace pjanczyk\lo1olkusz;
+namespace pjanczyk\lo1olkusz\Models;
 
 use PDO;
+use pjanczyk\lo1olkusz\Replacements;
 use pjanczyk\MVC\Model;
 
 class ReplacementsModel extends Model

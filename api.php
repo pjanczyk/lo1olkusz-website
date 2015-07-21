@@ -28,9 +28,9 @@ require 'autoloader.php';
 
 use pjanczyk\lo1olkusz\Database;
 use pjanczyk\lo1olkusz\Json;
-use pjanczyk\lo1olkusz\LuckyNumbersModel;
-use pjanczyk\lo1olkusz\ReplacementsModel;
-use pjanczyk\lo1olkusz\TimetablesModel;
+use pjanczyk\lo1olkusz\Models\LuckyNumbersModel;
+use pjanczyk\lo1olkusz\Models\ReplacementsModel;
+use pjanczyk\lo1olkusz\Models\TimetablesModel;
 
 if (!isset($_GET['p'])) {
     Json::badRequest();

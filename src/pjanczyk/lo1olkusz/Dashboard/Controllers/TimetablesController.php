@@ -1,8 +1,8 @@
 <?php
 namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
 
+use pjanczyk\lo1olkusz\Models\TimetablesModel;
 use pjanczyk\MVC\Controller;
-use pjanczyk\lo1olkusz\TimetablesModel;
 
 class TimetablesController extends Controller {
 
