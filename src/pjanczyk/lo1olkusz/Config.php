@@ -59,6 +59,10 @@ class Config {
     public static function getDbPassword() {
         return $_ENV['OPENSHIFT_MYSQL_DB_PASSWORD'];
     }
+
+    public static function getDbOptions() {
+        return [\PDO::MYSQL_ATTR_INIT_COMMAND =>"SET NAMES utf8;SET time_zone = 'Europe/Warsaw'"];
+    }
 }
 
 Config::init();

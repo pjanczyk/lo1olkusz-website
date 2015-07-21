@@ -14,7 +14,7 @@ class Database {
      * Opens connection to the database
      */
     public function __construct() {
-        $this->pdo = new PDO(Config::getDbDSN(), Config::getDbUser(), Config::getDbPassword());
+        $this->pdo = new PDO(Config::getDbDSN(), Config::getDbUser(), Config::getDbPassword(), Config::getDbOptions());
     }
 
     /**
