@@ -1,10 +1,15 @@
 <?php include 'templates/header.php' ?>
 
+<ol class="breadcrumb">
+    <li><a href="#">Settings</a></li>
+    <li class="active"><?= $timetable !== null ? 'Edit timetable' : 'Add timetable'?></li>
+</ol>
+
 <div class="page-header">
-    <h1>Timetables</h1>
+    <h1><?= $timetable !== null ? 'Edit timetable' : 'Add timetable'?></h1>
 </div>
 
-<form class="form-horizontal" action="/timetables" method="post">
+<form class="form-horizontal" action="/settings" method="post">
     <input type="hidden" name="edit" value="true"/>
     <div class="form-group">
         <label class="col-sm-2 control-label" for="class">Class</label>
