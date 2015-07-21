@@ -25,7 +25,7 @@ error_reporting(E_ALL|E_STRICT);
 
 include 'autoloader.php';
 
-use pjanczyk\lo1olkusz\CronTask;
+use pjanczyk\lo1olkusz\Cron\CronTask;
 
 //run CronTask
 $task = new CronTask;

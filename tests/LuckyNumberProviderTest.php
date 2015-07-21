@@ -20,19 +20,23 @@
 
 //Created on 2015-07-10
 
+use pjanczyk\lo1olkusz\Cron\LuckyNumberProvider;
+use pjanczyk\lo1olkusz\LuckyNumber;
+
 require 'autoloader.php';
 require_once 'libs/simple_html_dom.php';
 
 
-class LuckyNumberProviderTest extends PHPUnit_Framework_TestCase {
+class LuckyNumberProviderTest extends PHPUnit_Framework_TestCase
+{
+    public function testExist()
+    {
+        $dom = file_get_html(__DIR__ . '/correct_zast.html');
 
-    public function testExist() {
-        $dom = file_get_html(__DIR__.'/correct_zast.html');
-
-        $a = new \pjanczyk\lo1olkusz\LuckyNumberProvider;
+        $a = new LuckyNumberProvider;
         $result = $a->getLuckyNumber($dom);
 
-        $expected = new \pjanczyk\lo1olkusz\LuckyNumber;
+        $expected = new LuckyNumber;
         $expected->date = "2015-06-10";
         $expected->value = 8;
         $expected->lastModified = null;
@@ -41,25 +45,25 @@ class LuckyNumberProviderTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals([], $a->getErrors());
     }
 
-    public function testNotExist() {
-        $dom = file_get_html(__DIR__.'/empty_zast.html');
+    public function testNotExist()
+    {
+        $dom = file_get_html(__DIR__ . '/empty_zast.html');
 
-        $a = new \pjanczyk\lo1olkusz\LuckyNumberProvider;
+        $a = new LuckyNumberProvider;
         $result = $a->getLuckyNumber($dom);
 
         $this->assertEquals(null, $result);
         $this->assertEquals([], $a->getErrors());
     }
 
-    public function testIncorrect() {
-        $dom = file_get_html(__DIR__.'/incorrect_zast.html');
+    public function testIncorrect()
+    {
+        $dom = file_get_html(__DIR__ . '/incorrect_zast.html');
 
-        $a = new \pjanczyk\lo1olkusz\LuckyNumberProvider;
+        $a = new LuckyNumberProvider;
         $result = $a->getLuckyNumber($dom);
 
         $this->assertEquals(null, $result);
         $this->assertGreaterThan(0, count($a->getErrors()));
     }
-
-
 }

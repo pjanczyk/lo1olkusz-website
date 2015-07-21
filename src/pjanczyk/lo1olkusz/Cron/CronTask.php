@@ -20,33 +20,31 @@
 
 //Created on 2015-07-10
 
-namespace pjanczyk\lo1olkusz;
+namespace pjanczyk\lo1olkusz\Cron;
 
 require_once 'libs/simple_html_dom.php';
 
-use DateTime;
+use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Model\LuckyNumbersModel;
 use pjanczyk\lo1olkusz\Model\ReplacementsModel;
+use pjanczyk\sql\Database;
 
 
-class CronTask {
-
-    /** @var \PDO */
+class CronTask
+{
+    /** @var Database */
     private $db;
 
-    public function run() {
-        $now = new DateTime('now', Config::getTimeZone());
-        $forceUpdateStatus = ($now->format('Ym') == '0000');
-
-        $this->db = Database::connect();
+    public function run()
+    {
+        $this->db = new Database();
 
         $url = Config::getUrl();
         $dom = file_get_html($url);
 
         if ($dom === false) {
             echo "cannot get {$url}\n";
-        }
-        else {
+        } else {
             $lnProvider = new LuckyNumberProvider;
             $webLn = $lnProvider->getLuckyNumber($dom);
             $this->logErrors('LuckyNumberProvider', $lnProvider->getErrors());
@@ -75,16 +73,13 @@ class CronTask {
                     }
                 }
             }
-//            if ($forceUpdateStatus || !file_exists(Config::getDataDir() . '/status')) {
-//                Status::update($this->data);
-//                echo "updated status\n";
-//            }
 
             echo "done\n";
         }
     }
 
-    private function logErrors($tag, $errors) {
+    private function logErrors($tag, $errors)
+    {
         if (count($errors) > 0) {
             echo $tag . ":\n";
             foreach ($errors as $error) {

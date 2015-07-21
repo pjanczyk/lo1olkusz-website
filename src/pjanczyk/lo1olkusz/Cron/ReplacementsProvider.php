@@ -17,10 +17,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
- //Created on 2015-07-08
 
-namespace pjanczyk\lo1olkusz;
+//Created on 2015-07-08
+
+namespace pjanczyk\lo1olkusz\Cron;
+
+use pjanczyk\lo1olkusz\Replacements;
 
 require_once 'libs/simple_html_dom.php';
 
@@ -28,11 +30,12 @@ require_once 'libs/simple_html_dom.php';
  * Gets data of replacements from the official website, parsing it from html
  * (Unfortunately there is no available api for this, e.g. using json)
  */
-class ReplacementsProvider {
-
+class ReplacementsProvider
+{
     private $errors = [];
 
-    public function getErrors() {
+    public function getErrors()
+    {
         return $this->errors;
     }
 
@@ -42,28 +45,27 @@ class ReplacementsProvider {
      * @param \simple_html_dom $dom
      * @return array(Replacements)|null
      */
-	public function getReplacements($dom) {
-
+    public function getReplacements($dom)
+    {
         /** @var \simple_html_dom_node $itemPage */
         $itemPage = $dom->find('div[class=item-page]', 0);
-		
-		if ($itemPage === null) return null;
+
+        if ($itemPage === null) return null;
 
         /** @var \simple_html_dom_node $h4 */
         $h4 = $itemPage->find('h4', 0);
         /** @var \simple_html_dom_node $table */
         $table = $itemPage->find('table', 0);
-		
-		if ($h4 === null || $table === null) return null;
-		
-		//parse date
-		$date = ReplacementsProvider::parseDate(trim($h4->plaintext));
+
+        if ($h4 === null || $table === null) return null;
+
+        //parse date
+        $date = ReplacementsProvider::parseDate(trim($h4->plaintext));
 
         if ($date === null) {
-            $this->errors[] = "incorrect date format: ".$h4->plaintext;
+            $this->errors[] = "incorrect date format: " . $h4->plaintext;
             return null;
         }
-        $date = $date->format("Y-m-d");
 
         //parse content
         $rows = $table->find('tr');
@@ -85,8 +87,7 @@ class ReplacementsProvider {
                 $current->date = $date;
                 $current->class = $cells[0]->plaintext;
                 $current->value = [];
-            }
-            else if (count($cells) === 2) { //replacement entry, e.g. | 1 | j. niemiecki, mgr T. Wajdzik |
+            } else if (count($cells) === 2) { //replacement entry, e.g. | 1 | j. niemiecki, mgr T. Wajdzik |
                 if ($current === null) {
                     $this->errors[] = "row: {$i}, no class name occurred before replacement text";
                     continue; //skip this row
@@ -110,17 +111,18 @@ class ReplacementsProvider {
         }
 
         return $replacements;
-	}
+    }
 
     /**
      * Parses a date from a text in format "d MMMM yyyy".
      * @param string $dateText
-     * @return \DateTime|null
+     * @return string|null date in format "yyyy-mm-dd"
      */
-	private static function parseDate($dateText) {
-		$array = explode(' ', $dateText);
+    private static function parseDate($dateText)
+    {
+        $array = explode(' ', $dateText);
 
-        $months = [ "stycznia" => 1,
+        $months = ["stycznia" => 1,
             "lutego" => 2,
             "marca" => 3,
             "kwietnia" => 4,
@@ -131,12 +133,13 @@ class ReplacementsProvider {
             "września" => 9,
             "października" => 10,
             "listopada" => 11,
-            "grudnia" => 12 ];
+            "grudnia" => 12];
 
         if (count($array) === 3
             && is_numeric($array[0])
             && isset($months[$array[1]])
-            && is_numeric($array[2])) {
+            && is_numeric($array[2])
+        ) {
 
             $day = intval($array[0]);
             $month = $months[$array[1]];
@@ -144,11 +147,10 @@ class ReplacementsProvider {
 
             $dateTime = new \DateTime;
             $dateTime->setDate($year, $month, $day);
-            return $dateTime;
-        }
-        else {
+            return $dateTime->format("Y-m-d");
+        } else {
             return null;
         }
-	}
+    }
 }
 

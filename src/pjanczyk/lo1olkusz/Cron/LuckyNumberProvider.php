@@ -20,17 +20,19 @@
 
 //Created on 2015-07-08
 
-namespace pjanczyk\lo1olkusz;
+namespace pjanczyk\lo1olkusz\Cron;
 
 require_once 'libs/simple_html_dom.php';
 
 use Exception;
+use pjanczyk\lo1olkusz\LuckyNumber;
 
-class LuckyNumberProvider {
-
+class LuckyNumberProvider
+{
     private $errors = [];
 
-    public function getErrors() {
+    public function getErrors()
+    {
         return $this->errors;
     }
 
@@ -38,7 +40,8 @@ class LuckyNumberProvider {
      * @param \simple_html_dom $dom
      * @return LuckyNumber|null
      */
-    public function getLuckyNumber($dom) {
+    public function getLuckyNumber($dom)
+    {
         $text = LuckyNumberProvider::findText($dom);
         if ($text === null) {
             return null;
@@ -46,9 +49,8 @@ class LuckyNumberProvider {
 
         try {
             return LuckyNumberProvider::parseText($text);
-        }
-        catch (Exception $e) {
-            $this->errors[] = "Niewłaściwy format danych: ".$e->getMessage();
+        } catch (Exception $e) {
+            $this->errors[] = "Niewłaściwy format danych: " . $e->getMessage();
             return null;
         }
     }
@@ -58,7 +60,8 @@ class LuckyNumberProvider {
      * @return null|string , a text of a next paragraph after phrase "szczęśliwy numerek"
      *         or null if it wasn't found
      */
-    private static function findText($dom) {
+    private static function findText($dom)
+    {
         $ps = $dom->find("div.column_right div.custom p");
 
         //find paragraph containing phrase "szczęśliwy numerek"
@@ -70,8 +73,8 @@ class LuckyNumberProvider {
         }
 
         //get context of the next paragraph
-        if ($pTitleIndex !== -1 && isset($ps[$pTitleIndex+1])) {
-            $p = $ps[$pTitleIndex+1];
+        if ($pTitleIndex !== -1 && isset($ps[$pTitleIndex + 1])) {
+            $p = $ps[$pTitleIndex + 1];
             return $p->plaintext;
         }
         return null;
@@ -83,7 +86,8 @@ class LuckyNumberProvider {
      * @return LuckyNumber
      * @throws Exception when $text is in invalid format
      */
-    private static function parseText($text) {
+    private static function parseText($text)
+    {
         $ln = new LuckyNumber;
 
         $parts = explode('-', $text);
@@ -97,7 +101,7 @@ class LuckyNumberProvider {
         //parse date
         $array = explode(' ', $datePart);
 
-        $months = [ "I" => 1,
+        $months = ["I" => 1,
             "II" => 2,
             "III" => 3,
             "IV" => 4,
@@ -108,11 +112,12 @@ class LuckyNumberProvider {
             "IX" => 9,
             "X" => 10,
             "XI" => 11,
-            "XII" => 12 ];
+            "XII" => 12];
 
         if (count($array) === 2
             && is_numeric($array[0])
-            && isset($months[$array[1]])) {
+            && isset($months[$array[1]])
+        ) {
             $day = intval($array[0]);
             $month = $months[$array[1]];
             $year = intval(date('Y'));
@@ -120,8 +125,7 @@ class LuckyNumberProvider {
             $dateTime = new \DateTime;
             $dateTime->setDate($year, $month, $day);
             $ln->date = $dateTime->format('Y-m-d');
-        }
-        else {
+        } else {
             throw new Exception("Niewłaściwy format daty: '{$datePart}'");
         }
 

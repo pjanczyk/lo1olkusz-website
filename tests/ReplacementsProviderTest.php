@@ -20,79 +20,83 @@
 
 //Created on 2015-07-10
 
+use pjanczyk\lo1olkusz\Cron\ReplacementsProvider;
+use pjanczyk\lo1olkusz\Replacements;
+
 require 'autoloader.php';
 require_once 'libs/simple_html_dom.php';
 
-class ReplacementsProviderTest extends PHPUnit_Framework_TestCase {
+class ReplacementsProviderTest extends PHPUnit_Framework_TestCase
+{
+    public function testExist()
+    {
+        $dom = file_get_html(__DIR__ . '/correct_zast.html');
 
-    public function testExist() {
-        $dom = file_get_html(__DIR__.'/correct_zast.html');
-
-        $a = new \pjanczyk\lo1olkusz\ReplacementsProvider;
+        $a = new ReplacementsProvider;
         $result = $a->getReplacements($dom);
 
         $expected = [];
 
-        $last = new \pjanczyk\lo1olkusz\Replacements;
+        $last = new Replacements;
         $last->date = "2015-06-23";
         $last->class = "1a";
         $last->value = '{"5":"matematyka, mgr R. Dylewska"}';
         $expected[] = $last;
 
-        $last = new \pjanczyk\lo1olkusz\Replacements;
+        $last = new Replacements;
         $last->date = "2015-06-23";
         $last->class = "1b";
         $last->value = '{"1":"zaczyna o 9.55"}';
         $expected[] = $last;
 
-        $last = new \pjanczyk\lo1olkusz\Replacements;
+        $last = new Replacements;
         $last->date = "2015-06-23";
         $last->class = "1f";
         $last->value = '{"7":"gr. N6- j.niem, mgr T. Wajdzik"}';
         $expected[] = $last;
 
-        $last = new \pjanczyk\lo1olkusz\Replacements;
+        $last = new Replacements;
         $last->date = "2015-06-23";
         $last->class = "2a";
         $last->value = '{"1":"gr. N9- j.niem, mgr T. Wajdzik","8":"gr. N1- j.niem, mgr T. Wajdzik"}';
         $expected[] = $last;
 
-        $last = new \pjanczyk\lo1olkusz\Replacements;
+        $last = new Replacements;
         $last->date = "2015-06-23";
         $last->class = "2d";
         $last->value = '{"1":"gr. N9- j.niem, mgr T. Wajdzik","2":"gr. N4- j.niem, mgr T. Wajdzik"}';
         $expected[] = $last;
 
-        $last = new \pjanczyk\lo1olkusz\Replacements;
+        $last = new Replacements;
         $last->date = "2015-06-23";
         $last->class = "2e";
         $last->value = '{"1":"gr. N9- j.niem, mgr T. Wajdzik"}';
         $expected[] = $last;
 
-        $last = new \pjanczyk\lo1olkusz\Replacements;
+        $last = new Replacements;
         $this->assertEquals($expected, $result);
         $this->assertEquals([], $a->getErrors());
     }
 
-    public function testNotExist() {
-        $dom = file_get_html(__DIR__.'/empty_zast.html');
+    public function testNotExist()
+    {
+        $dom = file_get_html(__DIR__ . '/empty_zast.html');
 
-        $a = new \pjanczyk\lo1olkusz\ReplacementsProvider;
+        $a = new ReplacementsProvider;
         $result = $a->getReplacements($dom);
 
         $this->assertEquals(null, $result);
         $this->assertEquals([], $a->getErrors());
     }
 
-    public function testIncorrect() {
-        $dom = file_get_html(__DIR__.'/incorrect_zast.html');
+    public function testIncorrect()
+    {
+        $dom = file_get_html(__DIR__ . '/incorrect_zast.html');
 
-        $a = new \pjanczyk\lo1olkusz\ReplacementsProvider;
+        $a = new ReplacementsProvider;
         $result = $a->getReplacements($dom);
 
         $this->assertEquals(null, $result);
         $this->assertGreaterThan(0, count($a->getErrors()));
     }
-
-
 }
