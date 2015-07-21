@@ -81,6 +81,7 @@ class ReplacementsProvider
 
             if (count($cells) === 1) { //class name, e.g. | 2a |
                 if ($current !== null) {
+                    $current->value = json_encode($current->value);
                     $replacements[] = $current;
                 }
                 $current = new Replacements;
@@ -107,6 +108,7 @@ class ReplacementsProvider
         }
 
         if ($current != null) {
+            $current->value = json_encode($current->value);
             $replacements[] = $current;
         }
 

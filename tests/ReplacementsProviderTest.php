@@ -30,10 +30,15 @@ class ReplacementsProviderTest extends PHPUnit_Framework_TestCase
 {
     public function testExist()
     {
+        $start = microtime(true);
+
         $dom = file_get_html(__DIR__ . '/correct_zast.html');
 
         $a = new ReplacementsProvider;
         $result = $a->getReplacements($dom);
+
+        $time_elapsed_secs = microtime(true) - $start;
+        echo 'ReplacementsProviderTest::testExist: ' . $time_elapsed_secs . PHP_EOL;
 
         $expected = [];
 
@@ -73,7 +78,6 @@ class ReplacementsProviderTest extends PHPUnit_Framework_TestCase
         $last->value = '{"1":"gr. N9- j.niem, mgr T. Wajdzik"}';
         $expected[] = $last;
 
-        $last = new Replacements;
         $this->assertEquals($expected, $result);
         $this->assertEquals([], $a->getErrors());
     }

@@ -48,11 +48,10 @@ class CronTask
             $lnProvider = new LuckyNumberProvider;
             $webLn = $lnProvider->getLuckyNumber($dom);
             $this->logErrors('LuckyNumberProvider', $lnProvider->getErrors());
-            var_dump($webLn);
+
             if ($webLn !== null) {
                 $lnMgr = new LuckyNumbersModel($this->db);
                 $savedLn = $lnMgr->get($webLn->date);
-                var_dump($savedLn);
                 if ($savedLn === null || $webLn->value !== $savedLn->value) {
                     $lnMgr->setValue($webLn->date, $webLn->value);
                     echo "updated ln/{$webLn->date}\n";
@@ -62,9 +61,9 @@ class CronTask
             $replsProvider = new ReplacementsProvider;
             $webReplacements = $replsProvider->getReplacements($dom);
             $this->logErrors('ReplacementsProvider', $lnProvider->getErrors());
+
             if ($webReplacements !== null) {
                 $replsMgr = new ReplacementsModel($this->db);
-
                 foreach ($webReplacements as $webReplacement) {
                     $savedReplacement = $replsMgr->get($webReplacement->class, $webReplacement->date);
                     if ($savedReplacement === null || $webReplacement->value !== $savedReplacement->value) {
