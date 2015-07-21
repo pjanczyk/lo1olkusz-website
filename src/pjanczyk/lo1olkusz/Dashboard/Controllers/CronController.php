@@ -22,22 +22,21 @@
 
 namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
 
-use pjanczyk\MVC\Controller;
 use pjanczyk\lo1olkusz\Config;
+use pjanczyk\MVC\Controller;
 
-class CronController extends Controller {
-
-    public function index() {
+class CronController extends Controller
+{
+    public function index()
+    {
         $path = Config::getLogDir() . 'cron.log';
 
         if (isset($_POST['clear-log'])) {
             unlink($path);
             echo 'OK';
-        }
-        else if (isset($_POST['run-cron'])) {
+        } else if (isset($_POST['run-cron'])) {
             include 'run_cron.php';
-        }
-        else {
+        } else {
             global $logContent;
             $logContent = file_exists($path) ? file_get_contents($path) : '';
             include 'views/cron.php';

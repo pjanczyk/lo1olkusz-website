@@ -26,7 +26,7 @@ error_reporting(E_ALL|E_STRICT);
 
 require 'autoloader.php';
 
-use pjanczyk\lo1olkusz\Database;
+use pjanczyk\sql\Database;
 
 $menu = [
     [
@@ -65,7 +65,7 @@ function start() {
     ];
 
     date_default_timezone_set('Europe/Warsaw');
-    $db = Database::connect();
+    $db = new Database;
 
     $url = isset($_GET['p']) ? $_GET['p'] : '';
     $url = trim($url, '/');
