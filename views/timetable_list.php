@@ -25,8 +25,8 @@
     <tbody>
     <?php foreach ($timetables as $timetable): ?>
         <tr>
-            <td><?=$timetable['class']?></td>
-            <td><?=$timetable['last_modified']?></td>
+            <td><?=$timetable->class?></td>
+            <td><?=$timetable->lastModified?></td>
             <td>
                 <div class="btn-group">
                     <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -34,10 +34,10 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="/api/timetables/<?=urlencode($timetable['class'])?>">View</a></li>
+                        <li><a href="/api/timetables/<?=urlencode($timetable->class)?>">View</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="/timetable/edit/<?=urlencode($timetable['class'])?>">Edit</a></li>
-                        <li><a class="timetable-delete" href="/timetables/delete/<?=urlencode($timetable['class'])?>">Delete</a></li>
+                        <li><a href="/timetable/edit/<?=urlencode($timetable->class)?>">Edit</a></li>
+                        <li><a class="timetable-delete" href="/timetables/delete/<?=urlencode($timetable->class)?>">Delete</a></li>
                     </ul>
                 </div>
             </td>

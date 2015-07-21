@@ -10,8 +10,8 @@
         <label class="col-sm-2 control-label" for="class">Class</label>
         <div class="col-sm-10">
             <?php if ($timetable !== false): ?>
-            <input type="hidden" name="class" value="<?=$timetable['class']?>"/>
-            <p id="class" class="form-control-static"><?=$timetable['class']?></p>
+            <input type="hidden" name="class" value="<?=$timetable->class?>"/>
+            <p id="class" class="form-control-static"><?=$timetable->class?></p>
             <?php else: ?>
             <input type="text" class="form-control" name="class" id="class" placeholder="Class name"/>
             <?php endif ?>
@@ -21,7 +21,7 @@
         <label for="timetable" class="col-sm-2 control-label">Timetable</label>
         <div class="col-sm-10">
             <textarea class="form-control" name="timetable" id="timetable" rows="10" placeholder="Timetable"
-                ><?= $timetable !== false ? $timetable['value'] : '' ?></textarea>
+                ><?= $timetable !== false ? $timetable->value : '' ?></textarea>
         </div>
     </div>
     <div class="form-group">

@@ -6,11 +6,11 @@
 
     <form class="form-horizontal" action="/timetables" method="post">
         <input type="hidden" name="delete" value="true"/>
-        <input type="hidden" name="class" value="<?=$timetable['class']?>"/>
+        <input type="hidden" name="class" value="<?=$timetable->class?>"/>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="class">Class</label>
             <div class="col-sm-10">
-                <p id="class" class="form-control-static"><?=$timetable['class']?></p>
+                <p id="class" class="form-control-static"><?=$timetable->class?></p>
             </div>
         </div>
         <div class="form-group">
