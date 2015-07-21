@@ -28,7 +28,7 @@ class TimetablesModel extends Model
         if (count($fields) == 1) {
             return $stmt->fetchAll(PDO::FETCH_COLUMN);
         } else {
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
         }
     }
 
