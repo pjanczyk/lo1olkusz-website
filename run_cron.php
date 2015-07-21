@@ -20,11 +20,10 @@
 
 //Created on 2015-07-09
 
-
 //turn on reporting all errors (they are written to stderr)
 error_reporting(E_ALL|E_STRICT);
 
-include 'src/CronTask.php';
+include 'autoloader.php';
 
 use pjanczyk\lo1olkusz\CronTask;
 

@@ -23,26 +23,10 @@
 namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
 
 use pjanczyk\MVC\Controller;
-use pjanczyk\lo1olkusz\Config;
-use pjanczyk\sql\Database;
 
-class DefaultController extends Controller {
-
-
-    public function index() {
-        $statusPath = Config::getDataDir() . 'status';
-
-        $alerts = [];
-
-        if (isset($_POST['update-status'])) {
-            $db = new Database;
-            Status::update($db);
-            $alerts[] = 'Updated status';
-        }
-
-        global $statusTimestamp;
-        $statusTimestamp = file_exists($statusPath) ? date('Y-m-d H:i:s', filemtime($statusPath)) : "not exist";
-
-        $this->includeTemplate('default');
+class DefaultController extends Controller
+{
+    public function index()
+    {
     }
 }

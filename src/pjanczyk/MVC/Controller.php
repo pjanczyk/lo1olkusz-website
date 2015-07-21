@@ -16,6 +16,10 @@ abstract class Controller {
     protected function includeTemplate($name) {
         global $menu;
         global $key;
-        include 'templates/' . $name . '.php';
+
+        $template = new Template($name);
+        $template->menu = $menu;
+        $template->key = $key;
+        return $template;
     }
 }

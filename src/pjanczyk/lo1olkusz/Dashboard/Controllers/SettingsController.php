@@ -27,12 +27,11 @@ use pjanczyk\lo1olkusz\Model\SettingsModel;
 use pjanczyk\MVC\Controller;
 use pjanczyk\sql\Database;
 
-class SettingsController extends Controller {
+class SettingsController extends Controller
+{
 
-    public function index() {
-        global $apkVersion;
-        global $apkFileLastModified;
-
+    public function index()
+    {
         $db = new Database;
         $model = new SettingsModel($db);
 
@@ -41,7 +40,8 @@ class SettingsController extends Controller {
         $alerts = [];
 
         if (isset($_FILES['apk-file'])
-            && $_FILES['apk-file']['error'] == UPLOAD_ERR_OK) {
+            && $_FILES['apk-file']['error'] == UPLOAD_ERR_OK
+        ) {
 
             $tmpName = $_FILES['apk-file']["tmp_name"];
             if (move_uploaded_file($tmpName, $apkPath)) {
@@ -57,14 +57,17 @@ class SettingsController extends Controller {
 
         $config = $model->getAll();
 
+        $template = $this->includeTemplate('settings');
+
         if (isset($config['version'])) {
-            $apkVersion = $config['version'];
+            $template->apkVersion = $config['version'];
         }
         if (file_exists($apkPath)) {
-            $apkFileLastModified = date('Y-m-d H:i:s', filemtime($apkPath));
+            $template->apkFileLastModified = date('Y-m-d H:i:s', filemtime($apkPath));
         }
 
-        $this->includeTemplate('settings');
+        $template->alerts = $alerts;
+        $template->render();
     }
 }
 
