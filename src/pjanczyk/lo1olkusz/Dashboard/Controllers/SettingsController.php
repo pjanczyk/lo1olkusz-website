@@ -82,14 +82,14 @@ class SettingsController extends Controller
         $template->render();
     }
 
-    public function timetable_add()
+    public function add_timetable()
     {
         $template = $this->includeTemplate('timetable_edit');
         $template->timetable = null;
         $template->render();
     }
 
-    public function timetable_edit($class)
+    public function edit_timetable($class)
     {
         $model = new TimetablesModel($this->db);
 
@@ -98,7 +98,7 @@ class SettingsController extends Controller
         $template->render();
     }
 
-    public function timetable_delete($class)
+    public function delete_timetable($class)
     {
         $model = new TimetablesModel($this->db);
 

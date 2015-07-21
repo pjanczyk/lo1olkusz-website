@@ -60,6 +60,7 @@ function start() {
     $controllerClass = $map[$key];
 
     $action = isset($url[1]) ? $url[1] : 'index';
+    $action = str_replace('-', '_', $action);
     unset($url[0], $url[1]);
     $params = array_values($url);
 
