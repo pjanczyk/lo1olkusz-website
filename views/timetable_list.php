@@ -36,7 +36,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="/api/timetables/<?=urlencode($timetable->class)?>">View</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="/timetable/edit/<?=urlencode($timetable->class)?>">Edit</a></li>
+                        <li><a href="/timetables/edit/<?=urlencode($timetable->class)?>">Edit</a></li>
                         <li><a class="timetable-delete" href="/timetables/delete/<?=urlencode($timetable->class)?>">Delete</a></li>
                     </ul>
                 </div>

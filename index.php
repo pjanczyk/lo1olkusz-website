@@ -29,29 +29,13 @@ require 'autoloader.php';
 use pjanczyk\sql\Database;
 
 $menu = [
-    [
-        'title' => 'Replacements',
-        'class' => 'pjanczyk\lo1olkusz\Controllers\Replacements',
-        'include' => 'controllers/Replacements.php'
-    ],
-    [
-        'title' => 'Lucky numbers',
-        'include' => 'ln.php'
-    ],
-    [
-        'title' => 'Replacements',
-        'include' => 'replacements.php'
-    ],
-    [
-        'title' => 'Settings',
-        'include' => 'settings.php'
-    ],
-    [
-        'title' => 'Timetables',
-        'include' => 'timetable.php'
-    ]
+    ['replacements', 'Replacements'],
+    ['lucky-numbers', 'Lucky numbers'],
+    ['timetables', 'Timetables'],
+    ['settings', 'Settings'],
+    ['cron', 'Cron'],
+    ['default', 'Home']
 ];
-
 
 
 function start() {
@@ -72,28 +56,22 @@ function start() {
     $url = filter_var($url, FILTER_SANITIZE_URL);
     $url = explode('/', $url);
 
+    global $key;
+
     if (isset($url[0], $map[$url[0]])) {
-        $mapKey = $url[0];
+        $key = $url[0];
     }
     else {
-        $mapKey = 'default';
+        $key = 'default';
     }
 
-    $controllerClass = $map[$mapKey];
+    $controllerClass = $map[$key];
 
     $action = isset($url[1]) ? $url[1] : 'index';
     unset($url[0], $url[1]);
     $params = array_values($url);
 
-    //try {
-        $controller = new $controllerClass($db);
-//    }
-//    catch (Exception $e) {
-//        header('HTTP/1.0 404 Not Found');
-//        include 'html/404.html';
-//        exit;
-//    }
-
+    $controller = new $controllerClass($db);
 
     if (method_exists($controller, $action)) {
         call_user_func_array([$controller, $action], $params);
