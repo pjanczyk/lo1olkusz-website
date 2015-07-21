@@ -20,17 +20,19 @@
 
 //Created on 2015-07-10
 
-ini_set('display_errors',1);
-ini_set('display_startup_errors',1);
-error_reporting(E_ALL|E_STRICT);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL | E_STRICT);
 
 require 'autoloader.php';
 
-use pjanczyk\lo1olkusz\Database;
 use pjanczyk\lo1olkusz\Json;
 use pjanczyk\lo1olkusz\Models\LuckyNumbersModel;
 use pjanczyk\lo1olkusz\Models\ReplacementsModel;
 use pjanczyk\lo1olkusz\Models\TimetablesModel;
+use pjanczyk\sql\Database;
+
+$db = new Database;
 
 if (!isset($_GET['p'])) {
     Json::badRequest();
@@ -39,73 +41,49 @@ if (!isset($_GET['p'])) {
 
 $args = explode('/', trim($_GET['p'], '/'));
 
-if ($args[0] == 'ln') {
-    $model = new LuckyNumbersModel(Database::connect());
+if ($args[0] == 'lucky-numbers' && count($args) == 2) { # /api/lucky-numbers/<date>
+    $date = urldecode($args[1]);
 
-    if (count($args) == 2) { # /api/ln/<date>
-        $ln = $model->get($args[1]);
-        if ($ln !== null) {
-            Json::OK($ln);
-        }
-        else {
-            Json::notFound();
-        }
-    }
-    else {
-        Json::badRequest();
+    $model = new LuckyNumbersModel($db);
+    $ln = $model->get($date);
+
+    if ($ln !== null) {
+        Json::OK($ln);
+    } else {
+        Json::notFound();
     }
 }
-else if ($args[0] == 'replacements') {
-    $model = new ReplacementsModel(Database::connect());
+else if ($args[0] == 'replacements' && count($args) == 3) { # /api/replacements/<date>/<class>
+    $date = urldecode($args[1]);
+    $class = urldecode($args[2]);
 
-    if (count($args) == 3) { # /api/replacements/<date>/<class>
-        $replacements = $model->get($args[2], $args[1]);
-        if ($replacements !== false) {
-            Json::OK($replacements);
-        }
-        else {
-            Json::notFound();
-        }
-    }
-    else {
-        Json::badRequest();
+    $model = new ReplacementsModel($db);
+    $replacements = $model->get($class, $date);
+
+    if ($replacements !== null) {
+        Json::OK($replacements);
+    } else {
+        Json::notFound();
     }
 }
-else if ($args[0] = 'timetables') {
-    $model = new TimetablesModel(Database::connect());
+else if ($args[0] == 'timetables' && count($args) == 1) { # /api/timetables
+    $model = new TimetablesModel($db);
 
-    if (count($args) == 1) { # /api/timetables
-        $timetables = $model->getAll([TimetablesModel::FIELD_CLASS]);
-        Json::OK($timetables);
-    }
-    else if (count($args) == 2) { # /api/timetables/<class>
-        $timetable = $model->get($args[1]);
-        if ($timetable !== false) {
-            Json::OK($timetable);
-        }
-        else {
-            Json::notFound();
-        }
-    }
-    else {
-        Json::badRequest();
+    $timetables = $model->getAll([TimetablesModel::FIELD_CLASS]);
+    Json::OK($timetables);
+}
+else if ($args[0] == 'timetables' && count($args) == 2) { # /api/timetables/<class>
+    $class = urldecode($args[1]);
+
+    $model = new TimetablesModel($db);
+    $timetable = $model->get($class);
+
+    if ($timetable !== null) {
+        Json::OK($timetable);
+    } else {
+        Json::notFound();
     }
 }
 else {
     Json::badRequest();
 }
-
-//if ($args[0] == 'timetables') {
-//    include 'api/timetables.php';
-//}
-//else {
-//    $path = $_ENV['OPENSHIFT_DATA_DIR'] . $_GET['p'];
-//
-//    if (!file_exists($path)) {
-//        Json::notFound();
-//        exit;
-//    }
-//
-//    header('Content-Type: application/json');
-//    readfile($path);
-//}
