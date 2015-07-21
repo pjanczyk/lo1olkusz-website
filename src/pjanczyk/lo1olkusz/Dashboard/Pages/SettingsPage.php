@@ -20,14 +20,14 @@
 
 //Created on 2015-07-15
 
-namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
+namespace pjanczyk\lo1olkusz\Dashboard\Pages;
 
+use pjanczyk\framework\Page;
 use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Model\SettingsModel;
 use pjanczyk\lo1olkusz\Model\TimetablesModel;
-use pjanczyk\MVC\Controller;
 
-class SettingsController extends Controller
+class SettingsPage extends Page
 {
     public function index()
     {

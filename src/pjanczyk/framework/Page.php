@@ -1,9 +1,9 @@
 <?php
 
-namespace pjanczyk\MVC;
+namespace pjanczyk\framework;
 
 
-abstract class Controller {
+abstract class Page {
 
     protected $db;
 

@@ -6,7 +6,7 @@
  * Time: 14:29
  */
 
-namespace pjanczyk\MVC;
+namespace pjanczyk\framework;
 
 
 class Template {

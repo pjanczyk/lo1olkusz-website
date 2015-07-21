@@ -9,8 +9,8 @@
 namespace pjanczyk\lo1olkusz\Model;
 
 use PDO;
+use pjanczyk\framework\Model;
 use pjanczyk\lo1olkusz\LuckyNumber;
-use pjanczyk\MVC\Model;
 
 class LuckyNumbersModel extends Model
 {

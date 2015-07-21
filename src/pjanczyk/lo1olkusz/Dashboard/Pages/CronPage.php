@@ -20,12 +20,12 @@
 
 //Created on 2015-07-10
 
-namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
+namespace pjanczyk\lo1olkusz\Dashboard\Pages;
 
+use pjanczyk\framework\Page;
 use pjanczyk\lo1olkusz\Config;
-use pjanczyk\MVC\Controller;
 
-class CronController extends Controller
+class CronPage extends Page
 {
     public function index()
     {

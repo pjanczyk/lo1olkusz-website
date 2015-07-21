@@ -3,7 +3,7 @@
 namespace pjanczyk\lo1olkusz\Model;
 
 use PDO;
-use pjanczyk\MVC\Model;
+use pjanczyk\framework\Model;
 
 class TimetablesModel extends Model
 {

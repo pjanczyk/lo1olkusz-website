@@ -1,13 +1,12 @@
 <?php
 
-namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
+namespace pjanczyk\lo1olkusz\Dashboard\Pages;
 
+use pjanczyk\framework\Page;
 use pjanczyk\lo1olkusz\Model\LuckyNumbersModel;
-use pjanczyk\MVC\Controller;
 
-class LuckyNumbersController extends Controller
+class LuckyNumbersPage extends Page
 {
-
     public function index()
     {
         $model = new LuckyNumbersModel($this->db);

@@ -20,11 +20,11 @@
 
 //Created on 2015-07-13
 
-namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
+namespace pjanczyk\lo1olkusz\Dashboard\Pages;
 
-use pjanczyk\MVC\Controller;
+use pjanczyk\framework\Page;
 
-class DefaultController extends Controller
+class DefaultPage extends Page
 {
     public function index()
     {

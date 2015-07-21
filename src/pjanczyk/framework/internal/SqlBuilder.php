@@ -6,7 +6,7 @@
  * Time: 17:19
  */
 
-namespace pjanczyk\sql\internal;
+namespace pjanczyk\framework\internal;
 
 abstract class SqlBuilder {
 

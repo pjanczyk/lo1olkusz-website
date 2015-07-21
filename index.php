@@ -26,18 +26,16 @@ error_reporting(E_ALL|E_STRICT);
 
 require 'autoloader.php';
 
-use pjanczyk\sql\Database;
-
-
+use pjanczyk\framework\Database;
 
 
 function start() {
     $map = [
-        'replacements' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\ReplacementsController',
-        'lucky-numbers' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\LuckyNumbersController',
-        'settings' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\SettingsController',
-        'cron' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\CronController',
-        'default' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\DefaultController'
+        'replacements' => 'pjanczyk\lo1olkusz\Dashboard\Pages\ReplacementsController',
+        'lucky-numbers' => 'pjanczyk\lo1olkusz\Dashboard\Pages\LuckyNumbersController',
+        'settings' => 'pjanczyk\lo1olkusz\Dashboard\Pages\SettingsController',
+        'cron' => 'pjanczyk\lo1olkusz\Dashboard\Pages\CronController',
+        'default' => 'pjanczyk\lo1olkusz\Dashboard\Pages\DefaultController'
     ];
 
     date_default_timezone_set('Europe/Warsaw');

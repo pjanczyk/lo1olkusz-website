@@ -3,8 +3,8 @@
 namespace pjanczyk\lo1olkusz\Model;
 
 use PDO;
+use pjanczyk\framework\Model;
 use pjanczyk\lo1olkusz\Replacements;
-use pjanczyk\MVC\Model;
 
 class ReplacementsModel extends Model
 {

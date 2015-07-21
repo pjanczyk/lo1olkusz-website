@@ -1,6 +1,6 @@
 <?php
 
-namespace pjanczyk\sql\internal;
+namespace pjanczyk\framework\internal;
 
 class SelectBuilder extends SqlBuilder {
 

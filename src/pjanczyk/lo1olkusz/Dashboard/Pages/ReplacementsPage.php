@@ -1,13 +1,12 @@
 <?php
 
-namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
+namespace pjanczyk\lo1olkusz\Dashboard\Pages;
 
+use pjanczyk\framework\Page;
 use pjanczyk\lo1olkusz\Model\ReplacementsModel;
-use pjanczyk\MVC\Controller;
 
-class ReplacementsController extends Controller
+class ReplacementsPage extends Page
 {
-
     public function index()
     {
         $model = new ReplacementsModel($this->db);

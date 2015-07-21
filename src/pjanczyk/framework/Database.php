@@ -1,6 +1,6 @@
 <?php
 
-namespace pjanczyk\sql;
+namespace pjanczyk\framework;
 
 
 use PDO;
@@ -20,7 +20,7 @@ class Database {
     /**
      * @param string $table
      * @param array $columns
-     * @return \pjanczyk\sql\internal\SelectBuilder
+     * @return \pjanczyk\framework\internal\SelectBuilder
      */
     public function select($table, $columns) {
         return new internal\SelectBuilder($this->pdo, $table, $columns);

@@ -1,9 +1,7 @@
 <?php
 
-namespace pjanczyk\MVC;
+namespace pjanczyk\framework;
 
-
-use pjanczyk\sql\Database;
 
 class Model {
 

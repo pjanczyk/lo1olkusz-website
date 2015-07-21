@@ -24,10 +24,10 @@ namespace pjanczyk\lo1olkusz\Cron;
 
 require_once 'libs/simple_html_dom.php';
 
+use pjanczyk\framework\Database;
 use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Model\LuckyNumbersModel;
 use pjanczyk\lo1olkusz\Model\ReplacementsModel;
-use pjanczyk\sql\Database;
 
 
 class CronTask

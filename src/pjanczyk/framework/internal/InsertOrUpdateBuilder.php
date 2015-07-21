@@ -6,7 +6,7 @@
  * Time: 17:44
  */
 
-namespace pjanczyk\sql\internal;
+namespace pjanczyk\framework\internal;
 
 
 class InsertOrUpdateBuilder extends SqlBuilder {

@@ -26,11 +26,11 @@ error_reporting(E_ALL | E_STRICT);
 
 require 'autoloader.php';
 
+use pjanczyk\framework\Database;
 use pjanczyk\lo1olkusz\Json;
 use pjanczyk\lo1olkusz\Model\LuckyNumbersModel;
 use pjanczyk\lo1olkusz\Model\ReplacementsModel;
 use pjanczyk\lo1olkusz\Model\TimetablesModel;
-use pjanczyk\sql\Database;
 
 $db = new Database;
 
