@@ -61,7 +61,7 @@ class Config {
     }
 
     public static function getDbOptions() {
-        return [\PDO::MYSQL_ATTR_INIT_COMMAND =>"SET NAMES utf8;SET time_zone = 'Europe/Warsaw'"];
+        return [\PDO::MYSQL_ATTR_INIT_COMMAND =>"SET time_zone = 'Europe/Warsaw'"];
     }
 }
 
