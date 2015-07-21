@@ -24,8 +24,7 @@ namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
 
 use pjanczyk\MVC\Controller;
 use pjanczyk\lo1olkusz\Config;
-use pjanczyk\lo1olkusz\Database;
-use pjanczyk\lo1olkusz\Status;
+use pjanczyk\sql\Database;
 
 class DefaultController extends Controller {
 
@@ -40,21 +39,9 @@ class DefaultController extends Controller {
             $alerts[] = 'Updated status';
         }
 
+        global $statusTimestamp;
         $statusTimestamp = file_exists($statusPath) ? date('Y-m-d H:i:s', filemtime($statusPath)) : "not exist";
-        ?>
 
-
-        <?php include 'views/header.php' ?>
-
-        <?php include 'views/alerts.php' ?>
-
-        <h4>Status file</h4>
-        <form action="/" method="post">
-            <input type="hidden" name="update-status" />
-            <button type="submit" class="btn btn-default">Update status</button>
-        </form>
-        <a href="/api/status"><?=$statusTimestamp?></a>
-
-        <?php include 'views/footer.php';
+        $this->includeTemplate('default');
     }
 }

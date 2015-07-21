@@ -12,6 +12,6 @@ class ReplacementsController extends Controller {
 
         $model = new ReplacementsModel($this->db);
         $replacements = $model->getAll([ReplacementsModel::FIELD_DATE, ReplacementsModel::FIELD_CLASS, ReplacementsModel::FIELD_LAST_MODIFIED]);
-        include 'views/replacements_list.php';
+        $this->includeTemplate('replacements_list');
     }
 }

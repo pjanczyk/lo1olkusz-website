@@ -2,13 +2,13 @@
 
 ?>
 
-<?php include 'views/header.php' ?>
+<?php include 'templates/header.php' ?>
 
 <div class="page-header">
     <h1>Timetables</h1>
 </div>
 
-<?php include 'views/alerts.php' ?>
+<?php include 'templates/alerts.php' ?>
 
 <div class="btn-group" role="group">
     <a href="/timetables/add" class="btn btn-default">Add</a>
@@ -46,4 +46,4 @@
     </tbody>
 </table>
 
-<?php include 'views/footer.php' ?>
+<?php include 'templates/footer.php' ?>

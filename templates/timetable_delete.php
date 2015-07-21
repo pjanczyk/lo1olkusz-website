@@ -1,4 +1,4 @@
-<?php include 'views/header.php' ?>
+<?php include 'templates/header.php' ?>
 
     <div class="page-header">
         <h1>Timetables</h1>
@@ -20,4 +20,4 @@
         </div>
     </form>
 
-<?php include 'views/footer.php' ?>
+<?php include 'templates/footer.php' ?>

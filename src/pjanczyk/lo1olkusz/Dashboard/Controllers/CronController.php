@@ -39,7 +39,7 @@ class CronController extends Controller
         } else {
             global $logContent;
             $logContent = file_exists($path) ? file_get_contents($path) : '';
-            include 'views/cron.php';
+            $this->includeTemplate('cron');
         }
     }
 }

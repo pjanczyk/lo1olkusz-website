@@ -70,7 +70,7 @@ class SettingsController extends Controller {
             $apkFileLastModified = date('Y-m-d H:i:s', filemtime($apkPath));
         }
 
-        include 'views/settings.php';
+        $this->includeTemplate('settings');
     }
 }
 

@@ -26,14 +26,14 @@ class TimetablesController extends Controller {
 
         $timetables = $model->getAll([TimetablesModel::FIELD_CLASS, TimetablesModel::FIELD_LAST_MODIFIED]);
 
-        include 'views/timetable_list.php';
+        $this->includeTemplate('timetable_list');
     }
 
     public function add() {
         global $timetable;
 
         $timetable = false;
-        include 'views/timetable_edit.php';
+        $this->includeTemplate('timetable_edit');
     }
 
     public function edit($class) {
@@ -41,7 +41,7 @@ class TimetablesController extends Controller {
 
         $model = new TimetablesModel($this->db);
         $timetable = $model->get($class);
-        include 'views/timetable_edit.php';
+        $this->includeTemplate('timetable_edit');
     }
 
     public function delete($class) {
@@ -50,7 +50,7 @@ class TimetablesController extends Controller {
         $model = new TimetablesModel($this->db);
         $timetable = $model->get($class);
         if ($timetable !== false) {
-            include 'views/timetable_delete.php';
+            $this->includeTemplate('timetable_delete');
         }
         else {
             $this->index();

@@ -12,6 +12,6 @@ class LuckyNumbersController extends Controller {
         global $lns;
         $lns = $model->getAll([LuckyNumbersModel::FIELD_DATE,
             LuckyNumbersModel::FIELD_VALUE, LuckyNumbersModel::FIELD_LAST_MODIFIED]);
-        include 'views/ln_list.php';
+        $this->includeTemplate('ln_list');
     }
 }

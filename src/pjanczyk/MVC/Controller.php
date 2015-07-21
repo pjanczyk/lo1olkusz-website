@@ -12,4 +12,10 @@ abstract class Controller {
     }
 
     abstract public function index();
+
+    protected function includeTemplate($name) {
+        global $menu;
+        global $key;
+        include 'templates/' . $name . '.php';
+    }
 }
