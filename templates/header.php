@@ -1,3 +1,13 @@
+<?php
+$menu = [
+    ['default', 'Home'],
+    ['cron', 'Cron'],
+    ['lucky-numbers', 'Lucky numbers'],
+    ['replacements', 'Replacements'],
+    ['settings', 'Settings'],
+];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -28,21 +28,13 @@ require 'autoloader.php';
 
 use pjanczyk\sql\Database;
 
-$menu = [
-    ['replacements', 'Replacements'],
-    ['lucky-numbers', 'Lucky numbers'],
-    ['timetables', 'Timetables'],
-    ['settings', 'Settings'],
-    ['cron', 'Cron'],
-    ['default', 'Home']
-];
+
 
 
 function start() {
     $map = [
         'replacements' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\ReplacementsController',
         'lucky-numbers' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\LuckyNumbersController',
-        'timetables' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\TimetablesController',
         'settings' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\SettingsController',
         'cron' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\CronController',
         'default' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\DefaultController'

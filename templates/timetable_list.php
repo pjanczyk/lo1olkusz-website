@@ -1,7 +1,3 @@
-<?php
-
-?>
-
 <?php include 'templates/header.php' ?>
 
 <div class="page-header">

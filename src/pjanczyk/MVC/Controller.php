@@ -14,11 +14,9 @@ abstract class Controller {
     abstract public function index();
 
     protected function includeTemplate($name) {
-        global $menu;
         global $key;
 
         $template = new Template($name);
-        $template->menu = $menu;
         $template->key = $key;
         return $template;
     }

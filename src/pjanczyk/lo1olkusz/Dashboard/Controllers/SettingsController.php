@@ -24,16 +24,14 @@ namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
 
 use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Model\SettingsModel;
+use pjanczyk\lo1olkusz\Model\TimetablesModel;
 use pjanczyk\MVC\Controller;
-use pjanczyk\sql\Database;
 
 class SettingsController extends Controller
 {
-
     public function index()
     {
-        $db = new Database;
-        $model = new SettingsModel($db);
+        $modelSettings = new SettingsModel($this->db);
 
         $apkPath = Config::getDataDir() . 'apk';
 
@@ -50,24 +48,68 @@ class SettingsController extends Controller
         }
 
         if (isset($_POST['apk-version'])) {
-            if ($model->setValue('version', $_POST['apk-version'])) {
+            if ($modelSettings->setValue('version', $_POST['apk-version'])) {
                 $alerts[] = 'Changed APK version';
             }
         }
 
-        $config = $model->getAll();
+        $modelTimetables = new TimetablesModel($this->db);
 
+        if (isset($_POST['edit'], $_POST['class'], $_POST['timetable'])) {
+            if ($modelTimetables->set($_POST['class'], $_POST['timetable'])) {
+                $alerts[] = "Saved timetable of \"{$_POST['class']}\"";
+            }
+        } else if (isset($_POST['delete'], $_POST['class'])) {
+            if ($modelTimetables->delete($_POST['class'])) {
+                $alerts[] = "Deleted timetable of \"{$_POST['class']}\"";
+            }
+        }
+
+        /* views */
         $template = $this->includeTemplate('settings');
+        $template->alerts = $alerts;
 
-        if (isset($config['version'])) {
-            $template->apkVersion = $config['version'];
+        $settings = $modelSettings->getAll();
+        if (isset($settings['version'])) {
+            $template->apkVersion = $settings['version'];
         }
         if (file_exists($apkPath)) {
             $template->apkFileLastModified = date('Y-m-d H:i:s', filemtime($apkPath));
         }
 
-        $template->alerts = $alerts;
+        $template->timetables = $modelTimetables->getAll([TimetablesModel::FIELD_CLASS, TimetablesModel::FIELD_LAST_MODIFIED]);
+
         $template->render();
+    }
+
+    public function timetable_add()
+    {
+        $template = $this->includeTemplate('timetable_edit');
+        $template->timetable = null;
+        $template->render();
+    }
+
+    public function timetable_edit($class)
+    {
+        $model = new TimetablesModel($this->db);
+
+        $template = $this->includeTemplate('timetable_edit');
+        $template->timetable = $model->get($class);
+        $template->render();
+    }
+
+    public function timetable_delete($class)
+    {
+        $model = new TimetablesModel($this->db);
+
+        $timetable = $model->get($class);
+        if ($timetable !== null) {
+            $template = $this->includeTemplate('timetable_delete');
+            $template->timetable = $timetable;
+            $template->render();
+        } else {
+            $this->index();
+        }
     }
 }
 
