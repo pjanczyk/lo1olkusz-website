@@ -25,8 +25,8 @@ namespace pjanczyk\lo1olkusz;
 require_once 'libs/simple_html_dom.php';
 
 use DateTime;
-use pjanczyk\lo1olkusz\Models\LuckyNumbersModel;
-use pjanczyk\lo1olkusz\Models\ReplacementsModel;
+use pjanczyk\lo1olkusz\Model\LuckyNumbersModel;
+use pjanczyk\lo1olkusz\Model\ReplacementsModel;
 
 
 class CronTask {

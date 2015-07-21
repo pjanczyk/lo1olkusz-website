@@ -6,7 +6,7 @@
  * Time: 14:01
  */
 
-namespace pjanczyk\lo1olkusz\Models;
+namespace pjanczyk\lo1olkusz\Model;
 
 use PDO;
 use pjanczyk\lo1olkusz\LuckyNumber;

@@ -28,6 +28,7 @@ use pjanczyk\sql\Database;
 
 class DefaultController extends Controller {
 
+
     public function index() {
         $statusPath = Config::getDataDir() . 'status';
 

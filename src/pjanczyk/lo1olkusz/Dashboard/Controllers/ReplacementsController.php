@@ -2,7 +2,7 @@
 
 namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
 
-use pjanczyk\lo1olkusz\Models\ReplacementsModel;
+use pjanczyk\lo1olkusz\Model\ReplacementsModel;
 use pjanczyk\MVC\Controller;
 
 class ReplacementsController extends Controller {

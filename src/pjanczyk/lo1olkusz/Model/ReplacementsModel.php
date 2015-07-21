@@ -1,6 +1,6 @@
 <?php
 
-namespace pjanczyk\lo1olkusz\Models;
+namespace pjanczyk\lo1olkusz\Model;
 
 use PDO;
 use pjanczyk\lo1olkusz\Replacements;

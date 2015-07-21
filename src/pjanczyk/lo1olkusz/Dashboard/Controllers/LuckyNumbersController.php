@@ -2,7 +2,7 @@
 
 namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
 
-use pjanczyk\lo1olkusz\Models\LuckyNumbersModel;
+use pjanczyk\lo1olkusz\Model\LuckyNumbersModel;
 use pjanczyk\MVC\Controller;
 
 class LuckyNumbersController extends Controller {

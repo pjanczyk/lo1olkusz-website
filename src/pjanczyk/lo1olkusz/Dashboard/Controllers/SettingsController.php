@@ -22,10 +22,10 @@
 
 namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
 
-use pjanczyk\MVC\Controller;
-use pjanczyk\lo1olkusz\Database;
 use pjanczyk\lo1olkusz\Config;
-use pjanczyk\lo1olkusz\Status;
+use pjanczyk\lo1olkusz\Model\SettingsModel;
+use pjanczyk\MVC\Controller;
+use pjanczyk\sql\Database;
 
 class SettingsController extends Controller {
 
@@ -33,12 +33,12 @@ class SettingsController extends Controller {
         global $apkVersion;
         global $apkFileLastModified;
 
-        $data = new Database;
+        $db = new Database;
+        $model = new SettingsModel($db);
 
         $apkPath = Config::getDataDir() . 'apk';
 
         $alerts = [];
-        $updateStatus = false;
 
         if (isset($_FILES['apk-file'])
             && $_FILES['apk-file']['error'] == UPLOAD_ERR_OK) {
@@ -50,18 +50,12 @@ class SettingsController extends Controller {
         }
 
         if (isset($_POST['apk-version'])) {
-            if ($data->setConfigValue('version', $_POST['apk-version'])) {
+            if ($model->setValue('version', $_POST['apk-version'])) {
                 $alerts[] = 'Changed APK version';
-                $updateStatus = true;
             }
         }
 
-        if ($updateStatus) {
-            Status::update($data);
-            $alerts[] = 'Updated status file';
-        }
-
-        $config = $data->getConfig();
+        $config = $model->getAll();
 
         if (isset($config['version'])) {
             $apkVersion = $config['version'];
