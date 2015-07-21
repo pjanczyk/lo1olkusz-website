@@ -30,11 +30,14 @@ class LuckyNumbersModel extends Model
             ->prepare();
 
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
+
+        $ln = new LuckyNumber;
+        $stmt->bindColumn(self::FIELD_VALUE, $ln->value, PDO::PARAM_INT);
+        $stmt->bindColumn(self::FIELD_LAST_MODIFIED, $ln->lastModified, PDO::PARAM_STR);
+
         $stmt->execute();
 
-        $ln = $stmt->fetchObject('pjanczyk\lo1olkusz\LuckyNumber');
-
-        if ($ln !== false) {
+        if ($stmt->fetch(PDO::FETCH_BOUND) !== false) {
             $ln->date = $date;
 
             return $ln;
