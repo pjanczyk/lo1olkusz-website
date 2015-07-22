@@ -28,6 +28,8 @@ SELECT "timetable", NULL, value, lastModified FROM timetables WHERE class=:class
         $stmt->bindColumn(':since', $sinceDate);
         $stmt->bindColumn(':lastModified', $sinceLastModified);
 
+        $stmt->execute();
+
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
 
