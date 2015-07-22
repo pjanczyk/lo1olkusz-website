@@ -18,15 +18,15 @@ class NewsModel extends Model {
     {
         //replacements
         $stmt = $this->db->prepare(
-'SELECT "replacements", date, value, lastModified FROM replacements WHERE class=:class AND date>=:since AND lastModified>=:lastModified
+'SELECT "replacements", date, value, lastModified FROM replacements WHERE class=:class AND date>=:date AND lastModified>=:lastModified
 UNION ALL
-SELECT "luckyNumber", date, value, lastModified FROM luckyNumbers WHERE date>=:since AND lastModified>=:lastModified
+SELECT "luckyNumber", date, value, lastModified FROM luckyNumbers WHERE date>=:date AND lastModified>=:lastModified
 UNION ALL
 SELECT "timetable", NULL, value, lastModified FROM timetables WHERE class=:class AND lastModified>=:lastModified'
         );
-        $stmt->bindColumn(':class', $class);
-        $stmt->bindColumn(':since', $sinceDate);
-        $stmt->bindColumn(':lastModified', $sinceLastModified);
+        $stmt->bindParam(':class', $class);
+        $stmt->bindParam(':date', $sinceDate);
+        $stmt->bindParam(':lastModified', $sinceLastModified);
 
         $stmt->execute();
 
