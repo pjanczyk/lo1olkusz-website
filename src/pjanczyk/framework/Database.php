@@ -14,7 +14,7 @@ class Database {
      * @param Config $config
      */
     public function __construct(Config $config) {
-        $this->pdo = new PDO($config->getDbDSN(), $config->getDbDSN(), $config->getDbUser(), $config->getDbPassword(), $config->getDbOptions());
+        $this->pdo = new PDO($config->getDbDSN(), $config->getDbUser(), $config->getDbPassword(), $config->getDbOptions());
     }
 
     /**
