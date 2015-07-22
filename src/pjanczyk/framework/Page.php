@@ -5,6 +5,7 @@ namespace pjanczyk\framework;
 
 abstract class Page {
 
+    /** @var Database */
     protected $db;
 
     public function __construct($db) {
@@ -14,10 +15,6 @@ abstract class Page {
     abstract public function index();
 
     protected function includeTemplate($name) {
-        global $key;
-
-        $template = new Template($name);
-        $template->key = $key;
-        return $template;
+        return new Template($name);
     }
 }

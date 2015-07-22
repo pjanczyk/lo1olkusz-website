@@ -4,7 +4,6 @@ namespace pjanczyk\framework;
 
 
 use PDO;
-use pjanczyk\lo1olkusz\Config;
 
 class Database {
 
@@ -12,9 +11,10 @@ class Database {
 
     /**
      * Opens connection to the database
+     * @param Config $config
      */
-    public function __construct() {
-        $this->pdo = new PDO(Config::getDbDSN(), Config::getDbUser(), Config::getDbPassword(), Config::getDbOptions());
+    public function __construct(Config $config) {
+        $this->pdo = new PDO($config->getDbDSN(), $config->getDbDSN(), $config->getDbUser(), $config->getDbPassword(), $config->getDbOptions());
     }
 
     /**

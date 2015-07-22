@@ -24,45 +24,64 @@ namespace pjanczyk\lo1olkusz;
 
 use DateTimeZone;
 
-class Config {
-    private static $TIMEZONE;
+class Config implements \pjanczyk\framework\Config
+{
+    private $timezone;
 
-    public static function init() {
-        Config::$TIMEZONE = new DateTimeZone('Europe/Warsaw');
+    public function __construct()
+    {
+        $this->timezone = new DateTimeZone('Europe/Warsaw');
     }
 
-    public static function getDataDir() {
+    public function getDataDir()
+    {
         return $_ENV['OPENSHIFT_DATA_DIR'];
     }
 
-    public static function getLogDir() {
+    public function getLogDir()
+    {
         return $_ENV['OPENSHIFT_PHP_LOG_DIR'];
     }
 
-    public static function getTimeZone() {
-        return Config::$TIMEZONE;
+    public function getTimeZone()
+    {
+        return $this->timezone;
     }
 
-    public static function getUrl() {
+    public function getUrl()
+    {
         return 'tests/correct_zast.html';
         //return 'http://lo1.olkusz.pl/aktualnosci/zast';
     }
 
-    public static function getDbDSN() {
+    public function getDbDSN()
+    {
         return "mysql:host={$_ENV['OPENSHIFT_MYSQL_DB_HOST']}:{$_ENV['OPENSHIFT_MYSQL_DB_PORT']};dbname=lo1olkusz";
     }
 
-    public static function getDbUser() {
+    public function getDbUser()
+    {
         return $_ENV['OPENSHIFT_MYSQL_DB_USERNAME'];
     }
 
-    public static function getDbPassword() {
+    public function getDbPassword()
+    {
         return $_ENV['OPENSHIFT_MYSQL_DB_PASSWORD'];
     }
 
-    public static function getDbOptions() {
-        return [\PDO::MYSQL_ATTR_INIT_COMMAND =>"SET time_zone = 'Europe/Warsaw'"];
+    public function getDbOptions()
+    {
+        return [\PDO::MYSQL_ATTR_INIT_COMMAND => "SET time_zone = 'Europe/Warsaw'"];
+    }
+
+    public function getPagesMap()
+    {
+        return [
+            '' => 'pjanczyk\lo1olkusz\Dashboard\Pages\HomePage',
+            'replacements' => 'pjanczyk\lo1olkusz\Dashboard\Pages\ReplacementsPage',
+            'lucky-numbers' => 'pjanczyk\lo1olkusz\Dashboard\Pages\LuckyNumbersPage',
+            'settings' => 'pjanczyk\lo1olkusz\Dashboard\Pages\SettingsPage',
+            'cron' => 'pjanczyk\lo1olkusz\Dashboard\Pages\CronPage'
+        ];
     }
 }
-
-Config::init();

@@ -24,7 +24,7 @@ namespace pjanczyk\lo1olkusz\Dashboard\Pages;
 
 use pjanczyk\framework\Page;
 
-class DefaultPage extends Page
+class HomePage extends Page
 {
     public function index()
     {

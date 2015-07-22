@@ -3,7 +3,7 @@
 namespace pjanczyk\framework;
 
 
-class Model {
+abstract class Model {
 
     /** @var Database */
     protected $db;

@@ -20,57 +20,24 @@
 
 //Created on 2015-07-09
 
-ini_set('display_errors',1);
-ini_set('display_startup_errors',1);
-error_reporting(E_ALL|E_STRICT);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL | E_STRICT);
 
 require 'autoloader.php';
 
-use pjanczyk\framework\Database;
+use pjanczyk\framework\Application;
+use pjanczyk\lo1olkusz\Config;
 
-
-function start() {
-    $map = [
-        'replacements' => 'pjanczyk\lo1olkusz\Dashboard\Pages\ReplacementsController',
-        'lucky-numbers' => 'pjanczyk\lo1olkusz\Dashboard\Pages\LuckyNumbersController',
-        'settings' => 'pjanczyk\lo1olkusz\Dashboard\Pages\SettingsController',
-        'cron' => 'pjanczyk\lo1olkusz\Dashboard\Pages\CronController',
-        'default' => 'pjanczyk\lo1olkusz\Dashboard\Pages\DefaultController'
-    ];
-
-    date_default_timezone_set('Europe/Warsaw');
-    $db = new Database;
-
-    $url = isset($_GET['p']) ? $_GET['p'] : '';
-    $url = trim($url, '/');
-    $url = filter_var($url, FILTER_SANITIZE_URL);
-    $url = explode('/', $url);
-
-    global $key;
-
-    if (isset($url[0], $map[$url[0]])) {
-        $key = $url[0];
-    }
-    else {
-        $key = 'default';
-    }
-
-    $controllerClass = $map[$key];
-
-    $action = isset($url[1]) ? $url[1] : 'index';
-    $action = str_replace('-', '_', $action);
-    unset($url[0], $url[1]);
-    $params = array_values($url);
-
-    $controller = new $controllerClass($db);
-
-    if (method_exists($controller, $action)) {
-        call_user_func_array([$controller, $action], $params);
-    }
-    else {
-        header('HTTP/1.0 404 Not Found');
-        include 'html/404.html';
-    }
+function http404()
+{
+    header('HTTP/1.0 404 Not Found');
+    include 'html/404.html';
+    exit;
 }
 
-start();
+date_default_timezone_set('Europe/Warsaw');
+
+
+$config = new Config;
+Application::getInstance()->start($config);

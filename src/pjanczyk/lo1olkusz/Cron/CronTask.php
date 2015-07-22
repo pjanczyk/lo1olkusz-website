@@ -37,7 +37,7 @@ class CronTask
 
     public function run()
     {
-        $this->db = new Database();
+        $this->db = new Database(new Config);
 
         $url = Config::getUrl();
         $dom = file_get_html($url);

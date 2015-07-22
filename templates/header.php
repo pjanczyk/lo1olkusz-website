@@ -1,6 +1,6 @@
 <?php
 $menu = [
-    ['default', 'Home'],
+    ['', 'Home'],
     ['cron', 'Cron'],
     ['lucky-numbers', 'Lucky numbers'],
     ['replacements', 'Replacements'],
