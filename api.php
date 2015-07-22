@@ -51,7 +51,8 @@ if ($args[0] == 'news' && count($args) == 3) { # /api/news/<class>/<lastModified
     $now = time();
     $news = $model->get($class, date('Y-m-d H:i:s', $now), $lastModified);
 
-    Json::OK(['news' => array_values($news), 'lastModified'=> $now]);
+    header('Content-Type: application/json');
+    echo json_encode(['news' => $news, 'lastModified'=> $now], JSON_FORCE_OBJECT);
 }
 else if ($args[0] == 'lucky-numbers' && count($args) == 2) { # /api/lucky-numbers/<date>
     $date = urldecode($args[1]);
