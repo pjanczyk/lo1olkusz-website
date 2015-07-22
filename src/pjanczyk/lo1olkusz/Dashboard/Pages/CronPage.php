@@ -22,14 +22,14 @@
 
 namespace pjanczyk\lo1olkusz\Dashboard\Pages;
 
+use pjanczyk\framework\Application;
 use pjanczyk\framework\Page;
-use pjanczyk\lo1olkusz\Config;
 
 class CronPage extends Page
 {
     public function index()
     {
-        $path = Config::getLogDir() . 'cron.log';
+        $path = Application::getInstance()->getConfig()->getLogDir() . 'cron.log';
 
         if (isset($_POST['clear-log'])) {
             unlink($path);

@@ -22,8 +22,8 @@
 
 namespace pjanczyk\lo1olkusz\Dashboard\Pages;
 
+use pjanczyk\framework\Application;
 use pjanczyk\framework\Page;
-use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Model\SettingsModel;
 use pjanczyk\lo1olkusz\Model\TimetablesModel;
 
@@ -33,7 +33,7 @@ class SettingsPage extends Page
     {
         $modelSettings = new SettingsModel($this->db);
 
-        $apkPath = Config::getDataDir() . 'apk';
+        $apkPath = Application::getInstance()->getConfig()->getDataDir() . 'apk';
 
         $alerts = [];
 

@@ -39,7 +39,9 @@ class CronTask
     {
         $this->db = new Database(new Config);
 
-        $url = Config::getUrl();
+        $config = new Config;
+
+        $url = $config->getUrl();
         $dom = file_get_html($url);
 
         if ($dom === false) {

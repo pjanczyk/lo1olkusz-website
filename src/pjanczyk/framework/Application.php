@@ -8,6 +8,7 @@ final class Application
     /** @var Application|null */
     private static $instance = null;
 
+    private $config;
     private $page;
     private $pageName;
     private $action;
@@ -29,8 +30,18 @@ final class Application
         return $this->page;
     }
 
+    /**
+     * @return Config
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
     public function start(Config $config)
     {
+        $this->config = $config;
+
         if (!$this->route($config->getPagesMap())) {
             http404();
         }
