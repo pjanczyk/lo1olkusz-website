@@ -41,4 +41,12 @@ class Database {
     public function delete($table) {
         return new internal\DeleteBuilder($this->pdo, $table);
     }
+
+    /**
+     * @param string $sql
+     * @return \PDOStatement
+     */
+    public function prepare($sql) {
+        return $this->pdo->prepare($sql);
+    }
 }

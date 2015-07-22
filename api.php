@@ -30,6 +30,7 @@ use pjanczyk\framework\Database;
 use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Json;
 use pjanczyk\lo1olkusz\Model\LuckyNumbersModel;
+use pjanczyk\lo1olkusz\Model\NewsModel;
 use pjanczyk\lo1olkusz\Model\ReplacementsModel;
 use pjanczyk\lo1olkusz\Model\TimetablesModel;
 
@@ -42,7 +43,16 @@ if (!isset($_GET['p'])) {
 
 $args = explode('/', trim($_GET['p'], '/'));
 
-if ($args[0] == 'lucky-numbers' && count($args) == 2) { # /api/lucky-numbers/<date>
+if ($args[0] == 'news' && count($args) == 3) { # /api/news/<class>/<lastModified>
+    $model = new NewsModel($db);
+
+    $class = urldecode($args[1]);
+    $lastModified = urldecode($args[2]);
+    $news = $model->get($class, date('Y-m-d H:i:s'), $lastModified);
+
+    Json::OK($news);
+}
+else if ($args[0] == 'lucky-numbers' && count($args) == 2) { # /api/lucky-numbers/<date>
     $date = urldecode($args[1]);
 
     $model = new LuckyNumbersModel($db);
