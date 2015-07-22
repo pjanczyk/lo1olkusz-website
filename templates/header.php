@@ -44,8 +44,8 @@
                 ];
 
                 $url = isset($_GET['p']) ? $_GET['p'] : '';
-                $url = ltrim($path, '/');
-                $url = explode('/', $path, 2)[0];
+                $url = ltrim($url, '/');
+                $url = explode('/', $url, 2)[0];
                 ?>
 
                 <?php foreach ($menu as $menuItem): ?>
