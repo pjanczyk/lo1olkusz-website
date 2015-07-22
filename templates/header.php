@@ -10,9 +10,8 @@ $menu = [
 $url = isset($_GET['p']) ? $_GET['p'] : '';
 $url = ltrim($path, '/');
 $url = explode('/', $path, 2)[0];
-?>
 
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
