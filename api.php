@@ -50,6 +50,7 @@ if ($args[0] == 'news' && count($args) == 3) { # /api/news/<class>/<lastModified
     $lastModified = date('Y-m-d H:i:s', $args[2]);
     $news = $model->get($class, date('Y-m-d H:i:s'), $lastModified);
 
+    var_dump($news);
     Json::OK($news);
 }
 else if ($args[0] == 'lucky-numbers' && count($args) == 2) { # /api/lucky-numbers/<date>
