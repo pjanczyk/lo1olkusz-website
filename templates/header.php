@@ -1,17 +1,4 @@
-<?php
-$menu = [
-    ['', 'Home'],
-    ['cron', 'Cron'],
-    ['lucky-numbers', 'Lucky numbers'],
-    ['replacements', 'Replacements'],
-    ['settings', 'Settings'],
-];
-
-$url = isset($_GET['p']) ? $_GET['p'] : '';
-$url = ltrim($path, '/');
-$url = explode('/', $path, 2)[0];
-
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -47,6 +34,20 @@ $url = explode('/', $path, 2)[0];
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
+                <?php
+                $menu = [
+                    ['', 'Home'],
+                    ['cron', 'Cron'],
+                    ['lucky-numbers', 'Lucky numbers'],
+                    ['replacements', 'Replacements'],
+                    ['settings', 'Settings'],
+                ];
+
+                $url = isset($_GET['p']) ? $_GET['p'] : '';
+                $url = ltrim($path, '/');
+                $url = explode('/', $path, 2)[0];
+                ?>
+
                 <?php foreach ($menu as $menuItem): ?>
                     <li<?php if ($menuItem[0] === $url): ?> class="active"<?php endif ?>><a href="/<?=$menuItem[0]?>"><?=$menuItem[1]?></a></li>
                 <?php endforeach ?>
