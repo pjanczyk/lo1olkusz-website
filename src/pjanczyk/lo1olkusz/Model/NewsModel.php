@@ -18,7 +18,7 @@ class NewsModel extends Model {
     {
         //replacements
         $stmt = $this->db->prepare(
-'SELECT "replacements", date, value, lastModified FROM replacements WHERE class=:class AND date>=:date AND lastModified>=:lastModified
+'SELECT "replacements" AS type, date, value, lastModified FROM replacements WHERE class=:class AND date>=:date AND lastModified>=:lastModified
 UNION ALL
 SELECT "luckyNumber", date, value, lastModified FROM luckyNumbers WHERE date>=:date AND lastModified>=:lastModified
 UNION ALL
