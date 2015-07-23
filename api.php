@@ -49,7 +49,7 @@ function binString($string) {
 
 function binDate($date) {
     if (strlen($date) === 10) {
-        echo pack('S', (int)substr($date, 0, 4));
+        echo pack('n', (int)substr($date, 0, 4));
         echo pack('C', (int)substr($date, 5, 2));
         echo pack('C', (int)substr($date, 8, 2));
     }
