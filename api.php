@@ -107,7 +107,7 @@ else if ($args[0] == 'news-bin' && count($args) == 3) { # /api/news/<class>/<las
 
     header('Content-Type: application/octet-stream');
 
-    echo 'πJ'; //header
+    echo chr(0xCF) . chr(0x80) . 'J'; //header
     binUnsignedLong($now);
     binUnsignedLong(count($news));
 
@@ -140,7 +140,7 @@ else if ($args[0] == 'news-bin' && count($args) == 3) { # /api/news/<class>/<las
         }
     }
 
-    echo 'πJ'; //footer
+    echo chr(0xCF) . chr(0x80) . 'J'; //header
 }
 else if ($args[0] == 'lucky-numbers' && count($args) == 2) { # /api/lucky-numbers/<date>
     $date = urldecode($args[1]);
