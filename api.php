@@ -34,6 +34,10 @@ use pjanczyk\lo1olkusz\Model\NewsModel;
 use pjanczyk\lo1olkusz\Model\ReplacementsModel;
 use pjanczyk\lo1olkusz\Model\TimetablesModel;
 
+function binUnsignedByte($int) {
+    echo pack('C', (int)$int);
+}
+
 function binUnsignedLong($int) {
     echo pack('N', (int)$int);
 }
@@ -103,13 +107,11 @@ else if ($args[0] == 'news-bin' && count($args) == 3) { # /api/news/<class>/<las
 
     header('Content-Type: application/json');
 
-    var_dump($news);
-
     echo 'PJ'; //header
     binUnsignedLong($now);
 
     foreach ($news as $n) {
-        echo pack('C', $n['type']);
+        binUnsignedByte($n['type']);
 
         switch($n['type']) {
             case NewsModel::APK:
@@ -122,7 +124,7 @@ else if ($args[0] == 'news-bin' && count($args) == 3) { # /api/news/<class>/<las
                 $replacements = json_decode($n['value']);
                 binUnsignedLong(count($replacements));
                 foreach ($replacements as $h=>$v) {
-                    binUnsignedLong($h);
+                    binUnsignedByte($h);
                     binString($v);
                 }
                 break;
