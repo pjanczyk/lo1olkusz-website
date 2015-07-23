@@ -43,6 +43,15 @@ function binString($string) {
     echo $string;
 }
 
+function binDate($date) {
+    if (strlen($date) === 10) {
+        echo pack('S', (int)substr($date, 0, 4));
+        echo pack('C', (int)substr($date, 5, 2));
+        echo pack('C', (int)substr($date, 8, 2));
+    }
+    echo pack('N', 0);
+}
+
 
 $db = new Database(new Config);
 
@@ -109,12 +118,17 @@ else if ($args[0] == 'news-bin' && count($args) == 3) { # /api/news/<class>/<las
                 break;
             case NewsModel::REPLACEMENTS:
                 binUnsignedLong($n['timestamp']);
-                binString($n['date']);
-                binString($n['value']);
+                binDate($n['date']);
+                $replacements = json_decode($n['value']);
+                binUnsignedLong(count($replacements));
+                foreach ($replacements as $h=>$v) {
+                    binUnsignedLong($h);
+                    binString($v);
+                }
                 break;
             case NewsModel::LUCKY_NUMBER:
                 binUnsignedLong($n['timestamp']);
-                binString($n['date']);
+                binDate($n['date']);
                 binUnsignedLong($n['value']);
                 break;
             case NewsModel::TIMETABLE:
