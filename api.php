@@ -96,6 +96,8 @@ else if ($args[0] == 'news-bin' && count($args) == 3) { # /api/news/<class>/<las
 
     header('Content-Type: application/json');
 
+    var_dump($news);
+
     echo 'PJ'; //header
     binUnsignedLong($now);
 
