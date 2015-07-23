@@ -74,6 +74,39 @@ if ($args[0] == 'news' && count($args) == 3) { # /api/news/<class>/<lastModified
 
     echo '],"timestamp":'.$now.'}';
 }
+else if ($args[0] == 'news-bin' && count($args) == 3) { # /api/news/<class>/<lastModified>
+    $model = new NewsModel($db);
+
+    $class = urldecode($args[1]);
+    $lastModified = intval($args[2]);
+    $now = time();
+    $news = $model->get($class, date('Y-m-d H:i:s', $now), $lastModified);
+
+    header('Content-Type: application/octet-stream');
+
+    echo chr(0);
+
+    foreach ($news as $n) {
+        switch($n['type']) {
+            case NewsModel::APK:
+                echo '0' . chr(1) . $n['value'];
+                break;
+            case NewsModel::REPLACEMENTS:
+                echo '1' . chr(1) . $n['date'] . chr(1) . $n['timestamp'] . chr(1) . $n['value'];
+                break;
+            case NewsModel::LUCKY_NUMBER:
+                echo '2' . chr(1) . $n['date'] . chr(1) . $n['timestamp'] . chr(1) . $n['value'];
+                break;
+            case NewsModel::TIMETABLE:
+                echo '3' . chr(1) . chr(1) . $n['timestamp'] . chr(1) . $n['value'];
+                break;
+        }
+    }
+
+    echo chr(0);
+    echo $now;
+    echo chr(0);
+}
 else if ($args[0] == 'lucky-numbers' && count($args) == 2) { # /api/lucky-numbers/<date>
     $date = urldecode($args[1]);
 
