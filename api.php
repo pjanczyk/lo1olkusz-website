@@ -47,7 +47,7 @@ if ($args[0] == 'news' && count($args) == 3) { # /api/news/<class>/<lastModified
     $model = new NewsModel($db);
 
     $class = urldecode($args[1]);
-    $lastModified = date('Y-m-d H:i:s', $args[2]);
+    $lastModified = date('Y-m-d H:i:s', intval($args[2]));
     $now = time();
     $news = $model->get($class, date('Y-m-d H:i:s', $now), $lastModified);
 
