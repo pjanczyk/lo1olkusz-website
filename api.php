@@ -53,7 +53,9 @@ function binDate($date) {
         echo pack('C', (int)substr($date, 5, 2));
         echo pack('C', (int)substr($date, 8, 2));
     }
-    echo pack('N', 0);
+    else {
+        echo pack('N', 0);
+    }
 }
 
 
