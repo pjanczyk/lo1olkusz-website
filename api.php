@@ -48,7 +48,7 @@ if ($args[0] == 'news' && count($args) == 3) { # /api/news/<class>/<lastModified
 
     $class = urldecode($args[1]);
     $lastModified = date('Y-m-d H:i:s', intval($args[2]));
-    $now = date('Y-m-d H:i:s', $now);
+    $now = date('Y-m-d H:i:s');
     $news = $model->get($class, $now, $lastModified);
 
     header('Content-Type: application/json');
