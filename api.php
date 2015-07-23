@@ -84,7 +84,7 @@ else if ($args[0] == 'news-bin' && count($args) == 3) { # /api/news/<class>/<las
 
     header('Content-Type: application/octet-stream');
 
-    echo chr(0);
+    echo 'PJ'; //header
 
     foreach ($news as $n) {
         switch($n['type']) {
@@ -92,19 +92,19 @@ else if ($args[0] == 'news-bin' && count($args) == 3) { # /api/news/<class>/<las
                 echo '0' . chr(1) . $n['value'];
                 break;
             case NewsModel::REPLACEMENTS:
-                echo '1' . chr(1) . $n['date'] . chr(1) . $n['timestamp'] . chr(1) . $n['value'];
+                echo '1' . chr(1) . $n['date'] . chr(1) . pack('N', $n['timestamp']) . chr(1) . $n['value'];
                 break;
             case NewsModel::LUCKY_NUMBER:
-                echo '2' . chr(1) . $n['date'] . chr(1) . $n['timestamp'] . chr(1) . $n['value'];
+                echo '2' . chr(1) . $n['date'] . chr(1) . pack('N', $n['timestamp']) . chr(1) . $n['value'];
                 break;
             case NewsModel::TIMETABLE:
-                echo '3' . chr(1) . chr(1) . $n['timestamp'] . chr(1) . $n['value'];
+                echo '3' . chr(1) . chr(1) . pack('N', $n['timestamp']) . chr(1) . $n['value'];
                 break;
         }
     }
 
     echo chr(0);
-    echo $now;
+    echo pack('N', $now);
     echo chr(0);
 }
 else if ($args[0] == 'lucky-numbers' && count($args) == 2) { # /api/lucky-numbers/<date>
