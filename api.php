@@ -34,6 +34,18 @@ use pjanczyk\lo1olkusz\Model\NewsModel;
 use pjanczyk\lo1olkusz\Model\ReplacementsModel;
 use pjanczyk\lo1olkusz\Model\TimetablesModel;
 
+function binUnsignedLong($int) {
+    echo pack('N', strlen($int));
+}
+
+function binString($string) {
+    binUnsignedLong(strlen($string));
+    echo $string;
+}
+
+
+
+
 $db = new Database(new Config);
 
 if (!isset($_GET['p'])) {
@@ -82,30 +94,37 @@ else if ($args[0] == 'news-bin' && count($args) == 3) { # /api/news/<class>/<las
     $now = time();
     $news = $model->get($class, date('Y-m-d H:i:s', $now), $lastModified);
 
-    header('Content-Type: application/octet-stream');
+    header('Content-Type: application/json');
 
     echo 'PJ'; //header
+    binUnsignedLong($now);
 
     foreach ($news as $n) {
+        echo pack('C', $n['type']);
+
         switch($n['type']) {
             case NewsModel::APK:
-                echo '0' . chr(1) . $n['value'];
+                binUnsignedLong($n['timestamp']);
+                binString($n['value']);
                 break;
             case NewsModel::REPLACEMENTS:
-                echo '1' . chr(1) . $n['date'] . chr(1) . pack('N', $n['timestamp']) . chr(1) . $n['value'];
+                binUnsignedLong($n['timestamp']);
+                binString($n['value']);
+                binString($n['date']);
                 break;
             case NewsModel::LUCKY_NUMBER:
-                echo '2' . chr(1) . $n['date'] . chr(1) . pack('N', $n['timestamp']) . chr(1) . $n['value'];
+                binUnsignedLong($n['timestamp']);
+                binString($n['value']);
+                binString($n['date']);
                 break;
             case NewsModel::TIMETABLE:
-                echo '3' . chr(1) . chr(1) . pack('N', $n['timestamp']) . chr(1) . $n['value'];
+                binUnsignedLong($n['timestamp']);
+                binString($n['value']);
                 break;
         }
     }
 
-    echo chr(0);
-    echo pack('N', $now);
-    echo chr(0);
+    echo 'PJ'; //footer
 }
 else if ($args[0] == 'lucky-numbers' && count($args) == 2) { # /api/lucky-numbers/<date>
     $date = urldecode($args[1]);
