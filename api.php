@@ -115,8 +115,7 @@ else if ($args[0] == 'news-bin' && count($args) == 3) { # /api/news/<class>/<las
 
         switch($n['type']) {
             case NewsModel::APK:
-                binUnsignedLong($n['timestamp']);
-                binString($n['value']);
+                binUnsignedLong($n['value']);
                 break;
             case NewsModel::REPLACEMENTS:
                 binUnsignedLong($n['timestamp']);
