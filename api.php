@@ -35,15 +35,13 @@ use pjanczyk\lo1olkusz\Model\ReplacementsModel;
 use pjanczyk\lo1olkusz\Model\TimetablesModel;
 
 function binUnsignedLong($int) {
-    echo pack('N', strlen($int));
+    echo pack('N', (int)$int);
 }
 
 function binString($string) {
     binUnsignedLong(strlen($string));
     echo $string;
 }
-
-
 
 
 $db = new Database(new Config);
