@@ -105,6 +105,8 @@ else if ($args[0] == 'news-bin' && count($args) == 3) { # /api/news/<class>/<las
     $now = time();
     $news = $model->get($class, date('Y-m-d H:i:s', $now), $lastModified);
 
+    header('Content-type: application; charset: utf-8');
+
     echo 'πJ'; //header
     binUnsignedLong($now);
     binUnsignedLong(count($news));
