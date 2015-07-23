@@ -109,13 +109,13 @@ else if ($args[0] == 'news-bin' && count($args) == 3) { # /api/news/<class>/<las
                 break;
             case NewsModel::REPLACEMENTS:
                 binUnsignedLong($n['timestamp']);
-                binString($n['value']);
                 binString($n['date']);
+                binString($n['value']);
                 break;
             case NewsModel::LUCKY_NUMBER:
                 binUnsignedLong($n['timestamp']);
-                binString($n['value']);
                 binString($n['date']);
+                binUnsignedLong($n['value']);
                 break;
             case NewsModel::TIMETABLE:
                 binUnsignedLong($n['timestamp']);
