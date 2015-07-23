@@ -109,6 +109,7 @@ else if ($args[0] == 'news-bin' && count($args) == 3) { # /api/news/<class>/<las
 
     echo 'PJ'; //header
     binUnsignedLong($now);
+    binUnsignedLong(count($news));
 
     foreach ($news as $n) {
         binUnsignedByte($n['type']);
