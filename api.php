@@ -47,7 +47,7 @@ if ($args[0] == 'news' && count($args) == 3) { # /api/news/<class>/<lastModified
     $model = new NewsModel($db);
 
     $class = urldecode($args[1]);
-    $lastModified = str_replace('T', ' ', $args[2]);
+    $lastModified = intval($args[2]);
     $now = time();
     $news = $model->get($class, date('Y-m-d H:i:s', $now), $lastModified);
 
@@ -61,13 +61,13 @@ if ($args[0] == 'news' && count($args) == 3) { # /api/news/<class>/<lastModified
                 echo '{"type":"apk","version":"'.$n['value'].'"},';
                 break;
             case NewsModel::REPLACEMENTS:
-                echo '{"type":"replacements","date":"'.$n['date'].'","lastModified":'.$n['lastModified'].',"value":'.$n['value'].'},';
+                echo '{"type":"replacements","date":"'.$n['date'].'","lastModified":'.$n['timestamp'].',"value":'.$n['value'].'},';
                 break;
             case NewsModel::LUCKY_NUMBER:
-                echo '{"type":"luckyNumber","date":"'.$n['date'].'","lastModified":'.$n['lastModified'].',"value":'.$n['value'].'},';
+                echo '{"type":"luckyNumber","date":"'.$n['date'].'","lastModified":'.$n['timestamp'].',"value":'.$n['value'].'},';
                 break;
             case NewsModel::TIMETABLE:
-                echo '{"type":"timetable","lastModified":'.$n['lastModified'].',"value":'.json_encode($n['value']).'},';
+                echo '{"type":"timetable","lastModified":'.$n['timestamp'].',"value":'.json_encode($n['value']).'},';
                 break;
         }
     }
