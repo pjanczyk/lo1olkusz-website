@@ -8,6 +8,11 @@ use pjanczyk\framework\Model;
 
 class NewsModel extends Model {
 
+    const APK = 0;
+    const REPLACEMENTS = 1;
+    const LUCKY_NUMBER = 2;
+    const TIMETABLE = 3;
+
     /**
      * @param string $class
      * @param string $sinceDate date
@@ -18,11 +23,11 @@ class NewsModel extends Model {
     {
         //replacements
         $stmt = $this->db->prepare(
-'SELECT "replacements" AS type, date, value, lastModified FROM replacements WHERE class=:class AND date>=:date AND lastModified>=:lastModified
+'SELECT 1 AS type, date, value, lastModified FROM replacements WHERE class=:class AND date>=:date AND lastModified>=:lastModified
 UNION ALL
-SELECT "luckyNumber", date, value, lastModified FROM luckyNumbers WHERE date>=:date AND lastModified>=:lastModified
+SELECT 2, date, value, lastModified FROM luckyNumbers WHERE date>=:date AND lastModified>=:lastModified
 UNION ALL
-SELECT "timetable", NULL, value, lastModified FROM timetables WHERE class=:class AND lastModified>=:lastModified'
+SELECT 3, NULL, value, lastModified FROM timetables WHERE class=:class AND lastModified>=:lastModified'
         );
         $stmt->bindParam(':class', $class);
         $stmt->bindParam(':date', $sinceDate);
