@@ -105,9 +105,9 @@ else if ($args[0] == 'news-bin' && count($args) == 3) { # /api/news/<class>/<las
     $class = urldecode($args[1]);
     $lastModified = intval($args[2]);
     $now = time();
-    $news = $model->get($class, date('Y-m-d H:i:s', $now), $lastModified);
+    $news = $model->get($class, date('Y-m-d', $now), $lastModified);
 
-    header('Content-type: application; charset: utf-8');
+    header('Content-type: application/json; charset: utf-8');
 
     echo 'πJ'; //header
     binUnsignedLong($now);
@@ -137,6 +137,53 @@ else if ($args[0] == 'news-bin' && count($args) == 3) { # /api/news/<class>/<las
                 break;
             case NewsModel::TIMETABLE:
                 binUnsignedLong($n['timestamp']);
+                binString($n['value']);
+                break;
+        }
+    }
+
+    echo 'πJ'; //footer
+}
+else if ($args[0] == 'news-bin' && count($args) == 2) { # /api/news/<lastModified>
+    $model = new NewsModel($db);
+
+    $class = urldecode($args[1]);
+    $lastModified = intval($args[2]);
+    $now = time();
+    $news = $model->get2(date('Y-m-d', $now), $lastModified);
+
+    header('Content-type: application/json; charset: utf-8');
+
+    echo 'πJ'; //header
+    binUnsignedLong($now);
+    binUnsignedLong(count($news));
+
+    foreach ($news as $n) {
+        binUnsignedByte($n['type']);
+
+        switch($n['type']) {
+            case NewsModel::APK:
+                binUnsignedLong($n['value']);
+                break;
+            case NewsModel::REPLACEMENTS:
+                binUnsignedLong($n['timestamp']);
+                binString($n['class']);
+                binDate($n['date']);
+                $replacements = json_decode($n['value']);
+                binUnsignedLong(count($replacements));
+                foreach ($replacements as $h=>$v) {
+                    binUnsignedByte($h);
+                    binString($v);
+                }
+                break;
+            case NewsModel::LUCKY_NUMBER:
+                binUnsignedLong($n['timestamp']);
+                binDate($n['date']);
+                binUnsignedLong($n['value']);
+                break;
+            case NewsModel::TIMETABLE:
+                binUnsignedLong($n['timestamp']);
+                binString($n['class']);
                 binString($n['value']);
                 break;
         }
