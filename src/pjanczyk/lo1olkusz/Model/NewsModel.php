@@ -22,11 +22,14 @@ class NewsModel extends Model {
     {
         //replacements
         $stmt = $this->db->prepare(
-'SELECT 1 AS type, date, class, value, UNIX_TIMESTAMP(lastModified) AS timestamp FROM replacements WHERE date>=:date AND lastModified>=:lastModified
+'SELECT 1 AS type, date, class, value, UNIX_TIMESTAMP(lastModified) AS timestamp FROM replacements
+WHERE date>=:date AND lastModified>=FROM_UNIXTIME(:lastModified)
 UNION ALL
-SELECT 2, date, NULL, value, UNIX_TIMESTAMP(lastModified) FROM luckyNumbers WHERE date>=:date AND lastModified>=:lastModified
+SELECT 2, date, NULL, value, UNIX_TIMESTAMP(lastModified) FROM luckyNumbers
+WHERE date>=:date AND lastModified>=FROM_UNIXTIME(:lastModified)
 UNION ALL
-SELECT 3, NULL, class, value, UNIX_TIMESTAMP(lastModified) FROM timetables WHERE lastModified>=:lastModified
+SELECT 3, NULL, class, value, UNIX_TIMESTAMP(lastModified) FROM timetables
+WHERE lastModified>=FROM_UNIXTIME(:lastModified)
 UNION ALL
 SELECT 0, NULL, NULL, value, NULL FROM settings WHERE name="version"'
         );
