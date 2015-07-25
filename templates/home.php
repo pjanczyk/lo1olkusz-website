@@ -13,8 +13,7 @@ include 'templates/header.php' ?>
     <thead>
         <tr>
             <th>type</th>
-            <th>date</th>
-            <th>class</th>
+            <th>date/class</th>
             <th>value</th>
             <th>lastModified</th>
         </tr>
@@ -31,15 +30,13 @@ foreach ($news as $n) {
             <td>apk version</td>
             <td></td>
             <td></td>
-            <td></td>
             <td><?=$n['value']?></td>
             <?php
             break;
         case NewsModel::REPLACEMENTS:
             ?>
             <td>replacements</td>
-            <td><?=$n['date']?></td>
-            <td><?=$n['class']?></td>
+            <td><?=$n['date']?><br/><?=$n['class']?></td>
             <td><pre><?=$n['value']?></pre></td>
             <td><?=$n['timestamp']?></td>
             <?php
@@ -48,7 +45,6 @@ foreach ($news as $n) {
             ?>
             <td>lucky number</td>
             <td><?=$n['date']?></td>
-            <td></td>
             <td><?=$n['value']?></td>
             <td><?=$n['timestamp']?></td>
             <?php
@@ -56,7 +52,6 @@ foreach ($news as $n) {
         case NewsModel::TIMETABLE:
             ?>
             <td>timetable</td>
-            <td></td>
             <td><?=$n['class']?></td>
             <td><pre><?=$n['value']?></pre></td>
             <td><?=$n['timestamp']?></td>
