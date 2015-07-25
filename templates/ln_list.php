@@ -10,7 +10,6 @@
             <th>date</th>
             <th>value</th>
             <th>last modified</th>
-            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -19,9 +18,6 @@
                 <td><?=$ln->date?></td>
                 <td><?=$ln->value?></td>
                 <td><?=$ln->lastModified?></td>
-                <td>
-                    <a class="btn btn-default btn-xs" href="/api/ln/<?=$ln->date?>">Show API</a>
-                </td>
             </tr>
         <? endforeach ?>
         </tbody>

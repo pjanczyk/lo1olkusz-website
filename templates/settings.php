@@ -94,10 +94,8 @@
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="/api/timetables/<?=urlencode($timetable->class)?>">View</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="/settings/edit-timetable/<?=urlencode($timetable->class)?>">Edit</a></li>
-                                    <li><a class="timetable-delete" href="/settings/delete-timetable/<?=urlencode($timetable->class)?>">Delete</a></li>
+                                    <li><a href="/settings/edit-timetable/<?=$timetable->class?>">Edit</a></li>
+                                    <li><a class="timetable-delete" href="/settings/delete-timetable/<?=$timetable->class?>">Delete</a></li>
                                 </ul>
                             </div>
                         </td>

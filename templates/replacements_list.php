@@ -21,7 +21,6 @@
             <td><?=$r->lastModified?></td>
             <td>
                 <a class="btn btn-default btn-xs" href="/replacements/view/<?=$r->date?>/<?=$r->class?>">View</a>
-                <a class="btn btn-default btn-xs" href="/api/replacements/<?=$r->date?>/<?=$r->class?>.json">Json API</a>
             </td>
         </tr>
     <? endforeach ?>

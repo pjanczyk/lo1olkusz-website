@@ -6,11 +6,6 @@
 
 <div class="form-horizontal">
     <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <a class="btn btn-default" href="/api/replacements/<?=$replacements->date?>/<?=$replacements->class?>.json">Show API</a>
-        </div>
-    </div>
-    <div class="form-group">
         <label class="col-sm-2 control-label">Date</label>
         <div class="col-sm-10"><?=$replacements->date?></div>
     </div>
