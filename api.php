@@ -147,8 +147,7 @@ else if ($args[0] == 'news-bin' && count($args) == 3) { # /api/news/<class>/<las
 else if ($args[0] == 'news-bin' && count($args) == 2) { # /api/news/<lastModified>
     $model = new NewsModel($db);
 
-    $class = urldecode($args[1]);
-    $lastModified = intval($args[2]);
+    $lastModified = intval($args[1]);
     $now = time();
     $news = $model->get2(date('Y-m-d', $now), $lastModified);
 
