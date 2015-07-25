@@ -23,10 +23,26 @@
 namespace pjanczyk\lo1olkusz\Dashboard\Pages;
 
 use pjanczyk\framework\Page;
+use pjanczyk\lo1olkusz\Model\NewsModel;
 
 class HomePage extends Page
 {
     public function index()
     {
+        $this->last_modified(0);
+    }
+
+    public function last_modified($timestamp)
+    {
+        $model = new NewsModel($this->db);
+
+        $lastModified = intval($timestamp);
+        $now = date('Y-m-d');
+        $news = $model->get2($now, $lastModified);
+
+        $template = $this->includeTemplate('home');
+        $template->now = $now;
+        $template->news = $news;
+        $template->render();
     }
 }

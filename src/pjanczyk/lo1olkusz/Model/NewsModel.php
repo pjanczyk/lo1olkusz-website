@@ -50,7 +50,7 @@ SELECT 0, NULL, value, NULL FROM settings WHERE name="version"'
     {
         //replacements
         $stmt = $this->db->prepare(
-            'SELECT 1 AS type, date, class, value, UNIX_TIMESTAMP(lastModified) AS timestamp FROM replacements WHERE date>=:date AND lastModified>=:lastModified
+'SELECT 1 AS type, date, class, value, UNIX_TIMESTAMP(lastModified) AS timestamp FROM replacements WHERE date>=:date AND lastModified>=:lastModified
 UNION ALL
 SELECT 2, date, NULL, value, UNIX_TIMESTAMP(lastModified) FROM luckyNumbers WHERE date>=:date AND lastModified>=:lastModified
 UNION ALL
