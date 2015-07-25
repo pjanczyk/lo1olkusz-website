@@ -13,10 +13,10 @@ include 'templates/header.php' ?>
     <thead>
         <tr>
             <th>type</th>
-            <th>lastModified</th>
             <th>date</th>
             <th>class</th>
             <th>value</th>
+            <th>lastModified</th>
         </tr>
     </thead>
     <tbody>
@@ -38,28 +38,28 @@ foreach ($news as $n) {
         case NewsModel::REPLACEMENTS:
             ?>
             <td>replacements</td>
-            <td><?=$n['timestamp']?></td>
             <td><?=$n['date']?></td>
             <td><?=$n['class']?></td>
-            <td><?=$n['value']?></td>
+            <td><pre><?=$n['value']?></pre></td>
+            <td><?=$n['timestamp']?></td>
             <?php
             break;
         case NewsModel::LUCKY_NUMBER:
             ?>
             <td>lucky number</td>
-            <td><?=$n['timestamp']?></td>
             <td><?=$n['date']?></td>
             <td></td>
             <td><?=$n['value']?></td>
+            <td><?=$n['timestamp']?></td>
             <?php
             break;
         case NewsModel::TIMETABLE:
             ?>
             <td>timetable</td>
-            <td><?=$n['timestamp']?></td>
             <td></td>
             <td><?=$n['class']?></td>
-            <td><?=$n['value']?></td>
+            <td><pre><?=$n['value']?></pre></td>
+            <td><?=$n['timestamp']?></td>
             <?php
             break;
     }
