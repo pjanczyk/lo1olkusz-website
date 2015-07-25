@@ -38,7 +38,7 @@ foreach ($news as $n) {
         case NewsModel::REPLACEMENTS:
             ?>
             <td>replacements</td>
-            <td><?=$n['lastModified']?></td>
+            <td><?=$n['timestamp']?></td>
             <td><?=$n['date']?></td>
             <td><?=$n['class']?></td>
             <td><?=$n['value']?></td>
@@ -47,7 +47,7 @@ foreach ($news as $n) {
         case NewsModel::LUCKY_NUMBER:
             ?>
             <td>lucky number</td>
-            <td><?=$n['lastModified']?></td>
+            <td><?=$n['timestamp']?></td>
             <td><?=$n['date']?></td>
             <td></td>
             <td><?=$n['value']?></td>
@@ -56,7 +56,7 @@ foreach ($news as $n) {
         case NewsModel::TIMETABLE:
             ?>
             <td>timetable</td>
-            <td><?=$n['lastModified']?></td>
+            <td><?=$n['timestamp']?></td>
             <td></td>
             <td><?=$n['class']?></td>
             <td><?=$n['value']?></td>
