@@ -33,24 +33,46 @@ use pjanczyk\lo1olkusz\Model\NewsModel;
 
 $binary = isset($_GET['bin']);
 
+/**
+ * 1 byte
+ * @param int $int
+ */
 function binUnsignedByte($int) {
     echo pack('C', (int)$int);
 }
 
+/**
+ * 2 bytes
+ * @param int $int
+ */
+function binUnsignedShort($int) {
+    echo pack('n', (int)$int);
+}
+
+/**
+ * 4 bytes
+ * @param int $int
+ */
 function binUnsignedLong($int) {
     echo pack('N', (int)$int);
 }
 
+/**
+ * string length + 2 bytes
+ * @param string $string max length 65535
+ */
 function binString($string) {
-    binUnsignedLong(strlen($string));
+    binUnsignedShort(strlen($string));
     echo $string;
 }
 
+/**
+ * 4 bytes
+ * @param string $date in format yyyy-mm-dd
+ */
 function binDate($date) {
     if (strlen($date) === 10) {
-        echo pack('n', (int)substr($date, 0, 4));
-        echo pack('C', (int)substr($date, 5, 2));
-        echo pack('C', (int)substr($date, 8, 2));
+        echo pack('nCC', (int)substr($date, 0, 4), (int)substr($date, 5, 2), (int)substr($date, 8, 2));
     }
     else {
         echo pack('N', 0);
@@ -62,7 +84,7 @@ function binReplacements($n) {
     binString($n['class']);
     binDate($n['date']);
     $replacements = json_decode($n['value'], true);
-    binUnsignedLong(count($replacements));
+    binUnsignedByte(count($replacements));
     foreach ($replacements as $h=>$v) {
         binUnsignedByte($h);
         binString($v);
@@ -72,7 +94,7 @@ function binReplacements($n) {
 function binLuckyNumber($n) {
     binUnsignedLong($n['timestamp']);
     binDate($n['date']);
-    binUnsignedLong($n['value']);
+    binUnsignedByte($n['value']);
 }
 
 function binTimetable($n) {
@@ -103,7 +125,7 @@ if ($args[0] == 'news' && count($args) == 2) { # /api/news/<lastModified>
     if ($binary) {
         echo 'PJ'; //header
         binUnsignedLong($now);
-        binUnsignedLong(count($news));
+        binUnsignedByte(count($news));
 
         foreach ($news as $n) {
             binUnsignedByte($n['type']);
