@@ -58,6 +58,30 @@ function binDate($date) {
     }
 }
 
+function binReplacements($n) {
+    binUnsignedLong($n['timestamp']);
+    binString($n['class']);
+    binDate($n['date']);
+    $replacements = json_decode($n['value']);
+    binUnsignedLong(count($replacements));
+    foreach ($replacements as $h=>$v) {
+        binUnsignedByte($h);
+        binString($v);
+    }
+}
+
+function binLuckyNumber($n) {
+    binUnsignedLong($n['timestamp']);
+    binDate($n['date']);
+    binUnsignedLong($n['value']);
+}
+
+function binTimetable($n) {
+    binUnsignedLong($n['timestamp']);
+    binString($n['class']);
+    binString($n['value']);
+}
+
 
 $db = new Database(new Config);
 
@@ -99,52 +123,7 @@ if ($args[0] == 'news' && count($args) == 3) { # /api/news/<class>/<lastModified
 
     echo '],"timestamp":'.$now.'}';
 }
-else if ($args[0] == 'news-bin' && count($args) == 3) { # /api/news/<class>/<lastModified>
-    $model = new NewsModel($db);
-
-    $class = urldecode($args[1]);
-    $lastModified = intval($args[2]);
-    $now = time();
-    $news = $model->get($class, date('Y-m-d', $now), $lastModified);
-
-    header('Content-type: application/json; charset: utf-8');
-
-    echo 'πJ'; //header
-    binUnsignedLong($now);
-    binUnsignedLong(count($news));
-
-    foreach ($news as $n) {
-        binUnsignedByte($n['type']);
-
-        switch($n['type']) {
-            case NewsModel::APK:
-                binUnsignedLong($n['value']);
-                break;
-            case NewsModel::REPLACEMENTS:
-                binUnsignedLong($n['timestamp']);
-                binDate($n['date']);
-                $replacements = json_decode($n['value']);
-                binUnsignedLong(count($replacements));
-                foreach ($replacements as $h=>$v) {
-                    binUnsignedByte($h);
-                    binString($v);
-                }
-                break;
-            case NewsModel::LUCKY_NUMBER:
-                binUnsignedLong($n['timestamp']);
-                binDate($n['date']);
-                binUnsignedLong($n['value']);
-                break;
-            case NewsModel::TIMETABLE:
-                binUnsignedLong($n['timestamp']);
-                binString($n['value']);
-                break;
-        }
-    }
-
-    echo 'πJ'; //footer
-}
-else if ($args[0] == 'news-bin' && count($args) == 2) { # /api/news/<lastModified>
+else if ($args[0] == 'news-bin' && count($args) == 2) { # /api/news-bin/<lastModified>
     $model = new NewsModel($db);
 
     $lastModified = intval($args[1]);
@@ -153,7 +132,7 @@ else if ($args[0] == 'news-bin' && count($args) == 2) { # /api/news/<lastModifie
 
     header('Content-type: application/json; charset: utf-8');
 
-    echo 'πJ'; //header
+    echo 'PJ'; //header
     binUnsignedLong($now);
     binUnsignedLong(count($news));
 
@@ -165,30 +144,18 @@ else if ($args[0] == 'news-bin' && count($args) == 2) { # /api/news/<lastModifie
                 binUnsignedLong($n['value']);
                 break;
             case NewsModel::REPLACEMENTS:
-                binUnsignedLong($n['timestamp']);
-                binString($n['class']);
-                binDate($n['date']);
-                $replacements = json_decode($n['value']);
-                binUnsignedLong(count($replacements));
-                foreach ($replacements as $h=>$v) {
-                    binUnsignedByte($h);
-                    binString($v);
-                }
+                binReplacements($n);
                 break;
             case NewsModel::LUCKY_NUMBER:
-                binUnsignedLong($n['timestamp']);
-                binDate($n['date']);
-                binUnsignedLong($n['value']);
+                binLuckyNumber($n);
                 break;
             case NewsModel::TIMETABLE:
-                binUnsignedLong($n['timestamp']);
-                binString($n['class']);
-                binString($n['value']);
+                binTimetable($n);
                 break;
         }
     }
 
-    echo 'πJ'; //footer
+    echo 'PJ'; //footer
 }
 else if ($args[0] == 'lucky-numbers' && count($args) == 2) { # /api/lucky-numbers/<date>
     $date = urldecode($args[1]);
