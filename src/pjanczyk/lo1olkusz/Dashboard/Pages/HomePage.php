@@ -38,7 +38,7 @@ class HomePage extends Page
 
         $lastModified = intval($timestamp);
         $now = date('Y-m-d');
-        $news = $model->get2($now, $lastModified);
+        $news = $model->get($now, $lastModified);
 
         $template = $this->includeTemplate('home');
         $template->now = $now;
