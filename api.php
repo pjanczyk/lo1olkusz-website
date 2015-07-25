@@ -92,13 +92,12 @@ if (!isset($_GET['p'])) {
 
 $args = explode('/', trim($_GET['p'], '/'));
 
-if ($args[0] == 'news' && count($args) == 3) { # /api/news/<class>/<lastModified>
+if ($args[0] == 'news' && count($args) == 3) { # /api/news/<lastModified>
     $model = new NewsModel($db);
 
-    $class = urldecode($args[1]);
-    $lastModified = intval($args[2]);
+    $lastModified = intval($args[1]);
     $now = time();
-    $news = $model->get($class, date('Y-m-d H:i:s', $now), $lastModified);
+    $news = $model->get($class, date('Y-m-d', $now), $lastModified);
 
     header('Content-Type: application/json');
 
@@ -110,27 +109,29 @@ if ($args[0] == 'news' && count($args) == 3) { # /api/news/<class>/<lastModified
                 echo '{"type":"apk","version":"'.$n['value'].'"},';
                 break;
             case NewsModel::REPLACEMENTS:
-                echo '{"type":"replacements","date":"'.$n['date'].'","lastModified":'.$n['timestamp'].',"value":'.$n['value'].'},';
+                echo '{"type":"replacements","date":"'.$n['date'].'","class":"'.$n['class'].'","lastModified":'.$n['timestamp'].',"value":'.$n['value'].'},';
                 break;
             case NewsModel::LUCKY_NUMBER:
                 echo '{"type":"luckyNumber","date":"'.$n['date'].'","lastModified":'.$n['timestamp'].',"value":'.$n['value'].'},';
                 break;
             case NewsModel::TIMETABLE:
-                echo '{"type":"timetable","lastModified":'.$n['timestamp'].',"value":'.json_encode($n['value']).'},';
+                echo '{"type":"timetable","class":"'.$n['class'].'","lastModified":'.$n['timestamp'].',"value":'.json_encode($n['value']).'},';
                 break;
         }
     }
 
     echo '],"timestamp":'.$now.'}';
+
+
 }
 else if ($args[0] == 'news-bin' && count($args) == 2) { # /api/news-bin/<lastModified>
     $model = new NewsModel($db);
 
     $lastModified = intval($args[1]);
     $now = time();
-    $news = $model->get2(date('Y-m-d', $now), $lastModified);
+    $news = $model->get(date('Y-m-d', $now), $lastModified);
 
-    header('Content-type: application/json; charset: utf-8');
+    header('Content-type: application/json');
 
     echo 'PJ'; //header
     binUnsignedLong($now);
@@ -154,7 +155,6 @@ else if ($args[0] == 'news-bin' && count($args) == 2) { # /api/news-bin/<lastMod
                 break;
         }
     }
-
     echo 'PJ'; //footer
 }
 else if ($args[0] == 'lucky-numbers' && count($args) == 2) { # /api/lucky-numbers/<date>
