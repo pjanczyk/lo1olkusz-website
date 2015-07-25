@@ -78,6 +78,7 @@ class Config implements \pjanczyk\framework\Config
     {
         return [
             '' => 'pjanczyk\lo1olkusz\Dashboard\Pages\HomePage',
+            'home' => 'pjanczyk\lo1olkusz\Dashboard\Pages\HomePage',
             'replacements' => 'pjanczyk\lo1olkusz\Dashboard\Pages\ReplacementsPage',
             'lucky-numbers' => 'pjanczyk\lo1olkusz\Dashboard\Pages\LuckyNumbersPage',
             'settings' => 'pjanczyk\lo1olkusz\Dashboard\Pages\SettingsPage',
