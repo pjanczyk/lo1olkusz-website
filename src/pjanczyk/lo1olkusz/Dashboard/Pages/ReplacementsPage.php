@@ -18,9 +18,12 @@ class ReplacementsPage extends Page
 
     public function view($date, $class) {
         $model = new ReplacementsModel($this->db);
+        $replacements = $model->get($class, $date);
 
-        $template = $this->includeTemplate('replacements_view');
-        $template->replacements = $model->get($class, $date);
-        $template->render();
+        if ($replacements != null) {
+            $template = $this->includeTemplate('replacements_view');
+            $template->replacements = $replacements;
+            $template->render();
+        }
     }
 }
