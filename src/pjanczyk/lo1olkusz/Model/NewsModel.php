@@ -16,7 +16,7 @@ class NewsModel extends Model {
     /**
      * @param string $class
      * @param string $sinceDate date
-     * @param string $sinceLastModified timestamp
+     * @param int $sinceLastModified timestamp
      * @return array
      */
     public function get($class, $sinceDate, $sinceLastModified)
@@ -33,7 +33,7 @@ SELECT 0, NULL, value, NULL FROM settings WHERE name="version"'
         );
         $stmt->bindParam(':class', $class);
         $stmt->bindParam(':date', $sinceDate);
-        $stmt->bindParam(':lastModified', $sinceLastModified);
+        $stmt->bindParam(':lastModified', $sinceLastModified, PDO::PARAM_INT);
 
         $stmt->execute();
 
@@ -43,7 +43,7 @@ SELECT 0, NULL, value, NULL FROM settings WHERE name="version"'
 
     /**
      * @param string $sinceDate date
-     * @param string $sinceLastModified timestamp
+     * @param int $sinceLastModified timestamp
      * @return array
      */
     public function get2($sinceDate, $sinceLastModified)
@@ -59,7 +59,7 @@ UNION ALL
 SELECT 0, NULL, NULL, value, NULL FROM settings WHERE name="version"'
         );
         $stmt->bindParam(':date', $sinceDate);
-        $stmt->bindParam(':lastModified', $sinceLastModified);
+        $stmt->bindParam(':lastModified', $sinceLastModified, PDO::PARAM_INT);
 
         $stmt->execute();
 

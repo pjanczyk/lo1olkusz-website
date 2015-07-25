@@ -48,7 +48,7 @@ class ReplacementsModel extends Model
     public function getAll($fields)
     {
         $stmt = $this->db->select(self::TABLE, $fields)
-            ->orderAsc(self::FIELD_DATE)
+            ->orderDesc(self::FIELD_DATE)
             ->orderAsc(self::FIELD_CLASS)
             ->prepare();
 
