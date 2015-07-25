@@ -15,4 +15,12 @@ class ReplacementsPage extends Page
         $template->replacements = $model->getAll([ReplacementsModel::FIELD_DATE, ReplacementsModel::FIELD_CLASS, ReplacementsModel::FIELD_LAST_MODIFIED]);
         $template->render();
     }
+
+    public function view($date, $class) {
+        $model = new ReplacementsModel($this->db);
+
+        $template = $this->includeTemplate('replacements_view');
+        $template->replacements = $model->get($class, $date);
+        $template->render();
+    }
 }
