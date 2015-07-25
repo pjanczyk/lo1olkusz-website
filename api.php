@@ -61,11 +61,7 @@ function binReplacements($n) {
     binUnsignedLong($n['timestamp']);
     binString($n['class']);
     binDate($n['date']);
-    $replacements = json_decode($n['value']);
-
-    echo "\n\nCOUNT:" . count($replacements) . "\n\n";
-    var_dump($replacements);
-
+    $replacements = json_decode($n['value'], true);
     binUnsignedLong(count($replacements));
     foreach ($replacements as $h=>$v) {
         binUnsignedByte($h);
