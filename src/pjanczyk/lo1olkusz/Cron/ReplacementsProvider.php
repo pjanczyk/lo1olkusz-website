@@ -81,13 +81,14 @@ class ReplacementsProvider
 
             if (count($cells) === 1) { //class name, e.g. | 2a |
                 if ($current !== null) {
-                    $current->value = json_encode($current->value);
+                    //$current->value = json_encode($current->value);
                     $replacements[] = $current;
                 }
                 $current = new Replacements;
                 $current->date = $date;
                 $current->class = $cells[0]->plaintext;
-                $current->value = [];
+                //$current->value = [];
+                $current->value = '';
             } else if (count($cells) === 2) { //replacement entry, e.g. | 1 | j. niemiecki, mgr T. Wajdzik |
                 if ($current === null) {
                     $this->errors[] = "row: {$i}, no class name occurred before replacement text";
@@ -103,12 +104,13 @@ class ReplacementsProvider
                 }
                 $hour = intval($hourText);
 
-                $current->value[$hour] = $text;
+                //$current->value[$hour] = $text;
+                $current->value .= pack('CN', $hour, strlen($text)) . $text;
             }
         }
 
         if ($current != null) {
-            $current->value = json_encode($current->value);
+            //$current->value = json_encode($current->value);
             $replacements[] = $current;
         }
 
