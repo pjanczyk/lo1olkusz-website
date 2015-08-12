@@ -111,6 +111,14 @@ if (!isset($_GET['p'])) {
     exit;
 }
 
+if (isset($_GET['v'])) {
+    $version = intval($_GET['v']);
+}
+
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+}
+
 $args = explode('/', trim($_GET['p'], '/'));
 
 if ($args[0] == 'news' && count($args) == 2) { # /api/news/<lastModified>
