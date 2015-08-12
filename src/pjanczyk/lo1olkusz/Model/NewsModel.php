@@ -16,9 +16,10 @@ class NewsModel extends Model {
     /**
      * @param string $sinceDate date
      * @param int $sinceLastModified timestamp
+     * @param string $version version of client application
      * @return array
      */
-    public function get($sinceDate, $sinceLastModified)
+    public function get($sinceDate, $sinceLastModified, $version)
     {
         //replacements
         $stmt = $this->db->prepare(
@@ -31,10 +32,11 @@ UNION ALL
 SELECT 3, NULL, class, value, UNIX_TIMESTAMP(lastModified) FROM timetables
 WHERE lastModified>=FROM_UNIXTIME(:lastModified)
 UNION ALL
-SELECT 0, NULL, NULL, value, NULL FROM settings WHERE name="version"'
+SELECT 0, NULL, NULL, value, NULL FROM settings WHERE name="version" AND value>:version'
         );
         $stmt->bindParam(':date', $sinceDate);
         $stmt->bindParam(':lastModified', $sinceLastModified, PDO::PARAM_INT);
+        $stmt->bindParam(':version', $version);
 
         $stmt->execute();
 

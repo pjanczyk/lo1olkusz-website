@@ -114,9 +114,15 @@ if (!isset($_GET['p'])) {
 if (isset($_GET['v'])) {
     $version = intval($_GET['v']);
 }
+else {
+    $version = 0;
+}
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+if (isset($_GET['aid'])) {
+    $androidId = $_GET['aid'];
+}
+else {
+    $androidId = "0";
 }
 
 $args = explode('/', trim($_GET['p'], '/'));
@@ -126,7 +132,7 @@ if ($args[0] == 'news' && count($args) == 2) { # /api/news/<lastModified>
 
     $lastModified = intval($args[1]);
     $now = time();
-    $news = $model->get(date('Y-m-d', $now), $lastModified);
+    $news = $model->get(date('Y-m-d', $now), $lastModified, $version);
 
     header('Content-Type: application/json');
 
