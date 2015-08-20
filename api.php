@@ -104,6 +104,7 @@ function binTimetable($n) {
 }
 
 function binBells($n) {
+    binUnsignedLong($n['timestamp']);
     $bells = json_decode($n);
     if (is_array($bells)) {
         binUnsignedByte(count($bells));
