@@ -103,6 +103,21 @@ function binTimetable($n) {
     binString($n['value']);
 }
 
+function binBells($n) {
+    $bells = json_decode($n);
+    if (is_array($bells)) {
+        binUnsignedByte(count($bells));
+        foreach ($bells as $bell) {
+            $time = explode(":", $bell);
+            binUnsignedByte((int) $time[0]);
+            binUnsignedByte((int) $time[1]);
+        }
+    }
+    else {
+        binUnsignedByte(0);
+    }
+}
+
 
 $db = new Database(new Config);
 
@@ -157,6 +172,9 @@ if ($args[0] == 'news' && count($args) == 2) { # /api/news/<lastModified>
                 case NewsModel::TIMETABLE:
                     binTimetable($n);
                     break;
+                case NewsModel::BELLS:
+                    binBells($n);
+                    break;
             }
         }
         echo 'PJ'; //footer
@@ -179,6 +197,8 @@ if ($args[0] == 'news' && count($args) == 2) { # /api/news/<lastModified>
                 case NewsModel::TIMETABLE:
                     echo '{"type":"timetable","class":"' . $n['class'] . '","lastModified":' . $n['timestamp'] . ',"value":' . json_encode($n['value']) . '},';
                     break;
+                case NewsModel::BELLS:
+                    echo '{"type":"bells","lastModified":' . $n['timestamp'] . ',"value":' . $n['value'] . '},';
             }
         }
         echo ']}';

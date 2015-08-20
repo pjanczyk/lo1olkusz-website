@@ -12,6 +12,7 @@ class NewsModel extends Model {
     const REPLACEMENTS = 1;
     const LUCKY_NUMBER = 2;
     const TIMETABLE = 3;
+    const BELLS = 4;
 
     /**
      * @param string $sinceDate date
@@ -31,6 +32,9 @@ WHERE date>=:date AND lastModified>=FROM_UNIXTIME(:lastModified)
 UNION ALL
 SELECT 3, NULL, class, value, UNIX_TIMESTAMP(lastModified) FROM timetables
 WHERE lastModified>=FROM_UNIXTIME(:lastModified)
+UNION ALL
+SELECT 4, NULL, NULL, value, UNIX_TIMESTAMP(lastModified) FROM bells
+WHERE id=0 AND lastModified>=FROM_UNIXTIME(:lastModified)
 UNION ALL
 SELECT 0, NULL, NULL, value, NULL FROM settings WHERE name="version" AND value>:version'
         );
