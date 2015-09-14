@@ -3,7 +3,7 @@
 namespace pjanczyk\framework;
 
 
-abstract class Page {
+abstract class Controller {
 
     /** @var Database */
     protected $db;
@@ -14,7 +14,7 @@ abstract class Page {
 
     abstract public function index();
 
-    protected function includeTemplate($name) {
-        return new Template($name);
+    protected function includeView($name) {
+        return new View($name);
     }
 }

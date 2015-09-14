@@ -26,8 +26,8 @@ require_once 'libs/simple_html_dom.php';
 
 use pjanczyk\framework\Database;
 use pjanczyk\lo1olkusz\Config;
-use pjanczyk\lo1olkusz\Model\LuckyNumbersModel;
-use pjanczyk\lo1olkusz\Model\ReplacementsModel;
+use pjanczyk\lo1olkusz\Models\LuckyNumbersModel;
+use pjanczyk\lo1olkusz\Models\ReplacementsModel;
 
 
 class CronTask

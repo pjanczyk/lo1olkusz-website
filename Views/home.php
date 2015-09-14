@@ -1,7 +1,7 @@
 <?php
-use pjanczyk\lo1olkusz\Model\NewsModel;
+use pjanczyk\lo1olkusz\Models\NewsModel;
 
-include 'templates/header.php' ?>
+include 'Views/header.php' ?>
 
 <div class="page-header">
     <h1>News</h1>
@@ -65,4 +65,4 @@ foreach ($news as $n) {
     </tbody>
 </table>
 
-<?php include 'templates/footer.php';
+<?php include 'Views/footer.php';

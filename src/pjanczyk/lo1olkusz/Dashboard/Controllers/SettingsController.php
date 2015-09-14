@@ -20,14 +20,14 @@
 
 //Created on 2015-07-15
 
-namespace pjanczyk\lo1olkusz\Dashboard\Pages;
+namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
 
 use pjanczyk\framework\Application;
-use pjanczyk\framework\Page;
-use pjanczyk\lo1olkusz\Model\SettingsModel;
-use pjanczyk\lo1olkusz\Model\TimetablesModel;
+use pjanczyk\framework\Controller;
+use pjanczyk\lo1olkusz\Models\SettingsModel;
+use pjanczyk\lo1olkusz\Models\TimetablesModel;
 
-class SettingsPage extends Page
+class SettingsController extends Controller
 {
     public function index()
     {
@@ -66,7 +66,7 @@ class SettingsPage extends Page
         }
 
         /* views */
-        $template = $this->includeTemplate('settings');
+        $template = $this->includeView('settings');
         $template->alerts = $alerts;
 
         $settings = $modelSettings->getAll();
@@ -84,7 +84,7 @@ class SettingsPage extends Page
 
     public function add_timetable()
     {
-        $template = $this->includeTemplate('timetable_edit');
+        $template = $this->includeView('timetable_edit');
         $template->timetable = null;
         $template->render();
     }
@@ -93,7 +93,7 @@ class SettingsPage extends Page
     {
         $model = new TimetablesModel($this->db);
 
-        $template = $this->includeTemplate('timetable_edit');
+        $template = $this->includeView('timetable_edit');
         $template->timetable = $model->get($class);
         $template->render();
     }
@@ -104,7 +104,7 @@ class SettingsPage extends Page
 
         $timetable = $model->get($class);
         if ($timetable !== null) {
-            $template = $this->includeTemplate('timetable_delete');
+            $template = $this->includeView('timetable_delete');
             $template->timetable = $timetable;
             $template->render();
         } else {

@@ -29,7 +29,7 @@ require 'autoloader.php';
 use pjanczyk\framework\Database;
 use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Json;
-use pjanczyk\lo1olkusz\Model\NewsModel;
+use pjanczyk\lo1olkusz\Models\NewsModel;
 
 $binary = isset($_GET['bin']);
 

@@ -1,4 +1,4 @@
-<?php include 'templates/header.php' ?>
+<?php include 'Views/header.php' ?>
 
 <div class="page-header">
     <h1><?= $timetable !== null ? 'Edit timetable' : 'Add timetable'?></h1>
@@ -31,4 +31,4 @@
     </div>
 </form>
 
-<?php include 'templates/footer.php' ?>
+<?php include 'Views/footer.php' ?>

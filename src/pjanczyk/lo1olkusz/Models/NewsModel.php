@@ -1,6 +1,6 @@
 <?php
 
-namespace pjanczyk\lo1olkusz\Model;
+namespace pjanczyk\lo1olkusz\Models;
 
 
 use PDO;

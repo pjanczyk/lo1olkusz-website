@@ -1,17 +1,17 @@
 <?php
 
-namespace pjanczyk\lo1olkusz\Dashboard\Pages;
+namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
 
-use pjanczyk\framework\Page;
-use pjanczyk\lo1olkusz\Model\ReplacementsModel;
+use pjanczyk\framework\Controller;
+use pjanczyk\lo1olkusz\Models\ReplacementsModel;
 
-class ReplacementsPage extends Page
+class ReplacementsController extends Controller
 {
     public function index()
     {
         $model = new ReplacementsModel($this->db);
 
-        $template = $this->includeTemplate('replacements_list');
+        $template = $this->includeView('replacements_list');
         $template->replacements = $model->getAll([ReplacementsModel::FIELD_DATE, ReplacementsModel::FIELD_CLASS, ReplacementsModel::FIELD_LAST_MODIFIED]);
         $template->render();
     }
@@ -21,7 +21,7 @@ class ReplacementsPage extends Page
         $replacements = $model->get($class, $date);
 
         if ($replacements != null) {
-            $template = $this->includeTemplate('replacements_view');
+            $template = $this->includeView('replacements_view');
             $template->replacements = $replacements;
             $template->render();
         }

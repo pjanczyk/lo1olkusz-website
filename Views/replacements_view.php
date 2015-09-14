@@ -1,4 +1,4 @@
-<?php include 'templates/header.php' ?>
+<?php include 'Views/header.php' ?>
 
 <div class="page-header">
     <h1>Replacements</h1>
@@ -19,8 +19,14 @@
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label">Value</label>
-        <div class="col-sm-10"><?=$replacements->value?></div>
+        <div class="col-sm-10">
+            <? $value = json_decode($replacements->value, true);
+            foreach($value as $hour => $replacement) {
+                echo $hour . '. ' . $replacement . '<br/>';
+            }
+            ?>
+        </div>
     </div>
 </div>
 
-<?php include 'templates/footer.php' ?>
+<?php include 'Views/footer.php' ?>

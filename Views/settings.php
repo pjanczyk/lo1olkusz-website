@@ -21,13 +21,13 @@
 //Created on 2015-07-15
 ?>
 
-<?php include 'templates/header.php' ?>
+<?php include 'Views/header.php' ?>
 
 <div class="page-header">
     <h1>Settings</h1>
 </div>
 
-<?php include 'templates/alerts.php' ?>
+<?php include 'Views/alerts.php' ?>
 
 <div class="row">
 
@@ -123,4 +123,4 @@
     });
 </script>
 
-<?php include 'templates/footer.php' ?>
+<?php include 'Views/footer.php' ?>

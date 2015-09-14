@@ -6,7 +6,7 @@
  * Time: 14:01
  */
 
-namespace pjanczyk\lo1olkusz\Model;
+namespace pjanczyk\lo1olkusz\Models;
 
 use PDO;
 use pjanczyk\framework\Model;

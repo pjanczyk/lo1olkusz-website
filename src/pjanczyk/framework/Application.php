@@ -23,7 +23,7 @@ final class Application
     }
 
     /**
-     * @return Page
+     * @return Controller
      */
     public function getPage()
     {

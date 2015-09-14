@@ -18,31 +18,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//Created on 2015-07-13
+//Created on 2015-07-10
 
-namespace pjanczyk\lo1olkusz\Dashboard\Pages;
+namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
 
-use pjanczyk\framework\Page;
-use pjanczyk\lo1olkusz\Model\NewsModel;
+use pjanczyk\framework\Application;
+use pjanczyk\framework\Controller;
+use pjanczyk\lo1olkusz\Cron\CronTask;
 
-class HomePage extends Page
+class CronController extends Controller
 {
     public function index()
     {
-        $this->last_modified(0);
-    }
+        $path = Application::getInstance()->getConfig()->getLogDir() . 'cron.log';
 
-    public function last_modified($timestamp)
-    {
-        $model = new NewsModel($this->db);
-
-        $lastModified = intval($timestamp);
-        $now = date('Y-m-d');
-        $news = $model->get($now, $lastModified, 0);
-
-        $template = $this->includeTemplate('home');
-        $template->now = $now;
-        $template->news = $news;
-        $template->render();
+        if (isset($_POST['clear-log'])) {
+            unlink($path);
+            echo 'OK';
+        } else if (isset($_POST['run-cron'])) {
+            $task = new CronTask;
+            $task->run();
+        } else {
+            $template = $this->includeView('cron');
+            $template->logContent = file_exists($path) ? file_get_contents($path) : '';
+            $template->render();
+        }
     }
 }

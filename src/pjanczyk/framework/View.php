@@ -9,7 +9,7 @@
 namespace pjanczyk\framework;
 
 
-class Template {
+class View {
 
     protected $filename;
     protected $_data;
@@ -31,6 +31,6 @@ class Template {
 
     public function render() {
         extract($this->_data);
-        include 'templates/' .  $this->filename . '.php';
+        include 'Views/' .  $this->filename . '.php';
     }
 }
