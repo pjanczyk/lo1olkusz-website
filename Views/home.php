@@ -37,12 +37,12 @@ foreach ($news as $n) {
             ?>
             <td>replacements</td>
             <td><?=$n['date']?><br/><?=$n['class']?></td>
-            <td><pre><?
-                    $value = json_decode($n['value'], true);
-                    foreach($value as $hour => $replacement) {
-                        echo $hour . '. ' . $replacement . '<br/>';
-                    }
-                    ?></pre></td>
+            <td><?
+                $value = json_decode($n['value'], true);
+                foreach($value as $hour => $replacement) {
+                    echo $hour . '. ' . $replacement . '<br/>';
+                }
+                ?></td>
             <td><?=date('Y-m-d H:i:s', $n['timestamp'])?></td>
             <?php
             break;
