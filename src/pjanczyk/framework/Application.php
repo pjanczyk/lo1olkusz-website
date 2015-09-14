@@ -42,7 +42,7 @@ final class Application
     {
         $this->config = $config;
 
-        if (!$this->route($config->getPagesMap())) {
+        if (!$this->route($config->getRoute())) {
             http404();
         }
 

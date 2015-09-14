@@ -74,15 +74,15 @@ class Config implements \pjanczyk\framework\Config
         return [\PDO::MYSQL_ATTR_INIT_COMMAND => "SET time_zone = 'Europe/Warsaw'"];
     }
 
-    public function getPagesMap()
+    public function getRoute()
     {
         return [
-            '' => 'pjanczyk\lo1olkusz\Dashboard\Pages\HomePage',
-            'home' => 'pjanczyk\lo1olkusz\Dashboard\Pages\HomePage',
-            'replacements' => 'pjanczyk\lo1olkusz\Dashboard\Pages\ReplacementsPage',
-            'lucky-numbers' => 'pjanczyk\lo1olkusz\Dashboard\Pages\LuckyNumbersPage',
-            'settings' => 'pjanczyk\lo1olkusz\Dashboard\Pages\SettingsPage',
-            'cron' => 'pjanczyk\lo1olkusz\Dashboard\Pages\CronPage'
+            '' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\HomeController',
+            'home' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\HomeController',
+            'replacements' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\ReplacementsController',
+            'lucky-numbers' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\LuckyNumbersController',
+            'settings' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\SettingsController',
+            'cron' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\CronController'
         ];
     }
 }

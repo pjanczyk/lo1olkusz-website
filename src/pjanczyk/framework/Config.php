@@ -8,5 +8,5 @@ interface Config {
     public function getDbUser();
     public function getDbPassword();
     public function getDbOptions();
-    public function getPagesMap();
+    public function getRoute();
 }
