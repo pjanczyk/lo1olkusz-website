@@ -1,15 +1,15 @@
 <?php include 'Views/header.php' ?>
 
 <div class="page-header">
-    <h1>Replacements</h1>
+    <h1>Zastępstwa</h1>
 </div>
 
 <table class="table table-condensed" style="width: auto">
     <thead>
     <tr>
-        <th>date</th>
-        <th>class</th>
-        <th>last modified</th>
+        <th>Data</th>
+        <th>Klasa</th>
+        <th>Ostatnio zmodyfikowano</th>
         <th></th>
     </tr>
     </thead>
@@ -20,7 +20,7 @@
             <td><?=$r->class?></td>
             <td><?=$r->lastModified?></td>
             <td>
-                <a class="btn btn-default btn-xs" href="/replacements/view/<?=$r->date?>/<?=$r->class?>">View</a>
+                <a class="btn btn-default btn-xs" href="/replacements/view/<?=$r->date?>/<?=$r->class?>">Wyświetl</a>
             </td>
         </tr>
     <? endforeach ?>

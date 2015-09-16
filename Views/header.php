@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,7 +7,7 @@
     <meta name="description" content="lo1olkusz app service">
     <meta name="author" content="Piotr Janczyk">
 
-    <title>lo1olkusz app service</title>
+    <title>lo1olkusz app</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -30,17 +30,17 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">lo1olkusz app service</a>
+            <a class="navbar-brand" href="/">lo1olkusz app</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <?php
                 $menu = [
-                    ['', 'Home'],
-                    ['cron', 'Cron'],
-                    ['lucky-numbers', 'Lucky numbers'],
-                    ['replacements', 'Replacements'],
-                    ['settings', 'Settings'],
+                    ['', 'Strona główna'],
+                    ['cron', 'Logi'],
+                    ['lucky-numbers', 'Szczęśliwe numerki'],
+                    ['replacements', 'Zastępstwa'],
+                    ['settings', 'Ustawienia'],
                 ];
 
                 $url = isset($_GET['p']) ? $_GET['p'] : '';

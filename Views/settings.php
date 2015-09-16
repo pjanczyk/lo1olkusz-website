@@ -24,7 +24,7 @@
 <?php include 'Views/header.php' ?>
 
 <div class="page-header">
-    <h1>Settings</h1>
+    <h1>Ustawienia</h1>
 </div>
 
 <?php include 'Views/alerts.php' ?>
@@ -34,36 +34,36 @@
     <div class="col-sm-6">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Autoupdate APK</h3>
+                <h3 class="panel-title">Autoaktualizacje aplikacji</h3>
             </div>
             <div class="panel-body">
-                Version:
+                Wersja:
                 <?php if (isset($apkVersion)): ?>
                     <code><?=$apkVersion?></code>
                 <?php else: ?>
-                    not set
+                    nie ustawiona
                 <?php endif ?>
                 <br/>
-                File:
+                Plik:
                 <?php if (isset($apkFileLastModified)): ?>
                     <a href="/download"><?=$apkFileLastModified?></a>
                 <?php else: ?>
-                    not set
+                    nie ustawiony
                 <?php endif ?>
             </div>
             <div class="panel-footer">
-                <a class="show-next btn btn-link">Change</a>
+                <a class="show-next btn btn-link">Zmień</a>
 
                 <form action="/settings" method="post" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="apk-version">Version</label>
+                        <label for="apk-version">Wersja</label>
                         <input type="text" class="form-control" name="apk-version" id="apk-version" placeholder="Version">
                     </div>
                     <div class="form-group">
-                        <label for="apk-file">File</label>
+                        <label for="apk-file">Plik</label>
                         <input type="file" name="apk-file" id="apk-file">
                     </div>
-                    <button type="submit" class="btn btn-default">Change</button>
+                    <button type="submit" class="btn btn-default">Zmień</button>
                 </form>
             </div>
         </div>
@@ -72,13 +72,13 @@
     <div class="col-sm-6">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Timetables</h3>
+                <h3 class="panel-title">Plany lekcji</h3>
             </div>
             <table class="table table-condensed">
                 <thead>
                 <tr>
-                    <th>class</th>
-                    <th>last modified</th>
+                    <th>Klasa</th>
+                    <th>Ostatnio zmodyfikowano</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -90,12 +90,12 @@
                         <td>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Actions
+                                    Operacje
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="/settings/edit-timetable/<?=$timetable->class?>">Edit</a></li>
-                                    <li><a class="timetable-delete" href="/settings/delete-timetable/<?=$timetable->class?>">Delete</a></li>
+                                    <li><a href="/settings/edit-timetable/<?=$timetable->class?>">Edytuj</a></li>
+                                    <li><a class="timetable-delete" href="/settings/delete-timetable/<?=$timetable->class?>">Usuń</a></li>
                                 </ul>
                             </div>
                         </td>
@@ -105,7 +105,7 @@
             </table>
             <div class="panel-footer">
                 <div class="btn-group" role="group">
-                    <a href="/settings/add-timetable" class="btn btn-default">Add</a>
+                    <a href="/settings/add-timetable" class="btn btn-default">Dodaj</a>
                 </div>
             </div>
         </div>

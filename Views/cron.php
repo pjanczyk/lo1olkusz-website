@@ -23,12 +23,12 @@
 
 <?php include 'Views/header.php' ?>
 
-    <div class="page-header"><h1>Cron</h1></div>
+    <div class="page-header"><h1>Logi</h1></div>
 
     <div>
-        <a id="run-cron" class="btn btn-default btn-sm" href="#">Run cron</a>
-        <a id="clear-log" class="btn btn-danger btn-sm" href="#">Clear log</a>
-        <a id="cron-refresh" class="btn btn-default btn-sm" href="#">Refresh</a>
+        <a id="run-cron" class="btn btn-default btn-sm" href="#">Uruchom cron</a>
+        <a id="clear-log" class="btn btn-danger btn-sm" href="#">Usuń logi</a>
+        <a id="cron-refresh" class="btn btn-default btn-sm" href="#">Odśwież</a>
     </div>
     <br/>
 

@@ -4,7 +4,7 @@ use pjanczyk\lo1olkusz\Models\NewsModel;
 include 'Views/header.php' ?>
 
 <div class="page-header">
-    <h1>News</h1>
+    <h1>Strona główna</h1>
 </div>
 <p>since <?=$now?></p>
 
@@ -12,10 +12,10 @@ include 'Views/header.php' ?>
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th>type</th>
-            <th>date/class</th>
-            <th>value</th>
-            <th>lastModified</th>
+            <th>Typ</th>
+            <th>Data/Klasa</th>
+            <th>Wartość</th>
+            <th>Ostatnio zmodyfikowano</th>
         </tr>
     </thead>
     <tbody>
@@ -27,7 +27,7 @@ foreach ($news as $n) {
     switch($n['type']) {
         case NewsModel::APK:
             ?>
-            <td>apk version</td>
+            <td>Wersja aplikacji</td>
             <td></td>
             <td></td>
             <td><?=$n['value']?></td>
@@ -35,7 +35,7 @@ foreach ($news as $n) {
             break;
         case NewsModel::REPLACEMENTS:
             ?>
-            <td>replacements</td>
+            <td>Zastępstwa</td>
             <td><?=$n['date']?><br/><?=$n['class']?></td>
             <td><?
                 $value = json_decode($n['value'], true);
@@ -48,7 +48,7 @@ foreach ($news as $n) {
             break;
         case NewsModel::LUCKY_NUMBER:
             ?>
-            <td>lucky number</td>
+            <td>Szczęśliwy numerek</td>
             <td><?=$n['date']?></td>
             <td><?=$n['value']?></td>
             <td><?=date('Y-m-d H:i:s', $n['timestamp'])?></td>
@@ -56,7 +56,7 @@ foreach ($news as $n) {
             break;
         case NewsModel::TIMETABLE:
             ?>
-            <td>timetable</td>
+            <td>Plan lekcji</td>
             <td><?=$n['class']?></td>
             <td><pre><?=$n['value']?></pre></td>
             <td><?=date('Y-m-d H:i:s', $n['timestamp'])?></td>

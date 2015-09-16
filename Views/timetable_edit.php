@@ -1,13 +1,13 @@
 <?php include 'Views/header.php' ?>
 
 <div class="page-header">
-    <h1><?= $timetable !== null ? 'Edit timetable' : 'Add timetable'?></h1>
+    <h1><?= $timetable !== null ? 'Edycja planu lekcji' : 'Dodaj plan lekcji'?></h1>
 </div>
 
 <form class="form-horizontal" action="/settings" method="post">
     <input type="hidden" name="edit" value="true"/>
     <div class="form-group">
-        <label class="col-sm-2 control-label" for="class">Class</label>
+        <label class="col-sm-2 control-label" for="class">Klasa</label>
         <div class="col-sm-10">
             <?php if ($timetable !== null): ?>
             <input type="hidden" name="class" value="<?=$timetable->class?>"/>
@@ -18,7 +18,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="timetable" class="col-sm-2 control-label">Timetable</label>
+        <label for="timetable" class="col-sm-2 control-label">Plan lekcji</label>
         <div class="col-sm-10">
             <textarea class="form-control" name="timetable" id="timetable" rows="10" placeholder="Timetable"
                 ><?= $timetable !== null ? $timetable->value : '' ?></textarea>
@@ -26,7 +26,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Save</button>
+            <button type="submit" class="btn btn-default">Zapisz</button>
         </div>
     </div>
 </form>
