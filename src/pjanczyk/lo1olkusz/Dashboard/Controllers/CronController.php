@@ -18,30 +18,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//Created on 2015-07-10
-
 namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
 
-use pjanczyk\framework\Application;
 use pjanczyk\framework\Controller;
-use pjanczyk\lo1olkusz\Cron\CronTask;
 
 class CronController extends Controller
 {
     public function index()
     {
-        $path = Application::getInstance()->getConfig()->getLogDir() . 'cron.log';
+        $this->includeView('cron')->render();
 
-        if (isset($_POST['clear-log'])) {
-            unlink($path);
-            echo 'OK';
-        } else if (isset($_POST['run-cron'])) {
-            $task = new CronTask;
-            $task->run();
-        } else {
-            $template = $this->includeView('cron');
-            $template->logContent = file_exists($path) ? file_get_contents($path) : '';
-            $template->render();
-        }
+        //$path = Application::getInstance()->getConfig()->getLogDir() . 'cron.log';
+
+//        if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+//            unlink($path);
+//            echo 'OK';
+//        } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+//            $task = new CronTask;
+//            $task->run();
+//        } else {
+//            $template = $this->includeView('cron');
+//            $template->logContent = file_exists($path) ? file_get_contents($path) : '';
+//            $template->render();
+//        }
     }
 }

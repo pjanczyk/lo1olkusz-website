@@ -31,28 +31,46 @@
     </div>
     <br/>
 
-    <pre id="cron-log"><?=$logContent?></pre>
+    <pre id="cron-log"></pre>
 
     <script>
-        $("#clear-log").click(function() {
-            $.post('cron', { 'clear-log': true }, function(data) {
-                if (data == 'OK') {
-                    $("#cron-log").empty();
-                }
-                else {
-                    $(".page-header").after(
-                        '<div class="alert alert-danger" role="alert">' + data + '</div>'
-                    );
-                }
+        function showAlert(type, html) {
+            $(".page-header").after(
+                '<div class="alert alert-' + type + '" role="alert">' + html + '</div>'
+            );
+        }
+
+        function loadCron() {
+            $.get('api/cron', function (data) {
+                $("#cron-log").html(data);
             });
-        });
-        $("#run-cron").click(function() {
-            $.post('cron', { 'run-cron': true }, function(data) {
+        }
+
+        function clearCron() {
+            $.ajax({type: "DELETE", url: "api/cron"})
+                .done(function (data) {
+                    if (data == 'OK') {
+                        $("#cron-log").empty();
+                    }
+                    else {
+                        showAlert("danger", data);
+                    }
+                });
+        }
+
+        function runCron() {
+            $.post("api/cron", function (data) {
                 $(".page-header").after(
                     '<pre>' + data + '</pre>'
                 );
             });
-        })
+        }
+
+        $(function () {
+            $("#clear-log").click(clearCron);
+            $("#run-cron").click(runCron);
+            loadCron();
+        });
     </script>
 
 <?php include 'Views/footer.php' ?>

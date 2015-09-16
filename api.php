@@ -205,6 +205,9 @@ if ($args[0] == 'news' && count($args) == 2) { # /api/news/<lastModified>
         echo ']}';
     }
 }
+else if (!$binary && $args[0] == 'cron' && count($args) == 1) {
+    include 'api/cron.php';
+}
 //else if (!$binary && $args[0] == 'lucky-numbers' && count($args) == 2) { # /api/lucky-numbers/<date>
 //    $date = urldecode($args[1]);
 //    $model = new LuckyNumbersModel($db);
