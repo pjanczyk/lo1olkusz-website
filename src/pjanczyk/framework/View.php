@@ -16,6 +16,7 @@ class View {
 
     public function __construct($filename) {
         $this->filename = $filename;
+        $this->_data = [];
     }
 
     public function __get($name) {
