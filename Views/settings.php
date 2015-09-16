@@ -57,7 +57,7 @@
                 <form action="/settings" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="apk-version">Wersja</label>
-                        <input type="text" class="form-control" name="apk-version" id="apk-version" placeholder="Version">
+                        <input type="text" class="form-control" name="apk-version" id="apk-version" placeholder="Wersja">
                     </div>
                     <div class="form-group">
                         <label for="apk-file">Plik</label>

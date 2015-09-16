@@ -13,7 +13,7 @@
             <input type="hidden" name="class" value="<?=$timetable->class?>"/>
             <p id="class" class="form-control-static"><?=$timetable->class?></p>
             <?php else: ?>
-            <input type="text" class="form-control" name="class" id="class" placeholder="Class name"/>
+            <input type="text" class="form-control" name="class" id="class" placeholder="Nazwa klasy"/>
             <?php endif ?>
         </div>
     </div>
