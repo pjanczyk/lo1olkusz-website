@@ -28,6 +28,7 @@
     <div>
         <a id="run-cron" class="btn btn-default btn-sm" href="#">Run cron</a>
         <a id="clear-log" class="btn btn-danger btn-sm" href="#">Clear log</a>
+        <a id="cron-refresh" class="btn btn-default btn-sm" href="#">Refresh</a>
     </div>
     <br/>
 
@@ -69,6 +70,7 @@
         $(function () {
             $("#clear-log").click(clearCron);
             $("#run-cron").click(runCron);
+            $("#cron-refresh").click(loadCron);
             loadCron();
         });
     </script>
