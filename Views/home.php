@@ -6,7 +6,7 @@ include 'Views/header.php' ?>
 <div class="page-header">
     <h1>Strona główna</h1>
 </div>
-<p>since <?=$now?></p>
+<p>wyniki od <?=$now?></p>
 
 
 <table class="table table-bordered">
@@ -29,8 +29,8 @@ foreach ($news as $n) {
             ?>
             <td>Wersja aplikacji</td>
             <td></td>
-            <td></td>
             <td><?=$n['value']?></td>
+            <td></td>
             <?php
             break;
         case NewsModel::REPLACEMENTS:

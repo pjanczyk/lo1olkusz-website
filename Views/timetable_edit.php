@@ -20,7 +20,7 @@
     <div class="form-group">
         <label for="timetable" class="col-sm-2 control-label">Plan lekcji</label>
         <div class="col-sm-10">
-            <textarea class="form-control" name="timetable" id="timetable" rows="10" placeholder="Timetable"
+            <textarea class="form-control" name="timetable" id="timetable" rows="10" placeholder="Plan lekcji"
                 ><?= $timetable !== null ? $timetable->value : '' ?></textarea>
         </div>
     </div>
