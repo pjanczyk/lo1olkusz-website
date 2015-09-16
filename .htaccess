@@ -4,5 +4,6 @@ RewriteEngine on
 RewriteRule ^api/(.+)\.bin$ api.php?bin=1&p=$1 [L,qsa]
 RewriteRule ^api/(.+)$ api.php?p=$1 [L,qsa]
 RewriteRule ^download$ download.php [NC,L,qsa]
-RewriteCond $1 !^(css|js|fonts|index\.php|api\.php|download\.php)
-RewriteRule ^(.+)$ index.php?p=$1
+RewriteRule ^dashboard/(.+)$ dashboard.php?p=$1 [NC,qsa,L]
+RewriteCond $1 !^(css|js|fonts|dashboard\.php|index\.html|api\.php|download\.php)
+RewriteRule ^(.+)$ index.html [L]
