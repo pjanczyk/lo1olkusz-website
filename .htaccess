@@ -1,8 +1,8 @@
 ErrorDocument 404 /html/404.html
 
 RewriteEngine on
-RewriteRule ^api/(.+)\.json$ api.php?p=$1 [L,qsa]
 RewriteRule ^api/(.+)\.bin$ api.php?bin=1&p=$1 [L,qsa]
+RewriteRule ^api/(.+)$ api.php?p=$1 [L,qsa]
 RewriteRule ^download$ download.php [NC,L,qsa]
 RewriteCond $1 !^(css|js|fonts|index\.php|api\.php|download\.php)
 RewriteRule ^(.+)$ index.php?p=$1
