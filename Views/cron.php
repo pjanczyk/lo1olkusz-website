@@ -17,8 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-//Created on 2015-07-10
 ?>
 
 <?php include 'Views/header.php' ?>
@@ -42,13 +40,13 @@
         }
 
         function loadCron() {
-            $.get('api/cron', function (data) {
+            $.get('/api/cron', function (data) {
                 $("#cron-log").html(data);
             });
         }
 
         function clearCron() {
-            $.ajax({type: "DELETE", url: "api/cron"})
+            $.ajax({type: "DELETE", url: "/api/cron"})
                 .done(function (data) {
                     if (data == 'OK') {
                         $("#cron-log").empty();
@@ -60,7 +58,7 @@
         }
 
         function runCron() {
-            $.post("api/cron", function (data) {
+            $.post("/api/cron", function (data) {
                 $(".page-header").after(
                     '<pre>' + data + '</pre>'
                 );
