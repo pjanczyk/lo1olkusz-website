@@ -49,7 +49,7 @@
                 ?>
 
                 <?php foreach ($menu as $menuItem): ?>
-                    <li<?php if ($menuItem[0] === $url): ?> class="active"<?php endif ?>><a href="/<?=$menuItem[0]?>"><?=$menuItem[1]?></a></li>
+                    <li<?php if ($menuItem[0] === $url): ?> class="active"<?php endif ?>><a href="/dashboard/<?=$menuItem[0]?>"><?=$menuItem[1]?></a></li>
                 <?php endforeach ?>
             </ul>
         </div><!--/.nav-collapse -->

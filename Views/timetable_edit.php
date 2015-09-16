@@ -4,7 +4,7 @@
     <h1><?= $timetable !== null ? 'Edycja planu lekcji' : 'Dodaj plan lekcji'?></h1>
 </div>
 
-<form class="form-horizontal" action="/settings" method="post">
+<form class="form-horizontal" action="/dashboard/settings" method="post">
     <input type="hidden" name="edit" value="true"/>
     <div class="form-group">
         <label class="col-sm-2 control-label" for="class">Klasa</label>

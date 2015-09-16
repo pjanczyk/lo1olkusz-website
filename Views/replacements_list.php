@@ -20,7 +20,7 @@
             <td><?=$r->class?></td>
             <td><?=$r->lastModified?></td>
             <td>
-                <a class="btn btn-default btn-xs" href="/replacements/view/<?=$r->date?>/<?=$r->class?>">Wyświetl</a>
+                <a class="btn btn-default btn-xs" href="/dashboard/replacements/view/<?=$r->date?>/<?=$r->class?>">Wyświetl</a>
             </td>
         </tr>
     <? endforeach ?>

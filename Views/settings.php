@@ -54,7 +54,7 @@
             <div class="panel-footer">
                 <a class="show-next btn btn-link">Zmień</a>
 
-                <form action="/settings" method="post" enctype="multipart/form-data">
+                <form action="/dashboard/settings" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="apk-version">Wersja</label>
                         <input type="text" class="form-control" name="apk-version" id="apk-version" placeholder="Wersja">
@@ -94,8 +94,8 @@
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="/settings/edit-timetable/<?=$timetable->class?>">Edytuj</a></li>
-                                    <li><a class="timetable-delete" href="/settings/delete-timetable/<?=$timetable->class?>">Usuń</a></li>
+                                    <li><a href="/dashboard/settings/edit-timetable/<?=$timetable->class?>">Edytuj</a></li>
+                                    <li><a class="timetable-delete" href="/dashboard/settings/delete-timetable/<?=$timetable->class?>">Usuń</a></li>
                                 </ul>
                             </div>
                         </td>
@@ -105,7 +105,7 @@
             </table>
             <div class="panel-footer">
                 <div class="btn-group" role="group">
-                    <a href="/settings/add-timetable" class="btn btn-default">Dodaj</a>
+                    <a href="/dashboard/settings/add-timetable" class="btn btn-default">Dodaj</a>
                 </div>
             </div>
         </div>
