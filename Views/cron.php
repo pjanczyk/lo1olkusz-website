@@ -70,7 +70,10 @@
         $(function () {
             $("#clear-log").click(clearCron);
             $("#run-cron").click(runCron);
-            $("#cron-refresh").click(loadCron);
+            $("#cron-refresh").click(function () {
+                $("#cron-log").empty();
+                loadCron();
+            });
             loadCron();
         });
     </script>
