@@ -39,5 +39,5 @@ function http404()
 date_default_timezone_set('Europe/Warsaw');
 
 
-$config = new Config;
-Application::getInstance()->start($config);
+Application::getInstance()->init(new Config);
+Application::getInstance()->displayPage();

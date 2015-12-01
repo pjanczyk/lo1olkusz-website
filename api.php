@@ -26,7 +26,7 @@ error_reporting(E_ALL | E_STRICT);
 
 require 'autoloader.php';
 
-use pjanczyk\framework\Database;
+use pjanczyk\framework\Application;
 use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Json;
 use pjanczyk\lo1olkusz\Models\NewsModel;
@@ -120,7 +120,7 @@ function binBells($n) {
 }
 
 
-$db = new Database(new Config);
+Application::getInstance()->init(new Config);
 
 if (!isset($_GET['p'])) {
     Json::badRequest();
@@ -144,7 +144,7 @@ else {
 $args = explode('/', trim($_GET['p'], '/'));
 
 if ($args[0] == 'news' && count($args) == 2) { # /api/news/<lastModified>
-    $model = new NewsModel($db);
+    $model = new NewsModel;
 
     $lastModified = intval($args[1]);
     $now = time();
