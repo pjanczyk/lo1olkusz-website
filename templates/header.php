@@ -40,6 +40,7 @@
                     ['cron', 'Logi'],
                     ['lucky-numbers', 'Szczęśliwe numerki'],
                     ['replacements', 'Zastępstwa'],
+                    ['timetables', 'Plany lekcji'],
                     ['settings', 'Ustawienia'],
                 ];
 
