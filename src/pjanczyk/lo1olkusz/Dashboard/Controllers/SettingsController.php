@@ -47,7 +47,7 @@ class SettingsController extends Controller
 
         if (isset($_POST['version'])) {
             if ($model->setValue('version', $_POST['version'])) {
-                $alerts[] = 'Zaktualizowano wersjê aplikacji';
+                $alerts[] = 'Zaktualizowano wersjÄ™ aplikacji';
             }
         }
 

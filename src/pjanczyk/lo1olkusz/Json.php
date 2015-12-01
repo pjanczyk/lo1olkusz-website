@@ -2,7 +2,7 @@
 
 namespace pjanczyk\lo1olkusz;
 
-
+//TODO
 class Json {
 
     public static function internalServerError() {

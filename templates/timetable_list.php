@@ -52,7 +52,7 @@
                                 <li><a href="/dashboard/timetables/edit/<?= $timetable->class ?>">Edytuj</a>
                                 </li>
                                 <li><a class="timetable-delete"
-                                       href="/dashboard/timetables/delete/<?= $timetable->class ?>">Usuñ</a>
+                                       href="/dashboard/timetables/delete/<?= $timetable->class ?>">UsuÅ„</a>
                                 </li>
                             </ul>
                         </div>

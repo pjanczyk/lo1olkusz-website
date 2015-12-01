@@ -29,21 +29,6 @@ class SettingsModel
     const FIELD_NAME = 'name';
     const FIELD_VALUE = 'value';
 
-    public function getAll()
-    {
-        $stmt = Application::getDb()->prepare('SELECT * FROM settings');
-        $stmt->bindColumn(1, $name);
-        $stmt->bindColumn(2, $value);
-        $stmt->execute();
-
-        $result = [];
-        while ($row = $stmt->fetch(PDO::FETCH_BOUND)) {
-            $result[$name] = $value;
-        }
-
-        return $result;
-    }
-
     public function get($name)
     {
         $stmt = Application::getDb()->prepare('SELECT value FROM settings WHERE name=:name');

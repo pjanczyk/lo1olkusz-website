@@ -2,7 +2,7 @@
 
 namespace pjanczyk\lo1olkusz;
 
-
+//TODO
 class Binary {
 
     public static function internalServerError() {
