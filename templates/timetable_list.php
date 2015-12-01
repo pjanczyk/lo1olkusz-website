@@ -26,46 +26,43 @@
     </div>
 
 <?php include 'templates/alerts.php' ?>
-
-    <div class="panel panel-default" style="width: auto; margin-right: auto">
-        <table class="table table-condensed" style="width: auto">
-            <thead>
-            <tr>
-                <th>Klasa</th>
-                <th>Ostatnio zmodyfikowano</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($timetables as $timetable): ?>
-                <tr>
-                    <td><?= $timetable->class ?></td>
-                    <td><?= $timetable->lastModified ?></td>
-                    <td>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                Operacje
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="/dashboard/timetables/edit/<?= $timetable->class ?>">Edytuj</a>
-                                </li>
-                                <li><a class="timetable-delete"
-                                       href="/dashboard/timetables/delete/<?= $timetable->class ?>">Usuń</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-            <? endforeach ?>
-            </tbody>
-        </table>
-        <div class="panel-footer" style="width: auto">
-            <div class="btn-group" role="group">
-                <a href="/dashboard/timetables/add" class="btn btn-default">Dodaj</a>
-            </div>
-        </div>
+    <div class="btn-group" role="group">
+        <a href="/dashboard/timetables/add" class="btn btn-default">Dodaj</a>
     </div>
+
+    <table class="table table-condensed" style="width: auto">
+        <thead>
+        <tr>
+            <th>Klasa</th>
+            <th>Ostatnio zmodyfikowano</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($timetables as $timetable): ?>
+            <tr>
+                <td><?= $timetable->class ?></td>
+                <td><?= $timetable->lastModified ?></td>
+                <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                            Operacje
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="/dashboard/timetables/edit/<?= $timetable->class ?>">Edytuj</a>
+                            </li>
+                            <li><a class="timetable-delete"
+                                   href="/dashboard/timetables/delete/<?= $timetable->class ?>">Usuń</a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        <? endforeach ?>
+        </tbody>
+    </table>
+
 
 <?php include 'templates/footer.php' ?>
