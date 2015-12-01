@@ -36,15 +36,15 @@
             </div>
             <div class="panel-body">
                 Wersja:
-                <?php if (isset($apkVersion)): ?>
-                    <code><?=$apkVersion?></code>
+                <?php if (isset($version)): ?>
+                    <code><?=$version?></code>
                 <?php else: ?>
                     nie ustawiona
                 <?php endif ?>
                 <br/>
                 Plik:
-                <?php if (isset($apkFileLastModified)): ?>
-                    <a href="/download"><?=$apkFileLastModified?></a>
+                <?php if (isset($apkLastModified)): ?>
+                    <a href="/download"><?=$apkLastModified?></a>
                 <?php else: ?>
                     nie ustawiony
                 <?php endif ?>

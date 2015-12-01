@@ -44,7 +44,7 @@ class TimetablesController extends Controller
             }
         }
 
-        $template = $this->includeTemplate('settings');
+        $template = $this->includeTemplate('timetable_list');
         $template->alerts = $alerts;
         $template->timetables = $modelTimetables->listAll();
         $template->render();
