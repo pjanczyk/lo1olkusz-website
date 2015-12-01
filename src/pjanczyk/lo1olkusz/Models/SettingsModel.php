@@ -18,23 +18,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//Created on 2015-07-13
-
 namespace pjanczyk\lo1olkusz\Models;
 
 use PDO;
-use pjanczyk\framework\Model;
+use pjanczyk\framework\Application;
 
-class SettingsModel extends Model {
-
+class SettingsModel
+{
     const TABLE = 'settings';
     const FIELD_NAME = 'name';
     const FIELD_VALUE = 'value';
 
-    public function getAll() {
-        $stmt = $this->db->select(self::TABLE, [self::FIELD_NAME, self::FIELD_VALUE])
-            ->prepare();
-
+    public function getAll()
+    {
+        $stmt = Application::getDb()->prepare('SELECT * FROM settings');
         $stmt->bindColumn(1, $name);
         $stmt->bindColumn(2, $value);
         $stmt->execute();
@@ -47,11 +44,19 @@ class SettingsModel extends Model {
         return $result;
     }
 
-    public function setValue($name, $value) {
-        $stmt = $this->db->insertOrUpdate(self::TABLE)
-            ->where([self::FIELD_NAME=>':name'])
-            ->set([self::FIELD_VALUE=>':value'])
-            ->prepare();
+    public function get($name)
+    {
+        $stmt = Application::getDb()->prepare('SELECT value FROM settings WHERE name=:name');
+        $stmt->bindParam(':name', $name);
+        $stmt->execute();
+
+        return $stmt->fetchColumn();
+    }
+
+    public function setValue($name, $value)
+    {
+        $stmt = Application::getDb()->prepare('INSERT INTO settings (name, value) VALUES (:name, :value)
+ON DUPLICATE KEY UPDATE value=:value');
 
         $stmt->bindParam(':name', $name, PDO::PARAM_STR);
         $stmt->bindParam(':value', $value, PDO::PARAM_STR);

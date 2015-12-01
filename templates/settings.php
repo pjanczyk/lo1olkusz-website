@@ -17,17 +17,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-//Created on 2015-07-15
 ?>
 
-<?php include 'Views/header.php' ?>
+<?php include 'templates/header.php' ?>
 
 <div class="page-header">
     <h1>Ustawienia</h1>
 </div>
 
-<?php include 'Views/alerts.php' ?>
+<?php include 'templates/alerts.php' ?>
 
 <div class="row">
 
@@ -69,48 +67,6 @@
         </div>
     </div>
 
-    <div class="col-sm-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Plany lekcji</h3>
-            </div>
-            <table class="table table-condensed">
-                <thead>
-                <tr>
-                    <th>Klasa</th>
-                    <th>Ostatnio zmodyfikowano</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php foreach ($timetables as $timetable): ?>
-                    <tr>
-                        <td><?=$timetable->class?></td>
-                        <td><?=$timetable->lastModified?></td>
-                        <td>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Operacje
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="/dashboard/settings/edit-timetable/<?=$timetable->class?>">Edytuj</a></li>
-                                    <li><a class="timetable-delete" href="/dashboard/settings/delete-timetable/<?=$timetable->class?>">Usuń</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                <? endforeach ?>
-                </tbody>
-            </table>
-            <div class="panel-footer">
-                <div class="btn-group" role="group">
-                    <a href="/dashboard/settings/add-timetable" class="btn btn-default">Dodaj</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </div>
 
 <script>
@@ -123,4 +79,4 @@
     });
 </script>
 
-<?php include 'Views/footer.php' ?>
+<?php include 'templates/footer.php' ?>

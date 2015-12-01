@@ -18,8 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//Created on 2015-07-13
-
 namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
 
 use pjanczyk\framework\Controller;
@@ -34,13 +32,13 @@ class HomeController extends Controller
 
     public function last_modified($timestamp)
     {
-        $model = new NewsModel($this->db);
+        $model = new NewsModel;
 
         $lastModified = intval($timestamp);
         $now = date('Y-m-d');
         $news = $model->get($now, $lastModified, 0);
 
-        $template = $this->includeView('home');
+        $template = $this->includeTemplate('home');
         $template->now = $now;
         $template->news = $news;
         $template->render();

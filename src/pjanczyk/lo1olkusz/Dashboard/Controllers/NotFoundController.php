@@ -18,14 +18,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace pjanczyk\lo1olkusz;
+namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
 
-class LuckyNumber
+use pjanczyk\framework\Controller;
+
+class ErrorController extends Controller
 {
-    /** @var string */
-    public $date;
-    /** @var int */
-    public $value;
-    /** @var \DateTime */
-    public $lastModified;
+    public function index()
+    {
+        $this->includeTemplate("404")->render();
+    }
 }

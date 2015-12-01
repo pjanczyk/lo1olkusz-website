@@ -19,7 +19,7 @@
  */
 ?>
 
-<?php include 'Views/header.php' ?>
+<?php include 'templates/header.php' ?>
 
     <div class="page-header"><h1>Logi</h1></div>
 
@@ -76,4 +76,4 @@
         });
     </script>
 
-<?php include 'Views/footer.php' ?>
+<?php include 'templates/footer.php' ?>

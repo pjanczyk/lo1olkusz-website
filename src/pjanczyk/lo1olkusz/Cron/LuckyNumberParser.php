@@ -27,7 +27,7 @@ require_once 'libs/simple_html_dom.php';
 use Exception;
 use pjanczyk\lo1olkusz\LuckyNumber;
 
-class LuckyNumberProvider
+class LuckyNumberParser
 {
     private $errors = [];
 
@@ -42,13 +42,13 @@ class LuckyNumberProvider
      */
     public function getLuckyNumber($dom)
     {
-        $text = LuckyNumberProvider::findText($dom);
+        $text = LuckyNumberParser::findText($dom);
         if ($text === null) {
             return null;
         }
 
         try {
-            return LuckyNumberProvider::parseText($text);
+            return LuckyNumberParser::parseText($text);
         } catch (Exception $e) {
             $this->errors[] = "Niewłaściwy format danych: " . $e->getMessage();
             return null;

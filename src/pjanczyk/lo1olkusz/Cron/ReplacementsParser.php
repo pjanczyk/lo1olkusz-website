@@ -30,7 +30,7 @@ require_once 'libs/simple_html_dom.php';
  * Gets data of replacements from the official website, parsing it from html
  * (Unfortunately there is no available api for this, e.g. using json)
  */
-class ReplacementsProvider
+class ReplacementsParser
 {
     private $errors = [];
 
@@ -60,7 +60,7 @@ class ReplacementsProvider
         if ($h4 === null || $table === null) return null;
 
         //parse date
-        $date = ReplacementsProvider::parseDate(trim($h4->plaintext));
+        $date = ReplacementsParser::parseDate(trim($h4->plaintext));
 
         if ($date === null) {
             $this->errors[] = "incorrect date format: " . $h4->plaintext;

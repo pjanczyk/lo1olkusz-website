@@ -18,8 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//Created on 2015-07-09
-
 namespace pjanczyk\lo1olkusz;
 
 use DateTimeZone;
@@ -82,7 +80,13 @@ class Config implements \pjanczyk\framework\Config
             'replacements' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\ReplacementsController',
             'lucky-numbers' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\LuckyNumbersController',
             'settings' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\SettingsController',
+            'timetables' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\TimetablesController',
             'cron' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\CronController'
         ];
+    }
+
+    public function getNotFoundRoute()
+    {
+        return 'pjanczyk\lo1olkusz\Dashboard\Controllers\NotFoundController';
     }
 }

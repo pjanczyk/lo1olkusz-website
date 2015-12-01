@@ -26,7 +26,7 @@ class CronController extends Controller
 {
     public function index()
     {
-        $this->includeView('cron')->render();
+        $this->includeTemplate('cron')->render();
 
         //$path = Application::getInstance()->getConfig()->getLogDir() . 'cron.log';
 
@@ -37,7 +37,7 @@ class CronController extends Controller
 //            $task = new CronTask;
 //            $task->run();
 //        } else {
-//            $template = $this->includeView('cron');
+//            $template = $this->includeTemplate('cron');
 //            $template->logContent = file_exists($path) ? file_get_contents($path) : '';
 //            $template->render();
 //        }

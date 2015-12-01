@@ -3,9 +3,9 @@
 namespace pjanczyk\lo1olkusz\Models;
 
 use PDO;
-use pjanczyk\framework\Model;
+use pjanczyk\framework\Application;
 
-class TimetablesModel extends Model
+class TimetablesModel
 {
     const TABLE = 'timetables';
     const FIELD_CLASS = 'class';
@@ -14,24 +14,15 @@ class TimetablesModel extends Model
 
     /**
      * Lists requested fields of timetables ordered by 'class'
-     * @param array $fields array of requested columns
      * @return array
      */
-    public function getAll($fields)
+    public function listAll()
     {
-        $stmt = $this->db->select(self::TABLE, $fields)
-            ->orderAsc(self::FIELD_CLASS)
-            ->prepare();
-
+        $stmt = Application::getDb()->prepare('SELECT class, lastModified FROM timetables ORDER BY class ASC');
         $stmt->execute();
 
-        if (count($fields) == 1) {
-            return $stmt->fetchAll(PDO::FETCH_COLUMN);
-        } else {
-            return $stmt->fetchAll(PDO::FETCH_OBJ);
-        }
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
-
 
     /**
      * @param string $class
@@ -39,22 +30,15 @@ class TimetablesModel extends Model
      */
     public function get($class)
     {
-        $stmt = $this->db->select(self::TABLE, [self::FIELD_VALUE, self::FIELD_LAST_MODIFIED])
-            ->where([self::FIELD_CLASS => ':class'])
-            ->prepare();
+        $stmt = Application::getDb()->prepare('SELECT * FROM timetables WHERE class=:class');
 
         $stmt->bindParam(':class', $class, PDO::PARAM_STR);
         $stmt->execute();
 
         $timetable = $stmt->fetchObject();
 
-        if ($timetable !== false) {
-            $timetable->class = $class;
-
-            return $timetable;
-        } else {
-            return null;
-        }
+        if ($timetable === false) return null;
+        return $timetable;
     }
 
     /**
@@ -65,10 +49,8 @@ class TimetablesModel extends Model
      */
     public function set($class, $timetable)
     {
-        $stmt = $this->db->insertOrUpdate(self::TABLE)
-            ->where([self::FIELD_CLASS => ':class'])
-            ->set([self::FIELD_VALUE => ':value'])
-            ->prepare();
+        $stmt = Application::getDb()->prepare('INSERT INTO timetables (class, value) VALUES (:class, :value)
+ON DUPLICATE KEY UPDATE value=:value');
 
         $stmt->bindParam(':class', $class);
         $stmt->bindParam(':value', $timetable);
@@ -78,10 +60,7 @@ class TimetablesModel extends Model
 
     public function delete($class)
     {
-        $stmt = $this->db->delete(self::TABLE)
-            ->where([self::FIELD_CLASS => ':class'])
-            ->prepare();
-
+        $stmt = Application::getDb()->prepare('DELETE FROM timetables WHERE class=:class');
         $stmt->bindParam(':class', $class);
 
         return $stmt->execute();

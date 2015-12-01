@@ -9,19 +9,19 @@ class ReplacementsController extends Controller
 {
     public function index()
     {
-        $model = new ReplacementsModel($this->db);
+        $model = new ReplacementsModel;
 
-        $template = $this->includeView('replacements_list');
-        $template->replacements = $model->getAll([ReplacementsModel::FIELD_DATE, ReplacementsModel::FIELD_CLASS, ReplacementsModel::FIELD_LAST_MODIFIED]);
+        $template = $this->includeTemplate('replacements_list');
+        $template->replacements = $model->listAll();
         $template->render();
     }
 
     public function view($date, $class) {
-        $model = new ReplacementsModel($this->db);
+        $model = new ReplacementsModel;
         $replacements = $model->get($class, $date);
 
         if ($replacements != null) {
-            $template = $this->includeView('replacements_view');
+            $template = $this->includeTemplate('replacements_view');
             $template->replacements = $replacements;
             $template->render();
         }

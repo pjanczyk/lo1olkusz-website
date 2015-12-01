@@ -4,10 +4,10 @@ namespace pjanczyk\lo1olkusz\Models;
 
 
 use PDO;
-use pjanczyk\framework\Model;
+use pjanczyk\framework\Application;
 
-class NewsModel extends Model {
-
+class NewsModel
+{
     const APK = 0;
     const REPLACEMENTS = 1;
     const LUCKY_NUMBER = 2;
@@ -23,8 +23,8 @@ class NewsModel extends Model {
     public function get($sinceDate, $sinceLastModified, $version)
     {
         //replacements
-        $stmt = $this->db->prepare(
-'SELECT 1 AS type, date, class, value, UNIX_TIMESTAMP(lastModified) AS timestamp FROM replacements
+        $stmt = Application::getDb()->prepare(
+            'SELECT 1 AS type, date, class, value, UNIX_TIMESTAMP(lastModified) AS timestamp FROM replacements
 WHERE date>=:date AND lastModified>=FROM_UNIXTIME(:lastModified)
 UNION ALL
 SELECT 2, date, NULL, value, UNIX_TIMESTAMP(lastModified) FROM luckyNumbers

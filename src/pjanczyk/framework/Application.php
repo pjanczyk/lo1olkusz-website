@@ -1,4 +1,22 @@
 <?php
+/**
+ * Copyright 2015 Piotr Janczyk
+ *
+ * This file is part of I LO Olkusz Unofficial App.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 namespace pjanczyk\framework;
 
@@ -8,12 +26,17 @@ final class Application
     /** @var Application|null */
     private static $instance = null;
 
+    /** @var Config */
     private $config;
-    private $page;
-    private $pageName;
+    /** @var \PDO */
+    private $db;
+    private $controller;
+    private $controllerName;
     private $action;
     private $params;
 
+
+    /** @return Application */
     public static function getInstance()
     {
         if (self::$instance === null) {
@@ -22,39 +45,46 @@ final class Application
         return self::$instance;
     }
 
-    /**
-     * @return Controller
-     */
-    public function getPage()
+    /** @return \PDO */
+    public static function getDb()
     {
-        return $this->page;
+        return self::$instance->db;
     }
 
-    /**
-     * @return Config
-     */
-    public function getConfig()
+    /** @return Config */
+    public static function getConfig()
     {
-        return $this->config;
+        return self::$instance->config;
     }
 
-    public function start(Config $config)
+    public function init(Config $config)
     {
         $this->config = $config;
+        $this->connectToDb();
+    }
 
-        if (!$this->route($config->getRoute())) {
+    public function displayPage()
+    {
+        if (!$this->route($this->config->getRoute())) {
             http404();
         }
 
-        $db = new Database($config);
+        $this->controller = new $this->controllerName;
 
-        $this->page = new $this->pageName($db);
-
-        if (!method_exists($this->page, $this->action)) {
+        if (method_exists($this->controller, $this->action)) {
+            call_user_func_array([$this->controller, $this->action], $this->params);
+        } else {
             http404();
         }
+    }
 
-        call_user_func_array([$this->page, $this->action], $this->params);
+    private function connectToDb()
+    {
+        $this->db = new \PDO(
+            $this->config->getDbDSN(),
+            $this->config->getDbUser(),
+            $this->config->getDbPassword(),
+            $this->config->getDbOptions());
     }
 
     private function route($map)
@@ -66,7 +96,7 @@ final class Application
 
         $mapKey = $path[0];
         if (isset($map[$mapKey])) {
-            $this->pageName = $map[$mapKey];
+            $this->controllerName = $map[$mapKey];
             $this->action = isset($path[1]) ? str_replace('-', '_', $path[1]) : 'index';
             $this->params = array_slice($path, 2);
 

@@ -1,10 +1,10 @@
-<?php include 'Views/header.php' ?>
+<?php include 'templates/header.php' ?>
 
 <div class="page-header">
     <h1>Usuń plan lekcji</h1>
 </div>
 
-<form class="form-horizontal" action="/dashboard/settings" method="post">
+<form class="form-horizontal" action="/dashboard/timetables/delete" method="post">
     <input type="hidden" name="delete" value="true"/>
     <input type="hidden" name="class" value="<?=$timetable->class?>"/>
     <div class="form-group">
@@ -20,4 +20,4 @@
     </div>
 </form>
 
-<?php include 'Views/footer.php' ?>
+<?php include 'templates/footer.php' ?>

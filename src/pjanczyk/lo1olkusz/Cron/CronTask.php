@@ -24,7 +24,7 @@ namespace pjanczyk\lo1olkusz\Cron;
 
 require_once 'libs/simple_html_dom.php';
 
-use pjanczyk\framework\Database;
+use pjanczyk\framework\Application;
 use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Models\LuckyNumbersModel;
 use pjanczyk\lo1olkusz\Models\ReplacementsModel;
@@ -32,12 +32,9 @@ use pjanczyk\lo1olkusz\Models\ReplacementsModel;
 
 class CronTask
 {
-    /** @var Database */
-    private $db;
-
     public function run()
     {
-        $this->db = new Database(new Config);
+        Application::getInstance()->init(new Config);
 
         $config = new Config;
 
@@ -46,36 +43,48 @@ class CronTask
 
         if ($dom === false) {
             echo "cannot get {$url}\n";
-        } else {
-            $lnProvider = new LuckyNumberProvider;
-            $webLn = $lnProvider->getLuckyNumber($dom);
-            $this->logErrors('LuckyNumberProvider', $lnProvider->getErrors());
+            return;
+        }
 
-            if ($webLn !== null) {
-                $lnMgr = new LuckyNumbersModel($this->db);
-                $savedLn = $lnMgr->get($webLn->date);
-                if ($savedLn === null || $webLn->value !== $savedLn->value) {
-                    $lnMgr->setValue($webLn->date, $webLn->value);
-                    echo "updated ln/{$webLn->date}\n";
+        $this->updateLuckyNumbers($dom);
+        $this->updateReplacements($dom);
+
+        echo "done\n";
+    }
+
+    private function updateLuckyNumbers($dom)
+    {
+        $model = new LuckyNumbersModel;
+        $parser = new LuckyNumberParser;
+        $remote = $parser->getLuckyNumber($dom);
+        $this->logErrors('LuckyNumberParser', $parser->getErrors());
+
+        if ($remote !== null) {
+            $local = $model->get($remote->date);
+
+            if ($local === null || $remote->value !== $local->value) {
+                $model->setValue($remote->date, $remote->value);
+                echo "updated ln/{$remote->date}\n";
+            }
+        }
+    }
+
+    private function updateReplacements($dom)
+    {
+        $model = new ReplacementsModel;
+        $parser = new ReplacementsParser;
+        $remoteList = $parser->getReplacements($dom);
+        $this->logErrors('ReplacementsParser', $parser->getErrors());
+
+        if ($remoteList !== null) {
+            foreach ($remoteList as $remote) {
+                $local = $model->get($remote->class, $remote->date);
+
+                if ($local === null || $remote->value !== $local->value) {
+                    $model->set($remote->class, $remote->date, $remote->value);
+                    echo "updated replacements/{$remote->date}/{$remote->class}\n";
                 }
             }
-
-            $replsProvider = new ReplacementsProvider;
-            $webReplacements = $replsProvider->getReplacements($dom);
-            $this->logErrors('ReplacementsProvider', $lnProvider->getErrors());
-
-            if ($webReplacements !== null) {
-                $replsMgr = new ReplacementsModel($this->db);
-                foreach ($webReplacements as $webReplacement) {
-                    $savedReplacement = $replsMgr->get($webReplacement->class, $webReplacement->date);
-                    if ($savedReplacement === null || $webReplacement->value !== $savedReplacement->value) {
-                        $replsMgr->set($webReplacement->class, $webReplacement->date, $webReplacement->value);
-                        echo "updated replacements/{$webReplacement->date}/{$webReplacement->class}\n";
-                    }
-                }
-            }
-
-            echo "done\n";
         }
     }
 

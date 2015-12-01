@@ -18,98 +18,47 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//Created on 2015-07-15
-
 namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
 
 use pjanczyk\framework\Application;
 use pjanczyk\framework\Controller;
+use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Models\SettingsModel;
-use pjanczyk\lo1olkusz\Models\TimetablesModel;
 
 class SettingsController extends Controller
 {
     public function index()
     {
-        $modelSettings = new SettingsModel($this->db);
+        $model = new SettingsModel;
 
-        $apkPath = Application::getInstance()->getConfig()->getDataDir() . 'apk';
+        /** @var Config $config */
+        $config = Application::getConfig();
+
+        $apkPath = $config->getDataDir() . 'apk';
 
         $alerts = [];
 
-        if (isset($_FILES['apk-file'])
-            && $_FILES['apk-file']['error'] == UPLOAD_ERR_OK
-        ) {
-
-            $tmpName = $_FILES['apk-file']["tmp_name"];
-            if (move_uploaded_file($tmpName, $apkPath)) {
-                $alerts[] = 'Changed APK file';
+        if (isset($_FILES['apk']) && $_FILES['apk']['error'] == UPLOAD_ERR_OK) {
+            $tempPath = $_FILES['apk']["tmp_name"];
+            if (move_uploaded_file($tempPath, $apkPath)) {
+                $alerts[] = 'Zaktualizowano plik APK';
             }
         }
 
-        if (isset($_POST['apk-version'])) {
-            if ($modelSettings->setValue('version', $_POST['apk-version'])) {
-                $alerts[] = 'Changed APK version';
+        if (isset($_POST['version'])) {
+            if ($model->setValue('version', $_POST['version'])) {
+                $alerts[] = 'Zaktualizowano wersjê aplikacji';
             }
         }
 
-        $modelTimetables = new TimetablesModel($this->db);
-
-        if (isset($_POST['edit'], $_POST['class'], $_POST['timetable'])) {
-            if ($modelTimetables->set($_POST['class'], $_POST['timetable'])) {
-                $alerts[] = "Saved timetable of \"{$_POST['class']}\"";
-            }
-        } else if (isset($_POST['delete'], $_POST['class'])) {
-            if ($modelTimetables->delete($_POST['class'])) {
-                $alerts[] = "Deleted timetable of \"{$_POST['class']}\"";
-            }
-        }
-
-        /* views */
-        $template = $this->includeView('settings');
+        $template = $this->includeTemplate('settings');
         $template->alerts = $alerts;
-
-        $settings = $modelSettings->getAll();
-        if (isset($settings['version'])) {
-            $template->apkVersion = $settings['version'];
-        }
+        $template->version = $model->get('version');
         if (file_exists($apkPath)) {
-            $template->apkFileLastModified = date('Y-m-d H:i:s', filemtime($apkPath));
+            $template->apkLastModified = date('Y-m-d H:i:s', filemtime($apkPath));
         }
 
-        $template->timetables = $modelTimetables->getAll([TimetablesModel::FIELD_CLASS, TimetablesModel::FIELD_LAST_MODIFIED]);
-
         $template->render();
-    }
-
-    public function add_timetable()
-    {
-        $template = $this->includeView('timetable_edit');
-        $template->timetable = null;
-        $template->render();
-    }
-
-    public function edit_timetable($class)
-    {
-        $model = new TimetablesModel($this->db);
-
-        $template = $this->includeView('timetable_edit');
-        $template->timetable = $model->get($class);
-        $template->render();
-    }
-
-    public function delete_timetable($class)
-    {
-        $model = new TimetablesModel($this->db);
-
-        $timetable = $model->get($class);
-        if ($timetable !== null) {
-            $template = $this->includeView('timetable_delete');
-            $template->timetable = $timetable;
-            $template->render();
-        } else {
-            $this->index();
-        }
     }
 }
 

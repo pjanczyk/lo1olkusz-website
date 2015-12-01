@@ -18,14 +18,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace pjanczyk\lo1olkusz;
+namespace pjanczyk\framework;
 
-class LuckyNumber
+
+class Template
 {
-    /** @var string */
-    public $date;
-    /** @var int */
-    public $value;
-    /** @var \DateTime */
-    public $lastModified;
+    private $fileName;
+    private $data;
+
+    public function __construct($filename)
+    {
+        $this->fileName = $filename;
+        $this->data = [];
+    }
+
+    public function __get($name)
+    {
+        if (isset($this->data[$name])) {
+            return $this->data[$name];
+        }
+        return null;
+    }
+
+    public function __set($name, $value)
+    {
+        $this->data[$name] = $value;
+    }
+
+    public function render()
+    {
+        extract($this->data);
+        /** @noinspection PhpIncludeInspection */
+        include 'templates/' . $this->fileName . '.php';
+    }
 }

@@ -1,12 +1,30 @@
 <?php
+/**
+ * Copyright 2015 Piotr Janczyk
+ *
+ * This file is part of I LO Olkusz Unofficial App.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 namespace pjanczyk\lo1olkusz\Models;
 
 use PDO;
-use pjanczyk\framework\Model;
+use pjanczyk\framework\Application;
 use pjanczyk\lo1olkusz\Replacements;
 
-class ReplacementsModel extends Model
+class ReplacementsModel
 {
     const TABLE = 'replacements';
     const FIELD_CLASS = 'class';
@@ -21,36 +39,23 @@ class ReplacementsModel extends Model
      */
     public function get($class, $date)
     {
-        $stmt = $this->db
-            ->select(self::TABLE, ['value', 'lastModified'])
-            ->where([self::FIELD_DATE => ':date', self::FIELD_CLASS => ':class'])
-            ->prepare();
-
+        $stmt = Application::getDb()->prepare('SELECT * FROM replacements WHERE date=:date AND class=:class');
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
         $stmt->bindParam(':class', $class, PDO::PARAM_STR);
         $stmt->execute();
         $replacements = $stmt->fetchObject('pjanczyk\lo1olkusz\Replacements');
 
-        if ($replacements !== false) {
-            $replacements->class = $class;
-            $replacements->date = $date;
-
-            return $replacements;
-        } else {
-            return null;
-        }
+        if ($replacements === false) return null;
+        return $replacements;
     }
 
     /**
-     * @param array $fields array of requested columns
-     * @return array(LuckyNumber)
+     * @return array(Replacements)
      */
-    public function getAll($fields)
+    public function listAll()
     {
-        $stmt = $this->db->select(self::TABLE, $fields)
-            ->orderDesc(self::FIELD_DATE)
-            ->orderAsc(self::FIELD_CLASS)
-            ->prepare();
+        $stmt = Application::getDb()->prepare('SELECT class, date, lastModified FROM replacements
+ ORDER BY date DESC, class ASC');
 
         $stmt->execute();
 
@@ -65,10 +70,9 @@ class ReplacementsModel extends Model
      */
     public function set($class, $date, $value)
     {
-        $stmt = $this->db->insertOrUpdate(self::TABLE)
-            ->where([self::FIELD_CLASS => ':class', self::FIELD_DATE => ':date'])
-            ->set([self::FIELD_VALUE => ':value'])
-            ->prepare();
+        $stmt = Application::getDb()->prepare('INSERT INTO replacements (class, date, value)
+VALUES (:class, :date, :value)
+ON DUPLICATE KEY UPDATE value=:value');
 
         $stmt->bindParam(':class', $class, PDO::PARAM_STR);
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);

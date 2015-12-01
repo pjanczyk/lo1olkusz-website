@@ -1,18 +1,30 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Piotrek
- * Date: 2015-07-19
- * Time: 14:01
+ * Copyright 2015 Piotr Janczyk
+ *
+ * This file is part of I LO Olkusz Unofficial App.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 namespace pjanczyk\lo1olkusz\Models;
 
 use PDO;
-use pjanczyk\framework\Model;
+use pjanczyk\framework\Application;
 use pjanczyk\lo1olkusz\LuckyNumber;
 
-class LuckyNumbersModel extends Model
+class LuckyNumbersModel
 {
     const TABLE = 'luckyNumbers';
     const FIELD_DATE = 'date';
@@ -25,37 +37,25 @@ class LuckyNumbersModel extends Model
      */
     public function get($date)
     {
-        $stmt = $this->db->select(self::TABLE, [self::FIELD_LAST_MODIFIED, self::FIELD_VALUE])
-            ->where([self::FIELD_DATE => ':date'])
-            ->prepare();
-
+        $stmt = Application::getDb()->prepare('SELECT * FROM luckyNumbers WHERE date=:date');
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
-
-        $ln = new LuckyNumber;
-        $stmt->bindColumn(self::FIELD_VALUE, $ln->value, PDO::PARAM_INT);
-        $stmt->bindColumn(self::FIELD_LAST_MODIFIED, $ln->lastModified, PDO::PARAM_STR);
-
         $stmt->execute();
 
-        if ($stmt->fetch(PDO::FETCH_BOUND) !== false) {
-            $ln->date = $date;
+        $result = $stmt->fetchObject('pjanczyk\lo1olkusz\LuckyNumber');
 
-            return $ln;
-        } else {
+        if ($result === false) {
             return null;
+        } else {
+            return $result;
         }
     }
 
     /**
-     * @param array $fields array of requested columns
      * @return array(LuckyNumber)
      */
-    public function getAll($fields)
+    public function getAll()
     {
-        $stmt = $this->db->select(self::TABLE, $fields)
-            ->orderDesc(self::FIELD_DATE)
-            ->prepare();
-
+        $stmt = Application::getDb()->prepare('SELECT * FROM luckyNumbers ORDER BY date ASC');
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\LuckyNumber');
@@ -68,10 +68,8 @@ class LuckyNumbersModel extends Model
      */
     public function setValue($date, $value)
     {
-        $stmt = $this->db->insertOrUpdate(self::TABLE)
-            ->where([self::FIELD_DATE => ':date'])
-            ->set([self::FIELD_VALUE => ':value'])
-            ->prepare();
+        $stmt = Application::getDb()->prepare('INSERT INTO luckyNumbers (date, value) VALUES (:date, :value)
+ON DUPLICATE KEY UPDATE value=:value');
 
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
         $stmt->bindParam(':value', $value, PDO::PARAM_INT);
