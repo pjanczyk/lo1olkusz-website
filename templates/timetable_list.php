@@ -27,7 +27,7 @@
 
 <?php include 'templates/alerts.php' ?>
 
-    <div class="panel panel-default" style="width: auto">
+    <div class="panel panel-default" style="width: auto; margin-right: auto">
         <table class="table table-condensed" style="width: auto">
             <thead>
             <tr>
