@@ -27,8 +27,8 @@
 
 <?php include 'templates/alerts.php' ?>
 
-    <div class="panel panel-default">
-        <table class="table table-condensed">
+    <div class="panel panel-default" style="width: auto">
+        <table class="table table-condensed" style="width: auto">
             <thead>
             <tr>
                 <th>Klasa</th>

@@ -20,14 +20,14 @@
 
 //Created on 2015-07-10
 
-use pjanczyk\lo1olkusz\Cron\LuckyNumberProvider;
+use pjanczyk\lo1olkusz\Cron\LuckyNumberParser;
 use pjanczyk\lo1olkusz\LuckyNumber;
 
 require 'autoloader.php';
 require_once 'libs/simple_html_dom.php';
 
 
-class LuckyNumberProviderTest extends PHPUnit_Framework_TestCase
+class LuckyNumberParserTest extends PHPUnit_Framework_TestCase
 {
     public function testExist()
     {
@@ -35,11 +35,11 @@ class LuckyNumberProviderTest extends PHPUnit_Framework_TestCase
 
         $dom = file_get_html(__DIR__ . '/correct_zast.html');
 
-        $a = new LuckyNumberProvider;
+        $a = new LuckyNumberParser;
         $result = $a->getLuckyNumber($dom);
 
         $time_elapsed_secs = microtime(true) - $start;
-        echo 'ReplacementsProviderTest::testExist: ' . $time_elapsed_secs . PHP_EOL;
+        echo 'ReplacementsParserTest::testExist: ' . $time_elapsed_secs . PHP_EOL;
 
         $expected = new LuckyNumber;
         $expected->date = "2015-06-10";
@@ -54,7 +54,7 @@ class LuckyNumberProviderTest extends PHPUnit_Framework_TestCase
     {
         $dom = file_get_html(__DIR__ . '/empty_zast.html');
 
-        $a = new LuckyNumberProvider;
+        $a = new LuckyNumberParser;
         $result = $a->getLuckyNumber($dom);
 
         $this->assertEquals(null, $result);
@@ -65,7 +65,7 @@ class LuckyNumberProviderTest extends PHPUnit_Framework_TestCase
     {
         $dom = file_get_html(__DIR__ . '/incorrect_zast.html');
 
-        $a = new LuckyNumberProvider;
+        $a = new LuckyNumberParser;
         $result = $a->getLuckyNumber($dom);
 
         $this->assertEquals(null, $result);

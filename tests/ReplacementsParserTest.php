@@ -20,13 +20,13 @@
 
 //Created on 2015-07-10
 
-use pjanczyk\lo1olkusz\Cron\ReplacementsProvider;
+use pjanczyk\lo1olkusz\Cron\ReplacementsParser;
 use pjanczyk\lo1olkusz\Replacements;
 
 require 'autoloader.php';
 require_once 'libs/simple_html_dom.php';
 
-class ReplacementsProviderTest extends PHPUnit_Framework_TestCase
+class ReplacementsParserTest extends PHPUnit_Framework_TestCase
 {
     public function testExist()
     {
@@ -34,11 +34,11 @@ class ReplacementsProviderTest extends PHPUnit_Framework_TestCase
 
         $dom = file_get_html(__DIR__ . '/correct_zast.html');
 
-        $a = new ReplacementsProvider;
+        $a = new ReplacementsParser;
         $result = $a->getReplacements($dom);
 
         $time_elapsed_secs = microtime(true) - $start;
-        echo 'ReplacementsProviderTest::testExist: ' . $time_elapsed_secs . PHP_EOL;
+        echo 'ReplacementsParserTest::testExist: ' . $time_elapsed_secs . PHP_EOL;
 
         $expected = [];
 
@@ -86,7 +86,7 @@ class ReplacementsProviderTest extends PHPUnit_Framework_TestCase
     {
         $dom = file_get_html(__DIR__ . '/empty_zast.html');
 
-        $a = new ReplacementsProvider;
+        $a = new ReplacementsParser;
         $result = $a->getReplacements($dom);
 
         $this->assertEquals(null, $result);
@@ -97,7 +97,7 @@ class ReplacementsProviderTest extends PHPUnit_Framework_TestCase
     {
         $dom = file_get_html(__DIR__ . '/incorrect_zast.html');
 
-        $a = new ReplacementsProvider;
+        $a = new ReplacementsParser;
         $result = $a->getReplacements($dom);
 
         $this->assertEquals(null, $result);
