@@ -61,7 +61,7 @@
             <? endforeach ?>
             </tbody>
         </table>
-        <div class="panel-footer">
+        <div class="panel-footer" style="width: auto">
             <div class="btn-group" role="group">
                 <a href="/dashboard/timetables/add" class="btn btn-default">Dodaj</a>
             </div>
