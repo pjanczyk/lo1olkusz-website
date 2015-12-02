@@ -30,11 +30,11 @@
         <a href="/dashboard/timetables/add" class="btn btn-default">Dodaj</a>
     </div>
 
-    <table class="table table-condensed" style="width: auto">
+    <table class="table table-bordered" style="width: auto">
         <thead>
         <tr>
             <th>Klasa</th>
-            <th>Ostatnio zmodyfikowano</th>
+            <th>Zmodyfikowano</th>
             <th></th>
         </tr>
         </thead>

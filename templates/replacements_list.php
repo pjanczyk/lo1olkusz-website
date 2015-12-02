@@ -4,12 +4,12 @@
     <h1>Zastępstwa</h1>
 </div>
 
-<table class="table table-condensed" style="width: auto">
+<table class="table table-bordered" style="width: auto">
     <thead>
     <tr>
         <th>Data</th>
         <th>Klasa</th>
-        <th>Ostatnio zmodyfikowano</th>
+        <th>Zmodyfikowano</th>
         <th></th>
     </tr>
     </thead>
