@@ -7,24 +7,33 @@
 <div class="form-horizontal">
     <div class="form-group">
         <label class="col-sm-2 control-label">Data</label>
-        <div class="col-sm-10"><?=$replacements->date?></div>
+        <div class="col-sm-10">
+            <p class="form-control-static"><?=$replacements->date?></p>
+        </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label">Klasa</label>
-        <div class="col-sm-10"><?=$replacements->class?></div>
+        <div class="col-sm-10">
+            <p class="form-control-static"><?=$replacements->class?></p>
+        </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label">Ostatnio zmodyfikowano</label>
-        <div class="col-sm-10"><?=$replacements->lastModified?></div>
+        <label class="col-sm-2 control-label">Zmodyfikowano</label>
+        <div class="col-sm-10">
+            <p class="form-control-static"><?=$replacements->lastModified?></p>
+        </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label">Wartość</label>
         <div class="col-sm-10">
-            <? $value = json_decode($replacements->value, true);
-            foreach($value as $hour => $replacement) {
-                echo $hour . '. ' . $replacement . '<br/>';
-            }
-            ?>
+            <p class="form-control-static">
+                <?php
+                $value = json_decode($replacements->value, true);
+                foreach($value as $hour => $replacement) {
+                    echo $hour . '. ' . $replacement . '<br/>';
+                }
+                ?>
+            </p>
         </div>
     </div>
 </div>
