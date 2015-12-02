@@ -201,8 +201,8 @@ if ($args[0] == 'news' && count($args) == 2) { # /api/news/<lastModified>
         $response = [];
 
         $response['timestamp'] = $now;
-        $response['replacements'] = array_map('json_decode', $replacements);
-        $response['luckyNumbers'] = array_map('json_decode', $lns);
+        $response['replacements'] = $replacements;
+        $response['luckyNumbers'] = $lns;
         $response['timetables'] = $timetables;
         $response['version'] = $version;
 

@@ -43,6 +43,8 @@ WHERE date=:date AND class=:class');
         $replacements = $stmt->fetchObject('pjanczyk\lo1olkusz\Replacements');
 
         if ($replacements === false) return null;
+
+        $replacements->value = json_decode($replacements->value);
         return $replacements;
     }
 
@@ -61,7 +63,12 @@ WHERE date>=:date AND lastModified>=FROM_UNIXTIME(:lastModified)');
         $stmt->bindParam(':lastModified', $lastModified, PDO::PARAM_INT);
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\Replacements');
+        $result = $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\Replacements');
+        array_walk($result, function(&$v) {
+            $v = json_decode($v);
+        });
+
+        return $result;
     }
 
     /**
