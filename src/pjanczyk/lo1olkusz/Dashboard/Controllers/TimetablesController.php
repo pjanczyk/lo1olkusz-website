@@ -35,12 +35,12 @@ class TimetablesController extends Controller
             $class = $_POST['class'];
             $value = $_POST['timetable'];
             if ($modelTimetables->setValue($class, $value)) {
-                $alerts[] = "Saved timetable of \"{$class}\"";
+                $alerts[] = "Zapisano plan lekcji klasy \"{$class}\"";
             }
         } else if (isset($_POST['delete'], $_POST['class'])) {
             $class = $_POST['class'];
             if ($modelTimetables->delete($class)) {
-                $alerts[] = "Deleted timetable of \"{$class}\"";
+                $alerts[] = "Usunięto plan lekcji klasy \"{$class}\"";
             }
         }
 

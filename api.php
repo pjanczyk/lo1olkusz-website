@@ -29,7 +29,11 @@ require 'autoloader.php';
 use pjanczyk\framework\Application;
 use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Json;
+use pjanczyk\lo1olkusz\Models\LuckyNumbersModel;
 use pjanczyk\lo1olkusz\Models\NewsModel;
+use pjanczyk\lo1olkusz\Models\ReplacementsModel;
+use pjanczyk\lo1olkusz\Models\SettingsModel;
+use pjanczyk\lo1olkusz\Models\TimetablesModel;
 
 $binary = isset($_GET['bin']);
 
@@ -182,31 +186,53 @@ if ($args[0] == 'news' && count($args) == 2) { # /api/news/<lastModified>
     }
 
     else {
-        echo '{"since":'.$now.',"news":[';
+        $modelReplacements = new ReplacementsModel;
+        $modelLn = new LuckyNumbersModel;
+        $modelTimetables = new TimetablesModel;
+        $modelSettings = new SettingsModel;
 
-        $first = true;
-        foreach ($news as $n) {
-            if (!$first) echo ',';
-            $first = false;
+        $date = date('Y-m-d', $now);
 
-            switch ($n['type']) {
-                case NewsModel::APK:
-                    echo '{"type":"apk","version":"' . $n['value'] . '"}';
-                    break;
-                case NewsModel::REPLACEMENTS:
-                    echo '{"type":"replacements","date":"' . $n['date'] . '","class":"' . $n['class'] . '","lastModified":' . $n['timestamp'] . ',"value":' . $n['value'] . '}';
-                    break;
-                case NewsModel::LUCKY_NUMBER:
-                    echo '{"type":"luckyNumber","date":"' . $n['date'] . '","lastModified":' . $n['timestamp'] . ',"value":' . $n['value'] . '}';
-                    break;
-                case NewsModel::TIMETABLE:
-                    echo '{"type":"timetable","class":"' . $n['class'] . '","lastModified":' . $n['timestamp'] . ',"value":' . json_encode($n['value']) . '}';
-                    break;
-                case NewsModel::BELLS:
-                    echo '{"type":"bells","lastModified":' . $n['timestamp'] . ',"value":' . $n['value'] . '}';
-            }
-        }
-        echo ']}';
+        $replacements = $modelReplacements->getByDateAndLastModified($date, $lastModified);
+        $lns = $modelLn->getByDateAndLastModified($date, $lastModified);
+        $timetables = $modelTimetables->getByLastModified($lastModified);
+        $version = (int) $modelSettings->get('version');
+
+        $response = [];
+
+        $response['timestamp'] = $now;
+        $response['replacements'] = array_map('json_decode', $replacements);
+        $response['luckyNumbers'] = array_map('json_decode', $lns);
+        $response['timetables'] = $timetables;
+        $response['version'] = $version;
+
+        echo json_encode($response);
+
+//        echo '{"since":'.$now.',"news":[';
+//
+//        $first = true;
+//        foreach ($news as $n) {
+//            if (!$first) echo ',';
+//            $first = false;
+//
+//            switch ($n['type']) {
+//                case NewsModel::APK:
+//                    echo '{"type":"apk","version":"' . $n['value'] . '"}';
+//                    break;
+//                case NewsModel::REPLACEMENTS:
+//                    echo '{"type":"replacements","date":"' . $n['date'] . '","class":"' . $n['class'] . '","lastModified":' . $n['timestamp'] . ',"value":' . $n['value'] . '}';
+//                    break;
+//                case NewsModel::LUCKY_NUMBER:
+//                    echo '{"type":"luckyNumber","date":"' . $n['date'] . '","lastModified":' . $n['timestamp'] . ',"value":' . $n['value'] . '}';
+//                    break;
+//                case NewsModel::TIMETABLE:
+//                    echo '{"type":"timetable","class":"' . $n['class'] . '","lastModified":' . $n['timestamp'] . ',"value":' . json_encode($n['value']) . '}';
+//                    break;
+//                case NewsModel::BELLS:
+//                    echo '{"type":"bells","lastModified":' . $n['timestamp'] . ',"value":' . $n['value'] . '}';
+//            }
+//        }
+//        echo ']}';
     }
 }
 else if (!$binary && $args[0] == 'cron' && count($args) == 1) {
