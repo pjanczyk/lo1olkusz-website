@@ -36,7 +36,7 @@ function http404()
 
 function formatTimestamp($timestamp)
 {
-    return date($timestamp, "d.m.Y G:i:s");
+    return date("d.m.Y G:i:s", $timestamp);
 }
 
 date_default_timezone_set('Europe/Warsaw');
