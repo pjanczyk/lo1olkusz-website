@@ -63,6 +63,17 @@ class ReplacementsModel
     }
 
     /**
+     * @return int
+     */
+    public function count()
+    {
+        $stmt = Application::getDb()->prepare('SELECT COUNT(*) FROM replacements');
+        $stmt->execute();
+
+        return (int) $stmt->fetchColumn();
+    }
+
+    /**
      * @param string $class
      * @param string $date
      * @param int $value

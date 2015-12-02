@@ -14,15 +14,23 @@
     </tr>
     </thead>
     <tbody>
-    <?php foreach ($replacements as $r): ?>
+    <?php foreach ($transposed as $date => $replacements): ?>
         <tr>
-            <td><?=$r->date?></td>
-            <td><?=$r->class?></td>
-            <td><?=$r->lastModified?></td>
+        <td rowspan="<?= count($replacements) ?>"><?= $date ?></td>
+        <?php $count = 0 ?>
+        <?php foreach ($replacements as $r): ?>
+            <?php if ($count > 0): ?>
+                <tr>
+            <?php endif ?>
+
+            <td><?= $r->class ?></td>
+            <td><?= $r->lastModified ?></td>
             <td>
-                <a class="btn btn-default btn-xs" href="/dashboard/replacements/view/<?=$r->date?>/<?=$r->class?>">Wyświetl</a>
+                <a class="btn btn-default btn-xs"
+                   href="/dashboard/replacements/view/<?= $r->date ?>/<?= $r->class ?>">Wyświetl</a>
             </td>
-        </tr>
+            </tr>
+        <?php endforeach ?>
     <? endforeach ?>
     </tbody>
 </table>
