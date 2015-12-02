@@ -33,14 +33,21 @@ class LuckyNumbersModel
     public function getByDate($date)
     {
         $stmt = Application::getDb()->prepare(
-            'SELECT date, value, UNIX_TIMESTAMP(lastModified) as lastModified FROM luckyNumbers WHERE date=:date');
+            'SELECT date, value, UNIX_TIMESTAMP(lastModified) FROM luckyNumbers WHERE date=:date');
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
         $stmt->execute();
 
-        $result = $stmt->fetchObject('pjanczyk\lo1olkusz\LuckyNumber');
+        $result = new LuckyNumber;
 
-        if ($result === false) return null;
-        return $result;
+        $stmt->bindColumn(1, $result->date, PDO::PARAM_STR);
+        $stmt->bindColumn(2, $result->value, PDO::PARAM_STR);
+        $stmt->bindColumn(3, $result->lastModified, PDO::PARAM_INT);
+
+        if ($stmt->fetch(PDO::FETCH_BOUND)) {
+            return $result;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -51,14 +58,25 @@ class LuckyNumbersModel
     public function getByDateAndLastModified($date, $lastModified)
     {
         $stmt = Application::getDb()->prepare(
-            'SELECT date, value, UNIX_TIMESTAMP(lastModified) as lastModified FROM luckyNumbers
+            'SELECT date, value, UNIX_TIMESTAMP(lastModified) FROM luckyNumbers
 WHERE date>=:date AND lastModified>=FROM_UNIXTIME(:lastModified)');
 
         $stmt->bindParam(':date', $date);
         $stmt->bindParam(':lastModified', $lastModified, PDO::PARAM_INT);
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\LuckyNumber');
+        $obj = new LuckyNumber;
+
+        $stmt->bindColumn(1, $obj->date, PDO::PARAM_STR);
+        $stmt->bindColumn(2, $obj->value, PDO::PARAM_STR);
+        $stmt->bindColumn(3, $obj->lastModified, PDO::PARAM_INT);
+
+        $results = [];
+        while ($stmt->fetch(PDO::FETCH_BOUND)) {
+            $results[] = clone $obj;
+        }
+
+        return $results;
     }
 
     /**
@@ -67,7 +85,7 @@ WHERE date>=:date AND lastModified>=FROM_UNIXTIME(:lastModified)');
     public function getAll()
     {
         $stmt = Application::getDb()->prepare(
-            'SELECT date, value, UNIX_TIMESTAMP(lastModified) as lastModified FROM luckyNumbers ORDER BY date DESC');
+            'SELECT date, value, UNIX_TIMESTAMP(lastModified) AS lastModified FROM luckyNumbers ORDER BY date DESC');
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\LuckyNumber');
