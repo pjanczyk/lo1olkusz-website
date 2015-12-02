@@ -33,7 +33,7 @@ class TimetablesModel
     public function listAll()
     {
         $stmt = Application::getDb()->prepare(
-            'SELECT class, UNIX_TIMESTAMP(lastModified) FROM timetables ORDER BY class ASC');
+            'SELECT class, UNIX_TIMESTAMP(lastModified) as lastModified FROM timetables ORDER BY class ASC');
 
         $stmt->execute();
 
@@ -47,7 +47,7 @@ class TimetablesModel
     public function getByClass($class)
     {
         $stmt = Application::getDb()->prepare(
-            'SELECT class, value, UNIX_TIMESTAMP(lastModified) FROM timetables WHERE class=:class');
+            'SELECT class, value, UNIX_TIMESTAMP(lastModified) as lastModified FROM timetables WHERE class=:class');
 
         $stmt->bindParam(':class', $class, PDO::PARAM_STR);
         $stmt->execute();
@@ -65,7 +65,7 @@ class TimetablesModel
     public function getByLastModified($lastModified)
     {
         $stmt = Application::getDb()->prepare(
-            'SELECT class, value, UNIX_TIMESTAMP(lastModified) FROM timetables
+            'SELECT class, value, UNIX_TIMESTAMP(lastModified) as lastModified FROM timetables
 WHERE lastModified>=FROM_UNIXTIME(:lastModified)');
 
         $stmt->bindParam(':lastModified', $lastModified, PDO::PARAM_INT);

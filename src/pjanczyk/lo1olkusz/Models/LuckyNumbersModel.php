@@ -33,7 +33,7 @@ class LuckyNumbersModel
     public function getByDate($date)
     {
         $stmt = Application::getDb()->prepare(
-            'SELECT date, value, UNIX_TIMESTAMP(lastModified) FROM luckyNumbers WHERE date=:date');
+            'SELECT date, value, UNIX_TIMESTAMP(lastModified) as lastModified FROM luckyNumbers WHERE date=:date');
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
         $stmt->execute();
 
@@ -51,7 +51,7 @@ class LuckyNumbersModel
     public function getByDateAndLastModified($date, $lastModified)
     {
         $stmt = Application::getDb()->prepare(
-            'SELECT date, value, UNIX_TIMESTAMP(lastModified) FROM luckyNumbers
+            'SELECT date, value, UNIX_TIMESTAMP(lastModified) as lastModified FROM luckyNumbers
 WHERE date>=:date AND lastModified>=FROM_UNIXTIME(:lastModified)');
 
         $stmt->bindParam(':date', $date);
@@ -67,7 +67,7 @@ WHERE date>=:date AND lastModified>=FROM_UNIXTIME(:lastModified)');
     public function getAll()
     {
         $stmt = Application::getDb()->prepare(
-            'SELECT date, value, UNIX_TIMESTAMP(lastModified) as lastModified FROM luckyNumbers ORDER BY date ASC');
+            'SELECT date, value, UNIX_TIMESTAMP(lastModified) as lastModified FROM luckyNumbers ORDER BY date DESC');
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\LuckyNumber');

@@ -34,7 +34,7 @@ class ReplacementsModel
     public function getByClassAndDate($class, $date)
     {
         $stmt = Application::getDb()->prepare(
-            'SELECT class, date, value, UNIX_TIMESTAMP(lastModified) FROM replacements
+            'SELECT class, date, value, UNIX_TIMESTAMP(lastModified) as lastModified FROM replacements
 WHERE date=:date AND class=:class');
 
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
@@ -54,7 +54,7 @@ WHERE date=:date AND class=:class');
     public function getByDateAndLastModified($date, $lastModified)
     {
         $stmt = Application::getDb()->prepare(
-            'SELECT class, date, value, UNIX_TIMESTAMP(lastModified) FROM replacements
+            'SELECT class, date, value, UNIX_TIMESTAMP(lastModified) as lastModified FROM replacements
 WHERE date>=:date AND lastModified>=FROM_UNIXTIME(:lastModified)');
 
         $stmt->bindParam(':date', $date);
@@ -71,7 +71,8 @@ WHERE date>=:date AND lastModified>=FROM_UNIXTIME(:lastModified)');
     public function listAll()
     {
         $stmt = Application::getDb()->prepare(
-            'SELECT class, date, UNIX_TIMESTAMP(lastModified) FROM replacements ORDER BY date DESC, class ASC');
+            'SELECT class, date, UNIX_TIMESTAMP(lastModified) as lastModified FROM replacements
+ ORDER BY date DESC, class ASC');
 
         $stmt->execute();
 
