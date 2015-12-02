@@ -37,7 +37,7 @@ class TimetablesModel
 
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_OBJ, 'pjanczyk\lo1olkusz\Timetable');
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\Timetable');
     }
 
     /**
@@ -71,7 +71,7 @@ WHERE lastModified>=FROM_UNIXTIME(:lastModified)');
         $stmt->bindParam(':lastModified', $lastModified, PDO::PARAM_INT);
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_OBJ, 'pjanczyk\lo1olkusz\Timetable');
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\Timetable');
     }
 
     /**

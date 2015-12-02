@@ -18,8 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//Created on 2015-07-09
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL | E_STRICT);
@@ -34,6 +32,11 @@ function http404()
     header('HTTP/1.0 404 Not Found');
     include 'html/404.html';
     exit;
+}
+
+function formatTimestamp($timestamp)
+{
+    return date($timestamp, "d.m.Y G:i:s");
 }
 
 date_default_timezone_set('Europe/Warsaw');
