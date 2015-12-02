@@ -38,7 +38,7 @@
                 $menu = [
                     ['', 'Strona główna'],
                     ['cron', 'Logi'],
-                    ['lucky-numbers', 'Szczęśliwe numerki'],
+                    ['lucky-numbers', 'Numerki'],
                     ['replacements', 'Zastępstwa'],
                     ['timetables', 'Plany lekcji'],
                     ['settings', 'Ustawienia'],
