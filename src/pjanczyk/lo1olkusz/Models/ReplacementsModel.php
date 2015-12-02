@@ -65,7 +65,7 @@ WHERE date>=:date AND lastModified>=FROM_UNIXTIME(:lastModified)');
 
         $result = $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\Replacements');
         array_walk($result, function(&$v) {
-            $v = json_decode($v);
+            $v->value = json_decode($v->value);
         });
 
         return $result;
