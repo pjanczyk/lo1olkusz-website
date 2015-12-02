@@ -17,6 +17,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/** @var array(Timetable) $timetables */
 ?>
 
 <?php include 'templates/header.php' ?>
@@ -42,7 +44,7 @@
         <?php foreach ($timetables as $timetable): ?>
             <tr>
                 <td><?= $timetable->class ?></td>
-                <td><?= $timetable->lastModified ?></td>
+                <td><?= formatTimestamp($timetable->lastModified) ?></td>
                 <td>
                     <div class="btn-group">
                         <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"

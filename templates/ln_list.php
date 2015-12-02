@@ -15,9 +15,9 @@
         <tbody>
         <?php foreach ($lns as $ln): ?>
             <tr>
-                <td><?=$ln->date?></td>
-                <td><?=$ln->value?></td>
-                <td><?=$ln->lastModified?></td>
+                <td><?= $ln->date ?></td>
+                <td><?= $ln->value ?></td>
+                <td><?= formatTimestamp($ln->lastModified) ?></td>
             </tr>
         <? endforeach ?>
         </tbody>

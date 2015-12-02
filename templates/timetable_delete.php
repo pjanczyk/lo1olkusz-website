@@ -4,7 +4,7 @@
     <h1>Usuń plan lekcji</h1>
 </div>
 
-<form class="form-horizontal" action="/dashboard/timetables/delete" method="post">
+<form class="form-horizontal" action="/dashboard/timetables" method="post">
     <input type="hidden" name="delete" value="true"/>
     <input type="hidden" name="class" value="<?=$timetable->class?>"/>
     <div class="form-group">

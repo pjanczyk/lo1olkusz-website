@@ -182,24 +182,28 @@ if ($args[0] == 'news' && count($args) == 2) { # /api/news/<lastModified>
     }
 
     else {
-        echo '{"timestamp":'.$now.',"news":[';
+        echo '{"since":'.$now.',"news":[';
 
+        $first = true;
         foreach ($news as $n) {
+            if (!$first) echo ',';
+            $first = false;
+
             switch ($n['type']) {
                 case NewsModel::APK:
-                    echo '{"type":"apk","version":"' . $n['value'] . '"},';
+                    echo '{"type":"apk","version":"' . $n['value'] . '"}';
                     break;
                 case NewsModel::REPLACEMENTS:
-                    echo '{"type":"replacements","date":"' . $n['date'] . '","class":"' . $n['class'] . '","lastModified":' . $n['timestamp'] . ',"value":' . $n['value'] . '},';
+                    echo '{"type":"replacements","date":"' . $n['date'] . '","class":"' . $n['class'] . '","lastModified":' . $n['timestamp'] . ',"value":' . $n['value'] . '}';
                     break;
                 case NewsModel::LUCKY_NUMBER:
-                    echo '{"type":"luckyNumber","date":"' . $n['date'] . '","lastModified":' . $n['timestamp'] . ',"value":' . $n['value'] . '},';
+                    echo '{"type":"luckyNumber","date":"' . $n['date'] . '","lastModified":' . $n['timestamp'] . ',"value":' . $n['value'] . '}';
                     break;
                 case NewsModel::TIMETABLE:
-                    echo '{"type":"timetable","class":"' . $n['class'] . '","lastModified":' . $n['timestamp'] . ',"value":' . json_encode($n['value']) . '},';
+                    echo '{"type":"timetable","class":"' . $n['class'] . '","lastModified":' . $n['timestamp'] . ',"value":' . json_encode($n['value']) . '}';
                     break;
                 case NewsModel::BELLS:
-                    echo '{"type":"bells","lastModified":' . $n['timestamp'] . ',"value":' . $n['value'] . '},';
+                    echo '{"type":"bells","lastModified":' . $n['timestamp'] . ',"value":' . $n['value'] . '}';
             }
         }
         echo ']}';

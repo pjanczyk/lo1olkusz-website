@@ -20,7 +20,7 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">Zmodyfikowano</label>
         <div class="col-sm-10">
-            <p class="form-control-static"><?=$replacements->lastModified?></p>
+            <p class="form-control-static"><?=formatTimestamp($replacements->lastModified)?></p>
         </div>
     </div>
     <div class="form-group">

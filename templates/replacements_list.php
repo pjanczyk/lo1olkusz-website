@@ -24,7 +24,7 @@
             <?php endif ?>
 
             <td><?= $r->class ?></td>
-            <td><?= $r->lastModified ?></td>
+            <td><?= formatTimestamp($r->lastModified) ?></td>
             <td>
                 <a class="btn btn-default btn-xs"
                    href="/dashboard/replacements/view/<?= $r->date ?>/<?= $r->class ?>">Wyświetl</a>

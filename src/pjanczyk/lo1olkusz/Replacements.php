@@ -28,6 +28,6 @@ class Replacements
     public $date;
     /** @var string */
     public $value;
-    /** @var \DateTime */
+    /** @var int */
     public $lastModified;
 }

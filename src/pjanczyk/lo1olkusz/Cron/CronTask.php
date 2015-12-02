@@ -60,7 +60,7 @@ class CronTask
         $this->logErrors('LuckyNumberParser', $parser->getErrors());
 
         if ($remote !== null) {
-            $local = $model->get($remote->date);
+            $local = $model->getByDate($remote->date);
 
             if ($local === null || $remote->value !== $local->value) {
                 $model->setValue($remote->date, $remote->value);
@@ -78,10 +78,10 @@ class CronTask
 
         if ($remoteList !== null) {
             foreach ($remoteList as $remote) {
-                $local = $model->get($remote->class, $remote->date);
+                $local = $model->getByClassAndDate($remote->class, $remote->date);
 
                 if ($local === null || $remote->value !== $local->value) {
-                    $model->set($remote->class, $remote->date, $remote->value);
+                    $model->setValue($remote->class, $remote->date, $remote->value);
                     echo "updated replacements/{$remote->date}/{$remote->class}\n";
                 }
             }

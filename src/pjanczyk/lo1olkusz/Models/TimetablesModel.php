@@ -22,56 +22,71 @@ namespace pjanczyk\lo1olkusz\Models;
 
 use PDO;
 use pjanczyk\framework\Application;
+use pjanczyk\lo1olkusz\Timetable;
 
 class TimetablesModel
 {
-    const TABLE = 'timetables';
-    const FIELD_CLASS = 'class';
-    const FIELD_LAST_MODIFIED = 'lastModified';
-    const FIELD_VALUE = 'value';
-
     /**
      * Lists timetables (without their values) ordered by class
-     * @return array
+     * @return array(Timetable)
      */
     public function listAll()
     {
-        $stmt = Application::getDb()->prepare('SELECT class, lastModified FROM timetables ORDER BY class ASC');
+        $stmt = Application::getDb()->prepare(
+            'SELECT class, UNIX_TIMESTAMP(lastModified) FROM timetables ORDER BY class ASC');
+
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_OBJ);
+        return $stmt->fetchAll(PDO::FETCH_OBJ, 'pjanczyk\lo1olkusz\Timetable');
     }
 
     /**
      * @param string $class
-     * @return \stdClass|null
+     * @return Timetable|null
      */
-    public function get($class)
+    public function getByClass($class)
     {
-        $stmt = Application::getDb()->prepare('SELECT * FROM timetables WHERE class=:class');
+        $stmt = Application::getDb()->prepare(
+            'SELECT class, value, UNIX_TIMESTAMP(lastModified) FROM timetables WHERE class=:class');
 
         $stmt->bindParam(':class', $class, PDO::PARAM_STR);
         $stmt->execute();
 
-        $timetable = $stmt->fetchObject();
+        $timetable = $stmt->fetchObject('pjanczyk\lo1olkusz\Timetable');
 
         if ($timetable === false) return null;
         return $timetable;
     }
 
     /**
-     * Inserts or updates a timetable of a class
+     * @param int $lastModified
+     * @return array(Timetable)
+     */
+    public function getByLastModified($lastModified)
+    {
+        $stmt = Application::getDb()->prepare(
+            'SELECT class, value, UNIX_TIMESTAMP(lastModified) FROM timetables
+WHERE lastModified>=FROM_UNIXTIME(:lastModified)');
+
+        $stmt->bindParam(':lastModified', $lastModified, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_OBJ, 'pjanczyk\lo1olkusz\Timetable');
+    }
+
+    /**
+     * Inserts or updates a timetable of a $class
      * @param string $class
-     * @param string $timetable
+     * @param string $value
      * @return bool
      */
-    public function set($class, $timetable)
+    public function setValue($class, $value)
     {
         $stmt = Application::getDb()->prepare('INSERT INTO timetables (class, value) VALUES (:class, :value)
 ON DUPLICATE KEY UPDATE value=:value');
 
         $stmt->bindParam(':class', $class);
-        $stmt->bindParam(':value', $timetable);
+        $stmt->bindParam(':value', $value);
 
         return $stmt->execute();
     }

@@ -25,10 +25,10 @@ use pjanczyk\framework\Application;
 
 class SettingsModel
 {
-    const TABLE = 'settings';
-    const FIELD_NAME = 'name';
-    const FIELD_VALUE = 'value';
-
+    /**
+     * @param string $name
+     * @return string
+     */
     public function get($name)
     {
         $stmt = Application::getDb()->prepare('SELECT value FROM settings WHERE name=:name');
@@ -38,6 +38,10 @@ class SettingsModel
         return $stmt->fetchColumn();
     }
 
+    /**
+     * @param string $name
+     * @param string $value
+     */
     public function setValue($name, $value)
     {
         $stmt = Application::getDb()->prepare('INSERT INTO settings (name, value) VALUES (:name, :value)
@@ -46,6 +50,6 @@ ON DUPLICATE KEY UPDATE value=:value');
         $stmt->bindParam(':name', $name, PDO::PARAM_STR);
         $stmt->bindParam(':value', $value, PDO::PARAM_STR);
 
-        return $stmt->execute();
+        $stmt->execute();
     }
 }

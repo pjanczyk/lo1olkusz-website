@@ -38,7 +38,7 @@ class ReplacementsController extends Controller
 
     public function view($date, $class) {
         $model = new ReplacementsModel;
-        $replacements = $model->get($class, $date);
+        $replacements = $model->getByClassAndDate($class, $date);
 
         if ($replacements != null) {
             $template = $this->includeTemplate('replacements_view');

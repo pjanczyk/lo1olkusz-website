@@ -26,28 +26,39 @@ use pjanczyk\lo1olkusz\LuckyNumber;
 
 class LuckyNumbersModel
 {
-    const TABLE = 'luckyNumbers';
-    const FIELD_DATE = 'date';
-    const FIELD_LAST_MODIFIED = 'lastModified';
-    const FIELD_VALUE = 'value';
-
     /**
      * @param string $date
      * @return LuckyNumber|null
      */
-    public function get($date)
+    public function getByDate($date)
     {
-        $stmt = Application::getDb()->prepare('SELECT * FROM luckyNumbers WHERE date=:date');
+        $stmt = Application::getDb()->prepare(
+            'SELECT date, value, UNIX_TIMESTAMP(lastModified) FROM luckyNumbers WHERE date=:date');
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
         $stmt->execute();
 
         $result = $stmt->fetchObject('pjanczyk\lo1olkusz\LuckyNumber');
 
-        if ($result === false) {
-            return null;
-        } else {
-            return $result;
-        }
+        if ($result === false) return null;
+        return $result;
+    }
+
+    /**
+     * @param string $date
+     * @param int $lastModified
+     * @return array(LuckyNumber)
+     */
+    public function getByDateAndLastModified($date, $lastModified)
+    {
+        $stmt = Application::getDb()->prepare(
+            'SELECT date, value, UNIX_TIMESTAMP(lastModified) FROM luckyNumbers
+WHERE date>=:date AND lastModified>=FROM_UNIXTIME(:lastModified)');
+
+        $stmt->bindParam(':date', $date);
+        $stmt->bindParam(':lastModified', $lastModified, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\LuckyNumber');
     }
 
     /**
@@ -55,7 +66,8 @@ class LuckyNumbersModel
      */
     public function getAll()
     {
-        $stmt = Application::getDb()->prepare('SELECT * FROM luckyNumbers ORDER BY date ASC');
+        $stmt = Application::getDb()->prepare(
+            'SELECT date, value, UNIX_TIMESTAMP(lastModified) FROM luckyNumbers ORDER BY date ASC');
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\LuckyNumber');
@@ -68,8 +80,8 @@ class LuckyNumbersModel
      */
     public function setValue($date, $value)
     {
-        $stmt = Application::getDb()->prepare('INSERT INTO luckyNumbers (date, value) VALUES (:date, :value)
-ON DUPLICATE KEY UPDATE value=:value');
+        $stmt = Application::getDb()->prepare(
+            'INSERT INTO luckyNumbers (date, value) VALUES (:date, :value) ON DUPLICATE KEY UPDATE value=:value');
 
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
         $stmt->bindParam(':value', $value, PDO::PARAM_INT);

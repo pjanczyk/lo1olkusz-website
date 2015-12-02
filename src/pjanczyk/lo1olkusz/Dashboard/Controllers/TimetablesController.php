@@ -34,7 +34,7 @@ class TimetablesController extends Controller
         if (isset($_POST['edit'], $_POST['class'], $_POST['timetable'])) {
             $class = $_POST['class'];
             $value = $_POST['timetable'];
-            if ($modelTimetables->set($class, $value)) {
+            if ($modelTimetables->setValue($class, $value)) {
                 $alerts[] = "Saved timetable of \"{$class}\"";
             }
         } else if (isset($_POST['delete'], $_POST['class'])) {
@@ -62,7 +62,7 @@ class TimetablesController extends Controller
         $model = new TimetablesModel;
 
         $template = $this->includeTemplate('timetable_edit');
-        $template->timetable = $model->get($class);
+        $template->timetable = $model->getByClass($class);
         $template->render();
     }
 
@@ -70,7 +70,7 @@ class TimetablesController extends Controller
     {
         $model = new TimetablesModel;
 
-        $timetable = $model->get($class);
+        $timetable = $model->getByClass($class);
 
         if ($timetable === null) {
             http404();

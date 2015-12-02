@@ -20,12 +20,12 @@
 
 namespace pjanczyk\lo1olkusz;
 
-class LuckyNumber
+class Timetable
 {
     /** @var string */
-    public $date;
-    /** @var int */
-    public $value;
+    public $class;
     /** @var int */
     public $lastModified;
+    /** @var string */
+    public $value;
 }

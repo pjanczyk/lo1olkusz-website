@@ -26,20 +26,17 @@ use pjanczyk\lo1olkusz\Replacements;
 
 class ReplacementsModel
 {
-    const TABLE = 'replacements';
-    const FIELD_CLASS = 'class';
-    const FIELD_DATE = 'date';
-    const FIELD_LAST_MODIFIED = 'lastModified';
-    const FIELD_VALUE = 'value';
-
     /**
      * @param string $class
      * @param string $date
      * @return null|Replacements
      */
-    public function get($class, $date)
+    public function getByClassAndDate($class, $date)
     {
-        $stmt = Application::getDb()->prepare('SELECT * FROM replacements WHERE date=:date AND class=:class');
+        $stmt = Application::getDb()->prepare(
+            'SELECT class, date, value, UNIX_TIMESTAMP(lastModified) FROM replacements
+WHERE date=:date AND class=:class');
+
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
         $stmt->bindParam(':class', $class, PDO::PARAM_STR);
         $stmt->execute();
@@ -50,12 +47,31 @@ class ReplacementsModel
     }
 
     /**
+     * @param string $date
+     * @param int $lastModified
+     * @return array(Replacements)
+     */
+    public function getByDateAndLastModified($date, $lastModified)
+    {
+        $stmt = Application::getDb()->prepare(
+            'SELECT class, date, value, UNIX_TIMESTAMP(lastModified) FROM replacements
+WHERE date>=:date AND lastModified>=FROM_UNIXTIME(:lastModified)');
+
+        $stmt->bindParam(':date', $date);
+        $stmt->bindParam(':lastModified', $lastModified, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\Replacements');
+    }
+
+    /**
+     * Return array of replacements without their values
      * @return array(Replacements)
      */
     public function listAll()
     {
-        $stmt = Application::getDb()->prepare('SELECT class, date, lastModified FROM replacements
- ORDER BY date DESC, class ASC');
+        $stmt = Application::getDb()->prepare(
+            'SELECT class, date, UNIX_TIMESTAMP(lastModified) FROM replacements ORDER BY date DESC, class ASC');
 
         $stmt->execute();
 
@@ -70,7 +86,7 @@ class ReplacementsModel
         $stmt = Application::getDb()->prepare('SELECT COUNT(*) FROM replacements');
         $stmt->execute();
 
-        return (int) $stmt->fetchColumn();
+        return (int)$stmt->fetchColumn();
     }
 
     /**
@@ -79,10 +95,10 @@ class ReplacementsModel
      * @param int $value
      * @return bool
      */
-    public function set($class, $date, $value)
+    public function setValue($class, $date, $value)
     {
-        $stmt = Application::getDb()->prepare('INSERT INTO replacements (class, date, value)
-VALUES (:class, :date, :value)
+        $stmt = Application::getDb()->prepare(
+            'INSERT INTO replacements (class, date, value) VALUES (:class, :date, :value)
 ON DUPLICATE KEY UPDATE value=:value');
 
         $stmt->bindParam(':class', $class, PDO::PARAM_STR);
