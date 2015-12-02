@@ -34,9 +34,8 @@ body > .container {
     padding-left: 15px;
 }
 
-
-@media (min-width: 1200px) {
+@media (min-width: 992px) {
     .container {
-        width: 970px !important;
+        width: 750px !important;
     }
 }
