@@ -67,7 +67,7 @@ WHERE date>=:date AND lastModified>=FROM_UNIXTIME(:lastModified)');
     public function getAll()
     {
         $stmt = Application::getDb()->prepare(
-            'SELECT date, value, UNIX_TIMESTAMP(lastModified) FROM luckyNumbers ORDER BY date ASC');
+            'SELECT date, value, UNIX_TIMESTAMP(lastModified) as lastModified FROM luckyNumbers ORDER BY date ASC');
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\LuckyNumber');
