@@ -18,29 +18,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
+namespace pjanczyk\lo1olkusz\Controller\Dashboard;
 
 use pjanczyk\framework\Controller;
-use pjanczyk\lo1olkusz\Model\NewsModel;
 
-class HomeController extends Controller
+class ErrorController extends Controller
 {
     public function index()
     {
-        $this->last_modified(0);
-    }
-
-    public function last_modified($timestamp)
-    {
-        $model = new NewsModel;
-
-        $lastModified = intval($timestamp);
-        $now = date('Y-m-d');
-        $news = $model->get($now, $lastModified, 0);
-
-        $template = $this->includeTemplate('home');
-        $template->now = $now;
-        $template->news = $news;
-        $template->render();
+        $this->includeTemplate("404")->render();
     }
 }

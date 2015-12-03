@@ -89,18 +89,25 @@ final class Application
 
     private function route($map)
     {
-        $path = isset($_GET['p']) ? $_GET['p'] : ''; //default path: ""
+        $path = isset($_GET['p']) ? urldecode($_GET['p']) : ''; //default path: ""
         $path = trim($path, '/');
         $path = filter_var($path, FILTER_SANITIZE_URL);
         $path = explode('/', $path);
 
-        $mapKey = $path[0];
-        if (isset($map[$mapKey])) {
-            $this->controllerName = $map[$mapKey];
-            $this->action = isset($path[1]) ? str_replace('-', '_', $path[1]) : 'index';
-            $this->params = array_slice($path, 2);
+        while (isset($map[$path[0]])) {
+            $value = $map[$path[0]];
 
-            return true;
+            $path = array_slice($path, 1);
+
+            if (is_array($value)) {
+                $map = $value;
+            } else {
+                $this->controllerName = $value;
+                $this->action = isset($path[0]) ? str_replace('-', '_', $path[0]) : 'index';
+                $this->params = $path;
+
+                return true;
+            }
         }
         return false;
     }

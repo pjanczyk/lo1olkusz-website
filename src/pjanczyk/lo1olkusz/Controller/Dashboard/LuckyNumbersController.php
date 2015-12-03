@@ -18,14 +18,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
+namespace pjanczyk\lo1olkusz\Controller\Dashboard;
 
 use pjanczyk\framework\Controller;
+use pjanczyk\lo1olkusz\Model\LuckyNumberRepository;
 
-class ErrorController extends Controller
+class LuckyNumbersController extends Controller
 {
     public function index()
     {
-        $this->includeTemplate("404")->render();
+        $model = new LuckyNumberRepository;
+
+        $template = $this->includeTemplate('ln_list');
+        $template->lns = $model->listAll();
+        $template->render();
     }
 }

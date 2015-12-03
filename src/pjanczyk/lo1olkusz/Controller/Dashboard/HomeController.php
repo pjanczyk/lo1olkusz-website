@@ -18,19 +18,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
+namespace pjanczyk\lo1olkusz\Controller\Dashboard;
 
 use pjanczyk\framework\Controller;
-use pjanczyk\lo1olkusz\Model\LuckyNumberRepository;
+use pjanczyk\lo1olkusz\Model\NewsModel;
 
-class LuckyNumbersController extends Controller
+class HomeController extends Controller
 {
     public function index()
     {
-        $model = new LuckyNumberRepository;
+        $this->last_modified(0);
+    }
 
-        $template = $this->includeTemplate('ln_list');
-        $template->lns = $model->getAll();
+    public function last_modified($timestamp)
+    {
+        $model = new NewsModel;
+
+        $lastModified = intval($timestamp);
+        $now = date('Y-m-d');
+        $news = $model->get($now, $lastModified, 0);
+
+        $template = $this->includeTemplate('home');
+        $template->now = $now;
+        $template->news = $news;
         $template->render();
     }
 }

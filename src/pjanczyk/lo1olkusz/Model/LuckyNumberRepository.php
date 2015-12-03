@@ -81,7 +81,7 @@ WHERE date>=:date AND lastModified>=FROM_UNIXTIME(:lastModified)');
     /**
      * @return array(LuckyNumber)
      */
-    public function getAll()
+    public function listAll()
     {
         $stmt = Application::getDb()->prepare(
             'SELECT date, value, UNIX_TIMESTAMP(lastModified) AS lastModified FROM luckyNumbers ORDER BY date DESC');

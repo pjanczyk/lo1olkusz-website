@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
+namespace pjanczyk\lo1olkusz\Controller\Dashboard;
 
 use pjanczyk\framework\Controller;
 

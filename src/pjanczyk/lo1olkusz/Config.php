@@ -75,18 +75,23 @@ class Config implements \pjanczyk\framework\Config
     public function getRoute()
     {
         return [
-            '' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\HomeController',
-            'home' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\HomeController',
-            'replacements' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\ReplacementsController',
-            'lucky-numbers' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\LuckyNumbersController',
-            'settings' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\SettingsController',
-            'timetables' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\TimetablesController',
-            'cron' => 'pjanczyk\lo1olkusz\Dashboard\Controllers\CronController'
+            '' => 'pjanczyk\lo1olkusz\Controller\HomeController',
+            'download' => 'pjanczyk\lo1olkusz\Controller\DownloadController',
+            'dashboard' => [
+                '' => 'pjanczyk\lo1olkusz\Controller\Dashboard\HomeController',
+                'home' => 'pjanczyk\lo1olkusz\Controller\Dashboard\HomeController',
+                'replacements' => 'pjanczyk\lo1olkusz\Controller\Dashboard\ReplacementsController',
+                'lucky-numbers' => 'pjanczyk\lo1olkusz\Controller\Dashboard\LuckyNumbersController',
+                'settings' => 'pjanczyk\lo1olkusz\Controller\Dashboard\SettingsController',
+                'timetables' => 'pjanczyk\lo1olkusz\Controller\Dashboard\TimetablesController',
+                'cron' => 'pjanczyk\lo1olkusz\Controller\Dashboard\CronController'
+            ],
+            'api' => 'pjanczyk\lo1olkusz\Controller\RestController'
         ];
     }
 
     public function getNotFoundRoute()
     {
-        return 'pjanczyk\lo1olkusz\Dashboard\Controllers\NotFoundController';
+        return 'pjanczyk\lo1olkusz\Controller\Dashboard\NotFoundController';
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
+namespace pjanczyk\lo1olkusz\Controller\Dashboard;
 
 use pjanczyk\framework\Controller;
 use pjanczyk\lo1olkusz\Model\ReplacementsRepository;
