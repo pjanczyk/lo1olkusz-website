@@ -2,5 +2,5 @@ ErrorDocument 404 /html/404.html
 
 RewriteEngine on
 RewriteRule ^api/(.+)\.bin$ bin_api.php&p=$1 [L,qsa]
-RewriteCond $1 !^(css|js|fonts|dashboard\.php|index\.html|api\.php|download\.php)
+RewriteCond $1 !^(bin_api\.php|css|js|fonts)
 RewriteRule ^(.*)$ index.php?p=$1 [qsa,L]
