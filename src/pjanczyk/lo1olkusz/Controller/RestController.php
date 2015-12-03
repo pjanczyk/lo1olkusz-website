@@ -52,7 +52,7 @@ class RestController extends Controller
 
         $news = new News;
 
-        $news->timetables = $now;
+        $news->timestamp = $now;
         $news->replacements = $replacements->getByDateAndLastModified($today, $lastModified);
         $news->luckyNumbers = $luckyNumbers->getByDateAndLastModified($today, $lastModified);
         $news->timetables = $timetables->getByLastModified($lastModified);
