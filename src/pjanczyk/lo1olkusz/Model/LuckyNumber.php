@@ -18,14 +18,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace pjanczyk\lo1olkusz;
+namespace pjanczyk\lo1olkusz\Model;
 
-class Timetable
+/**
+ * Entity
+ */
+class LuckyNumber
 {
     /** @var string */
-    public $class;
+    public $date;
+    /** @var int */
+    public $value;
     /** @var int */
     public $lastModified;
-    /** @var string */
-    public $value;
 }

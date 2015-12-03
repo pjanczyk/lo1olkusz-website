@@ -23,13 +23,13 @@ namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
 use pjanczyk\framework\Application;
 use pjanczyk\framework\Controller;
 use pjanczyk\lo1olkusz\Config;
-use pjanczyk\lo1olkusz\Models\SettingsModel;
+use pjanczyk\lo1olkusz\Model\SettingRepository;
 
 class SettingsController extends Controller
 {
     public function index()
     {
-        $model = new SettingsModel;
+        $model = new SettingRepository;
 
         /** @var Config $config */
         $config = Application::getConfig();

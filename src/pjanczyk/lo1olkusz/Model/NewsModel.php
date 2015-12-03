@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace pjanczyk\lo1olkusz\Models;
+namespace pjanczyk\lo1olkusz\Model;
 
 use PDO;
 use pjanczyk\framework\Application;

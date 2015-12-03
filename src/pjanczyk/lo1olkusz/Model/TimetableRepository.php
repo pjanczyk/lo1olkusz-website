@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace pjanczyk\lo1olkusz\Models;
+namespace pjanczyk\lo1olkusz\Model;
 
 use PDO;
 use pjanczyk\framework\Application;
-use pjanczyk\lo1olkusz\Timetable;
 
-class TimetablesModel
+class TimetableRepository
 {
     /**
      * Lists timetables (without their values) ordered by class
@@ -33,11 +32,20 @@ class TimetablesModel
     public function listAll()
     {
         $stmt = Application::getDb()->prepare(
-            'SELECT class, UNIX_TIMESTAMP(lastModified) as lastModified FROM timetables ORDER BY class ASC');
+            'SELECT class, UNIX_TIMESTAMP(lastModified) FROM timetables ORDER BY class ASC');
 
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\Timetable');
+        $obj = new Timetable;
+        $stmt->bindColumn(1, $obj->class, PDO::PARAM_STR);
+        $stmt->bindColumn(2, $obj->lastModified, PDO::PARAM_INT);
+
+        $results = [];
+        while ($stmt->fetch(PDO::FETCH_BOUND)) {
+            $results[] = clone $obj;
+        }
+
+        return $results;
     }
 
     /**
@@ -52,10 +60,16 @@ class TimetablesModel
         $stmt->bindParam(':class', $class, PDO::PARAM_STR);
         $stmt->execute();
 
-        $timetable = $stmt->fetchObject('pjanczyk\lo1olkusz\Timetable');
+        $obj = new Timetable;
+        $stmt->bindColumn(1, $obj->class, PDO::PARAM_STR);
+        $stmt->bindColumn(2, $obj->value, PDO::PARAM_STR);
+        $stmt->bindColumn(3, $obj->lastModified, PDO::PARAM_INT);
 
-        if ($timetable === false) return null;
-        return $timetable;
+        if ($stmt->fetch(PDO::FETCH_BOUND)) {
+            return $obj;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -71,7 +85,17 @@ WHERE lastModified>=FROM_UNIXTIME(:lastModified)');
         $stmt->bindParam(':lastModified', $lastModified, PDO::PARAM_INT);
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\Timetable');
+        $obj = new Timetable;
+        $stmt->bindColumn(1, $obj->class, PDO::PARAM_STR);
+        $stmt->bindColumn(2, $obj->value, PDO::PARAM_STR);
+        $stmt->bindColumn(3, $obj->lastModified, PDO::PARAM_INT);
+
+        $results = [];
+        while ($stmt->fetch(PDO::FETCH_BOUND)) {
+            $results[] = clone $obj;
+        }
+
+        return $results;
     }
 
     /**

@@ -22,7 +22,7 @@
 
 namespace pjanczyk\lo1olkusz\Cron;
 
-use pjanczyk\lo1olkusz\Replacements;
+use pjanczyk\lo1olkusz\Model\Replacements;
 
 require_once 'libs/simple_html_dom.php';
 
@@ -72,7 +72,7 @@ class ReplacementsParser
 
         /** @var array(Replacements) $replacements */
         $replacements = [];
-        /** @var Replacements $current */
+        /** @var \pjanczyk\lo1olkusz\Model\Replacements $current */
         $current = null;
 
         /** @var \simple_html_dom_node $row */

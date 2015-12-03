@@ -18,12 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace pjanczyk\lo1olkusz\Models;
+namespace pjanczyk\lo1olkusz\Model;
 
 use PDO;
 use pjanczyk\framework\Application;
 
-class SettingsModel
+class SettingRepository
 {
     /**
      * @param string $name
@@ -41,6 +41,7 @@ class SettingsModel
     /**
      * @param string $name
      * @param string $value
+     * @return bool True if success
      */
     public function setValue($name, $value)
     {
@@ -50,6 +51,6 @@ ON DUPLICATE KEY UPDATE value=:value');
         $stmt->bindParam(':name', $name, PDO::PARAM_STR);
         $stmt->bindParam(':value', $value, PDO::PARAM_STR);
 
-        $stmt->execute();
+        return $stmt->execute();
     }
 }

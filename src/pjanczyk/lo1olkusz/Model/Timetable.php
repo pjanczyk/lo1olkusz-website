@@ -18,16 +18,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace pjanczyk\lo1olkusz;
+namespace pjanczyk\lo1olkusz\Model;
 
-class Replacements
+/**
+ * Entity
+ */
+class Timetable
 {
     /** @var string */
     public $class;
-    /** @var string */
-    public $date;
-    /** @var string */
-    public $value;
     /** @var int */
     public $lastModified;
+    /** @var string */
+    public $value;
 }

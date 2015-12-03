@@ -29,11 +29,11 @@ require 'autoloader.php';
 use pjanczyk\framework\Application;
 use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Json;
-use pjanczyk\lo1olkusz\Models\LuckyNumbersModel;
-use pjanczyk\lo1olkusz\Models\NewsModel;
-use pjanczyk\lo1olkusz\Models\ReplacementsModel;
-use pjanczyk\lo1olkusz\Models\SettingsModel;
-use pjanczyk\lo1olkusz\Models\TimetablesModel;
+use pjanczyk\lo1olkusz\Model\LuckyNumberRepository;
+use pjanczyk\lo1olkusz\Model\NewsModel;
+use pjanczyk\lo1olkusz\Model\ReplacementsRepository;
+use pjanczyk\lo1olkusz\Model\SettingRepository;
+use pjanczyk\lo1olkusz\Model\TimetableRepository;
 
 $binary = isset($_GET['bin']);
 
@@ -186,10 +186,10 @@ if ($args[0] == 'news' && count($args) == 2) { # /api/news/<lastModified>
     }
 
     else {
-        $modelReplacements = new ReplacementsModel;
-        $modelLn = new LuckyNumbersModel;
-        $modelTimetables = new TimetablesModel;
-        $modelSettings = new SettingsModel;
+        $modelReplacements = new ReplacementsRepository;
+        $modelLn = new LuckyNumberRepository;
+        $modelTimetables = new TimetableRepository;
+        $modelSettings = new SettingRepository;
 
         $date = date('Y-m-d', $now);
 
@@ -240,7 +240,7 @@ else if (!$binary && $args[0] == 'cron' && count($args) == 1) {
 }
 //else if (!$binary && $args[0] == 'lucky-numbers' && count($args) == 2) { # /api/lucky-numbers/<date>
 //    $date = urldecode($args[1]);
-//    $model = new LuckyNumbersModel($db);
+//    $model = new LuckyNumberRepository($db);
 //    $ln = $model->get($date);
 //
 //    if ($ln !== null) {
@@ -253,7 +253,7 @@ else if (!$binary && $args[0] == 'cron' && count($args) == 1) {
 //    $date = urldecode($args[1]);
 //    $class = urldecode($args[2]);
 //
-//    $model = new ReplacementsModel($db);
+//    $model = new ReplacementsRepository($db);
 //    $replacements = $model->get($class, $date);
 //
 //    if ($replacements !== null) {
@@ -263,15 +263,15 @@ else if (!$binary && $args[0] == 'cron' && count($args) == 1) {
 //    }
 //}
 //else if (!$binary && $args[0] == 'timetables' && count($args) == 1) { # /api/timetables
-//    $model = new TimetablesModel($db);
+//    $model = new TimetableRepository($db);
 //
-//    $timetables = $model->getAll([TimetablesModel::FIELD_CLASS]);
+//    $timetables = $model->getAll([TimetableRepository::FIELD_CLASS]);
 //    Json::OK($timetables);
 //}
 //else if (!$binary && $args[0] == 'timetables' && count($args) == 2) { # /api/timetables/<class>
 //    $class = urldecode($args[1]);
 //
-//    $model = new TimetablesModel($db);
+//    $model = new TimetableRepository($db);
 //    $timetable = $model->get($class);
 //
 //    if ($timetable !== null) {

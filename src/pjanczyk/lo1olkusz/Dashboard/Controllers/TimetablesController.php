@@ -21,7 +21,7 @@
 namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
 
 use pjanczyk\framework\Controller;
-use pjanczyk\lo1olkusz\Models\TimetablesModel;
+use pjanczyk\lo1olkusz\Model\TimetableRepository;
 
 class TimetablesController extends Controller
 {
@@ -29,7 +29,7 @@ class TimetablesController extends Controller
     {
         $alerts = [];
 
-        $modelTimetables = new TimetablesModel;
+        $modelTimetables = new TimetableRepository;
 
         if (isset($_POST['edit'], $_POST['class'], $_POST['timetable'])) {
             $class = $_POST['class'];
@@ -59,7 +59,7 @@ class TimetablesController extends Controller
 
     public function edit($class)
     {
-        $model = new TimetablesModel;
+        $model = new TimetableRepository;
 
         $template = $this->includeTemplate('timetable_edit');
         $template->timetable = $model->getByClass($class);
@@ -68,7 +68,7 @@ class TimetablesController extends Controller
 
     public function delete($class)
     {
-        $model = new TimetablesModel;
+        $model = new TimetableRepository;
 
         $timetable = $model->getByClass($class);
 

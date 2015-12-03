@@ -1,5 +1,5 @@
 <?php
-use pjanczyk\lo1olkusz\Models\NewsModel;
+use pjanczyk\lo1olkusz\Model\NewsModel;
 
 include 'templates/header.php' ?>
 

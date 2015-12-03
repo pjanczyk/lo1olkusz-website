@@ -18,13 +18,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace pjanczyk\lo1olkusz;
+namespace pjanczyk\lo1olkusz\Model;
 
-class LuckyNumber
+/**
+ * Entity
+ */
+class Replacements
 {
     /** @var string */
+    public $class;
+    /** @var string */
     public $date;
-    /** @var int */
+    /** @var string */
     public $value;
     /** @var int */
     public $lastModified;

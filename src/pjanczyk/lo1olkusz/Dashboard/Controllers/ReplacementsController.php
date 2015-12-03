@@ -3,7 +3,7 @@
 namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
 
 use pjanczyk\framework\Controller;
-use pjanczyk\lo1olkusz\Models\ReplacementsModel;
+use pjanczyk\lo1olkusz\Model\ReplacementsRepository;
 
 class ReplacementsController extends Controller
 {
@@ -14,7 +14,7 @@ class ReplacementsController extends Controller
 
     public function page($page)
     {
-        $model = new ReplacementsModel;
+        $model = new ReplacementsRepository;
 
         //$count = $model->count();
 
@@ -37,7 +37,7 @@ class ReplacementsController extends Controller
     }
 
     public function view($date, $class) {
-        $model = new ReplacementsModel;
+        $model = new ReplacementsRepository;
         $replacements = $model->getByClassAndDate($class, $date);
 
         if ($replacements != null) {

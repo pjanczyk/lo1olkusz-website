@@ -26,8 +26,8 @@ require_once 'libs/simple_html_dom.php';
 
 use pjanczyk\framework\Application;
 use pjanczyk\lo1olkusz\Config;
-use pjanczyk\lo1olkusz\Models\LuckyNumbersModel;
-use pjanczyk\lo1olkusz\Models\ReplacementsModel;
+use pjanczyk\lo1olkusz\Model\LuckyNumberRepository;
+use pjanczyk\lo1olkusz\Model\ReplacementsRepository;
 
 
 class CronTask
@@ -54,7 +54,7 @@ class CronTask
 
     private function updateLuckyNumbers($dom)
     {
-        $model = new LuckyNumbersModel;
+        $model = new LuckyNumberRepository;
         $parser = new LuckyNumberParser;
         $remote = $parser->getLuckyNumber($dom);
         $this->logErrors('LuckyNumberParser', $parser->getErrors());
@@ -71,7 +71,7 @@ class CronTask
 
     private function updateReplacements($dom)
     {
-        $model = new ReplacementsModel;
+        $model = new ReplacementsRepository;
         $parser = new ReplacementsParser;
         $remoteList = $parser->getReplacements($dom);
         $this->logErrors('ReplacementsParser', $parser->getErrors());

@@ -21,13 +21,13 @@
 namespace pjanczyk\lo1olkusz\Dashboard\Controllers;
 
 use pjanczyk\framework\Controller;
-use pjanczyk\lo1olkusz\Models\LuckyNumbersModel;
+use pjanczyk\lo1olkusz\Model\LuckyNumberRepository;
 
 class LuckyNumbersController extends Controller
 {
     public function index()
     {
-        $model = new LuckyNumbersModel;
+        $model = new LuckyNumberRepository;
 
         $template = $this->includeTemplate('ln_list');
         $template->lns = $model->getAll();

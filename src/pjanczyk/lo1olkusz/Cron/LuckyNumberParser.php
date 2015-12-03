@@ -25,7 +25,7 @@ namespace pjanczyk\lo1olkusz\Cron;
 require_once 'libs/simple_html_dom.php';
 
 use Exception;
-use pjanczyk\lo1olkusz\LuckyNumber;
+use pjanczyk\lo1olkusz\Model\LuckyNumber;
 
 class LuckyNumberParser
 {
@@ -38,7 +38,7 @@ class LuckyNumberParser
 
     /**
      * @param \simple_html_dom $dom
-     * @return LuckyNumber|null
+     * @return \pjanczyk\lo1olkusz\Model\LuckyNumber|null
      */
     public function getLuckyNumber($dom)
     {
@@ -83,7 +83,7 @@ class LuckyNumberParser
     /**
      * Parses data of lucky number in format "31 XII - 13"
      * @param string $text
-     * @return LuckyNumber
+     * @return \pjanczyk\lo1olkusz\Model\LuckyNumber
      * @throws Exception when $text is in invalid format
      */
     private static function parseText($text)
