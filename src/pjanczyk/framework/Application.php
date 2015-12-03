@@ -104,7 +104,7 @@ final class Application
             } else {
                 $this->controllerName = $value;
                 $this->action = isset($path[0]) ? str_replace('-', '_', $path[0]) : 'index';
-                $this->params = $path;
+                $this->params = array_slice($path, 1);
 
                 return true;
             }
