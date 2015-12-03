@@ -18,8 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//Created on 2015-07-10
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL | E_STRICT);
@@ -30,256 +28,100 @@ use pjanczyk\framework\Application;
 use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Json;
 use pjanczyk\lo1olkusz\Model\LuckyNumberRepository;
-use pjanczyk\lo1olkusz\Model\NewsModel;
+use pjanczyk\lo1olkusz\Model\News;
 use pjanczyk\lo1olkusz\Model\ReplacementsRepository;
 use pjanczyk\lo1olkusz\Model\SettingRepository;
 use pjanczyk\lo1olkusz\Model\TimetableRepository;
 
-$binary = isset($_GET['bin']);
-
-/**
- * 1 byte
- * @param int $int
- */
-function binUnsignedByte($int) {
-    echo pack('C', (int)$int);
-}
-
-/**
- * 2 bytes
- * @param int $int
- */
-function binUnsignedShort($int) {
-    echo pack('n', (int)$int);
-}
-
-/**
- * 4 bytes
- * @param int $int
- */
-function binUnsignedLong($int) {
-    echo pack('N', (int)$int);
-}
-
-/**
- * string length + 2 bytes
- * @param string $string max length 65535
- */
-function binString($string) {
-    binUnsignedShort(strlen($string));
-    echo $string;
-}
-
-/**
- * 4 bytes
- * @param string $date in format yyyy-mm-dd
- */
-function binDate($date) {
-    if (strlen($date) === 10) {
-        echo pack('nCC', (int)substr($date, 0, 4), (int)substr($date, 5, 2), (int)substr($date, 8, 2));
-    }
-    else {
-        echo pack('N', 0);
+function getParameter($name, $defaultValue) {
+    if (isset($_GET[$name])) {
+        return urldecode($_GET[$name]);
+    } else {
+        return $defaultValue;
     }
 }
 
-function binReplacements($n) {
-    binUnsignedLong($n['timestamp']);
-    binString($n['class']);
-    binDate($n['date']);
-    $replacements = json_decode($n['value'], true);
-    binUnsignedByte(count($replacements));
-    foreach ($replacements as $h=>$v) {
-        binUnsignedByte($h);
-        binString($v);
-    }
-}
+$page = getParameter('p', null);
+$version = intval(getParameter('v', '0'));
+$androidId = getParameter('aid', '0');
 
-function binLuckyNumber($n) {
-    binUnsignedLong($n['timestamp']);
-    binDate($n['date']);
-    binUnsignedByte($n['value']);
-}
-
-function binTimetable($n) {
-    binUnsignedLong($n['timestamp']);
-    binString($n['class']);
-    binString($n['value']);
-}
-
-function binBells($n) {
-    binUnsignedLong($n['timestamp']);
-    $bells = json_decode($n['value']);
-    if (is_array($bells)) {
-        binUnsignedByte(count($bells));
-        foreach ($bells as $bell) {
-            $time = explode(":", $bell);
-            binUnsignedByte((int) $time[0]);
-            binUnsignedByte((int) $time[1]);
-        }
-    }
-    else {
-        binUnsignedByte(0);
-    }
-}
-
-
-Application::getInstance()->init(new Config);
-
-if (!isset($_GET['p'])) {
+if ($page === null) {
     Json::badRequest();
     exit;
 }
 
-if (isset($_GET['v'])) {
-    $version = intval($_GET['v']);
-}
-else {
-    $version = 0;
-}
+$args = explode('/', trim($page, '/'));
 
-if (isset($_GET['aid'])) {
-    $androidId = $_GET['aid'];
-}
-else {
-    $androidId = "0";
-}
-
-$args = explode('/', trim($_GET['p'], '/'));
+Application::getInstance()->init(new Config);
 
 if ($args[0] == 'news' && count($args) == 2) { # /api/news/<lastModified>
-    $model = new NewsModel;
 
     $lastModified = intval($args[1]);
     $now = time();
-    $news = $model->get(date('Y-m-d', $now), $lastModified, $version);
 
-    header('Content-Type: application/json');
+    $today = date('Y-m-d', $now);
 
-    if ($binary) {
-        echo 'PJ'; //header
-        binUnsignedLong($now);
-        binUnsignedByte(count($news));
+    $replacements = new ReplacementsRepository;
+    $luckyNumbers = new LuckyNumberRepository;
+    $timetables = new TimetableRepository;
+    $settings = new SettingRepository;
 
-        foreach ($news as $n) {
-            binUnsignedByte($n['type']);
+    $news = new News;
 
-            switch($n['type']) {
-                case NewsModel::APK:
-                    binUnsignedLong($n['value']);
-                    break;
-                case NewsModel::REPLACEMENTS:
-                    binReplacements($n);
-                    break;
-                case NewsModel::LUCKY_NUMBER:
-                    binLuckyNumber($n);
-                    break;
-                case NewsModel::TIMETABLE:
-                    binTimetable($n);
-                    break;
-                case NewsModel::BELLS:
-                    binBells($n);
-                    break;
-            }
-        }
-        echo 'PJ'; //footer
-    }
+    $news->timetables = $now;
+    $news->replacements = $replacements->getByDateAndLastModified($today, $lastModified);
+    $news->luckyNumbers = $luckyNumbers->getByDateAndLastModified($today, $lastModified);
+    $news->timetables = $timetables->getByLastModified($lastModified);
+    $news->version = (int) $settings->get('version');
 
-    else {
-        $modelReplacements = new ReplacementsRepository;
-        $modelLn = new LuckyNumberRepository;
-        $modelTimetables = new TimetableRepository;
-        $modelSettings = new SettingRepository;
-
-        $date = date('Y-m-d', $now);
-
-        $replacements = $modelReplacements->getByDateAndLastModified($date, $lastModified);
-        $lns = $modelLn->getByDateAndLastModified($date, $lastModified);
-        $timetables = $modelTimetables->getByLastModified($lastModified);
-        $version = (int) $modelSettings->get('version');
-
-        $response = [];
-
-        $response['timestamp'] = $now;
-        $response['replacements'] = $replacements;
-        $response['luckyNumbers'] = $lns;
-        $response['timetables'] = $timetables;
-        $response['version'] = $version;
-
-        echo json_encode($response);
-
-//        echo '{"since":'.$now.',"news":[';
-//
-//        $first = true;
-//        foreach ($news as $n) {
-//            if (!$first) echo ',';
-//            $first = false;
-//
-//            switch ($n['type']) {
-//                case NewsModel::APK:
-//                    echo '{"type":"apk","version":"' . $n['value'] . '"}';
-//                    break;
-//                case NewsModel::REPLACEMENTS:
-//                    echo '{"type":"replacements","date":"' . $n['date'] . '","class":"' . $n['class'] . '","lastModified":' . $n['timestamp'] . ',"value":' . $n['value'] . '}';
-//                    break;
-//                case NewsModel::LUCKY_NUMBER:
-//                    echo '{"type":"luckyNumber","date":"' . $n['date'] . '","lastModified":' . $n['timestamp'] . ',"value":' . $n['value'] . '}';
-//                    break;
-//                case NewsModel::TIMETABLE:
-//                    echo '{"type":"timetable","class":"' . $n['class'] . '","lastModified":' . $n['timestamp'] . ',"value":' . json_encode($n['value']) . '}';
-//                    break;
-//                case NewsModel::BELLS:
-//                    echo '{"type":"bells","lastModified":' . $n['timestamp'] . ',"value":' . $n['value'] . '}';
-//            }
-//        }
-//        echo ']}';
-    }
+    Json::OK($news);
 }
-else if (!$binary && $args[0] == 'cron' && count($args) == 1) {
+else if ($args[0] == 'cron' && count($args) == 1) {
     include 'api/cron.php';
 }
-//else if (!$binary && $args[0] == 'lucky-numbers' && count($args) == 2) { # /api/lucky-numbers/<date>
-//    $date = urldecode($args[1]);
-//    $model = new LuckyNumberRepository($db);
-//    $ln = $model->get($date);
-//
-//    if ($ln !== null) {
-//        Json::OK($ln);
-//    } else {
-//        Json::notFound();
-//    }
-//}
-//else if (!$binary && $args[0] == 'replacements' && count($args) == 3) { # /api/replacements/<date>/<class>
-//    $date = urldecode($args[1]);
-//    $class = urldecode($args[2]);
-//
-//    $model = new ReplacementsRepository($db);
-//    $replacements = $model->get($class, $date);
-//
-//    if ($replacements !== null) {
-//        Json::OK($replacements);
-//    } else {
-//        Json::notFound();
-//    }
-//}
-//else if (!$binary && $args[0] == 'timetables' && count($args) == 1) { # /api/timetables
-//    $model = new TimetableRepository($db);
-//
-//    $timetables = $model->getAll([TimetableRepository::FIELD_CLASS]);
-//    Json::OK($timetables);
-//}
-//else if (!$binary && $args[0] == 'timetables' && count($args) == 2) { # /api/timetables/<class>
-//    $class = urldecode($args[1]);
-//
-//    $model = new TimetableRepository($db);
-//    $timetable = $model->get($class);
-//
-//    if ($timetable !== null) {
-//        Json::OK($timetable);
-//    } else {
-//        Json::notFound();
-//    }
-//}
+else if ($args[0] == 'lucky-numbers' && count($args) == 2) { # /api/lucky-numbers/<date>
+    $date = urldecode($args[1]);
+
+    $repo = new LuckyNumberRepository;
+    $result = $repo->getByDate($date);
+
+    if ($result !== null) {
+        Json::OK($result);
+    } else {
+        Json::notFound();
+    }
+}
+else if ($args[0] == 'replacements' && count($args) == 3) { # /api/replacements/<date>/<class>
+    $date = urldecode($args[1]);
+    $class = urldecode($args[2]);
+
+    $repo = new ReplacementsRepository;
+    $result = $repo->getByClassAndDate($class, $date);
+
+    if ($replacements !== null) {
+        Json::OK($replacements);
+    } else {
+        Json::notFound();
+    }
+}
+else if ($args[0] == 'timetables' && count($args) == 1) { # /api/timetables
+    $repo = new TimetableRepository;
+    $result = $repo->listAll();
+
+    Json::OK($result);
+}
+else if ($args[0] == 'timetables' && count($args) == 2) { # /api/timetables/<class>
+    $class = urldecode($args[1]);
+
+    $repo = new TimetableRepository;
+    $result = $repo->getByClass($class);
+
+    if ($result !== null) {
+        Json::OK($result);
+    } else {
+        Json::notFound();
+    }
+}
 else {
     Json::badRequest();
 }

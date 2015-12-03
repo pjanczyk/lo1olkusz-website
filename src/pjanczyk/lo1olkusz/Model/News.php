@@ -22,6 +22,8 @@ namespace pjanczyk\lo1olkusz\Model;
 
 class News
 {
+    /** @var int */
+    public $timestamp;
     /** @var array(Replacements) */
     public $replacements;
     /** @var array(LuckyNumber) */

@@ -1,7 +1,7 @@
 ErrorDocument 404 /html/404.html
 
 RewriteEngine on
-RewriteRule ^api/(.+)\.bin$ api.php?bin=1&p=$1 [L,qsa]
+RewriteRule ^api/(.+)\.bin$ bin_api.php&p=$1 [L,qsa]
 RewriteRule ^api/(.+)$ api.php?p=$1 [L,qsa]
 RewriteRule ^download$ download.php [NC,L,qsa]
 RewriteRule ^dashboard(.*)$ dashboard.php?p=$1 [NC,qsa,L]
