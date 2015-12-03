@@ -177,3 +177,6 @@ if ($args[0] == 'news' && count($args) == 2) { # /api/news/<lastModified>
     }
     echo 'PJ'; //footer
 }
+else {
+    Json::badRequest();
+}

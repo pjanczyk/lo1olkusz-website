@@ -76,7 +76,7 @@ if ($args[0] == 'news' && count($args) == 2) { # /api/news/<lastModified>
 
     Json::OK($news);
 }
-else if ($args[0] == 'cron' && count($args) == 1) {
+else if ($args[0] == 'cron' && count($args) == 1) { # /api/cron
     include 'api/cron.php';
 }
 else if ($args[0] == 'lucky-numbers' && count($args) == 2) { # /api/lucky-numbers/<date>
