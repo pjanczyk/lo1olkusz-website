@@ -94,7 +94,7 @@ final class Application
         $path = filter_var($path, FILTER_SANITIZE_URL);
         $path = explode('/', $path);
 
-        while (isset($map[$path[0]])) {
+        while (isset($path[0], $map[$path[0]])) {
             $value = $map[$path[0]];
 
             $path = array_slice($path, 1);
