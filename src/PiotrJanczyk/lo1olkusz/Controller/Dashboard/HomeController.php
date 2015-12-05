@@ -18,29 +18,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL | E_STRICT);
+namespace PiotrJanczyk\lo1olkusz\Controller\Dashboard;
 
-require 'autoloader.php';
+use PiotrJanczyk\Framework\Controller;
+use PiotrJanczyk\lo1olkusz\Model\NewsModel;
 
-use PiotrJanczyk\Framework\Application;
-use PiotrJanczyk\lo1olkusz\Config;
-
-function http404()
+class HomeController extends Controller
 {
-    header('HTTP/1.0 404 Not Found');
-    include 'html/404.html';
-    exit;
+    public function index()
+    {
+        $this->last_modified(0);
+    }
+
+    public function last_modified($timestamp)
+    {
+        $model = new NewsModel;
+
+        $lastModified = intval($timestamp);
+        $now = date('Y-m-d');
+        $news = $model->get($now, $lastModified, 0);
+
+        $template = $this->includeTemplate('dashboard/home');
+        $template->now = $now;
+        $template->news = $news;
+        $template->render();
+    }
 }
-
-function formatTimestamp($timestamp)
-{
-    return date("d.m.Y G:i:s", $timestamp);
-}
-
-date_default_timezone_set('Europe/Warsaw');
-
-
-Application::getInstance()->init(new Config);
-Application::getInstance()->displayPage();

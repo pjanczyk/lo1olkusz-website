@@ -18,29 +18,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL | E_STRICT);
+namespace PiotrJanczyk\lo1olkusz\Model;
 
-require 'autoloader.php';
-
-use PiotrJanczyk\Framework\Application;
-use PiotrJanczyk\lo1olkusz\Config;
-
-function http404()
+/**
+ * Entity
+ */
+class Replacements
 {
-    header('HTTP/1.0 404 Not Found');
-    include 'html/404.html';
-    exit;
+    /** @var string */
+    public $class;
+    /** @var string */
+    public $date;
+    /** @var string */
+    public $value;
+    /** @var int */
+    public $lastModified;
 }
-
-function formatTimestamp($timestamp)
-{
-    return date("d.m.Y G:i:s", $timestamp);
-}
-
-date_default_timezone_set('Europe/Warsaw');
-
-
-Application::getInstance()->init(new Config);
-Application::getInstance()->displayPage();

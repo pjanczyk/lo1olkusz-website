@@ -26,10 +26,10 @@ error_reporting(E_ALL | E_STRICT);
 
 require 'autoloader.php';
 
-use pjanczyk\framework\Application;
-use pjanczyk\lo1olkusz\Config;
-use pjanczyk\lo1olkusz\Json;
-use pjanczyk\lo1olkusz\Model\NewsModel;
+use PiotrJanczyk\Framework\Application;
+use PiotrJanczyk\lo1olkusz\Config;
+use PiotrJanczyk\lo1olkusz\Json;
+use PiotrJanczyk\lo1olkusz\Model\NewsModel;
 
 $binary = true;
 

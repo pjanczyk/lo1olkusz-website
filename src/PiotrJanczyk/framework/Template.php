@@ -18,29 +18,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL | E_STRICT);
+namespace PiotrJanczyk\Framework;
 
-require 'autoloader.php';
 
-use PiotrJanczyk\Framework\Application;
-use PiotrJanczyk\lo1olkusz\Config;
-
-function http404()
+class Template
 {
-    header('HTTP/1.0 404 Not Found');
-    include 'html/404.html';
-    exit;
+    private $fileName;
+    private $data;
+
+    public function __construct($filename)
+    {
+        $this->fileName = $filename;
+        $this->data = [];
+    }
+
+    public function __get($name)
+    {
+        if (isset($this->data[$name])) {
+            return $this->data[$name];
+        }
+        return null;
+    }
+
+    public function __set($name, $value)
+    {
+        $this->data[$name] = $value;
+    }
+
+    public function render()
+    {
+        extract($this->data);
+        /** @noinspection PhpIncludeInspection */
+        include 'templates/' . $this->fileName . '.php';
+    }
 }
-
-function formatTimestamp($timestamp)
-{
-    return date("d.m.Y G:i:s", $timestamp);
-}
-
-date_default_timezone_set('Europe/Warsaw');
-
-
-Application::getInstance()->init(new Config);
-Application::getInstance()->displayPage();

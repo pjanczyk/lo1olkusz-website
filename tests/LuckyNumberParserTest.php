@@ -20,8 +20,8 @@
 
 //Created on 2015-07-10
 
-use pjanczyk\lo1olkusz\Cron\LuckyNumberParser;
-use pjanczyk\lo1olkusz\Model\LuckyNumber;
+use PiotrJanczyk\lo1olkusz\Cron\LuckyNumberParser;
+use PiotrJanczyk\lo1olkusz\Model\LuckyNumber;
 
 require 'autoloader.php';
 require_once 'libs/simple_html_dom.php';

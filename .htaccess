@@ -1,6 +1,5 @@
-ErrorDocument 404 /html/404.html
+#ErrorDocument 404 /html/404.html
 
 RewriteEngine on
-#RewriteRule ^api/(.+)\.bin$ bin_api.php?p=$1 [L,qsa]
 RewriteCond $1 !^(css|js|fonts)
 RewriteRule ^(.*)$ index.php?p=$1 [L,qsa]

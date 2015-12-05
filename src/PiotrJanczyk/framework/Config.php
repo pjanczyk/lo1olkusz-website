@@ -18,29 +18,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL | E_STRICT);
+namespace PiotrJanczyk\Framework;
 
-require 'autoloader.php';
 
-use PiotrJanczyk\Framework\Application;
-use PiotrJanczyk\lo1olkusz\Config;
-
-function http404()
+interface Config
 {
-    header('HTTP/1.0 404 Not Found');
-    include 'html/404.html';
-    exit;
+    public function getDbDSN();
+    public function getDbUser();
+    public function getDbPassword();
+    public function getDbOptions();
+    public function getRoute();
+    public function getNotFoundRoute();
 }
-
-function formatTimestamp($timestamp)
-{
-    return date("d.m.Y G:i:s", $timestamp);
-}
-
-date_default_timezone_set('Europe/Warsaw');
-
-
-Application::getInstance()->init(new Config);
-Application::getInstance()->displayPage();
