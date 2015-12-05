@@ -21,7 +21,6 @@
 namespace PiotrJanczyk\lo1olkusz\Controller\Dashboard;
 
 use PiotrJanczyk\Framework\Controller;
-use PiotrJanczyk\lo1olkusz\Model\NewsModel;
 
 class HomeController extends Controller
 {
@@ -32,15 +31,5 @@ class HomeController extends Controller
 
     public function last_modified($timestamp)
     {
-        $model = new NewsModel;
-
-        $lastModified = intval($timestamp);
-        $now = date('Y-m-d');
-        $news = $model->get($now, $lastModified, 0);
-
-        $template = $this->includeTemplate('dashboard/home');
-        $template->now = $now;
-        $template->news = $news;
-        $template->render();
     }
 }
