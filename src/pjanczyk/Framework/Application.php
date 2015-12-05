@@ -63,7 +63,7 @@ final class Application
         $this->connectToDb();
     }
 
-    public function displayPage()
+    public function start()
     {
         if (!$this->route($this->config->getRoute())) {
             http404();
@@ -89,18 +89,26 @@ final class Application
 
     private function route($map)
     {
-        $path = isset($_GET['p']) ? urldecode($_GET['p']) : ''; //default path: ""
+        $path = isset($_GET['p']) ? $_GET['p'] : ''; //default path: ""
+        $path = urldecode($path);
         $path = trim($path, '/');
         $path = filter_var($path, FILTER_SANITIZE_URL);
         $path = explode('/', $path);
 
         while (isset($path[0], $map[$path[0]])) {
             $value = $map[$path[0]];
-
             $path = array_slice($path, 1);
 
             if (is_array($value)) {
                 $map = $value;
+
+                if (count($path) == 0 && isset($map[''])) {
+                    $this->controllerName = $map[''];
+                    $this->action = 'index';
+                    $this->params = [];
+
+                    return true;
+                }
             } else {
                 $this->controllerName = $value;
                 $this->action = isset($path[0]) ? str_replace('-', '_', $path[0]) : 'index';

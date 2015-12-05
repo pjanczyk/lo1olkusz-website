@@ -43,4 +43,4 @@ date_default_timezone_set('Europe/Warsaw');
 
 
 Application::getInstance()->init(new Config);
-Application::getInstance()->displayPage();
+Application::getInstance()->start();
