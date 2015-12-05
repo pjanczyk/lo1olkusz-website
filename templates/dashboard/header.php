@@ -10,12 +10,12 @@
     <title>lo1olkusz app</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="/theme.css" rel="stylesheet">
+    <link href="/css/theme.css" rel="stylesheet">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="/bootstrap.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 </head>
 
 <body role="document">
