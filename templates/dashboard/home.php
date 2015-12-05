@@ -1,7 +1,7 @@
 <?php
 use pjanczyk\lo1olkusz\Model\NewsModel;
 
-include 'templates/header.php' ?>
+include 'templates/dashboard/header.php' ?>
 
 <div class="page-header">
     <h1>Strona główna</h1>
@@ -70,4 +70,4 @@ foreach ($news as $n) {
     </tbody>
 </table>
 
-<?php include 'templates/footer.php';
+<?php include 'templates/dashboard/footer.php';

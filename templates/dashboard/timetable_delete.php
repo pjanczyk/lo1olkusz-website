@@ -1,4 +1,4 @@
-<?php include 'templates/header.php' ?>
+<?php include 'templates/dashboard/header.php' ?>
 
 <div class="page-header">
     <h1>Usuń plan lekcji</h1>
@@ -20,4 +20,4 @@
     </div>
 </form>
 
-<?php include 'templates/footer.php' ?>
+<?php include 'templates/dashboard/footer.php' ?>

@@ -1,4 +1,4 @@
-<?php include 'templates/header.php' ?>
+<?php include 'templates/dashboard/header.php' ?>
 
 <div class="page-header">
     <h1><?= $timetable !== null ? 'Edycja planu lekcji' : 'Dodaj plan lekcji'?></h1>
@@ -30,5 +30,5 @@
         </div>
     </div>
 </form>
-
-<?php include 'templates/footer.php' ?>
+s
+<?php include 'templates/dashboard/footer.php' ?>

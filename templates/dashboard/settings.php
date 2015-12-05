@@ -19,13 +19,13 @@
  */
 ?>
 
-<?php include 'templates/header.php' ?>
+<?php include 'templates/dashboard/header.php' ?>
 
 <div class="page-header">
     <h1>Ustawienia</h1>
 </div>
 
-<?php include 'templates/alerts.php' ?>
+<?php include 'templates/dashboard/alerts.php' ?>
 
 <div class="row">
 
@@ -79,4 +79,4 @@
     });
 </script>
 
-<?php include 'templates/footer.php' ?>
+<?php include 'templates/dashboard/footer.php' ?>

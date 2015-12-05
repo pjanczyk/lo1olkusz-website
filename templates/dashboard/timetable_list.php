@@ -21,13 +21,13 @@
 /** @var array(Timetable) $timetables */
 ?>
 
-<?php include 'templates/header.php' ?>
+<?php include 'templates/dashboard/header.php' ?>
 
     <div class="page-header">
         <h1>Plany lekcji</h1>
     </div>
 
-<?php include 'templates/alerts.php' ?>
+<?php include 'templates/dashboard/alerts.php' ?>
     <div class="btn-group" role="group">
         <a href="/dashboard/timetables/add" class="btn btn-default">Dodaj</a>
     </div>
@@ -67,4 +67,4 @@
     </table>
 
 
-<?php include 'templates/footer.php' ?>
+<?php include 'templates/dashboard/footer.php' ?>

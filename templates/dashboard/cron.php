@@ -19,7 +19,7 @@
  */
 ?>
 
-<?php include 'templates/header.php' ?>
+<?php include 'templates/dashboard/header.php' ?>
 
     <div class="page-header"><h1>Logi</h1></div>
 

@@ -1,4 +1,4 @@
-<?php include 'templates/header.php' ?>
+<?php include 'templates/dashboard/header.php' ?>
 
 <div class="page-header">
     <h1>Zastępstwa</h1>
@@ -38,4 +38,4 @@
     </div>
 </div>
 
-<?php include 'templates/footer.php' ?>
+<?php include 'templates/dashboard/footer.php' ?>
