@@ -18,15 +18,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//Created on 2015-07-09
+namespace pjanczyk\Framework;
 
-//turn on reporting all errors (they are written to stderr)
-error_reporting(E_ALL|E_STRICT);
 
-include 'autoloader.php';
+abstract class Controller
+{
+    abstract public function index();
 
-use pjanczyk\lo1olkusz\Cron\CronTask;
-
-//run CronTask
-$task = new CronTask;
-$task->run();
+    protected function includeTemplate($name)
+    {
+        return new Template($name);
+    }
+}

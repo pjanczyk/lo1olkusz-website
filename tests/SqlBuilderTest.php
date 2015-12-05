@@ -8,9 +8,9 @@
 
 require 'autoloader.php';
 
-use PiotrJanczyk\Framework\internal\DeleteBuilder;
-use PiotrJanczyk\Framework\internal\InsertOrUpdateBuilder;
-use PiotrJanczyk\Framework\internal\SelectBuilder;
+use pjanczyk\Framework\internal\DeleteBuilder;
+use pjanczyk\Framework\internal\InsertOrUpdateBuilder;
+use pjanczyk\Framework\internal\SelectBuilder;
 
 class SqlBuilderTest extends PHPUnit_Framework_TestCase {
 

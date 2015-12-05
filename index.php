@@ -24,8 +24,8 @@ error_reporting(E_ALL | E_STRICT);
 
 require 'autoloader.php';
 
-use PiotrJanczyk\Framework\Application;
-use PiotrJanczyk\lo1olkusz\Config;
+use pjanczyk\Framework\Application;
+use pjanczyk\lo1olkusz\Config;
 
 function http404()
 {

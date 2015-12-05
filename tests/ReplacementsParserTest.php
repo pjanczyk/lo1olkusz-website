@@ -20,8 +20,8 @@
 
 //Created on 2015-07-10
 
-use PiotrJanczyk\lo1olkusz\Cron\ReplacementsParser;
-use PiotrJanczyk\lo1olkusz\Model\Replacements;
+use pjanczyk\lo1olkusz\Cron\ReplacementsParser;
+use pjanczyk\lo1olkusz\Model\Replacements;
 
 require 'autoloader.php';
 require_once 'libs/simple_html_dom.php';

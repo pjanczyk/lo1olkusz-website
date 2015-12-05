@@ -18,15 +18,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//Created on 2015-07-09
+namespace pjanczyk\lo1olkusz\Model;
 
-//turn on reporting all errors (they are written to stderr)
-error_reporting(E_ALL|E_STRICT);
-
-include 'autoloader.php';
-
-use pjanczyk\lo1olkusz\Cron\CronTask;
-
-//run CronTask
-$task = new CronTask;
-$task->run();
+/**
+ * Entity
+ */
+class Timetable
+{
+    /** @var string */
+    public $class;
+    /** @var int */
+    public $lastModified;
+    /** @var string */
+    public $value;
+}

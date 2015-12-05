@@ -18,15 +18,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//Created on 2015-07-09
+namespace pjanczyk\Framework;
 
-//turn on reporting all errors (they are written to stderr)
-error_reporting(E_ALL|E_STRICT);
 
-include 'autoloader.php';
+class Template
+{
+    private $fileName;
+    private $data;
 
-use pjanczyk\lo1olkusz\Cron\CronTask;
+    public function __construct($filename)
+    {
+        $this->fileName = $filename;
+        $this->data = [];
+    }
 
-//run CronTask
-$task = new CronTask;
-$task->run();
+    public function __get($name)
+    {
+        if (isset($this->data[$name])) {
+            return $this->data[$name];
+        }
+        return null;
+    }
+
+    public function __set($name, $value)
+    {
+        $this->data[$name] = $value;
+    }
+
+    public function render()
+    {
+        extract($this->data);
+        /** @noinspection PhpIncludeInspection */
+        include 'templates/' . $this->fileName . '.php';
+    }
+}
