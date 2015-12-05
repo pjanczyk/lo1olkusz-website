@@ -76,4 +76,4 @@
         });
     </script>
 
-<?php include 'templates/footer.php' ?>
+<?php include 'templates/dashboard/footer.php' ?>
