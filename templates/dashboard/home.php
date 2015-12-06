@@ -8,9 +8,11 @@
 <div class="page-header">
     <h1>Strona główna</h1>
 </div>
-<p>wyniki od <?=$now?></p>
+<p>wyniki od <?=formatTimestamp($now)?></p>
 
-<h2>Szczęśliwe numerki</h2>
+<h3>Wersja aplikacji: <?=$news->version?></h3>
+
+<h3>Szczęśliwe numerki</h3>
 <table class="table table-responsive">
     <?php foreach ($news->luckyNumbers as $ln): ?>
         <tr>
@@ -21,7 +23,7 @@
     <?php endforeach ?>
 </table>
 
-<h2>Zastępstwa</h2>
+<h3>Zastępstwa</h3>
 <table class="table table-responsive">
     <?php foreach ($news->replacements as $r): ?>
         <tr>
@@ -37,7 +39,7 @@
     <?php endforeach ?>
 </table>
 
-<h2>Plany lekcji</h2>
+<h3>Plany lekcji</h3>
 <table class="table table-responsive">
     <?php foreach ($news->timetables as $t): ?>
         <tr>
@@ -47,7 +49,5 @@
         </tr>
     <?php endforeach ?>
 </table>
-
-<h2>Wersja aplikacji: <?=$news->version?></h2>
 
 <?php include 'templates/dashboard/footer.php';
