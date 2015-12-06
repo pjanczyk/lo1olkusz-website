@@ -33,25 +33,17 @@ class ReplacementsRepository
     public function getByClassAndDate($class, $date)
     {
         $stmt = Application::getDb()->prepare(
-            'SELECT class, date, value, UNIX_TIMESTAMP(lastModified) FROM replacements
+            'SELECT class, date, value, UNIX_TIMESTAMP(lastModified) AS lastModified FROM replacements
 WHERE date=:date AND class=:class');
 
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
         $stmt->bindParam(':class', $class, PDO::PARAM_STR);
         $stmt->execute();
 
-        $obj = new Replacements;
-        $stmt->bindColumn(1, $obj->class, PDO::PARAM_STR);
-        $stmt->bindColumn(2, $obj->date, PDO::PARAM_STR);
-        $stmt->bindColumn(3, $jsonValue, PDO::PARAM_STR);
-        $stmt->bindColumn(4, $obj->lastModified, PDO::PARAM_INT);
+        $obj = $stmt->fetchObject('pjanczyk\lo1olkusz\Model\Replacements');
 
-        if ($stmt->fetch(PDO::FETCH_BOUND)) {
-            $obj->value = json_decode($jsonValue);
-            return $obj;
-        } else {
-            return null;
-        }
+        if ($obj === false) return null;
+        return $obj;
     }
 
     /**
@@ -62,26 +54,14 @@ WHERE date=:date AND class=:class');
     public function getByDateAndLastModified($date, $lastModified)
     {
         $stmt = Application::getDb()->prepare(
-            'SELECT class, date, value, UNIX_TIMESTAMP(lastModified) FROM replacements
+            'SELECT class, date, value, UNIX_TIMESTAMP(lastModified) AS lastModified FROM replacements
 WHERE date>=:date AND lastModified>=FROM_UNIXTIME(:lastModified)');
 
         $stmt->bindParam(':date', $date);
         $stmt->bindParam(':lastModified', $lastModified, PDO::PARAM_INT);
         $stmt->execute();
 
-        $obj = new Replacements;
-        $stmt->bindColumn(1, $obj->class, PDO::PARAM_STR);
-        $stmt->bindColumn(2, $obj->date, PDO::PARAM_STR);
-        $stmt->bindColumn(3, $jsonValue, PDO::PARAM_STR);
-        $stmt->bindColumn(4, $obj->lastModified, PDO::PARAM_INT);
-
-        $results = [];
-        while ($stmt->fetch(PDO::FETCH_BOUND)) {
-            $obj->value = json_decode($jsonValue);
-            $results[] = clone $obj;
-        }
-
-        return $results;
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\Model\Replacements');
     }
 
     /**
@@ -91,24 +71,12 @@ WHERE date>=:date AND lastModified>=FROM_UNIXTIME(:lastModified)');
     public function listAll()
     {
         $stmt = Application::getDb()->prepare(
-            'SELECT class, date, UNIX_TIMESTAMP(lastModified) FROM replacements ORDER BY date DESC, class ASC');
+            'SELECT class, date, UNIX_TIMESTAMP(lastModified) AS lastModified FROM replacements
+ORDER BY date DESC, class ASC');
 
         $stmt->execute();
 
-        $obj = new Replacements;
-        $stmt->bindColumn(1, $obj->class, PDO::PARAM_STR);
-        $stmt->bindColumn(2, $obj->date, PDO::PARAM_STR);
-        $stmt->bindColumn(3, $obj->lastModified, PDO::PARAM_INT);
-
-        $results = [];
-        while ($stmt->fetch(PDO::FETCH_BOUND)) {
-            print_r($obj->date);
-            $results[] = clone $obj;
-        }
-
-        print_r($results);
-
-        return $results;
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\Model\Replacements');
     }
 
     /**

@@ -31,4 +31,9 @@ class Timetable
     public $lastModified;
     /** @var string */
     public $value;
+
+    public function __construct()
+    {
+        $this->lastModified = (int) $this->lastModified;
+    }
 }

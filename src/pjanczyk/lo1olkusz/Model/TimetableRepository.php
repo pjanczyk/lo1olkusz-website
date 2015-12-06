@@ -32,20 +32,11 @@ class TimetableRepository
     public function listAll()
     {
         $stmt = Application::getDb()->prepare(
-            'SELECT class, UNIX_TIMESTAMP(lastModified) FROM timetables ORDER BY class ASC');
+            'SELECT class, UNIX_TIMESTAMP(lastModified) AS lastModified FROM timetables ORDER BY class ASC');
 
         $stmt->execute();
 
-        $obj = new Timetable;
-        $stmt->bindColumn(1, $obj->class, PDO::PARAM_STR);
-        $stmt->bindColumn(2, $obj->lastModified, PDO::PARAM_INT);
-
-        $results = [];
-        while ($stmt->fetch(PDO::FETCH_BOUND)) {
-            $results[] = clone $obj;
-        }
-
-        return $results;
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\Model\Timetable');
     }
 
     /**
@@ -55,21 +46,15 @@ class TimetableRepository
     public function getByClass($class)
     {
         $stmt = Application::getDb()->prepare(
-            'SELECT class, value, UNIX_TIMESTAMP(lastModified) as lastModified FROM timetables WHERE class=:class');
+            'SELECT class, value, UNIX_TIMESTAMP(lastModified) AS lastModified FROM timetables WHERE class=:class');
 
         $stmt->bindParam(':class', $class, PDO::PARAM_STR);
         $stmt->execute();
 
-        $obj = new Timetable;
-        $stmt->bindColumn(1, $obj->class, PDO::PARAM_STR);
-        $stmt->bindColumn(2, $obj->value, PDO::PARAM_STR);
-        $stmt->bindColumn(3, $obj->lastModified, PDO::PARAM_INT);
+        $obj = $stmt->fetchObject('pjanczyk\lo1olkusz\Model\Timetable');
 
-        if ($stmt->fetch(PDO::FETCH_BOUND)) {
-            return $obj;
-        } else {
-            return null;
-        }
+        if ($obj === false) return null;
+        return $obj;
     }
 
     /**
@@ -79,23 +64,13 @@ class TimetableRepository
     public function getByLastModified($lastModified)
     {
         $stmt = Application::getDb()->prepare(
-            'SELECT class, value, UNIX_TIMESTAMP(lastModified) as lastModified FROM timetables
+            'SELECT class, value, UNIX_TIMESTAMP(lastModified) AS lastModified FROM timetables
 WHERE lastModified>=FROM_UNIXTIME(:lastModified)');
 
         $stmt->bindParam(':lastModified', $lastModified, PDO::PARAM_INT);
         $stmt->execute();
 
-        $obj = new Timetable;
-        $stmt->bindColumn(1, $obj->class, PDO::PARAM_STR);
-        $stmt->bindColumn(2, $obj->value, PDO::PARAM_STR);
-        $stmt->bindColumn(3, $obj->lastModified, PDO::PARAM_INT);
-
-        $results = [];
-        while ($stmt->fetch(PDO::FETCH_BOUND)) {
-            $results[] = clone $obj;
-        }
-
-        return $results;
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\Model\Timetable');
     }
 
     /**

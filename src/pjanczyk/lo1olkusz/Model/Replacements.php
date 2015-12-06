@@ -33,4 +33,10 @@ class Replacements
     public $value;
     /** @var int */
     public $lastModified;
+
+    public function __construct()
+    {
+        $this->lastModified = (int) $this->lastModified;
+        $this->value = json_decode($this->value);
+    }
 }

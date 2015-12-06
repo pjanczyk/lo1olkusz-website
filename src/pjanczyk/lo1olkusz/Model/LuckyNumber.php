@@ -31,4 +31,10 @@ class LuckyNumber
     public $value;
     /** @var int */
     public $lastModified;
+
+    public function __construct()
+    {
+        $this->lastModified = (int) $this->lastModified;
+        $this->value = (int) $this->value;
+    }
 }
