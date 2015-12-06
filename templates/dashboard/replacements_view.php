@@ -1,3 +1,5 @@
+<?php /** @var \pjanczyk\lo1olkusz\Model\Replacements $replacements */ ?>
+
 <?php include 'templates/dashboard/header.php' ?>
 
 <div class="page-header">
@@ -27,12 +29,9 @@
         <label class="col-sm-2 control-label">Wartość</label>
         <div class="col-sm-10">
             <p class="form-control-static">
-                <?php
-                $value = json_decode($replacements->value, true);
-                foreach($value as $hour => $replacement) {
-                    echo $hour . '. ' . $replacement . '<br/>';
-                }
-                ?>
+                <?php foreach($replacements->value as $hour => $text): ?>
+                    <?=$hour?>. <?=$text?><br/>
+                <?php endforeach ?>
             </p>
         </div>
     </div>

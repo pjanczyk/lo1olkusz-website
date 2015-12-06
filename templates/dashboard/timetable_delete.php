@@ -1,3 +1,5 @@
+<?php /** @var \pjanczyk\lo1olkusz\Model\Timetable $timetable */ ?>
+
 <?php include 'templates/dashboard/header.php' ?>
 
 <div class="page-header">

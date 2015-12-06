@@ -53,4 +53,21 @@ ON DUPLICATE KEY UPDATE value=:value');
 
         return $stmt->execute();
     }
+
+    /**
+     * @return int
+     */
+    public function getVersion()
+    {
+        return (int) $this->get('version');
+    }
+
+    /**
+     * @param int $version
+     * @return bool
+     */
+    public function setVersion($version)
+    {
+        return $this->setValue('version', $version);
+    }
 }

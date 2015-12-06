@@ -29,7 +29,7 @@ class Replacements
     public $class;
     /** @var string */
     public $date;
-    /** @var string */
+    /** @var array */
     public $value;
     /** @var int */
     public $lastModified;

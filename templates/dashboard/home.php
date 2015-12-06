@@ -1,73 +1,53 @@
 <?php
-use pjanczyk\lo1olkusz\Model\NewsModel;
+/** @var \pjanczyk\lo1olkusz\Model\News $news */
+/** @var int $now */
+?>
 
-include 'templates/dashboard/header.php' ?>
+<?php include 'templates/dashboard/header.php' ?>
 
 <div class="page-header">
     <h1>Strona główna</h1>
 </div>
 <p>wyniki od <?=$now?></p>
 
-
-<table class="table table-bordered">
-    <thead>
+<h2>Szczęśliwe numerki</h2>
+<table class="table table-responsive">
+    <?php foreach ($news->luckyNumbers as $ln): ?>
         <tr>
-            <th>Typ</th>
-            <th>Data/Klasa</th>
-            <th>Wartość</th>
-            <th>Ostatnio zmodyfikowano</th>
+            <td><?=$ln->date?></td>
+            <td><?=$ln->value?></td>
+            <td class="last-modified"><?=formatTimestamp($ln->lastModified)?></td>
         </tr>
-    </thead>
-    <tbody>
-
-<?php
-foreach ($news as $n) {
-    echo '<tr>';
-
-    switch($n['type']) {
-        case NewsModel::APK:
-            ?>
-            <td>Wersja aplikacji</td>
-            <td></td>
-            <td><?=$n['value']?></td>
-            <td></td>
-            <?php
-            break;
-        case NewsModel::REPLACEMENTS:
-            ?>
-            <td>Zastępstwa</td>
-            <td><?=$n['date']?><br/><?=$n['class']?></td>
-            <td><?
-                $value = json_decode($n['value'], true);
-                foreach($value as $hour => $replacement) {
-                    echo $hour . '. ' . $replacement . '<br/>';
-                }
-                ?></td>
-            <td><?=date('Y-m-d H:i:s', $n['timestamp'])?></td>
-            <?php
-            break;
-        case NewsModel::LUCKY_NUMBER:
-            ?>
-            <td>Szczęśliwy numerek</td>
-            <td><?=$n['date']?></td>
-            <td><?=$n['value']?></td>
-            <td><?=date('Y-m-d H:i:s', $n['timestamp'])?></td>
-            <?php
-            break;
-        case NewsModel::TIMETABLE:
-            ?>
-            <td>Plan lekcji</td>
-            <td><?=$n['class']?></td>
-            <td><pre><?=$n['value']?></pre></td>
-            <td><?=date('Y-m-d H:i:s', $n['timestamp'])?></td>
-            <?php
-            break;
-    }
-    echo '</tr>';
-}
-?>
-
-    </tbody>
+    <?php endforeach ?>
 </table>
+
+<h2>Zastępstwa</h2>
+<table class="table table-responsive">
+    <?php foreach ($news->replacements as $r): ?>
+        <tr>
+            <td><?=$r->date?></td>
+            <td><?=$r->class?></td>
+            <td>
+                <?php foreach($r->value as $hour => $text): ?>
+                    <?=$hour?>. <?=$text?><br/>
+                <?php endforeach ?>
+            </td>
+            <td><?=formatTimestamp($r->lastModified)?></td>
+        </tr>
+    <?php endforeach ?>
+</table>
+
+<h2>Plany lekcji</h2>
+<table class="table table-responsive">
+    <?php foreach ($news->timetables as $t): ?>
+        <tr>
+            <td><?=$t->class?></td>
+            <td><pre><?=$t->value?></pre></td>
+            <td><?=formatTimestamp($t->lastModified)?></td>
+        </tr>
+    <?php endforeach ?>
+</table>
+
+<h2>Wersja aplikacji: <?=$news->version?></h2>
 
 <?php include 'templates/dashboard/footer.php';

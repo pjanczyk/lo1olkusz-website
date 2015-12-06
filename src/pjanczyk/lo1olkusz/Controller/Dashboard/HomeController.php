@@ -21,15 +21,21 @@
 namespace pjanczyk\lo1olkusz\Controller\Dashboard;
 
 use pjanczyk\Framework\Controller;
+use pjanczyk\lo1olkusz\Model\NewsService;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $this->last_modified(0);
-    }
+        $lastModified = 0;
+        $now = time();
+        $today = date('Y-m-d', $now);
 
-    public function last_modified($timestamp)
-    {
+        $newsService = new NewsService;
+
+        $template = $this->includeTemplate('dashboard/home');
+        $template->news = $newsService->getNews($today, $lastModified);
+        $template->now = $now;
+        $template->render();
     }
 }

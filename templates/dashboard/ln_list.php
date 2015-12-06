@@ -1,3 +1,5 @@
+<?php /** @var array(\pjanczyk\lo1olkusz\Model\LuckyNumber) $lns */ ?>
+
 <?php include 'templates/dashboard/header.php' ?>
 
     <div class="page-header">

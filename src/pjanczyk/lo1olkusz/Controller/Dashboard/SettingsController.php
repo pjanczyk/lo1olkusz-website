@@ -29,7 +29,7 @@ class SettingsController extends Controller
 {
     public function index()
     {
-        $model = new SettingRepository;
+        $settings = new SettingRepository;
 
         /** @var Config $config */
         $config = Application::getConfig();
@@ -46,14 +46,14 @@ class SettingsController extends Controller
         }
 
         if (isset($_POST['version'])) {
-            if ($model->setValue('version', $_POST['version'])) {
+            if ($settings->setVersion($_POST['version'])) {
                 $alerts[] = 'Zaktualizowano wersję aplikacji';
             }
         }
 
         $template = $this->includeTemplate('dashboard/settings');
         $template->alerts = $alerts;
-        $template->version = $model->get('version');
+        $template->version = $settings->getVersion();
         if (file_exists($apkPath)) {
             $template->apkLastModified = date('Y-m-d H:i:s', filemtime($apkPath));
         }

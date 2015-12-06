@@ -7,9 +7,9 @@ use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Cron\CronTask;
 use pjanczyk\lo1olkusz\Json;
 use pjanczyk\lo1olkusz\Model\LuckyNumberRepository;
-use pjanczyk\lo1olkusz\Model\News;
+use pjanczyk\lo1olkusz\Model\NewsService;
 use pjanczyk\lo1olkusz\Model\ReplacementsRepository;
-use pjanczyk\lo1olkusz\Model\SettingRepository;
+use pjanczyk\lo1olkusz\Model\StatisticRepository;
 use pjanczyk\lo1olkusz\Model\TimetableRepository;
 
 class RestController extends Controller
@@ -24,9 +24,11 @@ class RestController extends Controller
             }
         }
 
-        $page = getParameter('p', null);
         $version = intval(getParameter('v', '0'));
         $androidId = getParameter('aid', '0');
+
+        $statistics = new StatisticRepository;
+        $statistics->increaseVisits(StatisticRepository::REST_API, date('Y-m-d'), $version, $androidId);
     }
 
     public function index()
@@ -43,22 +45,10 @@ class RestController extends Controller
         }
 
         $lastModified = intval(func_get_arg(0));
-        $now = time();
+        $today = date('Y-m-d');
 
-        $today = date('Y-m-d', $now);
-
-        $replacements = new ReplacementsRepository;
-        $luckyNumbers = new LuckyNumberRepository;
-        $timetables = new TimetableRepository;
-        $settings = new SettingRepository;
-
-        $news = new News;
-
-        $news->timestamp = $now;
-        $news->replacements = $replacements->getByDateAndLastModified($today, $lastModified);
-        $news->luckyNumbers = $luckyNumbers->getByDateAndLastModified($today, $lastModified);
-        $news->timetables = $timetables->getByLastModified($lastModified);
-        $news->version = (int) $settings->get('version');
+        $newsService = new NewsService;
+        $news = $newsService->getNews($today, $lastModified);
 
         Json::OK($news);
     }

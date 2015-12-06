@@ -9,14 +9,7 @@ class ReplacementsController extends Controller
 {
     public function index()
     {
-        $this->page(0);
-    }
-
-    public function page($page)
-    {
         $model = new ReplacementsRepository;
-
-        //$count = $model->count();
 
         $template = $this->includeTemplate('dashboard/replacements_list');
 
