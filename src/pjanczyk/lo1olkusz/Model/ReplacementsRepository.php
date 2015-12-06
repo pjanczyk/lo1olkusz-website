@@ -105,6 +105,8 @@ WHERE date>=:date AND lastModified>=FROM_UNIXTIME(:lastModified)');
             $results[] = clone $obj;
         }
 
+        print_r($results);
+
         return $results;
     }
 

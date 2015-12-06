@@ -9,11 +9,11 @@ class ReplacementsController extends Controller
 {
     public function index()
     {
-        $model = new ReplacementsRepository;
+        $repo = new ReplacementsRepository;
 
         $template = $this->includeTemplate('dashboard/replacements_list');
 
-        $replacements = $model->listAll();
+        $replacements = $repo->listAll();
 
         $transposed = [];
 
