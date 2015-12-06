@@ -38,14 +38,15 @@
 
             <div class="masthead clearfix">
                 <div class="inner">
-                    <h3 class="masthead-brand">lo1olkusz app</h3>
+                    <h3 class="masthead-brand">lo1olkusz unofficial app</h3>
+                    <!--
                     <nav>
                         <ul class="nav masthead-nav">
-                            <li class="active"><a href="#">Home</a></li>
+                            <li class="active"><a href="/">Home</a></li>
                             <li><a href="/download">Pobierz</a></li>
                             <li><a href="/contact">Kontakt</a></li>
                         </ul>
-                    </nav>
+                    </nav>-->
                 </div>
             </div>
 
