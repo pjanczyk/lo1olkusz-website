@@ -102,6 +102,7 @@ WHERE date>=:date AND lastModified>=FROM_UNIXTIME(:lastModified)');
 
         $results = [];
         while ($stmt->fetch(PDO::FETCH_BOUND)) {
+            print_r($obj->date);
             $results[] = clone $obj;
         }
 
