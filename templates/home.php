@@ -42,8 +42,8 @@
                     <nav>
                         <ul class="nav masthead-nav">
                             <li class="active"><a href="#">Home</a></li>
-                            <li><a href="#">Pobierz</a></li>
-                            <li><a href="#">Kontakt</a></li>
+                            <li><a href="/download">Pobierz</a></li>
+                            <li><a href="/contact">Kontakt</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -53,7 +53,7 @@
                 <h1 class="cover-heading">Wszystko w jednym miejscu</h1>
                 <p class="lead">Plan lekcji, zastępstwa i szczęśliwy numerek na dany dzień.</p>
                 <p class="lead">
-                    <a href="#" class="btn btn-lg btn-default">Learn more</a>
+                    <a href="/download" class="btn btn-lg btn-default">Pobierz</a>
                 </p>
             </div>
 
