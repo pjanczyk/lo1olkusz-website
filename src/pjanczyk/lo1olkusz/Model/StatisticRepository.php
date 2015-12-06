@@ -26,8 +26,8 @@ ON DUPLICATE KEY UPDATE count=count+1');
 
         $stmt->bindParam(':pageId', $pageId, PDO::PARAM_INT);
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
-        $stmt->bindParam(':version', $aid, PDO::PARAM_INT);
-        $stmt->bindParam(':aid', $aid, PDO::PARAM_STR);
+        $stmt->bindParam(':version', $version, PDO::PARAM_INT);
+        $stmt->bindParam(':aid', $androidId, PDO::PARAM_STR);
 
         $stmt->execute();
     }
