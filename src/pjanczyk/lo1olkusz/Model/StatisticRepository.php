@@ -46,19 +46,7 @@ ORDER BY date DESC, version DESC');
         $stmt->bindParam(':pageId', $pageId, \PDO::PARAM_INT);
         $stmt->execute();
 
-        $obj = new Statistic;
-        $obj->pageId = $pageId;
-        $stmt->bindColumn(1, $obj->date, PDO::PARAM_STR);
-        $stmt->bindColumn(2, $obj->version, PDO::PARAM_INT);
-        $stmt->bindColumn(3, $obj->uniqueVisits, PDO::PARAM_INT);
-        $stmt->bindColumn(4, $obj->visits, PDO::PARAM_INT);
-
-        $results = [];
-        while ($stmt->fetch(PDO::FETCH_BOUND)) {
-            $results[] = clone $obj;
-        }
-
-        return $results;
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\Model\Statistic');
     }
 
 }

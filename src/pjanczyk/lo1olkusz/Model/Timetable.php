@@ -34,6 +34,6 @@ class Timetable
 
     public function __construct()
     {
-        $this->lastModified = (int) $this->lastModified;
+        settype($this->lastModified, 'int');
     }
 }

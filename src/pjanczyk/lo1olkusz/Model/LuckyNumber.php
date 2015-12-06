@@ -34,7 +34,7 @@ class LuckyNumber
 
     public function __construct()
     {
-        $this->lastModified = (int) $this->lastModified;
-        $this->value = (int) $this->value;
+        settype($this->lastModified, 'int');
+        settype($this->value, 'int');
     }
 }

@@ -36,7 +36,7 @@ class Replacements
 
     public function __construct()
     {
-        $this->lastModified = (int) $this->lastModified;
+        settype($this->lastModified, 'int');
         $this->value = json_decode($this->value);
     }
 }

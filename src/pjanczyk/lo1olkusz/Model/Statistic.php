@@ -15,4 +15,12 @@ class Statistic
     public $visits;
     /** @var int */
     public $uniqueVisits;
+
+    public function __construct()
+    {
+        settype($this->pageId, 'int');
+        settype($this->version, 'int');
+        settype($this->visits, 'int');
+        settype($this->uniqueVisits, 'int');
+    }
 }
