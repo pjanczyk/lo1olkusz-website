@@ -25,7 +25,7 @@ class RestController extends Controller
         }
 
         $version = intval(getParameter('v', '0'));
-        $androidId = getParameter('aid', '0');
+        $androidId = getParameter('aid', '');
 
         $statistics = new StatisticRepository;
         $statistics->increaseVisits(StatisticRepository::REST_API, date('Y-m-d'), $version, $androidId);
