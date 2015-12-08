@@ -76,6 +76,7 @@ class Config implements \pjanczyk\Framework\Config
     {
         return [
             '' => 'pjanczyk\lo1olkusz\Controller\HomeController',
+            'contact' => 'pjanczyk\lo1olkusz\Controller\ContactController',
             'download' => 'pjanczyk\lo1olkusz\Controller\DownloadController',
             'dashboard' => [
                 '' => 'pjanczyk\lo1olkusz\Controller\Dashboard\HomeController',

@@ -21,7 +21,7 @@
                 <td><?= $ln->value ?></td>
                 <td><?= formatTimestamp($ln->lastModified) ?></td>
             </tr>
-        <? endforeach ?>
+        <?php endforeach ?>
         </tbody>
     </table>
 

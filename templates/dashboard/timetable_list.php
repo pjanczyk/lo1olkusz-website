@@ -62,9 +62,10 @@
                     </div>
                 </td>
             </tr>
-        <? endforeach ?>
+        <?php endforeach ?>
         </tbody>
     </table>
 
 
 <?php include 'templates/dashboard/footer.php' ?>
+

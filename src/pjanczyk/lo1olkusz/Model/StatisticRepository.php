@@ -11,6 +11,7 @@ class StatisticRepository
     const REST_API = 1;
     const HOME_PAGE = 2;
     const DOWNLOAD = 3;
+    const CONTACT_PAGE = 4;
 
     /**
      * @param int $pageId

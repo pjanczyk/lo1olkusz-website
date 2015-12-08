@@ -31,7 +31,7 @@
             </td>
             </tr>
         <?php endforeach ?>
-    <? endforeach ?>
+    <?php endforeach ?>
     </tbody>
 </table>
 

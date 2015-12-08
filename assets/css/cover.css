@@ -12,12 +12,25 @@ a:hover {
 /* Custom default button */
 .btn-default,
 .btn-default:hover,
-.btn-default:focus {
-  color: #333;
-  text-shadow: none; /* Prevent inheritence from `body` */
-  background-color: #fff;
-  border: 1px solid #fff;
+.btn-default:focus,
+.btn-default:active {
+  color: #fff;
+  background-color: #ff1744;
+  border: 1px solid #A70F2C;
 }
+
+.btn-default:active:hover,
+.btn-default:active:focus {
+  color: #fff;
+  background-color: #BF1637;
+  border: 1px solid #A70F2C;
+}
+
+.btn-default > img {
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,.5));
+  -webkit-filter: drop-shadow(0 1px 3px rgba(0,0,0,.5));
+}
+
 
 
 /*
@@ -27,7 +40,11 @@ a:hover {
 html,
 body {
   height: 100%;
-  background-color: #333;
+  background-color: #131d62;
+  background-image: url("/assets/img/logo.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: top;
 }
 body {
   color: #fff;
@@ -67,6 +84,26 @@ body {
   margin-bottom: 10px;
 }
 
+.masthead-brand > img {
+  vertical-align: top;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,.25));
+  -webkit-filter: drop-shadow(0 1px 3px rgba(0,0,0,.25));
+}
+
+.masthead-brand > div {
+  display: inline-block;
+}
+
+.masthead-brand p {
+  margin-bottom: -5px;
+  text-align: left;
+}
+
+.masthead-brand small {
+  color: #fff;
+  color: rgba(255, 255, 255, 0.8);
+}
+
 .masthead-nav > li {
   display: inline-block;
 }
@@ -86,13 +123,13 @@ body {
 .masthead-nav > li > a:focus {
   background-color: transparent;
   border-bottom-color: #a9a9a9;
-  border-bottom-color: rgba(255,255,255,.25);
+  border-bottom-color: rgba(255,23,68,.25);
 }
 .masthead-nav > .active > a,
 .masthead-nav > .active > a:hover,
 .masthead-nav > .active > a:focus {
   color: #fff;
-  border-bottom-color: #fff;
+  border-bottom-color: #ff1744;
 }
 
 @media (min-width: 768px) {
