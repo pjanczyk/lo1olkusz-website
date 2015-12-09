@@ -28,5 +28,5 @@ interface Config
     public function getDbPassword();
     public function getDbOptions();
     public function getRoute();
-    public function getNotFoundRoute();
+    public function getHttp404Handler();
 }

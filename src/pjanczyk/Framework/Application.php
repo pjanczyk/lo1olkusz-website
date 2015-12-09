@@ -66,7 +66,8 @@ final class Application
     public function start()
     {
         if (!$this->route($this->config->getRoute())) {
-            http404();
+            $this->display404Error();
+            return;
         }
 
         $this->controller = new $this->controllerName;
@@ -74,7 +75,7 @@ final class Application
         if (method_exists($this->controller, $this->action)) {
             call_user_func_array([$this->controller, $this->action], $this->params);
         } else {
-            http404();
+            $this->display404Error();
         }
     }
 
@@ -118,5 +119,11 @@ final class Application
             }
         }
         return false;
+    }
+
+    public function display404Error()
+    {
+        $handler = $this->config->getHttp404Handler();
+        $handler();
     }
 }

@@ -27,13 +27,6 @@ require 'autoloader.php';
 use pjanczyk\Framework\Application;
 use pjanczyk\lo1olkusz\Config;
 
-function http404()
-{
-    header('HTTP/1.0 404 Not Found');
-    include 'html/404.html';
-    exit;
-}
-
 function formatTimestamp($timestamp)
 {
     return date("G:i d.m.Y", $timestamp);

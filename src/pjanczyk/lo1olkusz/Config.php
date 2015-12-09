@@ -91,8 +91,12 @@ class Config implements \pjanczyk\Framework\Config
         ];
     }
 
-    public function getNotFoundRoute()
+    public function getHttp404Handler()
     {
-        return 'pjanczyk\lo1olkusz\Controller\Dashboard\NotFoundController';
+        return function () {
+            header('HTTP/1.0 404 Not Found');
+            include '404.html';
+            exit;
+        };
     }
 }

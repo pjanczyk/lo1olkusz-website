@@ -20,6 +20,7 @@
 
 namespace pjanczyk\lo1olkusz\Controller\Dashboard;
 
+use pjanczyk\Framework\Application;
 use pjanczyk\Framework\Controller;
 use pjanczyk\lo1olkusz\Model\TimetableRepository;
 
@@ -73,7 +74,7 @@ class TimetablesController extends Controller
         $timetable = $model->getByClass($class);
 
         if ($timetable === null) {
-            http404();
+            Application::getInstance()->display404Error();
             return;
         }
 
