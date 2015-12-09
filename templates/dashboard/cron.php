@@ -46,7 +46,7 @@
         }
 
         function clearCron() {
-            $.ajax({type: "DELETE", url: "/api/cron"})
+            $.ajax({type: "DELETE", url: "/api/logs"})
                 .done(function (data) {
                     if (data == 'OK') {
                         $("#cron-log").empty();
@@ -58,7 +58,7 @@
         }
 
         function runCron() {
-            $.post("/api/cron", function (data) {
+            $.post("/api/logs", function (data) {
                 $(".page-header").after(
                     '<pre>' + data + '</pre>'
                 );

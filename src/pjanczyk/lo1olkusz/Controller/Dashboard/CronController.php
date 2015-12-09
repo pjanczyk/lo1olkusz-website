@@ -27,19 +27,5 @@ class CronController extends Controller
     public function index()
     {
         $this->includeTemplate('dashboard/cron')->render();
-        //TODO
-        //$path = Application::getInstance()->getConfig()->getLogDir() . 'cron.log';
-
-//        if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
-//            unlink($path);
-//            echo 'OK';
-//        } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-//            $task = new CronTask;
-//            $task->run();
-//        } else {
-//            $template = $this->includeTemplate('cron');
-//            $template->logContent = file_exists($path) ? file_get_contents($path) : '';
-//            $template->render();
-//        }
     }
 }
