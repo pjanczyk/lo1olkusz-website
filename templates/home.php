@@ -30,7 +30,7 @@
 
 <body>
 
-<img src="/assets/img/background-logo.svg" style="display: none" />;
+<img src="/assets/img/background-logo.svg" style="display: none" />
 <div class="site-wrapper">
 
     <div class="site-wrapper-inner">
