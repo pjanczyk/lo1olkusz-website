@@ -58,3 +58,10 @@
 </nav>
 
 <div class="container theme-showcase" role="main">
+
+<?php
+function formatTimestamp($timestamp)
+{
+    return date("G:i d.m.Y", $timestamp);
+}
+?>

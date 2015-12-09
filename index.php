@@ -27,13 +27,7 @@ require 'autoloader.php';
 use pjanczyk\Framework\Application;
 use pjanczyk\lo1olkusz\Config;
 
-function formatTimestamp($timestamp)
-{
-    return date("G:i d.m.Y", $timestamp);
-}
-
 date_default_timezone_set('Europe/Warsaw');
-
 
 Application::getInstance()->init(new Config);
 Application::getInstance()->start();
