@@ -45,37 +45,37 @@ class ReplacementsParserTest extends PHPUnit_Framework_TestCase
         $last = new Replacements;
         $last->date = "2015-06-23";
         $last->class = "1a";
-        $last->value = '{"5":"matematyka, mgr R. Dylewska"}';
+        $last->value = [5 => "matematyka, mgr R. Dylewska"];
         $expected[] = $last;
 
         $last = new Replacements;
         $last->date = "2015-06-23";
         $last->class = "1b";
-        $last->value = '{"1":"zaczyna o 9.55"}';
+        $last->value = [1 => "zaczyna o 9.55"];
         $expected[] = $last;
 
         $last = new Replacements;
         $last->date = "2015-06-23";
         $last->class = "1f";
-        $last->value = '{"7":"gr. N6- j.niem, mgr T. Wajdzik"}';
+        $last->value = [7 => "gr. N6- j.niem, mgr T. Wajdzik"];
         $expected[] = $last;
 
         $last = new Replacements;
         $last->date = "2015-06-23";
         $last->class = "2a";
-        $last->value = '{"1":"gr. N9- j.niem, mgr T. Wajdzik","8":"gr. N1- j.niem, mgr T. Wajdzik"}';
+        $last->value = [1 => "gr. N9- j.niem, mgr T. Wajdzik", 8 => "gr. N1- j.niem, mgr T. Wajdzik"];
         $expected[] = $last;
 
         $last = new Replacements;
         $last->date = "2015-06-23";
         $last->class = "2d";
-        $last->value = '{"1":"gr. N9- j.niem, mgr T. Wajdzik","2":"gr. N4- j.niem, mgr T. Wajdzik"}';
+        $last->value = [1 => "gr. N9- j.niem, mgr T. Wajdzik", 2 => "gr. N4- j.niem, mgr T. Wajdzik"];
         $expected[] = $last;
 
         $last = new Replacements;
         $last->date = "2015-06-23";
         $last->class = "2e";
-        $last->value = '{"1":"gr. N9- j.niem, mgr T. Wajdzik"}';
+        $last->value = [1 => "gr. N9- j.niem, mgr T. Wajdzik"];
         $expected[] = $last;
 
         $this->assertEquals($expected, $result);

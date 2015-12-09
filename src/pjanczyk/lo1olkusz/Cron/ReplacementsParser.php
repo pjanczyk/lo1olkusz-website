@@ -80,14 +80,12 @@ class ReplacementsParser
             $cells = $row->find('th, td');
 
             if (count($cells) === 1) { //class name, e.g. | 2a |
-                if ($current !== null) {
-                    $current->value = json_encode($current->value);
-                    $replacements[] = $current;
-                }
                 $current = new Replacements;
                 $current->date = $date;
                 $current->class = $cells[0]->plaintext;
                 $current->value = [];
+
+                $replacements[] = $current;
             } else if (count($cells) === 2) { //replacement entry, e.g. | 1 | j. niemiecki, mgr T. Wajdzik |
                 if ($current === null) {
                     $this->errors[] = "row: {$i}, no class name occurred before replacement text";
@@ -105,11 +103,6 @@ class ReplacementsParser
 
                 $current->value[$hour] = $text;
             }
-        }
-
-        if ($current != null) {
-            $current->value = json_encode($current->value);
-            $replacements[] = $current;
         }
 
         return $replacements;
