@@ -7,11 +7,9 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" type="image/png" href="/favicon.png" sizes="16x16" />
-    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
-    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/png" href="/favicon-160x160.png" sizes="160x160" />
-    <link rel="icon" type="image/png" href="/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/assets/img/favicon-16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/assets/img/favicon-32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/assets/img/favicon-48.png" sizes="48x48" />
 
     <title>lo1olkusz app</title>
 
