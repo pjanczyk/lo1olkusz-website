@@ -40,7 +40,7 @@
         }
 
         function loadCron() {
-            $.get('/api/cron', function (data) {
+            $.get('/api/logs', function (data) {
                 $("#cron-log").html(data);
             });
         }
