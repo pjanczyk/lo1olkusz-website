@@ -104,7 +104,7 @@ ON DUPLICATE KEY UPDATE value=:value');
 
         $stmt->bindParam(':class', $class, PDO::PARAM_STR);
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
-        $stmt->bindParam(':value', json_encode($value), PDO::PARAM_INT);
+        $stmt->bindValue(':value', json_encode($value), PDO::PARAM_STR);
 
         return $stmt->execute();
     }
