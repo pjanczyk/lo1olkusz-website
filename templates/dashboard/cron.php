@@ -58,7 +58,7 @@
         }
 
         function runCron() {
-            $.post("/api/logs", function (data) {
+            $.get("/dashboard/cron/run", function (data) {
                 $(".page-header").after(
                     '<pre>' + data + '</pre>'
                 );
