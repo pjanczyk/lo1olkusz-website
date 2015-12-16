@@ -26,6 +26,7 @@ class Json
     {
         header('HTTP/1.0 500 Internal Server Error');
         header('Content-Type: application/json');
+        header('Access-Control-Allow-Origin: *');
         echo json_encode(['error' => 'Interval Server Error']);
     }
 
@@ -33,6 +34,7 @@ class Json
     {
         header('HTTP/1.0 400 Bad Request');
         header('Content-Type: application/json');
+        header('Access-Control-Allow-Origin: *');
         echo json_encode(['error' => 'Bad Request']);
     }
 
@@ -40,12 +42,14 @@ class Json
     {
         header('HTTP/1.0 404 Not Found');
         header('Content-Type: application/json');
+        header('Access-Control-Allow-Origin: *');
         echo json_encode(['error' => 'Not Found']);
     }
 
     public static function OK($array)
     {
         header('Content-Type: application/json');
+        header('Access-Control-Allow-Origin: *');
         echo json_encode($array);
     }
 }
