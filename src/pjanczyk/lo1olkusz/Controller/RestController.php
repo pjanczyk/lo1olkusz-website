@@ -137,17 +137,20 @@ class RestController extends Controller
 
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             header('Content-Type: text');
+            header('Access-Control-Allow-Origin: *');
             if (file_exists($path)) {
                 readfile($path);
             }
         }
         else if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
             header('Content-Type: text');
+            header('Access-Control-Allow-Origin: *');
             unlink($path);
             echo 'OK';
         }
         else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header('Content-Type: text');
+            header('Access-Control-Allow-Origin: *');
             $task = new CronTask;
             $task->run();
         }
