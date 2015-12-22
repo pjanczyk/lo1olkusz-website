@@ -6,6 +6,7 @@ use pjanczyk\Framework\Controller;
 use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Cron\CronTask;
 use pjanczyk\lo1olkusz\Json;
+use pjanczyk\lo1olkusz\Model\BellsRepository;
 use pjanczyk\lo1olkusz\Model\LuckyNumberRepository;
 use pjanczyk\lo1olkusz\Model\NewsService;
 use pjanczyk\lo1olkusz\Model\ReplacementsRepository;
@@ -51,6 +52,13 @@ class RestController extends Controller
         $news = $newsService->getNews($today, $lastModified);
 
         Json::OK($news);
+    }
+
+    // api/bells
+    public function bells()
+    {
+        $repo = new BellsRepository;
+        Json::OK($repo->get());
     }
 
     // api/timetables/[<class>]
