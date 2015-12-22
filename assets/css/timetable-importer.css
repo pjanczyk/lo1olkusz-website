@@ -1,0 +1,18 @@
+h2 {
+    font-weight: 500;
+    text-align: center;
+}
+
+.btn-center {
+    display: block;
+    margin: auto;
+}
+
+.class {
+    font-weight: 400;
+}
+
+.class > span {
+    font-weight: 500;
+}
+

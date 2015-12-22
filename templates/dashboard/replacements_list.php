@@ -4,7 +4,7 @@
     <h1>Zastępstwa</h1>
 </div>
 
-<table class="table table-bordered" style="width: auto">
+<table class="table-centered" style="width: auto">
     <thead>
     <tr>
         <th>Data</th>
@@ -24,7 +24,7 @@
             <?php endif ?>
 
             <td><?= $r->class ?></td>
-            <td><?= formatTimestamp($r->lastModified) ?></td>
+            <td class="last-modified"><?= formatTimestamp($r->lastModified) ?></td>
             <td>
                 <a class="btn btn-default btn-xs"
                    href="/dashboard/replacements/view/<?= $r->date ?>/<?= $r->class ?>">Wyświetl</a>

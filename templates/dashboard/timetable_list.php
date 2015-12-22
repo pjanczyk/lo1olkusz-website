@@ -28,43 +28,23 @@
     </div>
 
 <?php include 'templates/dashboard/alerts.php' ?>
-    <div class="btn-group" role="group">
+    <div>
         <a href="/dashboard/timetables/add" class="btn btn-default">Dodaj</a>
+        <a href="/dashboard/timetables/import" class="btn btn-default">Importuj</a>
     </div>
-
-    <table class="table table-bordered" style="width: auto">
-        <thead>
-        <tr>
-            <th>Klasa</th>
-            <th>Zmodyfikowano</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
+    <br>
+    <div class="tbl tbl-centered" style="width: auto">
+        <div class="tbl-row tbl-header">
+            <div class="tbl-cell">Klasa</div>
+            <div class="tbl-cell">Zmodyfikowano</div>
+        </div>
         <?php foreach ($timetables as $timetable): ?>
-            <tr>
-                <td><?= $timetable->class ?></td>
-                <td><?= formatTimestamp($timetable->lastModified) ?></td>
-                <td>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                            Operacje
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="/dashboard/timetables/edit/<?= $timetable->class ?>">Edytuj</a>
-                            </li>
-                            <li><a class="timetable-delete"
-                                   href="/dashboard/timetables/delete/<?= $timetable->class ?>">Usuń</a>
-                            </li>
-                        </ul>
-                    </div>
-                </td>
-            </tr>
+            <a class="tbl-row" href="/dashboard/timetables/edit/<?= $timetable->class ?>">
+                <div class="tbl-cell"><?= $timetable->class ?></div>
+                <div class="tbl-cell last-modified"><?= formatTimestamp($timetable->lastModified) ?></div>
+            </a>
         <?php endforeach ?>
-        </tbody>
-    </table>
+    </div>
 
 
 <?php include 'templates/dashboard/footer.php' ?>

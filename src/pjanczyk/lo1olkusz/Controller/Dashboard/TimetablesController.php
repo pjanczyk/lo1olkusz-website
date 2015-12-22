@@ -32,17 +32,23 @@ class TimetablesController extends Controller
 
         $modelTimetables = new TimetableRepository;
 
-        if (isset($_POST['edit'], $_POST['class'], $_POST['timetable'])) {
-            $class = $_POST['class'];
-            $value = $_POST['timetable'];
-            if ($modelTimetables->setValue($class, $value)) {
-                $alerts[] = "Zapisano plan lekcji klasy \"{$class}\"";
-            }
-        } else if (isset($_POST['delete'], $_POST['class'])) {
+        if (isset($_POST['delete'], $_POST['class'])) {
             $class = $_POST['class'];
             if ($modelTimetables->delete($class)) {
                 $alerts[] = "Usunięto plan lekcji klasy \"{$class}\"";
             }
+        }
+        else if (isset($_POST['save'], $_POST['class'], $_POST['value'])) {
+            $class = $_POST['class'];
+            $value = $_POST['value'];
+            if ($modelTimetables->setValue($class, $value)) {
+                $alerts[] = "Zapisano plan lekcji klasy \"{$class}\"";
+            }
+        }
+
+        if (apache_request_headers()['Accept'] == 'text/plain') {
+            echo join("\n", $alerts);
+            return;
         }
 
         $template = $this->includeTemplate('dashboard/timetable_list');
@@ -53,7 +59,7 @@ class TimetablesController extends Controller
 
     public function add()
     {
-        $template = $this->includeTemplate('dashboard/timetable_edit');
+        $template = $this->includeTemplate('dashboard/timetable_view');
         $template->timetable = null;
         $template->render();
     }
@@ -62,7 +68,7 @@ class TimetablesController extends Controller
     {
         $model = new TimetableRepository;
 
-        $template = $this->includeTemplate('dashboard/timetable_edit');
+        $template = $this->includeTemplate('dashboard/timetable_view');
         $template->timetable = $model->getByClass($class);
         $template->render();
     }
@@ -80,6 +86,12 @@ class TimetablesController extends Controller
 
         $template = $this->includeTemplate('dashboard/timetable_delete');
         $template->timetable = $timetable;
+        $template->render();
+    }
+
+    public function import()
+    {
+        $template = $this->includeTemplate('dashboard/timetable_importer');
         $template->render();
     }
 }

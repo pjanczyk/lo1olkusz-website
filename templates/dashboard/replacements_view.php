@@ -3,38 +3,23 @@
 <?php include 'templates/dashboard/header.php' ?>
 
 <div class="page-header">
-    <h1>Zastępstwa</h1>
+    <h1>
+        <a href="/dashboard/replacements">Zastępstwa</a>
+    </h1>
 </div>
 
-<div class="form-horizontal">
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Data</label>
-        <div class="col-sm-10">
-            <p class="form-control-static"><?=$replacements->date?></p>
-        </div>
+<div class="pnl">
+    <div class="pnl-header">
+        <?=$replacements->date?><br/>
+        <b>klasa <?=$replacements->class?></b>
+        <span class="last-modified pull-right"><?=formatTimestamp($replacements->lastModified)?></span>
     </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Klasa</label>
-        <div class="col-sm-10">
-            <p class="form-control-static"><?=$replacements->class?></p>
+    <?php foreach($replacements->value as $hour => $text): ?>
+        <div class="list-item">
+            <div class="replacement-hour"><?=$hour?>.</div>
+            <div class="replacement-subject"><?=$text?></div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Zmodyfikowano</label>
-        <div class="col-sm-10">
-            <p class="form-control-static"><?=formatTimestamp($replacements->lastModified)?></p>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Wartość</label>
-        <div class="col-sm-10">
-            <p class="form-control-static">
-                <?php foreach($replacements->value as $hour => $text): ?>
-                    <?=$hour?>. <?=$text?><br/>
-                <?php endforeach ?>
-            </p>
-        </div>
-    </div>
+    <?php endforeach ?>
 </div>
 
 <?php include 'templates/dashboard/footer.php' ?>

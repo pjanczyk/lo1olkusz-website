@@ -5,49 +5,60 @@
 
 <?php include 'templates/dashboard/header.php' ?>
 
+<?php
+function map($item, &$days) {
+    $date = $item->date;
+    if (!isset($days[$date])) {
+        $days[$date] = [];
+    }
+    $days[$date][] = $item;
+}
+
+$daily = [];
+foreach ($news->luckyNumbers as $ln) {
+    map($ln, $daily);
+}
+$dailyReplacements = [];
+foreach ($news->replacements as $r) {
+    map($r, $daily);
+}
+
+?>
+
 <div class="page-header">
     <h1>Strona główna</h1>
 </div>
-<p>wyniki od <?=formatTimestamp($now)?></p>
 
-<h3>Wersja aplikacji: <?=$news->version?></h3>
+<span class="last-modified">wyniki z <?=formatTimestamp($now)?></span>
+<span class="pull-right">wersja aplikacji: <?=$news->version?></span>
+<br>
 
-<h3>Szczęśliwe numerki</h3>
-<table class="table table-responsive">
-    <?php foreach ($news->luckyNumbers as $ln): ?>
-        <tr>
-            <td><?=$ln->date?></td>
-            <td><?=$ln->value?></td>
-            <td class="last-modified"><?=formatTimestamp($ln->lastModified)?></td>
-        </tr>
-    <?php endforeach ?>
-</table>
-
-<h3>Zastępstwa</h3>
-<table class="table table-responsive">
-    <?php foreach ($news->replacements as $r): ?>
-        <tr>
-            <td><?=$r->date?></td>
-            <td><?=$r->class?></td>
-            <td>
-                <?php foreach($r->value as $hour => $text): ?>
-                    <?=$hour?>. <?=$text?><br/>
+<?php foreach ($daily as $day=>$daily): ?>
+    <h3><?=$day?></h3>
+    <?php foreach ($daily as $item): ?>
+        <?php if ($item instanceof \pjanczyk\lo1olkusz\Model\LuckyNumber): ?>
+            <div class="pnl">
+                <div class="pnl-header">
+                    Szczęśliwy numerek: <b><?=$item->value?></b>
+                    <span class="last-modified pull-right"><?=formatTimestamp($item->lastModified)?></span>
+                </div>
+            </div>
+        <?php else: ?>
+            <div class="pnl">
+                <div class="pnl-header">
+                    Zastępstwo
+                    <span class="class-name"><b><?=$item->class?></b></span>
+                    <span class="last-modified pull-right"><?=formatTimestamp($item->lastModified)?></span>
+                </div>
+                <?php foreach($item->value as $hour => $text): ?>
+                    <div class="list-item">
+                        <div class="replacement-hour"><?=$hour?>.</div>
+                        <div class="replacement-subject"><?=$text?></div>
+                    </div>
                 <?php endforeach ?>
-            </td>
-            <td><?=formatTimestamp($r->lastModified)?></td>
-        </tr>
+            </div>
+        <?php endif ?>
     <?php endforeach ?>
-</table>
-
-<h3>Plany lekcji</h3>
-<table class="table table-responsive">
-    <?php foreach ($news->timetables as $t): ?>
-        <tr>
-            <td><?=$t->class?></td>
-            <td><pre><?=$t->value?></pre></td>
-            <td><?=formatTimestamp($t->lastModified)?></td>
-        </tr>
-    <?php endforeach ?>
-</table>
+<?php endforeach ?>
 
 <?php include 'templates/dashboard/footer.php';

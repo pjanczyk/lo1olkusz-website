@@ -1,0 +1,303 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+}
+
+body > .container {
+    padding: 60px 15px 0;
+}
+.container .text-muted {
+    line-height: 60px;
+    margin: 0;
+}
+.footer > .container {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+@media (min-width: 992px) {
+    .container-narrow {
+        width: 750px !important;
+    }
+}
+
+.navbar-inverse {
+    background-color: #283593;
+    border-bottom: none;
+    box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+    min-height: 48px;
+}
+
+.navbar-inverse .navbar-brand {
+    height: 48px;
+    padding: 0 15px;
+    color: rgba(255, 255, 255, 0.7);
+    font: 500 20px/48px Roboto,sans-serif;
+}
+
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus {
+    color: #fff;
+}
+
+.navbar-toggle {
+    float: left;
+    margin-left: 15px;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: rgba(255, 255, 255, 0.7);
+    font: 500 14px/44px Roboto,sans-serif;
+    padding: 0 12px;
+    transition: color .2s;
+    border-bottom: 2px solid transparent;
+    border-top: 2px solid transparent;
+}
+
+.navbar-inverse .navbar-nav>.active>a,
+.navbar-inverse .navbar-nav>.active>a:focus,
+.navbar-inverse .navbar-nav>.active>a:hover {
+    border-bottom-color: #fff;
+    color: #fff;
+    background: none !important;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+h1 {
+    font-size: 32px;
+    font-weight: 500;
+}
+h1 > a {
+    font-weight: normal;
+}
+h1 .btn-lg {
+    margin-top: -5px;
+    margin-bottom: -6px;
+}
+
+
+/* Table */
+.table-centered > tbody > tr > td,
+.table-centered > thead > tr > th,
+.tbl-centered .tbl-cell {
+    text-align: center;
+}
+
+table, .tbl, .pnl {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.07);
+    margin-bottom: 10px;
+    margin-top: 3px;
+}
+
+.tbl {
+    display: table;
+    border-collapse: collapse;
+}
+
+.tbl-row {
+    display: table-row;
+}
+
+.tbl-cell {
+    display: table-cell;
+}
+
+th,
+.tbl-header > .tbl-cell {
+    padding: 0 15px;
+    font-size: 18px;
+    line-height: 48px;
+    height: 48px;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-left-color: #eee;
+    border-right-color: #eee;
+    border-bottom-color: #ccc;
+    font-weight: 400;
+}
+
+td,
+.tbl-cell {
+    border: 1px solid #ddd;
+    border-left-color: #eee;
+    border-right-color: #eee;
+    padding: 8px 15px;
+    font-size: 16px;
+}
+
+th:first-child,
+td:first-child,
+.tbl-cell:first-child {
+    border-left-color: #ddd;
+}
+
+th:last-child,
+td:last-child,
+.tbl-cell:last-child {
+    border-right-color: #ddd;
+}
+
+a.tbl-row {
+    text-decoration: none;
+    color: black;
+}
+
+a.tbl-row:hover, a.tbl-row:focus {
+    background: #f8f8f8;
+}
+
+a.tbl-row:active {
+    background: #eee;
+}
+
+/* Panel */
+.pnl {
+    border: 1px solid #ddd;
+}
+.pnl-header {
+    padding: 10px 20px;
+    font-size: 18px;
+    line-height: 28px;
+    background: #f5f5f5;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+}
+.pnl-header button {
+    margin: -1px -10px -1px 10px;
+}
+
+.glyphicon-menu-right {
+    font-size: 75%;
+}
+
+.ln-value {
+    font-weight: 500;
+}
+
+.last-modified {
+    color: #555;
+    font-weight: 300;
+}
+
+.pnl-header .last-modified {
+    font-size: 16px;
+}
+
+
+.list-item {
+    margin: 0 10px;
+    padding: 0 10px;
+    border-bottom: 1px solid #e1e1e1;
+    min-height: 40px;
+}
+
+.list-item:last-child {
+    border-bottom: none;
+}
+
+.code {
+    border: 1px solid #ddd;
+    padding: 10px;
+    min-height: 300px;
+    color: #333;
+    font-family: Consolas, Monaco, "Courier New", monospace;
+    font-size: 13px;
+}
+
+textarea {
+    resize: vertical;
+    width: 100%;
+}
+
+/* Replacement view */
+.replacement-hour,
+.replacement-subject {
+    line-height: 40px;
+    font-size: 16px;
+}
+.replacement-hour {
+    color: #009688;
+    padding-right: 5px;
+    float: left;
+}
+
+/* Timetable view */
+.timetable {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.timetable > .timetable-day {
+    vertical-align: top;
+    padding: 0 !important;
+    width: 350px;
+    border: 1px solid #ddd;
+    margin-right: -1px;
+    margin-bottom: 10px;
+}
+
+.timetable .list-item > .hour {
+    color: #009688;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    padding-right: 5px;
+    float: left;
+}
+
+.timetable .subject-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.timetable .subject-container > .subject {
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: -1px;
+    flex: 0 1 auto;
+    border-right: 1px solid rgba(0, 0, 0, 0.18);
+}
+.timetable .subject-container > .subject:last-child {
+    border-right: none;
+}
+
+.timetable .subject > .name {
+    color: #000;
+    font-size: 16px;
+}
+.timetable .subject > .classroom {
+    color: #666;
+    font-size: 14px;
+}
+.timetable .subject > .group {
+    color: #283593;
+    font-size: 14px;
+}
+.timetable .subject > .error {
+    color: #c00;
+    font-size: 14px;
+}
+.timetable .code {
+    font-size: 14px;
+}

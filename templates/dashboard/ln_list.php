@@ -6,7 +6,7 @@
         <h1>Szczęśliwe numerki</h1>
     </div>
 
-    <table class="table table-bordered" style="width: auto">
+    <table class="table-centered" style="width: auto">
         <thead>
         <tr>
             <th>Data</th>
@@ -18,8 +18,8 @@
         <?php foreach ($lns as $ln): ?>
             <tr>
                 <td><?= $ln->date ?></td>
-                <td><?= $ln->value ?></td>
-                <td><?= formatTimestamp($ln->lastModified) ?></td>
+                <td class="ln-value"><?= $ln->value ?></td>
+                <td class="last-modified"><?= formatTimestamp($ln->lastModified) ?></td>
             </tr>
         <?php endforeach ?>
         </tbody>

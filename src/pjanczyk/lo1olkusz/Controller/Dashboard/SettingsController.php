@@ -55,7 +55,8 @@ class SettingsController extends Controller
         $template->alerts = $alerts;
         $template->version = $settings->getVersion();
         if (file_exists($apkPath)) {
-            $template->apkLastModified = date('Y-m-d H:i:s', filemtime($apkPath));
+            $template->apkMd5 = md5_file($apkPath);
+            $template->apkLastModified = filemtime($apkPath);
         }
 
         $template->render();
