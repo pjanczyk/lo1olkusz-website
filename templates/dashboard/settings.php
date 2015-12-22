@@ -59,6 +59,37 @@
             </form>
         </div>
     </div>
+
+    <div class="col-sm-6">
+        <div class="pnl">
+            <div class="pnl-header">
+                Statystyki
+            </div>
+            <div class="panel-body">
+                <h4>REST api</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th>Zap.</th>
+                            <th>Unik.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($statRest as $s): ?>
+                            <tr>
+                                <td><?=$s->date?></td>
+                                <td>v<?=$s->version?></td>
+                                <td><?=$s->visits?></td>
+                                <td><?=$s->uniqueVisits?></td>
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 
 <?php include 'templates/dashboard/footer.php' ?>

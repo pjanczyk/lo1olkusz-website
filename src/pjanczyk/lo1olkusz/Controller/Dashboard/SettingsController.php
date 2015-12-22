@@ -24,6 +24,7 @@ use pjanczyk\Framework\Application;
 use pjanczyk\Framework\Controller;
 use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Model\SettingRepository;
+use pjanczyk\lo1olkusz\Model\StatisticRepository;
 
 class SettingsController extends Controller
 {
@@ -51,9 +52,16 @@ class SettingsController extends Controller
             }
         }
 
+        $statistics = new StatisticRepository;
+
         $template = $this->includeTemplate('dashboard/settings');
         $template->alerts = $alerts;
         $template->version = $settings->getVersion();
+
+        $template->statRest = $statistics->getStatistics(StatisticRepository::REST_API, 14);
+        $template->statDownload = $statistics->getStatistics(StatisticRepository::DOWNLOAD, 14);
+        $template->statHome = $statistics->getStatistics(StatisticRepository::HOME_PAGE, 14);
+
         if (file_exists($apkPath)) {
             $template->apkMd5 = md5_file($apkPath);
             $template->apkLastModified = filemtime($apkPath);

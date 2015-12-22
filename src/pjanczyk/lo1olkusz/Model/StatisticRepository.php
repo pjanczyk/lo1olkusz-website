@@ -25,6 +25,8 @@ class StatisticRepository
             'INSERT INTO statistics (pageId, date, version, aid, count) VALUES (:pageId, :date, :version, :aid, 1)
 ON DUPLICATE KEY UPDATE count=count+1');
 
+        $androidId = sha1($androidId);
+
         $stmt->bindParam(':pageId', $pageId, PDO::PARAM_INT);
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
         $stmt->bindParam(':version', $version, PDO::PARAM_INT);
@@ -37,14 +39,15 @@ ON DUPLICATE KEY UPDATE count=count+1');
      * @param int $pageId
      * @return array(Statistic)
      */
-    public static function getStatistics($pageId)
+    public static function getStatistics($pageId, $limit)
     {
         $stmt = Application::getDb()->prepare(
             'SELECT date, version, count(*), sum(count) FROM statistics WHERE pageId=:pageId
 GROUP BY date, version
-ORDER BY date DESC, version DESC');
+ORDER BY date DESC, version DESC LIMIT :limit');
 
         $stmt->bindParam(':pageId', $pageId, \PDO::PARAM_INT);
+        $stmt->bindParam(':limit', $limit, \PDO::PARAM_INT);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\Model\Statistic');
