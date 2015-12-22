@@ -22,6 +22,7 @@ namespace pjanczyk\lo1olkusz\Controller\Dashboard;
 
 use pjanczyk\Framework\Application;
 use pjanczyk\Framework\Controller;
+use pjanczyk\lo1olkusz\Model\BellsRepository;
 use pjanczyk\lo1olkusz\Model\TimetableRepository;
 
 class TimetablesController extends Controller
@@ -92,6 +93,24 @@ class TimetablesController extends Controller
     public function import()
     {
         $template = $this->includeTemplate('dashboard/timetable_importer');
+        $template->render();
+    }
+
+    public function bells()
+    {
+        $alerts = [];
+
+        $model = new BellsRepository;
+
+        if (isset($_POST['value'])) {
+            if ($model->set(json_decode($_POST['value'], true))) {
+                $alerts[] = "Zaktualizowano dzwonki";
+            }
+        }
+
+        $template = $this->includeTemplate('dashboard/timetable_bells');
+        $template->bells = $model->get();
+        $template->alerts = $alerts;
         $template->render();
     }
 }

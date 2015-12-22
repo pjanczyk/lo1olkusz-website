@@ -31,6 +31,7 @@
     <div>
         <a href="/dashboard/timetables/add" class="btn btn-default">Dodaj</a>
         <a href="/dashboard/timetables/import" class="btn btn-default">Importuj</a>
+        <a href="/dashboard/timetables/bells" class="btn btn-default">Dzwonki</a>
     </div>
     <br>
     <div class="tbl tbl-centered" style="width: auto">

@@ -222,16 +222,32 @@ textarea {
     width: 100%;
 }
 
-/* Replacement view */
+/* Replacement & bells view */
 .replacement-hour,
-.replacement-subject {
+.replacement-subject,
+.bell-hour {
     line-height: 40px;
     font-size: 16px;
 }
-.replacement-hour {
+.replacement-hour,
+.bell-hour {
     color: #009688;
     padding-right: 5px;
     float: left;
+}
+
+.bell-time {
+    margin-top: 6px;
+    margin-bottom: 6px;
+    width: 60px;
+    border: 1px solid #ddd;
+    text-align:right;
+    padding: 0 5px;
+}
+
+.bell-time.ng-invalid {
+    border: 1px solid #f77;
+    background-color: #fee;
 }
 
 /* Timetable view */
