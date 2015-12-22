@@ -42,7 +42,7 @@ ON DUPLICATE KEY UPDATE count=count+1');
     public static function getStatistics($pageId, $limit)
     {
         $stmt = Application::getDb()->prepare(
-            'SELECT date, version, count(*), sum(count) FROM statistics WHERE pageId=:pageId
+            'SELECT date, version, count(*) AS uniqueVisits, sum(count) AS visits FROM statistics WHERE pageId=:pageId
 GROUP BY date, version
 ORDER BY date DESC, version DESC LIMIT :limit');
 
