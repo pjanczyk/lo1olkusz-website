@@ -1,4 +1,4 @@
-angular.module('timetable-editor', [])
+angular.module('timetableEditor', [])
     .directive('timetableEditor', function() {
         return {
             restrict: 'E',

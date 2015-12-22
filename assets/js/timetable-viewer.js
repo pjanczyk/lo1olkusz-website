@@ -1,10 +1,10 @@
-angular.module('timetable-viewer', ['timetable-editor'])
+angular.module('timetableViewer', ['timetableEditor'])
     .controller('ViewerController', function () {
         var viewer = this;
 
         viewer.timetable = timetable;
         if (viewer.timetable === null) {
-            viewer.timetable = [ {}, {}, {}, {}, {} ]; //TODO
+            viewer.timetable = new Timetable();
         }
 
         viewer.save = function () {

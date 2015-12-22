@@ -2,7 +2,7 @@
 
 	/**
 	 * @param {string} text Text in a single cell of CSV to be parsed.
-	 * @param {string[][]} replace Array of [<regular_expression>, <replace_with>]
+	 * @param {string[][]} replace Array of [<regular_expression>, <replaceWith>]
 	 * @param {string[][]} subjectNames Array of [<regex>, <subjectName>, <group>]
 	 */
 	function decodeSubjectList(text, replace, subjectNames) {
@@ -13,37 +13,47 @@
 		replace.forEach(function(e) {
 			text = text.replace(new RegExp(e[0], 'g'), e[1]);
 		});
+
+        var replacedList = [];
 		
 		subjectNames.forEach(function(e) {
-			// 'A2.47 BIOL 47' -> '@A2%A2%.47 @Biologia%% 47'
-			var replaceWith = '@' + e[1] + '%' + (e[2] ? e[2] : '') + '%';
-			text = text.replace(new RegExp(e[0], 'g'), replaceWith);
+			// 'A2 H BIOL 47' -> '@ H @ 47'
+            var expr = e[0];
+            var nameReplace = e[1];
+            var groupReplace = e[2] ? e[2] : '';
+
+			text = text.replace(new RegExp(expr, 'g'), function(match) {
+                var re = new RegExp('^' + expr + '$');
+
+                replacedList.push({
+                    name: match.replace(re, nameReplace),
+                    group: match.replace(re, groupReplace)
+                });
+
+                return '@';
+			});
 		});
 
 		var results = [];
 		
-		text.split('@').forEach(function(part) {
+		var parts = text.split('@');
+        var part0 = parts.shift().trim();
+        if (part0 !== '') {
+            results.push({
+                name: part0,
+                error: true
+            });
+        }
+
+        parts.forEach(function(part, idx) {
 			part = part.trim();
-			if (part == '') return;
 
-			var subject;
-
-			var re = /^(.*)%(.*)%(.*)$/;
-			var match = re.exec(part);
-			if (match !== null) {
-				subject = {
-					"name": match[1].trim(),
-					"group": match[2].trim(),
-					"classroom": match[3].trim()
-				};
-			}
-			else { //unclassified case
-				subject = {
-					"name": part,
-					"error": true
-				};
-			}
-			
+            var replaced = replacedList[idx];
+			var subject = {
+                name: replaced.name,
+                group: replaced.group,
+                classroom: part
+            };
 			results.push(subject);
 		});
 		
@@ -99,7 +109,7 @@
 					if (className == "") break;
 					
 					currentClasses[i] = className;
-					result[className] = [ {}, {}, {}, {}, {} ];
+					result[className] = [ {}, {}, {}, {}, {} ]; //empty timetable
 				}
 			}
 			else { //subjects

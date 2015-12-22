@@ -1,60 +1,79 @@
-var app = angular.module('editor', ['timetable-editor']);
+angular.module('editor', ['timetableEditor'])
+    .controller('ImporterCtrl', function ($http) {
 
-app.controller('ImporterCtrl', function ($http) {
-    var importer = this;
+        /**
+         * Converts text of which each line is in format '<element0> -> <element1> -> <element2>'
+         * to array of arrays
+         * @param {String} input
+         * @returns {Array|}
+         */
+        function parseList(input) {
+            var results = [];
 
-    importer.inputCsv = "";
-    importer.inputReplace = "";
-    importer.inputSubjects = "";
+            var lines = input.split('\n');
+            lines.forEach(function (line) {
+                var re, match;
 
-    importer.timetables = [];
+                re = /^\s*"(.*)"\s*->\s*"(.*)"\s*->\s*"(.*)"\s*$/;
+                match = re.exec(line);
+                if (match !== null) {
+                    results.push(match.slice(1));
+                }
 
+                re = /^\s*"(.*)"\s*->\s*"(.*)"\s*$/;
+                match = re.exec(line);
+                if (match !== null) {
+                    results.push(match.slice(1));
+                }
+            });
 
-    importer.parseCsv = function () {
-        var replace = parseList(importer.inputReplace);
-        var subjects = parseList(importer.inputSubjects);
-        importer.timetables = parseCsv(importer.inputCsv, replace, subjects);
-    };
+            return results;
+        }
 
-    importer.discard = function (className) {
-        delete importer.timetables[className];
-    };
+        var importer = this;
 
-    importer.save = function (className) {
-        var timetable = importer.timetables[className];
+        importer.inputCsv = "";
+        importer.inputReplace = "";
+        importer.inputSubjects = "";
+        importer.timetables = [];
 
-        $http({
-            method: 'POST',
-            url: '/dashboard/timetables',
-            data: $.param({
-                'save': true,
-                'class': className,
-                'value': angular.toJson(timetable)
-            }),
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Accept': 'text/plain'
-            }
-        }).then(function success(response) {
-            alert(response.data);
-            importer.discard(className);
-        }, function error(response) {
-            alert('Błąd:\n' + response.data);
+        $http.get('/assets/js/csv-replace-default.txt').then(function (response) {
+            importer.inputReplace = response.data;
         });
-    }
-});
+        $http.get('/assets/js/csv-subjects-default.txt').then(function (response) {
+            importer.inputSubjects = response.data;
+        });
 
-function parseList(input) {
-    var results = [];
+        importer.parseCsv = function () {
+            var replace = parseList(importer.inputReplace);
+            var subjects = parseList(importer.inputSubjects);
+            importer.timetables = parseCsv(importer.inputCsv, replace, subjects);
+        };
 
-    var lines = input.split('\n');
-    lines.forEach(function (line) {
-        var parts = line.split('->');
-        if (parts.length >= 2) {
-            results.push(parts);
+        importer.discard = function (className) {
+            delete importer.timetables[className];
+        };
+
+        importer.save = function (className) {
+            var timetable = importer.timetables[className];
+
+            $http({
+                method: 'POST',
+                url: '/dashboard/timetables',
+                data: $.param({
+                    'save': true,
+                    'class': className,
+                    'value': angular.toJson(timetable)
+                }),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept': 'text/plain'
+                }
+            }).then(function success(response) {
+                alert(response.data);
+                importer.discard(className);
+            }, function error(response) {
+                alert('Błąd:\n' + response.data);
+            });
         }
     });
-
-    return results;
-}
-
