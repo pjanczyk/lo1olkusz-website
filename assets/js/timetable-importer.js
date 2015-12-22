@@ -1,4 +1,4 @@
-angular.module('editor', ['timetableEditor'])
+angular.module('timetableImporter', ['timetableEditor'])
     .controller('ImporterCtrl', function ($http) {
 
         /**

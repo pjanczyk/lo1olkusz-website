@@ -28,7 +28,7 @@ $wideContainer = true;
 <script src="/assets/js/timetable-editor.js"></script>
 <script src="/assets/js/timetable-importer.js"></script>
 
-<div ng-app="editor" ng-controller="ImporterCtrl as importer">
+<div ng-app="timetableImporter" ng-controller="ImporterCtrl as importer">
 	<div class="page-header">
 		<h1><a href="/dashboard/timetables">Plany lekcji</a>
             <span class="glyphicon glyphicon-menu-right"></span>

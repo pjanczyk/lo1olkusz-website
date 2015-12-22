@@ -4,7 +4,7 @@ angular.module('timetableViewer', ['timetableEditor'])
 
         viewer.timetable = timetable;
         if (viewer.timetable === null) {
-            viewer.timetable = new Timetable();
+            viewer.timetable = new [ {}, {}, {}, {}, {} ];
         }
 
         viewer.save = function () {

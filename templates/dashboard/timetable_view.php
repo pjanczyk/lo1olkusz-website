@@ -7,7 +7,7 @@
 <script src="/assets/js/timetable-editor.js"></script>
 <script src="/assets/js/timetable-viewer.js"></script>
 
-<div ng-app="timetable-viewer" ng-controller="ViewerController as viewer">
+<div ng-app="timetableViewer" ng-controller="ViewerController as viewer">
     <form id="form" action="/dashboard/timetables" method="post">
         <div class="page-header">
             <h1>

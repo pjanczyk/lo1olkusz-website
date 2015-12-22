@@ -9,7 +9,6 @@
 
     <title>lo1olkusz app</title>
 
-    <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=latin,latin-ext' rel='stylesheet'>
     <link href="/assets/css/style.css" rel="stylesheet">
@@ -19,7 +18,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-<!-- Fixed navbar -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container <?= isset($wideContainer) ? '': 'container-narrow' ?>">
         <div class="navbar-header">
@@ -57,7 +55,7 @@
     </div>
 </nav>
 
-<div class="container <?= isset($wideContainer) ? '': 'container-narrow' ?> theme-showcase" role="main">
+<div class="container <?= isset($wideContainer) ? '': 'container-narrow' ?>" role="main">
 
 <?php
 function formatTimestamp($timestamp)
