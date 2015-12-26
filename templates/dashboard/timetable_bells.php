@@ -2,14 +2,11 @@
 
 <?php include 'templates/dashboard/header.php' ?>
 
-<script>var bells = <?= $bells !== null ? json_encode($bells->value) : 'null' ?>;</script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <script src="/assets/js/timetable-bells.js"></script>
 
 <div ng-app="timetableBells" ng-controller="BellsController as controller">
-    <form name="form" id="form" action="/dashboard/timetables/bells" method="post">
-        <input type="hidden" name="value"/>
-
+    <form name="form">
         <div class="page-header">
             <h1>
                 <a href="/dashboard/timetables">Plany lekcji</a>
@@ -21,7 +18,9 @@
             </h1>
         </div>
 
-        <?php include 'templates/dashboard/alerts.php' ?>
+        <div ng-repeat="alert in controller.alerts" class="alert alert-{{alert.type}}" role="alert">
+            {{alert.value}}
+        </div>
 
         <div class="pnl">
             <div class="pnl-header">
@@ -31,9 +30,7 @@
                 <button type="button" class="btn btn-sm" ng-click="controller.removeRow()">
                     <span class="glyphicon glyphicon-minus"></span>
                 </button>
-                <?php if ($bells !== null): ?>
-                    <span class="last-modified pull-right"><?=formatTimestamp($bells->lastModified)?></span>
-                <?php endif ?>
+                <span ng-if="controller.lastModified" class="last-modified pull-right">{{controller.lastModified * 1000 | date:'yyyy-MM-dd HH:mm'}}</span>
             </div>
             <div>
                 <div ng-repeat="(hourNo, bell) in controller.bells" class="list-item">
@@ -41,7 +38,6 @@
                     <input class="bell-time" type="text" ng-required="true" ng-pattern="'\\d?\\d:\\d\\d'" ng-model="bell[0]">
                     -
                     <input class="bell-time" type="text" ng-required="true" ng-pattern="'\\d?\\d:\\d\\d'" ng-model="bell[1]">
-
                 </div>
             </div>
         </div>

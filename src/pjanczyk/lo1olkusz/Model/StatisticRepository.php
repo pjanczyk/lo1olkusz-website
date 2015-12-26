@@ -2,9 +2,8 @@
 
 namespace pjanczyk\lo1olkusz\Model;
 
-
 use PDO;
-use pjanczyk\Framework\Application;
+use pjanczyk\Framework\Database;
 
 class StatisticRepository
 {
@@ -21,7 +20,7 @@ class StatisticRepository
      */
     public static function increaseVisits($pageId, $date, $version, $androidId)
     {
-        $stmt = Application::getDb()->prepare(
+        $stmt = Database::get()->prepare(
             'INSERT INTO statistics (pageId, date, version, aid, count) VALUES (:pageId, :date, :version, :aid, 1)
 ON DUPLICATE KEY UPDATE count=count+1');
 
@@ -37,11 +36,12 @@ ON DUPLICATE KEY UPDATE count=count+1');
 
     /**
      * @param int $pageId
-     * @return array(Statistic)
+     * @param int $limit
+     * @return array
      */
     public static function getStatistics($pageId, $limit)
     {
-        $stmt = Application::getDb()->prepare(
+        $stmt = Database::get()->prepare(
             'SELECT date, version, count(*) AS uniqueVisits, sum(count) AS visits FROM statistics WHERE pageId=:pageId
 GROUP BY date, version
 ORDER BY date DESC, version DESC LIMIT :limit');

@@ -19,16 +19,27 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container <?= isset($wideContainer) ? '': 'container-narrow' ?>">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">lo1olkusz app</a>
+    <div class="brand-row">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="navbar-brand">
+                    <a class="navbar-brand-home" href="/">lo1olkusz app</a>
+                    <a class="navbar-brand-dashboard" href="/dashboard">dashboard</a>
+                </div>
+            </div>
+            <?php if(\pjanczyk\Framework\Auth::isAuthenticated()): ?>
+                <a class="logout" href="/dashboard/login/logout">Wyloguj</a>
+            <?php endif ?>
         </div>
+    </div>
+
+    <div class="container-fluid">
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <?php
@@ -57,9 +68,16 @@
 
 <div class="container <?= isset($wideContainer) ? '': 'container-narrow' ?>" role="main">
 
+
+
 <?php
+
+$authenticated = \pjanczyk\Framework\Auth::isAuthenticated();
+
 function formatTimestamp($timestamp)
 {
     return date("Y-m-d H:i", $timestamp);
 }
 ?>
+
+<script>var authenticated = <?= $authenticated ? 'true' : 'false' ?>;</script>

@@ -24,7 +24,7 @@ namespace pjanczyk\lo1olkusz\Cron;
 
 require_once 'libs/simple_html_dom.php';
 
-use pjanczyk\Framework\Application;
+use pjanczyk\Framework\Database;
 use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Model\LuckyNumberRepository;
 use pjanczyk\lo1olkusz\Model\ReplacementsRepository;
@@ -32,13 +32,13 @@ use pjanczyk\lo1olkusz\Model\ReplacementsRepository;
 
 class CronTask
 {
+    const URL = 'http://lo1.olkusz.pl/aktualnosci/zast';
+
     public function run()
     {
-        Application::getInstance()->init(new Config);
+        Database::init(Config::getInstance()->getDatabaseConfig());
 
-        $config = new Config;
-
-        $url = $config->getUrl();
+        $url = self::URL;
         $dom = file_get_html($url);
 
         if ($dom === false) {

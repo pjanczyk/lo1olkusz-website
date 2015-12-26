@@ -21,7 +21,7 @@
 namespace pjanczyk\lo1olkusz\Model;
 
 use PDO;
-use pjanczyk\Framework\Application;
+use pjanczyk\Framework\Database;
 
 class LuckyNumberRepository
 {
@@ -31,7 +31,7 @@ class LuckyNumberRepository
      */
     public function getByDate($date)
     {
-        $stmt = Application::getDb()->prepare(
+        $stmt = Database::get()->prepare(
             'SELECT date, value, UNIX_TIMESTAMP(lastModified) AS lastModified FROM luckyNumbers WHERE date=:date');
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
         $stmt->execute();
@@ -49,7 +49,7 @@ class LuckyNumberRepository
      */
     public function getByDateAndLastModified($date, $lastModified)
     {
-        $stmt = Application::getDb()->prepare(
+        $stmt = Database::get()->prepare(
             'SELECT date, value, UNIX_TIMESTAMP(lastModified) AS lastModified FROM luckyNumbers
 WHERE date>=:date AND lastModified>=FROM_UNIXTIME(:lastModified)');
 
@@ -65,7 +65,7 @@ WHERE date>=:date AND lastModified>=FROM_UNIXTIME(:lastModified)');
      */
     public function listAll()
     {
-        $stmt = Application::getDb()->prepare(
+        $stmt = Database::get()->prepare(
             'SELECT date, value, UNIX_TIMESTAMP(lastModified) AS lastModified FROM luckyNumbers ORDER BY date DESC');
         $stmt->execute();
 
@@ -80,7 +80,7 @@ WHERE date>=:date AND lastModified>=FROM_UNIXTIME(:lastModified)');
      */
     public function setValue($date, $value)
     {
-        $stmt = Application::getDb()->prepare(
+        $stmt = Database::get()->prepare(
             'INSERT INTO luckyNumbers (date, value) VALUES (:date, :value) ON DUPLICATE KEY UPDATE value=:value');
 
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);

@@ -20,26 +20,30 @@
 
 namespace pjanczyk\lo1olkusz\Controller\Dashboard;
 
-use pjanczyk\Framework\Application;
+use pjanczyk\Framework\Auth;
 use pjanczyk\Framework\Controller;
 use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Model\SettingRepository;
 use pjanczyk\lo1olkusz\Model\StatisticRepository;
 
-class SettingsController extends Controller
+class SettingController extends Controller
 {
+    public function __construct()
+    {
+        Auth::requireSSL();
+    }
+
     public function index()
     {
         $settings = new SettingRepository;
 
-        /** @var Config $config */
-        $config = Application::getConfig();
-
-        $apkPath = $config->getDataDir() . 'apk';
+        $apkPath = Config::getInstance()->getApkFilePath();
 
         $alerts = [];
 
         if (isset($_FILES['apk']) && $_FILES['apk']['error'] == UPLOAD_ERR_OK) {
+            Auth::requireAuthentication();
+
             $tempPath = $_FILES['apk']["tmp_name"];
             if (move_uploaded_file($tempPath, $apkPath)) {
                 $alerts[] = 'Zaktualizowano plik APK';
@@ -47,6 +51,8 @@ class SettingsController extends Controller
         }
 
         if (isset($_POST['version'])) {
+            Auth::requireAuthentication();
+
             if ($settings->setVersion($_POST['version'])) {
                 $alerts[] = 'Zaktualizowano wersję aplikacji';
             }

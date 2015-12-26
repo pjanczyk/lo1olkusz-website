@@ -21,12 +21,18 @@
 namespace pjanczyk\lo1olkusz\Controller\Dashboard;
 
 use pjanczyk\Framework\Application;
+use pjanczyk\Framework\Auth;
 use pjanczyk\Framework\Controller;
 use pjanczyk\lo1olkusz\Model\BellsRepository;
 use pjanczyk\lo1olkusz\Model\TimetableRepository;
 
-class TimetablesController extends Controller
+class TimetableController extends Controller
 {
+    public function __construct()
+    {
+        Auth::requireSSL();
+    }
+
     public function index()
     {
         $alerts = [];
@@ -34,12 +40,16 @@ class TimetablesController extends Controller
         $modelTimetables = new TimetableRepository;
 
         if (isset($_POST['delete'], $_POST['class'])) {
+            Auth::requireAuthentication();
+
             $class = $_POST['class'];
             if ($modelTimetables->delete($class)) {
                 $alerts[] = "Usunięto plan lekcji klasy \"{$class}\"";
             }
         }
         else if (isset($_POST['save'], $_POST['class'], $_POST['value'])) {
+            Auth::requireAuthentication();
+
             $class = $_POST['class'];
             $value = $_POST['value'];
             if ($modelTimetables->setValue($class, $value)) {
@@ -60,6 +70,8 @@ class TimetablesController extends Controller
 
     public function add()
     {
+        Auth::requireAuthentication();
+
         $template = $this->includeTemplate('dashboard/timetable_view');
         $template->timetable = null;
         $template->render();
@@ -76,6 +88,8 @@ class TimetablesController extends Controller
 
     public function delete($class)
     {
+        Auth::requireAuthentication();
+
         $model = new TimetableRepository;
 
         $timetable = $model->getByClass($class);
@@ -92,25 +106,20 @@ class TimetablesController extends Controller
 
     public function import()
     {
+        Auth::requireAuthentication();
+
         $template = $this->includeTemplate('dashboard/timetable_importer');
         $template->render();
     }
 
     public function bells()
     {
-        $alerts = [];
+        Auth::requireAuthentication();
 
         $model = new BellsRepository;
 
-        if (isset($_POST['value'])) {
-            if ($model->set(json_decode($_POST['value'], true))) {
-                $alerts[] = "Zaktualizowano dzwonki";
-            }
-        }
-
         $template = $this->includeTemplate('dashboard/timetable_bells');
         $template->bells = $model->get();
-        $template->alerts = $alerts;
         $template->render();
     }
 }

@@ -21,12 +21,14 @@
 namespace pjanczyk\Framework;
 
 
-interface Config
+class DatabaseConfig
 {
-    public function getDbDSN();
-    public function getDbUser();
-    public function getDbPassword();
-    public function getDbOptions();
-    public function getRoute();
-    public function getHttp404Handler();
+    /** @var string */
+    public $dsn;
+    /** @var string */
+    public $user;
+    /** @var string */
+    public $password;
+    /** @var array */
+    public $options;
 }

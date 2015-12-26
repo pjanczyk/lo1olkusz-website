@@ -2,7 +2,6 @@
 
 namespace pjanczyk\lo1olkusz\Controller;
 
-use pjanczyk\Framework\Application;
 use pjanczyk\Framework\Controller;
 use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Model\SettingRepository;
@@ -17,9 +16,7 @@ class DownloadController extends Controller
         $statistics = new StatisticRepository;
         $statistics->increaseVisits(StatisticRepository::DOWNLOAD, date('Y-m-d'), $version, '');
 
-        /** @var Config $config */
-        $config = Application::getConfig();
-        $path = $config->getDataDir() . 'apk';
+        $path = Config::getInstance()->getApkFilePath();
 
         if (file_exists($path)) {
             header('Content-Type: application/vnd.android.package-archive');

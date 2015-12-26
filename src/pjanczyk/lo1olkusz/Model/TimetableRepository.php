@@ -21,7 +21,7 @@
 namespace pjanczyk\lo1olkusz\Model;
 
 use PDO;
-use pjanczyk\Framework\Application;
+use pjanczyk\Framework\Database;
 
 class TimetableRepository
 {
@@ -31,7 +31,7 @@ class TimetableRepository
      */
     public function listAll()
     {
-        $stmt = Application::getDb()->prepare(
+        $stmt = Database::get()->prepare(
             'SELECT class, UNIX_TIMESTAMP(lastModified) AS lastModified FROM timetables ORDER BY class ASC');
 
         $stmt->execute();
@@ -45,7 +45,7 @@ class TimetableRepository
      */
     public function getByClass($class)
     {
-        $stmt = Application::getDb()->prepare(
+        $stmt = Database::get()->prepare(
             'SELECT class, value, UNIX_TIMESTAMP(lastModified) AS lastModified FROM timetables WHERE class=:class');
 
         $stmt->bindParam(':class', $class, PDO::PARAM_STR);
@@ -63,7 +63,7 @@ class TimetableRepository
      */
     public function getByLastModified($lastModified)
     {
-        $stmt = Application::getDb()->prepare(
+        $stmt = Database::get()->prepare(
             'SELECT class, value, UNIX_TIMESTAMP(lastModified) AS lastModified FROM timetables
 WHERE lastModified>=FROM_UNIXTIME(:lastModified)');
 
@@ -81,7 +81,7 @@ WHERE lastModified>=FROM_UNIXTIME(:lastModified)');
      */
     public function setValue($class, $value)
     {
-        $stmt = Application::getDb()->prepare('INSERT INTO timetables (class, value) VALUES (:class, :value)
+        $stmt = Database::get()->prepare('INSERT INTO timetables (class, value) VALUES (:class, :value)
 ON DUPLICATE KEY UPDATE value=:value');
 
         $stmt->bindParam(':class', $class);
@@ -92,7 +92,7 @@ ON DUPLICATE KEY UPDATE value=:value');
 
     public function delete($class)
     {
-        $stmt = Application::getDb()->prepare('DELETE FROM timetables WHERE class=:class');
+        $stmt = Database::get()->prepare('DELETE FROM timetables WHERE class=:class');
         $stmt->bindParam(':class', $class);
 
         return $stmt->execute();

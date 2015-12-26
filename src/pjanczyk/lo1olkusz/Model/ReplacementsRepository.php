@@ -21,7 +21,7 @@
 namespace pjanczyk\lo1olkusz\Model;
 
 use PDO;
-use pjanczyk\Framework\Application;
+use pjanczyk\Framework\Database;
 
 class ReplacementsRepository
 {
@@ -32,7 +32,7 @@ class ReplacementsRepository
      */
     public function getByClassAndDate($class, $date)
     {
-        $stmt = Application::getDb()->prepare(
+        $stmt = Database::get()->prepare(
             'SELECT class, date, value, UNIX_TIMESTAMP(lastModified) AS lastModified FROM replacements
 WHERE date=:date AND class=:class');
 
@@ -53,7 +53,7 @@ WHERE date=:date AND class=:class');
      */
     public function getByDateAndLastModified($date, $lastModified)
     {
-        $stmt = Application::getDb()->prepare(
+        $stmt = Database::get()->prepare(
             'SELECT class, date, value, UNIX_TIMESTAMP(lastModified) AS lastModified FROM replacements
 WHERE date>=:date AND lastModified>=FROM_UNIXTIME(:lastModified)');
 
@@ -70,7 +70,7 @@ WHERE date>=:date AND lastModified>=FROM_UNIXTIME(:lastModified)');
      */
     public function listAll()
     {
-        $stmt = Application::getDb()->prepare(
+        $stmt = Database::get()->prepare(
             'SELECT class, date, UNIX_TIMESTAMP(lastModified) AS lastModified FROM replacements
 ORDER BY date DESC, class ASC');
 
@@ -84,7 +84,7 @@ ORDER BY date DESC, class ASC');
      */
     public function count()
     {
-        $stmt = Application::getDb()->prepare('SELECT COUNT(*) FROM replacements');
+        $stmt = Database::get()->prepare('SELECT COUNT(*) FROM replacements');
         $stmt->execute();
 
         return (int)$stmt->fetchColumn();
@@ -98,7 +98,7 @@ ORDER BY date DESC, class ASC');
      */
     public function setValue($class, $date, $value)
     {
-        $stmt = Application::getDb()->prepare(
+        $stmt = Database::get()->prepare(
             'INSERT INTO replacements (class, date, value) VALUES (:class, :date, :value)
 ON DUPLICATE KEY UPDATE value=:value');
 

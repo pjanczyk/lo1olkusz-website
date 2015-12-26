@@ -21,7 +21,7 @@
 namespace pjanczyk\lo1olkusz\Model;
 
 use PDO;
-use pjanczyk\Framework\Application;
+use pjanczyk\Framework\Database;
 
 class SettingRepository
 {
@@ -31,7 +31,7 @@ class SettingRepository
      */
     public function get($name)
     {
-        $stmt = Application::getDb()->prepare('SELECT value FROM settings WHERE name=:name');
+        $stmt = Database::get()->prepare('SELECT value FROM settings WHERE name=:name');
         $stmt->bindParam(':name', $name);
         $stmt->execute();
 
@@ -45,7 +45,7 @@ class SettingRepository
      */
     public function setValue($name, $value)
     {
-        $stmt = Application::getDb()->prepare('INSERT INTO settings (name, value) VALUES (:name, :value)
+        $stmt = Database::get()->prepare('INSERT INTO settings (name, value) VALUES (:name, :value)
 ON DUPLICATE KEY UPDATE value=:value');
 
         $stmt->bindParam(':name', $name, PDO::PARAM_STR);

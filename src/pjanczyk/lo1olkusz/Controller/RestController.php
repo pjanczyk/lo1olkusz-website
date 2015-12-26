@@ -2,6 +2,7 @@
 
 namespace pjanczyk\lo1olkusz\Controller;
 
+use pjanczyk\Framework\Auth;
 use pjanczyk\Framework\Controller;
 use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Cron\CronTask;
@@ -17,7 +18,8 @@ class RestController extends Controller
 {
     public function __construct()
     {
-        function getParameter($name, $defaultValue) {
+        function getParameter($name, $defaultValue)
+        {
             if (isset($_GET[$name])) {
                 return urldecode($_GET[$name]);
             } else {
@@ -58,7 +60,33 @@ class RestController extends Controller
     public function bells()
     {
         $repo = new BellsRepository;
-        Json::OK($repo->get());
+
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            Json::OK($repo->get());
+
+        } else if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
+
+            if (!Auth::isAuthenticated()) {
+                Json::unauthorized();
+                return;
+            }
+
+            $value = json_decode(file_get_contents("php://input"), true);
+
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                Json::badRequest();
+                return;
+            }
+
+            if ($repo->set($value)) {
+                Json::OK(['message' => 'Updated']);
+            } else {
+                Json::OK(['message' => 'Same value is already set']);
+            }
+
+        } else {
+            Json::badRequest();
+        }
     }
 
     // api/timetables/[<class>]
@@ -69,8 +97,8 @@ class RestController extends Controller
         if (func_num_args() == 0) {
             $result = $repo->listAll();
             Json::OK($result);
-        }
-        else if (func_num_args() == 1) {
+
+        } else if (func_num_args() == 1) {
             $class = func_get_arg(0);
 
             $result = $repo->getByClass($class);
@@ -80,8 +108,7 @@ class RestController extends Controller
             } else {
                 Json::notFound();
             }
-        }
-        else {
+        } else {
             Json::badRequest();
         }
     }
@@ -94,8 +121,7 @@ class RestController extends Controller
         if (func_num_args() == 0) {
             $result = $repo->listAll();
             Json::OK($result);
-        }
-        else if (func_num_args() == 2) {
+        } else if (func_num_args() == 2) {
             $date = func_get_arg(0);
             $class = func_get_arg(1);
 
@@ -106,8 +132,7 @@ class RestController extends Controller
             } else {
                 Json::notFound();
             }
-        }
-        else {
+        } else {
             Json::badRequest();
         }
     }
@@ -120,8 +145,7 @@ class RestController extends Controller
         if (func_num_args() == 0) {
             $result = $repo->listAll();
             Json::OK($result);
-        }
-        else if (func_num_args() == 1) {
+        } else if (func_num_args() == 1) {
             $date = func_get_arg(0);
 
             $result = $repo->getByDate($date);
@@ -131,8 +155,7 @@ class RestController extends Controller
             } else {
                 Json::notFound();
             }
-        }
-        else {
+        } else {
             Json::badRequest();
         }
     }
@@ -140,8 +163,7 @@ class RestController extends Controller
     // api/logs
     public function logs()
     {
-        $config = new Config;
-        $path = $config->getLogDir() . 'cron.log';
+        $path = Config::getInstance()->getLogsPath();
 
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             header('Content-Type: text');
@@ -149,20 +171,19 @@ class RestController extends Controller
             if (file_exists($path)) {
                 readfile($path);
             }
-        }
-        else if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+        } else if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+            Auth::requireAuthentication();
             header('Content-Type: text');
             header('Access-Control-Allow-Origin: *');
             unlink($path);
             echo 'OK';
-        }
-        else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            Auth::requireAuthentication();
             header('Content-Type: text');
             header('Access-Control-Allow-Origin: *');
             $task = new CronTask;
             $task->run();
-        }
-        else {
+        } else {
             Json::badRequest();
         }
     }

@@ -38,6 +38,12 @@ class Json
         echo json_encode(['error' => 'Bad Request']);
     }
 
+    public static function unauthorized()
+    {
+        header('HTTP/1.0 401 Unauthorized');
+        echo json_encode(['error' => 'Unauthorized']);
+    }
+
     public static function notFound()
     {
         header('HTTP/1.0 404 Not Found');

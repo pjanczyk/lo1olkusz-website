@@ -23,11 +23,31 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL | E_STRICT);
 
 require 'autoloader.php';
+require 'config.php';
 
 use pjanczyk\Framework\Application;
 use pjanczyk\lo1olkusz\Config;
 
 date_default_timezone_set('Europe/Warsaw');
 
-Application::getInstance()->init(new Config);
-Application::getInstance()->start();
+$route = [
+    '' => 'pjanczyk\lo1olkusz\Controller\HomeController',
+    'contact' => 'pjanczyk\lo1olkusz\Controller\ContactController',
+    'download' => 'pjanczyk\lo1olkusz\Controller\DownloadController',
+    'dashboard' => [
+        '' => 'pjanczyk\lo1olkusz\Controller\Dashboard\HomeController',
+        'login' => 'pjanczyk\lo1olkusz\Controller\Dashboard\LoginController',
+        'replacements' => 'pjanczyk\lo1olkusz\Controller\Dashboard\ReplacementController',
+        'lucky-numbers' => 'pjanczyk\lo1olkusz\Controller\Dashboard\LuckyNumberController',
+        'settings' => 'pjanczyk\lo1olkusz\Controller\Dashboard\SettingController',
+        'timetables' => 'pjanczyk\lo1olkusz\Controller\Dashboard\TimetableController',
+        'cron' => 'pjanczyk\lo1olkusz\Controller\Dashboard\CronController'
+    ],
+    'api' => 'pjanczyk\lo1olkusz\Controller\RestController'
+];
+
+
+Application::getInstance()
+    ->setDatabaseConfig(Config::getInstance()->getDatabaseConfig())
+    ->setRoute($route)
+    ->start();

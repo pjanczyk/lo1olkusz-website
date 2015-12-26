@@ -30,6 +30,8 @@ class News
     public $luckyNumbers;
     /** @var array(Timetable) */
     public $timetables;
+    /** @var Bells */
+    public $bells;
     /** @var int */
     public $version;
 }

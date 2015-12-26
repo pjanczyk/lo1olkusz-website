@@ -20,13 +20,20 @@
 
 namespace pjanczyk\lo1olkusz\Controller\Dashboard;
 
+use pjanczyk\Framework\Auth;
 use pjanczyk\Framework\Controller;
 use pjanczyk\lo1olkusz\Cron\CronTask;
 
 class CronController extends Controller
 {
+    public function __construct()
+    {
+        Auth::requireSSL();
+    }
+
     public function index()
     {
+        Auth::requireAuthentication();
         $this->includeTemplate('dashboard/cron')->render();
     }
 

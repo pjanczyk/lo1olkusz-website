@@ -34,6 +34,7 @@ class NewsService
         $replacements = new ReplacementsRepository;
         $luckyNumbers = new LuckyNumberRepository;
         $timetables = new TimetableRepository;
+        $bells = new BellsRepository;
         $settings = new SettingRepository;
 
         $news = new News;
@@ -41,6 +42,7 @@ class NewsService
         $news->replacements = $replacements->getByDateAndLastModified($date, $lastModified);
         $news->luckyNumbers = $luckyNumbers->getByDateAndLastModified($date, $lastModified);
         $news->timetables = $timetables->getByLastModified($lastModified);
+        $news->bells = $bells->getByLastModified($lastModified);
         $news->version = (int)$settings->get('version');
 
         return $news;

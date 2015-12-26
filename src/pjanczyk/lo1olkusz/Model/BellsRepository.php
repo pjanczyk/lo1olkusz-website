@@ -21,7 +21,7 @@
 namespace pjanczyk\lo1olkusz\Model;
 
 use PDO;
-use pjanczyk\Framework\Application;
+use pjanczyk\Framework\Database;
 
 class BellsRepository
 {
@@ -30,7 +30,7 @@ class BellsRepository
      */
     public function get()
     {
-        $stmt = Application::getDb()->prepare(
+        $stmt = Database::get()->prepare(
             'SELECT value, UNIX_TIMESTAMP(lastModified) AS lastModified FROM bells LIMIT 1');
 
         $stmt->execute();
@@ -43,18 +43,21 @@ class BellsRepository
 
     /**
      * @param int $lastModified
-     * @return array(Bells)
+     * @return Bells|null
      */
     public function getByLastModified($lastModified)
     {
-        $stmt = Application::getDb()->prepare(
+        $stmt = Database::get()->prepare(
             'SELECT value, UNIX_TIMESTAMP(lastModified) AS lastModified FROM bells
 WHERE lastModified>=FROM_UNIXTIME(:lastModified) LIMIT 1');
 
         $stmt->bindParam(':lastModified', $lastModified, PDO::PARAM_INT);
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\Model\Bells');
+        $obj = $stmt->fetchObject('pjanczyk\lo1olkusz\Model\Bells');
+
+        if ($obj === false) return null;
+        return $obj;
     }
 
     /**
@@ -64,10 +67,10 @@ WHERE lastModified>=FROM_UNIXTIME(:lastModified) LIMIT 1');
      */
     public function set($value)
     {
-        $stmt = Application::getDb()->prepare('UPDATE bells SET value=:value LIMIT 1');
-
+        $stmt = Database::get()->prepare('UPDATE bells SET value=:value LIMIT 1');
         $stmt->bindValue(':value', json_encode($value));
+        $stmt->execute();
 
-        return $stmt->execute();
+        return $stmt->rowCount() > 0;
     }
 }

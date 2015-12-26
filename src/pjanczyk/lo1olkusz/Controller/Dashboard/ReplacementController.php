@@ -2,11 +2,17 @@
 
 namespace pjanczyk\lo1olkusz\Controller\Dashboard;
 
+use pjanczyk\Framework\Auth;
 use pjanczyk\Framework\Controller;
 use pjanczyk\lo1olkusz\Model\ReplacementsRepository;
 
-class ReplacementsController extends Controller
+class ReplacementController extends Controller
 {
+    public function __construct()
+    {
+        Auth::requireSSL();
+    }
+
     public function index()
     {
         $repo = new ReplacementsRepository;

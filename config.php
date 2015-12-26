@@ -18,20 +18,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace pjanczyk\Framework;
+namespace pjanczyk\lo1olkusz;
 
+use pjanczyk\Framework\DatabaseConfig;
 
-final class Application
+class Config
 {
-    /** @var Application|null */
+    /** @var Config|null */
     private static $instance = null;
 
-    /** @var DatabaseConfig */
-    private $dbConfig;
-    /** @var array */
-    private $route;
-
-    /** @return Application */
+    /** @return Config */
     public static function getInstance()
     {
         if (self::$instance === null) {
@@ -40,33 +36,30 @@ final class Application
         return self::$instance;
     }
 
-    public function setDatabaseConfig(DatabaseConfig $dbConfig)
+    private $dbConfig;
+
+    public function __construct()
     {
-        $this->dbConfig = $dbConfig;
-        return $this;
+        $this->dbConfig = new DatabaseConfig;
+        $this->dbConfig->dsn =
+            "mysql:host={$_ENV['OPENSHIFT_MYSQL_DB_HOST']}:{$_ENV['OPENSHIFT_MYSQL_DB_PORT']};dbname=lo1olkusz";
+        $this->dbConfig->user = $_ENV['OPENSHIFT_MYSQL_DB_USERNAME'];
+        $this->dbConfig->password = $_ENV['OPENSHIFT_MYSQL_DB_PASSWORD'];
+        $this->dbConfig->options = [\PDO::MYSQL_ATTR_INIT_COMMAND => "SET time_zone = 'Europe/Warsaw'"];
     }
 
-    public function setRoute(array $route)
+    public function getDatabaseConfig()
     {
-        $this->route = $route;
-        return $this;
+        return $this->dbConfig;
     }
 
-    public function start()
+    public function getApkFilePath()
     {
-        session_start();
-        Database::init($this->dbConfig);
-        Auth::init();
-
-        new Router($this->route, function () {
-            $this->display404Error();
-        });
+        return $_ENV['OPENSHIFT_DATA_DIR'] . 'apk';
     }
 
-    public function display404Error()
+    public function getLogsPath()
     {
-        header('HTTP/1.0 404 Not Found');
-        include '404.html';
-        exit;
+        return $_ENV['OPENSHIFT_PHP_LOG_DIR'] . 'cron.log';
     }
 }
