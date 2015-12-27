@@ -27,7 +27,6 @@
         <h1>Plany lekcji</h1>
     </div>
 
-<?php include 'templates/dashboard/alerts.php' ?>
     <div>
         <a href="/dashboard/timetables/add" class="btn btn-default">Dodaj</a>
         <a href="/dashboard/timetables/import" class="btn btn-default">Importuj</a>

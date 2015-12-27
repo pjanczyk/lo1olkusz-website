@@ -35,7 +35,10 @@ class Json
         header('HTTP/1.0 400 Bad Request');
         header('Content-Type: application/json');
         header('Access-Control-Allow-Origin: *');
-        echo json_encode(['error' => 'Bad Request']);
+
+        $error = func_num_args() > 0 ? func_get_arg(0) : 'Bad Request';
+
+        echo json_encode(['error' => $error]);
     }
 
     public static function unauthorized()

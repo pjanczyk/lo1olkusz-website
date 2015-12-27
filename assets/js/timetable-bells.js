@@ -7,44 +7,34 @@ angular.module('timetableBells', [])
         controller.lastModified = null;
 
         function load() {
-            $http({
-                method: 'GET',
-                url: '/api/bells',
-                headers: {'Accept': 'application/json'}
-            }).then(function success(response) {
-                controller.bells = response.data.value;
-                controller.lastModified = response.data.lastModified;
-            }, function error(response) {
-                controller.alerts.push({
-                    value: response.data.error,
-                    type: 'danger'
+            $http.get('/api/bells')
+                .then(function success(response) {
+                    controller.bells = response.data.value;
+                    controller.lastModified = response.data.lastModified;
+                }, function error(response) {
+                    controller.alerts.push({
+                        value: response.data.error,
+                        type: 'danger'
+                    });
                 });
-            });
         }
 
         load();
 
         controller.save = function () {
-            $http({
-                method: 'PUT',
-                url: '/api/bells',
-                data: angular.toJson(controller.bells),
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                }
-            }).then(function success(response) {
-                controller.alerts.push({
-                    value: 'Zapisano',
-                    type: 'success'
+            $http.put('/api/bells', angular.toJson(controller.bells))
+                .then(function success() {
+                    controller.alerts.push({
+                        value: 'Zapisano',
+                        type: 'success'
+                    });
+                    load();
+                }, function error(response) {
+                    controller.alerts.push({
+                        value: response.data.error,
+                        type: 'danger'
+                    });
                 });
-                load();
-            }, function error(response) {
-                controller.alerts.push({
-                    value: response.data.error,
-                    type: 'danger'
-                });
-            });
         };
 
         controller.addRow = function () {

@@ -35,6 +35,33 @@ class Timetable
     public function __construct()
     {
         settype($this->lastModified, 'int');
-        $this->value = json_decode($this->value, true);
+        $this->value = json_decode($this->value);
+    }
+
+    public static function validateValue($value)
+    {
+        if (!is_array($value) || count($value) !== 5)
+            return 'Timetable must be an array of 5 days';
+
+        foreach ($value as $dayNo=>$day) {
+
+            if (!is_object($day))
+                return "Day $dayNo is not represented by an object";
+
+            foreach ($day as $hourNo=>$hour) {
+                if (!is_numeric($dayNo))
+                    return "Day $dayNo: \"$hourNo\" is not a correct number of an hour";
+
+                if (!is_array($hour))
+                    return "Day $dayNo: hour $hourNo is not represented by an array";
+
+                foreach ($hour as $subjectNo=>$subject) {
+                    if (!property_exists($subject, 'name'))
+                        return "Day $dayNo: hour $hourNo: subject $subjectNo does not have \"name\" property";
+                }
+            }
+        }
+
+        return null;
     }
 }

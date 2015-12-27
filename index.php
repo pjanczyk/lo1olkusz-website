@@ -25,10 +25,16 @@ error_reporting(E_ALL | E_STRICT);
 require 'autoloader.php';
 require 'config.php';
 
-use pjanczyk\Framework\Application;
+use pjanczyk\Framework\Auth;
+use pjanczyk\Framework\Database;
+use pjanczyk\Framework\Router;
 use pjanczyk\lo1olkusz\Config;
 
 date_default_timezone_set('Europe/Warsaw');
+
+session_start();
+Database::init(Config::getInstance()->getDatabaseConfig());
+Auth::init();
 
 $route = [
     '' => 'pjanczyk\lo1olkusz\Controller\HomeController',
@@ -46,8 +52,8 @@ $route = [
     'api' => 'pjanczyk\lo1olkusz\Controller\RestController'
 ];
 
-
-Application::getInstance()
-    ->setDatabaseConfig(Config::getInstance()->getDatabaseConfig())
-    ->setRoute($route)
-    ->start();
+new Router($route, function () {
+    header('HTTP/1.0 404 Not Found');
+    include '404.html';
+    exit;
+});

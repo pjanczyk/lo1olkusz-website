@@ -13,6 +13,7 @@ use pjanczyk\lo1olkusz\Model\LuckyNumberRepository;
 use pjanczyk\lo1olkusz\Model\NewsService;
 use pjanczyk\lo1olkusz\Model\ReplacementsRepository;
 use pjanczyk\lo1olkusz\Model\StatisticRepository;
+use pjanczyk\lo1olkusz\Model\Timetable;
 use pjanczyk\lo1olkusz\Model\TimetableRepository;
 
 class RestController extends Controller
@@ -72,15 +73,11 @@ class RestController extends Controller
                 return;
             }
 
-            $value = json_decode(file_get_contents("php://input"), true);
+            $value = json_decode(file_get_contents("php://input"));
 
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                Json::badRequest();
-                return;
-            }
-
-            if (Bells::validateValue($value) !== null) {
-                Json::badRequest();
+            $error = Bells::validateValue($value);
+            if ($error !== null) {
+                Json::badRequest($error);
                 return;
             }
 
@@ -100,11 +97,11 @@ class RestController extends Controller
     {
         $repo = new TimetableRepository;
 
-        if (func_num_args() == 0) {
+        if ($_SERVER['REQUEST_METHOD'] == 'GET' && func_num_args() == 0) {
             $result = $repo->listAll();
             Json::OK($result);
-
-        } else if (func_num_args() == 1) {
+        }
+        else if ($_SERVER['REQUEST_METHOD'] == 'GET' && func_num_args() == 1) {
             $class = func_get_arg(0);
 
             $result = $repo->getByClass($class);
@@ -114,7 +111,44 @@ class RestController extends Controller
             } else {
                 Json::notFound();
             }
-        } else {
+        }
+        else if ($_SERVER['REQUEST_METHOD'] == 'DELETE' && func_num_args() == 1) {
+            if (!Auth::isAuthenticated()) {
+                Json::unauthorized();
+                return;
+            }
+
+            $class = func_get_arg(0);
+            if ($repo->delete($class)) {
+                Json::OK(['message'=>'Deleted']);
+            }
+            else {
+                Json::notFound();
+            }
+        }
+        else if ($_SERVER['REQUEST_METHOD'] == 'PUT' && func_num_args() == 1) {
+            if (!Auth::isAuthenticated()) {
+                Json::unauthorized();
+                return;
+            }
+
+            $class = func_get_arg(0);
+            $value = json_decode(file_get_contents('php://input'));
+
+            $error = Timetable::validateValue($value);
+            if ($error !== null) {
+                Json::badRequest($error);
+                return;
+            }
+
+            if ($repo->setValue($class, $value)) {
+                Json::OK(['message'=>'Saved']);
+            }
+            else {
+                Json::internalServerError();
+            }
+        }
+        else {
             Json::badRequest();
         }
     }

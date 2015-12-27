@@ -20,10 +20,8 @@
 
 namespace pjanczyk\lo1olkusz\Controller\Dashboard;
 
-use pjanczyk\Framework\Application;
 use pjanczyk\Framework\Auth;
 use pjanczyk\Framework\Controller;
-use pjanczyk\lo1olkusz\Model\BellsRepository;
 use pjanczyk\lo1olkusz\Model\TimetableRepository;
 
 class TimetableController extends Controller
@@ -35,36 +33,10 @@ class TimetableController extends Controller
 
     public function index()
     {
-        $alerts = [];
-
-        $modelTimetables = new TimetableRepository;
-
-        if (isset($_POST['delete'], $_POST['class'])) {
-            Auth::requireAuthentication();
-
-            $class = $_POST['class'];
-            if ($modelTimetables->delete($class)) {
-                $alerts[] = "Usunięto plan lekcji klasy \"{$class}\"";
-            }
-        }
-        else if (isset($_POST['save'], $_POST['class'], $_POST['value'])) {
-            Auth::requireAuthentication();
-
-            $class = $_POST['class'];
-            $value = $_POST['value'];
-            if ($modelTimetables->setValue($class, $value)) {
-                $alerts[] = "Zapisano plan lekcji klasy \"{$class}\"";
-            }
-        }
-
-        if (apache_request_headers()['Accept'] == 'text/plain') {
-            echo join("\n", $alerts);
-            return;
-        }
+        $repo = new TimetableRepository;
 
         $template = $this->includeTemplate('dashboard/timetable_list');
-        $template->alerts = $alerts;
-        $template->timetables = $modelTimetables->listAll();
+        $template->timetables = $repo->listAll();
         $template->render();
     }
 
@@ -79,28 +51,13 @@ class TimetableController extends Controller
 
     public function edit($class)
     {
-        $model = new TimetableRepository;
+        $repo = new TimetableRepository;
 
         $template = $this->includeTemplate('dashboard/timetable_view');
-        $template->timetable = $model->getByClass($class);
-        $template->render();
-    }
-
-    public function delete($class)
-    {
-        Auth::requireAuthentication();
-
-        $model = new TimetableRepository;
-
-        $timetable = $model->getByClass($class);
-
-        if ($timetable === null) {
-            Application::getInstance()->display404Error();
-            return;
+        $timetable = $repo->getByClass($class);
+        if ($timetable !== null) {
+            $template->class = $timetable->class;
         }
-
-        $template = $this->includeTemplate('dashboard/timetable_delete');
-        $template->timetable = $timetable;
         $template->render();
     }
 
@@ -108,19 +65,16 @@ class TimetableController extends Controller
     {
         Auth::requireAuthentication();
 
-        $template = $this->includeTemplate('dashboard/timetable_importer');
-        $template->render();
+        // angularjs based view
+        $this->includeTemplate('dashboard/timetable_importer')->render();
     }
 
     public function bells()
     {
         Auth::requireAuthentication();
 
-        $model = new BellsRepository;
-
-        $template = $this->includeTemplate('dashboard/timetable_bells');
-        $template->bells = $model->get();
-        $template->render();
+        // angularjs based view
+        $this->includeTemplate('dashboard/timetable_bells')->render();
     }
 }
 

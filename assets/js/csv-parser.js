@@ -20,14 +20,14 @@
 			// 'A2 H BIOL 47' -> '@ H @ 47'
             var expr = e[0];
             var nameReplace = e[1];
-            var groupReplace = e[2] ? e[2] : '';
+            var groupReplace = e[2];
 
 			text = text.replace(new RegExp(expr, 'g'), function(match) {
                 var re = new RegExp('^' + expr + '$');
 
                 replacedList.push({
                     name: match.replace(re, nameReplace),
-                    group: match.replace(re, groupReplace)
+                    group: groupReplace ? match.replace(re, groupReplace) : null
                 });
 
                 return '@';

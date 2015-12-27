@@ -76,7 +76,7 @@ WHERE lastModified>=FROM_UNIXTIME(:lastModified)');
     /**
      * Inserts or updates a timetable of a $class
      * @param string $class
-     * @param string $value
+     * @param array $value
      * @return bool
      */
     public function setValue($class, $value)
@@ -85,7 +85,7 @@ WHERE lastModified>=FROM_UNIXTIME(:lastModified)');
 ON DUPLICATE KEY UPDATE value=:value');
 
         $stmt->bindParam(':class', $class);
-        $stmt->bindParam(':value', $value);
+        $stmt->bindValue(':value', json_encode($value));
 
         return $stmt->execute();
     }
@@ -95,7 +95,9 @@ ON DUPLICATE KEY UPDATE value=:value');
         $stmt = Database::get()->prepare('DELETE FROM timetables WHERE class=:class');
         $stmt->bindParam(':class', $class);
 
-        return $stmt->execute();
+        $stmt->execute();
+
+        return $stmt->rowCount() > 0;
     }
 
 }
