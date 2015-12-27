@@ -57,7 +57,8 @@ class ReplacementController extends Controller
         $replacements = $model->getByClassAndDate($class, $date);
 
         if ($replacements == null) {
-
+            header('HTTP/1.0 404 Not Found');
+            include '404.html';
         }
         else {
             $template = $this->includeTemplate('dashboard/replacements_view');
