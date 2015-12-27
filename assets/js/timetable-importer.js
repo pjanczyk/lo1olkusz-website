@@ -5,7 +5,7 @@ angular.module('timetableImporter', ['timetableEditor'])
          * Converts text of which each line is in format '<element0> -> <element1> -> <element2>'
          * to array of arrays
          * @param {String} input
-         * @returns {Array|}
+         * @returns {[][]}
          */
         function parseList(input) {
             var results = [];
@@ -57,23 +57,12 @@ angular.module('timetableImporter', ['timetableEditor'])
         importer.save = function (className) {
             var timetable = importer.timetables[className];
 
-            $http({
-                method: 'POST',
-                url: '/dashboard/timetables',
-                data: $.param({
-                    'save': true,
-                    'class': className,
-                    'value': angular.toJson(timetable)
-                }),
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Accept': 'text/plain'
-                }
-            }).then(function success(response) {
-                alert(response.data);
-                importer.discard(className);
-            }, function error(response) {
-                alert('Błąd:\n' + response.data);
-            });
+            $http.post('/dashboard/timetables/' + className, angular.toJson(timetable))
+                .then(function success(response) {
+                    alert(response.data.message);
+                    importer.discard(className);
+                }, function error(response) {
+                    alert('Błąd:\n' + response.data.error);
+                });
         }
     });
