@@ -15,8 +15,6 @@ class Auth
             || (isset($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on');
 
 
-        var_dump(self::$ssl);
-
         self::$authenticated = false;
 
         if (self::$ssl) {
