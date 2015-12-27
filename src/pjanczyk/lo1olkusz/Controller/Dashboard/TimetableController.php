@@ -51,13 +51,11 @@ class TimetableController extends Controller
 
     public function edit($class)
     {
-        $repo = new TimetableRepository;
+        Auth::requireAuthentication();
 
+        // angularjs based view
         $template = $this->includeTemplate('dashboard/timetable_view');
-        $timetable = $repo->getByClass($class);
-        if ($timetable !== null) {
-            $template->class = $timetable->class;
-        }
+        $template->class = $class;
         $template->render();
     }
 
