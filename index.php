@@ -25,9 +25,9 @@ error_reporting(E_ALL | E_STRICT);
 require 'autoloader.php';
 require 'config.php';
 
-use pjanczyk\Framework\Auth;
-use pjanczyk\Framework\Database;
-use pjanczyk\Framework\Router;
+use pjanczyk\lo1olkusz\Auth;
+use pjanczyk\lo1olkusz\Database;
+use pjanczyk\lo1olkusz\Router;
 use pjanczyk\lo1olkusz\Config;
 
 date_default_timezone_set('Europe/Warsaw');
@@ -49,10 +49,10 @@ $route = [
         'timetables' => 'pjanczyk\lo1olkusz\Controller\Dashboard\TimetableController',
         'cron' => 'pjanczyk\lo1olkusz\Controller\Dashboard\CronController'
     ],
-    'api' => 'pjanczyk\lo1olkusz\Controller\RestController'
+    'api' => 'pjanczyk\lo1olkusz\Controller\ApiController'
 ];
 
-new Router($route, function () {
+Router::route($route, function () {
     header('HTTP/1.0 404 Not Found');
     include '404.html';
     exit;

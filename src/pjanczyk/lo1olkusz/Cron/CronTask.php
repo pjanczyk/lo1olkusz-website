@@ -18,17 +18,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//Created on 2015-07-10
-
 namespace pjanczyk\lo1olkusz\Cron;
 
 require_once 'libs/simple_html_dom.php';
 
-use pjanczyk\Framework\Database;
+use pjanczyk\lo1olkusz\Database;
 use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Model\LuckyNumberRepository;
 use pjanczyk\lo1olkusz\Model\ReplacementsRepository;
-
 
 class CronTask
 {

@@ -18,18 +18,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace pjanczyk\lo1olkusz\Controller\Dashboard;
+namespace pjanczyk\lo1olkusz;
 
-use pjanczyk\lo1olkusz\Auth;
-use pjanczyk\lo1olkusz\Controller\Controller;
-use pjanczyk\lo1olkusz\Cron\CronTask;
-
-class CronController extends Controller
+class DatabaseConfig
 {
-    public function GET__0()
-    {
-        Auth::forceLoggingIn();
-
-        $this->includeTemplate('dashboard/cron')->render();
-    }
+    /** @var string */
+    public $dsn;
+    /** @var string */
+    public $user;
+    /** @var string */
+    public $password;
+    /** @var array */
+    public $options;
 }

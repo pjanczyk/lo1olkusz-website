@@ -21,7 +21,7 @@
 namespace pjanczyk\lo1olkusz\Model;
 
 use PDO;
-use pjanczyk\Framework\Database;
+use pjanczyk\lo1olkusz\Database;
 
 class SettingRepository
 {

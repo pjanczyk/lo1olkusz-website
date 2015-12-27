@@ -18,13 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace pjanczyk\Framework;
+namespace pjanczyk\lo1olkusz\Controller;
 
+
+use pjanczyk\lo1olkusz\Template;
 
 abstract class Controller
 {
-    abstract public function index();
-
     protected function includeTemplate($name)
     {
         return new Template($name);

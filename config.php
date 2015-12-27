@@ -20,8 +20,6 @@
 
 namespace pjanczyk\lo1olkusz;
 
-use pjanczyk\Framework\DatabaseConfig;
-
 class Config
 {
     /** @var Config|null */

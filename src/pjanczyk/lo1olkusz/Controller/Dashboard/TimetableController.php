@@ -20,18 +20,18 @@
 
 namespace pjanczyk\lo1olkusz\Controller\Dashboard;
 
-use pjanczyk\Framework\Auth;
-use pjanczyk\Framework\Controller;
+use pjanczyk\lo1olkusz\Auth;
+use pjanczyk\lo1olkusz\Controller\Controller;
 use pjanczyk\lo1olkusz\Model\TimetableRepository;
 
 class TimetableController extends Controller
 {
     public function __construct()
     {
-        Auth::requireSSL();
+        Auth::forceSSL();
     }
 
-    public function index()
+    public function GET__0()
     {
         $repo = new TimetableRepository;
 
@@ -40,17 +40,17 @@ class TimetableController extends Controller
         $template->render();
     }
 
-    public function add()
+    public function GET_add_0()
     {
-        Auth::requireAuthentication();
+        Auth::forceLoggingIn();
 
         // angularjs based view
         $this->includeTemplate('dashboard/timetable_view')->render();
     }
 
-    public function edit($class)
+    public function GET_edit_1($class)
     {
-        Auth::requireAuthentication();
+        Auth::forceLoggingIn();
 
         // angularjs based view
         $template = $this->includeTemplate('dashboard/timetable_view');
@@ -58,17 +58,17 @@ class TimetableController extends Controller
         $template->render();
     }
 
-    public function import()
+    public function GET_import_0()
     {
-        Auth::requireAuthentication();
+        Auth::forceLoggingIn();
 
         // angularjs based view
         $this->includeTemplate('dashboard/timetable_importer')->render();
     }
 
-    public function bells()
+    public function GET_bells_0()
     {
-        Auth::requireAuthentication();
+        Auth::forceLoggingIn();
 
         // angularjs based view
         $this->includeTemplate('dashboard/timetable_bells')->render();

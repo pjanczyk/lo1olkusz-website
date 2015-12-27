@@ -1,7 +1,24 @@
 <?php
+/**
+ * Copyright 2015 Piotr Janczyk
+ *
+ * This file is part of I LO Olkusz Unofficial App.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-namespace pjanczyk\Framework;
-
+namespace pjanczyk\lo1olkusz;
 
 class Auth
 {
@@ -26,7 +43,7 @@ class Auth
 
             if (isset($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'])) {
                 $username = $_SERVER['PHP_AUTH_USER'];
-                $password = sha1($_SERVER['PHP_AUTH_PW']);
+                $password = $_SERVER['PHP_AUTH_PW'];
 
                 self::tryLogin($username, $password);
             }
@@ -43,19 +60,18 @@ class Auth
         return self::$authenticated;
     }
 
-    public static function requireSSL()
+    public static function forceSSL()
     {
-        if(!self::$ssl)
-        {
+        if (!self::$ssl) {
             header("HTTP/1.0 301 Moved Permanently");
             header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
             exit;
         }
     }
 
-    public static function requireAuthentication()
+    public static function forceLoggingIn()
     {
-        self::requireSSL();
+        self::forceSSL();
 
         if (!self::$authenticated) {
             header("Location: https://" . $_SERVER["HTTP_HOST"] . '/dashboard/login?redirect=' . $_SERVER['REQUEST_URI']);
@@ -64,6 +80,8 @@ class Auth
 
     public static function tryLogin($username, $password)
     {
+        $password = sha1($password);
+
         $stmt = Database::get()->prepare(
             'SELECT EXISTS(SELECT 1 FROM users WHERE username=:username AND password=:password)');
 
@@ -80,7 +98,8 @@ class Auth
         return false;
     }
 
-    public static function logout() {
+    public static function logout()
+    {
         unset($_SESSION['authenticated']);
         self::$authenticated = false;
     }

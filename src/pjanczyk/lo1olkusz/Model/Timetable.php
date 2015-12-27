@@ -20,9 +20,6 @@
 
 namespace pjanczyk\lo1olkusz\Model;
 
-/**
- * Entity
- */
 class Timetable
 {
     /** @var string */

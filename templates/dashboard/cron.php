@@ -46,19 +46,20 @@
         }
 
         function clearCron() {
-            $.ajax({type: "DELETE", url: "/api/logs"})
-                .done(function (data) {
-                    if (data == 'OK') {
-                        $("#cron-log").empty();
-                    }
-                    else {
-                        showAlert("danger", data);
-                    }
-                });
+            $.ajax({
+                type: "DELETE",
+                url: "/api/logs"
+            }).done(function () {
+                $("#cron-log").empty();
+                showAlert("success", "Usunięto");
+            }).fail(function (jqXHR) {
+                var data = $.parseJSON(jqXHR.responseText);
+                showAlert("danger", data.error);
+            });
         }
 
         function runCron() {
-            $.get("/dashboard/cron/run", function (data) {
+            $.get("/api/run-cron", function (data) {
                 $(".page-header").after(
                     '<pre>' + data + '</pre>'
                 );

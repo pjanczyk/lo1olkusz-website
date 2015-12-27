@@ -27,7 +27,9 @@ class Json
         header('HTTP/1.0 500 Internal Server Error');
         header('Content-Type: application/json');
         header('Access-Control-Allow-Origin: *');
+
         echo json_encode(['error' => 'Interval Server Error']);
+        exit;
     }
 
     public static function badRequest()
@@ -39,12 +41,14 @@ class Json
         $error = func_num_args() > 0 ? func_get_arg(0) : 'Bad Request';
 
         echo json_encode(['error' => $error]);
+        exit;
     }
 
     public static function unauthorized()
     {
         header('HTTP/1.0 401 Unauthorized');
         echo json_encode(['error' => 'Unauthorized']);
+        exit;
     }
 
     public static function notFound()
@@ -52,13 +56,17 @@ class Json
         header('HTTP/1.0 404 Not Found');
         header('Content-Type: application/json');
         header('Access-Control-Allow-Origin: *');
+
         echo json_encode(['error' => 'Not Found']);
+        exit;
     }
 
-    public static function OK($array)
+    public static function OK($obj)
     {
         header('Content-Type: application/json');
         header('Access-Control-Allow-Origin: *');
-        echo json_encode($array);
+
+        echo json_encode($obj);
+        exit;
     }
 }

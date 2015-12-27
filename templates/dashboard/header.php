@@ -33,7 +33,7 @@
                     <a class="navbar-brand-dashboard" href="/dashboard">dashboard</a>
                 </div>
             </div>
-            <?php if(\pjanczyk\Framework\Auth::isAuthenticated()): ?>
+            <?php if(\pjanczyk\lo1olkusz\Auth::isAuthenticated()): ?>
                 <a class="logout" href="/dashboard/login/logout">Wyloguj</a>
             <?php endif ?>
         </div>
@@ -72,7 +72,7 @@
 
 <?php
 
-$authenticated = \pjanczyk\Framework\Auth::isAuthenticated();
+$authenticated = \pjanczyk\lo1olkusz\Auth::isAuthenticated();
 
 function formatTimestamp($timestamp)
 {

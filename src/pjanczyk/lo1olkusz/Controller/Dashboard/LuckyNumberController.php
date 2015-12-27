@@ -20,23 +20,20 @@
 
 namespace pjanczyk\lo1olkusz\Controller\Dashboard;
 
-use pjanczyk\Framework\Auth;
-use pjanczyk\Framework\Controller;
+use pjanczyk\lo1olkusz\Auth;
+use pjanczyk\lo1olkusz\Controller\Controller;
 use pjanczyk\lo1olkusz\Model\LuckyNumberRepository;
 
 class LuckyNumberController extends Controller
 {
-    public function __construct()
+    public function GET__0()
     {
-        Auth::requireSSL();
-    }
+        Auth::forceSSL();
 
-    public function index()
-    {
-        $model = new LuckyNumberRepository;
+        $repo = new LuckyNumberRepository;
 
         $template = $this->includeTemplate('dashboard/ln_list');
-        $template->lns = $model->listAll();
+        $template->lns = $repo->listAll();
         $template->render();
     }
 }

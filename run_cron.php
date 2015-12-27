@@ -18,12 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//Created on 2015-07-09
-
 //turn on reporting all errors (they are written to stderr)
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 error_reporting(E_ALL|E_STRICT);
 
-include 'autoloader.php';
+require 'autoloader.php';
+require 'config.php';
 
 use pjanczyk\lo1olkusz\Cron\CronTask;
 

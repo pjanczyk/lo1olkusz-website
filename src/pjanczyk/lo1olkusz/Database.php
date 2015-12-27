@@ -18,17 +18,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace pjanczyk\Framework;
+namespace pjanczyk\lo1olkusz;
 
-
-class DatabaseConfig
+class Database
 {
-    /** @var string */
-    public $dsn;
-    /** @var string */
-    public $user;
-    /** @var string */
-    public $password;
-    /** @var array */
-    public $options;
+    /** @var \PDO */
+    private static $db;
+
+    public static function init(DatabaseConfig $dbConfig)
+    {
+        self::$db = new \PDO(
+            $dbConfig->dsn,
+            $dbConfig->user,
+            $dbConfig->password,
+            $dbConfig->options);
+    }
+
+    public static function get()
+    {
+        return self::$db;
+    }
 }

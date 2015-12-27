@@ -18,8 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//Created on 2015-07-08
-
 namespace pjanczyk\lo1olkusz\Cron;
 
 require_once 'libs/simple_html_dom.php';
