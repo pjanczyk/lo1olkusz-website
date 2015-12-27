@@ -41,15 +41,15 @@ class RestController extends Controller
         Json::badRequest();
     }
 
-    // api/news/<lastModified>
+    // api/news/[<lastModified>]
     public function news()
     {
-        if (func_num_args() !== 1) {
-            Json::badRequest();
-            return;
+        if (func_num_args() === 1) {
+            $lastModified = intval(func_get_arg(0));
+        } else {
+            $lastModified = 0;
         }
 
-        $lastModified = intval(func_get_arg(0));
         $today = date('Y-m-d');
 
         $newsService = new NewsService;
