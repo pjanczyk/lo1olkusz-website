@@ -57,7 +57,7 @@ angular.module('timetableImporter', ['timetableEditor'])
         importer.save = function (className) {
             var timetable = importer.timetables[className];
 
-            $http.post('/dashboard/timetables/' + className, angular.toJson(timetable))
+            $http.put('/dashboard/timetables/' + className, angular.toJson(timetable))
                 .then(function success(response) {
                     alert(response.data.message);
                     importer.discard(className);
