@@ -28,12 +28,11 @@ class CronController extends Controller
 {
     public function __construct()
     {
-        Auth::requireSSL();
+        Auth::requireAuthentication();
     }
 
     public function index()
     {
-        Auth::requireAuthentication();
         $this->includeTemplate('dashboard/cron')->render();
     }
 

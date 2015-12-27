@@ -44,9 +44,8 @@ class TimetableController extends Controller
     {
         Auth::requireAuthentication();
 
-        $template = $this->includeTemplate('dashboard/timetable_view');
-        $template->timetable = null;
-        $template->render();
+        // angularjs based view
+        $this->includeTemplate('dashboard/timetable_view')->render();
     }
 
     public function edit($class)
