@@ -7,6 +7,7 @@ use pjanczyk\Framework\Controller;
 use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Cron\CronTask;
 use pjanczyk\lo1olkusz\Json;
+use pjanczyk\lo1olkusz\Model\Bells;
 use pjanczyk\lo1olkusz\Model\BellsRepository;
 use pjanczyk\lo1olkusz\Model\LuckyNumberRepository;
 use pjanczyk\lo1olkusz\Model\NewsService;
@@ -74,6 +75,11 @@ class RestController extends Controller
             $value = json_decode(file_get_contents("php://input"), true);
 
             if (json_last_error() !== JSON_ERROR_NONE) {
+                Json::badRequest();
+                return;
+            }
+
+            if (Bells::validateValue($value) !== null) {
                 Json::badRequest();
                 return;
             }

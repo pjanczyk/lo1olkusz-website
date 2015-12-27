@@ -10,7 +10,12 @@ class Auth
 
     public static function init()
     {
-        self::$ssl = isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on";
+        self::$ssl = (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on")
+            || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
+            || (isset($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on');
+
+
+        var_dump(self::$ssl);
 
         self::$authenticated = false;
 
@@ -46,7 +51,7 @@ class Auth
         {
             header("HTTP/1.0 301 Moved Permanently");
             header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
-            exit();
+            exit;
         }
     }
 
