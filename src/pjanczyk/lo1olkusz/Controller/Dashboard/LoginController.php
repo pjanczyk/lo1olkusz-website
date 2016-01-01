@@ -50,6 +50,11 @@ class LoginController extends Controller
         $template->render();
     }
 
+    public function POST__0()
+    {
+        $this->GET__0();
+    }
+
     public function GET_logout_0() {
         Auth::logout();
         header("Location: https://" . $_SERVER["HTTP_HOST"] . '/dashboard/login');
