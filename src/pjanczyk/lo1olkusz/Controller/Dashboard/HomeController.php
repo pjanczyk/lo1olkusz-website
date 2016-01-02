@@ -34,7 +34,9 @@ class HomeController extends Controller
 
         $now = time();
         $t3daysAgo = $now - 3 * 24 * 60 * 60;
-        $date = date('d-m-Y', $t3daysAgo);
+        $date = date('Y-m-d', $t3daysAgo);
+
+        print($date);
 
         $newsService = new NewsService;
 

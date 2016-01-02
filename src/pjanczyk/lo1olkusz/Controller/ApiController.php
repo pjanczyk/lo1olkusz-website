@@ -66,7 +66,7 @@ class ApiController extends Controller
         $lastModified = intval($lastModified);
 
         $t3daysAgo = time() - 3 * 24 * 60 * 60;
-        $date = date('d-m-Y', $t3daysAgo);
+        $date = date('Y-m-d', $t3daysAgo);
 
         $newsService = new NewsService;
         $news = $newsService->getNews($date, $lastModified);
