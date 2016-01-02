@@ -36,7 +36,7 @@ class LoginController extends Controller
         if (isset($_POST['password'], $_POST['login'])) {
 
             $login = $_POST['login'];
-            $password = sha1($_POST['password']);
+            $password = $_POST['password'];
 
             if (Auth::tryLogin($login, $password)) {
                 $this->redirect();
