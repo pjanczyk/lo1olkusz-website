@@ -64,10 +64,12 @@ class ApiController extends Controller
     public function GET_news_1($lastModified)
     {
         $lastModified = intval($lastModified);
-        $today = date('Y-m-d');
+
+        $t3daysAgo = time() - 3 * 24 * 60 * 60;
+        $date = date('d-m-Y', $t3daysAgo);
 
         $newsService = new NewsService;
-        $news = $newsService->getNews($today, $lastModified);
+        $news = $newsService->getNews($date, $lastModified);
 
         Json::OK($news);
     }
