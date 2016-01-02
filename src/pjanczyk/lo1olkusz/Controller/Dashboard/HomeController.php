@@ -31,13 +31,15 @@ class HomeController extends Controller
         Auth::forceSSL();
 
         $lastModified = 0;
+
         $now = time();
-        $today = date('Y-m-d', $now);
+        $t3daysAgo = time() - 3 * 24 * 60 * 60;
+        $date = date('d-m-Y', $t3daysAgo);
 
         $newsService = new NewsService;
 
         $template = $this->includeTemplate('dashboard/home');
-        $template->news = $newsService->getNews($today, $lastModified);
+        $template->news = $newsService->getNews($date, $lastModified);
         $template->now = $now;
         $template->render();
     }
