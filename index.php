@@ -34,6 +34,7 @@ date_default_timezone_set('Europe/Warsaw');
 
 session_start();
 Database::init(Config::getInstance()->getDatabaseConfig());
+Auth::$disableSSL = true;
 Auth::init();
 
 $route = [

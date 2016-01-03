@@ -25,16 +25,17 @@ class Auth
     private static $ssl;
     private static $authenticated;
 
+    public static $disableSSL;
+
     public static function init()
     {
         self::$ssl = (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on")
             || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
             || (isset($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on');
 
-
         self::$authenticated = false;
 
-        if (self::$ssl) {
+        if (self::$ssl || self::$disableSSL) {
 
             if (isset($_SESSION['authenticated'])) {
                 self::$authenticated = true;
@@ -50,11 +51,6 @@ class Auth
         }
     }
 
-    public static function isSSL()
-    {
-        return self::$ssl;
-    }
-
     public static function getProtocol()
     {
         return self::$ssl ? 'https://' : 'http://';
@@ -67,13 +63,11 @@ class Auth
 
     public static function forceSSL()
     {
-        // FIXME: we don't have ssl certificate for current domain, we can't use ssl unfortunately
-
-        //if (!self::$ssl) {
-        //    header("HTTP/1.0 301 Moved Permanently");
-        //    header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
-        //    exit;
-        //}
+        if (!self::$ssl && !self::$disableSSL) {
+            header("HTTP/1.0 301 Moved Permanently");
+            header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+            exit;
+        }
     }
 
     public static function forceLoggingIn()
