@@ -62,11 +62,13 @@ class Auth
 
     public static function forceSSL()
     {
-        if (!self::$ssl) {
-            header("HTTP/1.0 301 Moved Permanently");
-            header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
-            exit;
-        }
+        // we don't have ssl certificate for current domain, we can't use ssl unfortunately
+
+        //if (!self::$ssl) {
+        //    header("HTTP/1.0 301 Moved Permanently");
+        //    header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+        //    exit;
+        //}
     }
 
     public static function forceLoggingIn()
@@ -74,7 +76,8 @@ class Auth
         self::forceSSL();
 
         if (!self::$authenticated) {
-            header("Location: https://" . $_SERVER["HTTP_HOST"] . '/dashboard/login?redirect=' . $_SERVER['REQUEST_URI']);
+            //header("Location: https://" . $_SERVER["HTTP_HOST"] . '/dashboard/login?redirect=' . $_SERVER['REQUEST_URI']);
+            header("Location: http://" . $_SERVER["HTTP_HOST"] . '/dashboard/login?redirect=' . $_SERVER['REQUEST_URI']);
         }
     }
 
