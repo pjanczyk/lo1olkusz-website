@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" type="image/png" href="/assets/img/favicon-16.png" sizes="16x16" />
@@ -13,17 +13,9 @@
 
     <title>lo1olkusz app</title>
 
-    <!-- Bootstrap core CSS -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=latin,latin-ext' rel='stylesheet'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-
-    <!-- Custom styles for this template -->
     <link href="/assets/css/cover.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 
 <body>
@@ -57,13 +49,13 @@
 
             <div class="inner cover">
                 <div class="row">
-                    <div class="col-sm-6 col-sm-push-6">
-                        <img style="height:497px; margin-top: 15px" src="/assets/img/screen.png" />
+                    <div class="col-sm-6 col-sm-push-6 screen-container">
+                        <img class="screen" src="/assets/img/screen.png" />
                     </div>
                     <div class="product-description col-sm-6 col-sm-pull-6">
                         <div>
-                        <h1 class="cover-heading">Wszystkie informacje w jednym miejscu</h1>
-                        <p class="lead">Plan lekcji, zastępstwa i szczęśliwy numerek na dany dzień.</p>
+                        <h1 class="cover-heading">Wszystkie informacje w&nbsp;jednym miejscu</h1>
+                        <p class="lead">Plan lekcji, zastępstwa i szczęśliwy numerek na&nbsp;dany&nbsp;dzień</p>
                         <p class="lead">
                             <a href="/download" class="btn btn-lg btn-default">
                                 <img src="/assets/img/android_icon.png"/>
@@ -87,12 +79,8 @@
 
 </div>
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="/assets/js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>
