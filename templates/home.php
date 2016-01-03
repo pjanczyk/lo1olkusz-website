@@ -56,19 +56,28 @@
             </div>
 
             <div class="inner cover">
-                <h1 class="cover-heading">Wszystkie informacje w jednym miejscu</h1>
-                <p class="lead">Plan lekcji, zastępstwa i szczęśliwy numerek na dany dzień.</p>
-                <p class="lead">
-                    <a href="/download" class="btn btn-lg btn-default">
-                        <img src="/assets/img/android_icon.png"/>
-                        Pobierz
-                    </a>
-                </p>
+                <div class="row">
+                    <div class="col-sm-6 col-sm-push-6">
+                        <img style="height:497px; margin-top: 15px" src="/assets/img/screen.png" />
+                    </div>
+                    <div class="product-description col-sm-6 col-sm-pull-6">
+                        <div>
+                        <h1 class="cover-heading">Wszystkie informacje w jednym miejscu</h1>
+                        <p class="lead">Plan lekcji, zastępstwa i szczęśliwy numerek na dany dzień.</p>
+                        <p class="lead">
+                            <a href="/download" class="btn btn-lg btn-default">
+                                <img src="/assets/img/android_icon.png"/>
+                                Pobierz
+                            </a>
+                        </p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="mastfoot">
                 <div class="inner">
-                    <p>&copy; 2015 Piotr Janczyk</p>
+                    <p>&copy; 2016 <a href="mailto:kontakt.pjanczyk@gmail.com">Piotr Janczyk<a/></p>
                 </div>
             </div>
 
