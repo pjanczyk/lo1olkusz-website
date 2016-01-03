@@ -55,6 +55,11 @@ class Auth
         return self::$ssl;
     }
 
+    public static function getProtocol()
+    {
+        return self::$ssl ? 'https://' : 'http://';
+    }
+
     public static function isAuthenticated()
     {
         return self::$authenticated;
@@ -62,7 +67,7 @@ class Auth
 
     public static function forceSSL()
     {
-        // we don't have ssl certificate for current domain, we can't use ssl unfortunately
+        // FIXME: we don't have ssl certificate for current domain, we can't use ssl unfortunately
 
         //if (!self::$ssl) {
         //    header("HTTP/1.0 301 Moved Permanently");
@@ -76,8 +81,7 @@ class Auth
         self::forceSSL();
 
         if (!self::$authenticated) {
-            //header("Location: https://" . $_SERVER["HTTP_HOST"] . '/dashboard/login?redirect=' . $_SERVER['REQUEST_URI']);
-            header("Location: http://" . $_SERVER["HTTP_HOST"] . '/dashboard/login?redirect=' . $_SERVER['REQUEST_URI']);
+            header('Location: ' . self::getProtocol() . $_SERVER["HTTP_HOST"] . '/dashboard/login?redirect=' . $_SERVER['REQUEST_URI']);
         }
     }
 

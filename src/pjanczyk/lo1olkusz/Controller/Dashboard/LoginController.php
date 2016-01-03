@@ -57,7 +57,7 @@ class LoginController extends Controller
 
     public function GET_logout_0() {
         Auth::logout();
-        header("Location: https://" . $_SERVER["HTTP_HOST"] . '/dashboard/login');
+        header("Location: " . Auth::getProtocol() . $_SERVER["HTTP_HOST"] . '/dashboard/login');
     }
 
     private function redirect()
@@ -68,7 +68,7 @@ class LoginController extends Controller
             $redirect = $_GET['redirect'];
         }
 
-        header("Location: https://" . $_SERVER["HTTP_HOST"] . $redirect);
+        header("Location: " . Auth::getProtocol() . $_SERVER["HTTP_HOST"] . $redirect);
         exit;
     }
 }
