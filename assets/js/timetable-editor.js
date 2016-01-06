@@ -73,7 +73,7 @@ angular.module('timetableEditor', [])
                             if (parts.length >= 1)
                                 subject.name = parts[0].trim();
                             if (parts.length >= 2)
-                                subject.class = parts[1].trim();
+                                subject.classroom = parts[1].trim();
                             if (parts.length >= 3)
                                 subject.group = parts[2].trim();
 
