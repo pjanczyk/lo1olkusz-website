@@ -28,7 +28,7 @@ class LuckyNumberParserTest extends PHPUnit_Framework_TestCase
 {
     public function testExist()
     {
-        $dom = SimpleHtmlDom::fromUrl(__DIR__ . '/correct_zast.html');
+        $dom = SimpleHtmlDom::fromUrl(__DIR__ . '/correct.html');
 
         $a = new LuckyNumberParser;
         $result = $a->getLuckyNumber($dom);
@@ -44,7 +44,7 @@ class LuckyNumberParserTest extends PHPUnit_Framework_TestCase
 
     public function testNotExist()
     {
-        $dom = SimpleHtmlDom::fromUrl(__DIR__ . '/empty_zast.html');
+        $dom = SimpleHtmlDom::fromString("<html></html>");
 
         $a = new LuckyNumberParser;
         $result = $a->getLuckyNumber($dom);
@@ -55,7 +55,7 @@ class LuckyNumberParserTest extends PHPUnit_Framework_TestCase
 
     public function testIncorrect()
     {
-        $dom = SimpleHtmlDom::fromUrl(__DIR__ . '/incorrect_zast.html');
+        $dom = SimpleHtmlDom::fromUrl(__DIR__ . '/incorrect.html');
 
         $a = new LuckyNumberParser;
         $result = $a->getLuckyNumber($dom);

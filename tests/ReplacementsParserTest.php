@@ -30,7 +30,7 @@ class ReplacementsParserTest extends PHPUnit_Framework_TestCase
     {
         $start = microtime(true);
 
-        $dom = SimpleHtmlDom::fromUrl(__DIR__ . '/correct_zast.html');
+        $dom = SimpleHtmlDom::fromUrl(__DIR__ . '/correct.html');
 
         $a = new ReplacementsParser;
         $result = $a->getReplacements($dom);
@@ -39,30 +39,6 @@ class ReplacementsParserTest extends PHPUnit_Framework_TestCase
         echo 'ReplacementsParserTest::testExist: ' . $time_elapsed_secs . PHP_EOL;
 
         $expected = [];
-
-        $last = new Replacements;
-        $last->date = "2015-06-23";
-        $last->class = "1a";
-        $last->value = [5 => "matematyka, mgr R. Dylewska"];
-        $expected[] = $last;
-
-        $last = new Replacements;
-        $last->date = "2015-06-23";
-        $last->class = "1b";
-        $last->value = [1 => "zaczyna o 9.55"];
-        $expected[] = $last;
-
-        $last = new Replacements;
-        $last->date = "2015-06-23";
-        $last->class = "1f";
-        $last->value = [7 => "gr. N6- j.niem, mgr T. Wajdzik"];
-        $expected[] = $last;
-
-        $last = new Replacements;
-        $last->date = "2015-06-23";
-        $last->class = "2a";
-        $last->value = [1 => "gr. N9- j.niem, mgr T. Wajdzik", 8 => "gr. N1- j.niem, mgr T. Wajdzik"];
-        $expected[] = $last;
 
         $last = new Replacements;
         $last->date = "2015-06-23";
@@ -82,7 +58,7 @@ class ReplacementsParserTest extends PHPUnit_Framework_TestCase
 
     public function testNotExist()
     {
-        $dom = SimpleHtmlDom::fromUrl(__DIR__ . '/empty_zast.html');
+        $dom = SimpleHtmlDom::fromString("<html></html>");
 
         $a = new ReplacementsParser;
         $result = $a->getReplacements($dom);
@@ -93,7 +69,7 @@ class ReplacementsParserTest extends PHPUnit_Framework_TestCase
 
     public function testIncorrect()
     {
-        $dom = SimpleHtmlDom::fromUrl(__DIR__ . '/incorrect_zast.html');
+        $dom = SimpleHtmlDom::fromUrl(__DIR__ . '/incorrect.html');
 
         $a = new ReplacementsParser;
         $result = $a->getReplacements($dom);
