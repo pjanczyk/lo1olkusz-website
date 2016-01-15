@@ -1,30 +1,28 @@
 <?php
 /**
- * Copyright 2015 Piotr Janczyk
+ * Copyright (C) 2016  Piotr Janczyk
  *
- * This file is part of I LO Olkusz Unofficial App.
+ * This file is part of lo1olkusz unofficial app - website.
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//Created on 2015-07-10
-
 use pjanczyk\lo1olkusz\Cron\ReplacementsParser;
 use pjanczyk\lo1olkusz\Model\Replacements;
+use pjanczyk\lo1olkusz\SimpleHtmlDom\SimpleHtmlDom;
 
-require 'autoloader.php';
-require_once 'libs/simple_html_dom.php';
+require_once __DIR__ . '/../autoloader.php';
 
 class ReplacementsParserTest extends PHPUnit_Framework_TestCase
 {
@@ -32,7 +30,7 @@ class ReplacementsParserTest extends PHPUnit_Framework_TestCase
     {
         $start = microtime(true);
 
-        $dom = file_get_html(__DIR__ . '/correct_zast.html');
+        $dom = SimpleHtmlDom::fromUrl(__DIR__ . '/correct_zast.html');
 
         $a = new ReplacementsParser;
         $result = $a->getReplacements($dom);
@@ -84,7 +82,7 @@ class ReplacementsParserTest extends PHPUnit_Framework_TestCase
 
     public function testNotExist()
     {
-        $dom = file_get_html(__DIR__ . '/empty_zast.html');
+        $dom = SimpleHtmlDom::fromUrl(__DIR__ . '/empty_zast.html');
 
         $a = new ReplacementsParser;
         $result = $a->getReplacements($dom);
@@ -95,7 +93,7 @@ class ReplacementsParserTest extends PHPUnit_Framework_TestCase
 
     public function testIncorrect()
     {
-        $dom = file_get_html(__DIR__ . '/incorrect_zast.html');
+        $dom = SimpleHtmlDom::fromUrl(__DIR__ . '/incorrect_zast.html');
 
         $a = new ReplacementsParser;
         $result = $a->getReplacements($dom);

@@ -1,28 +1,27 @@
 <?php
 /**
- * Copyright 2015 Piotr Janczyk
+ * Copyright (C) 2016  Piotr Janczyk
  *
- * This file is part of I LO Olkusz Unofficial App.
+ * This file is part of lo1olkusz unofficial app - website.
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 namespace pjanczyk\lo1olkusz\Cron;
 
 use pjanczyk\lo1olkusz\Model\Replacements;
-
-require_once 'libs/simple_html_dom.php';
+use pjanczyk\lo1olkusz\SimpleHtmlDom\SimpleHtmlDom;
 
 /**
  * Gets data of replacements from the official website, parsing it from html
@@ -40,47 +39,43 @@ class ReplacementsParser
     /**
      * Parses replacements from html.
      * If them cannot be find or they are in incorrect format returns null.
-     * @param \simple_html_dom $dom
-     * @return array(Replacements)|null
+     * @param SimpleHtmlDom $dom
+     * @return Replacements[]|null
      */
     public function getReplacements($dom)
     {
-        /** @var \simple_html_dom_node $itemPage */
-        $itemPage = $dom->find('div[class=item-page]', 0);
+        $itemPage = $dom->root()->find('div[class=item-page]', 0);
 
         if ($itemPage === null) return null;
 
-        /** @var \simple_html_dom_node $h4 */
         $h4 = $itemPage->find('h4', 0);
-        /** @var \simple_html_dom_node $table */
         $table = $itemPage->find('table', 0);
 
         if ($h4 === null || $table === null) return null;
 
         //parse date
-        $date = ReplacementsParser::parseDate(trim($h4->plaintext));
+        $date = ReplacementsParser::parseDate(trim($h4->text()));
 
         if ($date === null) {
-            $this->errors[] = "incorrect date format: " . $h4->plaintext;
+            $this->errors[] = "incorrect date format: " . $h4->text();
             return null;
         }
 
         //parse content
         $rows = $table->find('tr');
 
-        /** @var array(Replacements) $replacements */
+        /** @var Replacements[] $replacements */
         $replacements = [];
-        /** @var \pjanczyk\lo1olkusz\Model\Replacements $current */
+        /** @var Replacements|null $current */
         $current = null;
 
-        /** @var \simple_html_dom_node $row */
         foreach ($rows as $i => $row) {
             $cells = $row->find('th, td');
 
             if (count($cells) === 1) { //class name, e.g. | 2a |
                 $current = new Replacements;
                 $current->date = $date;
-                $current->class = $cells[0]->plaintext;
+                $current->class = $cells[0]->text();
                 $current->value = [];
 
                 $replacements[] = $current;
@@ -90,8 +85,8 @@ class ReplacementsParser
                     continue; //skip this row
                 }
 
-                $hourText = $cells[0]->plaintext;
-                $text = $cells[1]->plaintext;
+                $hourText = $cells[0]->text();
+                $text = $cells[1]->text();
 
                 if (!is_numeric($hourText)) {
                     $this->errors[] = "row: {$i}, invalid hour no.: '{$hourText}'";

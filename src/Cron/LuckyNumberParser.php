@@ -1,29 +1,28 @@
 <?php
 /**
- * Copyright 2015 Piotr Janczyk
+ * Copyright (C) 2016  Piotr Janczyk
  *
- * This file is part of I LO Olkusz Unofficial App.
+ * This file is part of lo1olkusz unofficial app - website.
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 namespace pjanczyk\lo1olkusz\Cron;
 
-require_once 'libs/simple_html_dom.php';
-
 use Exception;
 use pjanczyk\lo1olkusz\Model\LuckyNumber;
+use pjanczyk\lo1olkusz\SimpleHtmlDom\SimpleHtmlDom;
 
 class LuckyNumberParser
 {
@@ -35,8 +34,8 @@ class LuckyNumberParser
     }
 
     /**
-     * @param \simple_html_dom $dom
-     * @return \pjanczyk\lo1olkusz\Model\LuckyNumber|null
+     * @param SimpleHtmlDom $dom
+     * @return LuckyNumber|null
      */
     public function getLuckyNumber($dom)
     {
@@ -54,18 +53,18 @@ class LuckyNumberParser
     }
 
     /**
-     * @param \simple_html_dom $dom
+     * @param SimpleHtmlDom $dom
      * @return null|string , a text of a next paragraph after phrase "szczęśliwy numerek"
      *         or null if it wasn't found
      */
     private static function findText($dom)
     {
-        $ps = $dom->find("div.column_right div.custom p");
+        $ps = $dom->root()->find("div.column_right div.custom p");
 
         //find paragraph containing phrase "szczęśliwy numerek"
         $pTitleIndex = -1;
         foreach ($ps as $i => $p) {
-            if (strcasecmp($p->plaintext, "SZCZĘŚLIWY NUMEREK") === 0) {
+            if (strcasecmp($p->text(), "SZCZĘŚLIWY NUMEREK") === 0) {
                 $pTitleIndex = $i;
             }
         }
@@ -73,7 +72,7 @@ class LuckyNumberParser
         //get context of the next paragraph
         if ($pTitleIndex !== -1 && isset($ps[$pTitleIndex + 1])) {
             $p = $ps[$pTitleIndex + 1];
-            return $p->plaintext;
+            return $p->text();
         }
         return null;
     }
@@ -90,7 +89,7 @@ class LuckyNumberParser
 
         $parts = explode('-', $text);
         if (count($parts) !== 2) {
-            throw new Exception("W tekście powinien być tylko jeden myślnik: '{$text}'");
+            throw new Exception("There should be only 1 dash in phrase: '{$text}'");
         }
 
         $datePart = trim($parts[0]);
@@ -124,12 +123,12 @@ class LuckyNumberParser
             $dateTime->setDate($year, $month, $day);
             $ln->date = $dateTime->format('Y-m-d');
         } else {
-            throw new Exception("Niewłaściwy format daty: '{$datePart}'");
+            throw new Exception("Incorrect date format: '{$datePart}'");
         }
 
         //parse number
         if (!is_numeric($valuePart)) {
-            throw new Exception("Niewłaściwy format numeru: '{$valuePart}'");
+            throw new Exception("Incorrect number format: '{$valuePart}'");
         }
         $ln->value = intval($valuePart);
 

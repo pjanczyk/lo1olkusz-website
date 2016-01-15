@@ -1,31 +1,30 @@
 <?php
 /**
- * Copyright 2015 Piotr Janczyk
+ * Copyright (C) 2016  Piotr Janczyk
  *
- * This file is part of I LO Olkusz Unofficial App.
+ * This file is part of lo1olkusz unofficial app - website.
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 namespace pjanczyk\lo1olkusz\Cron;
 
-require_once 'libs/simple_html_dom.php';
-
 use pjanczyk\lo1olkusz\Database;
 use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Model\LuckyNumberRepository;
 use pjanczyk\lo1olkusz\Model\ReplacementsRepository;
+use pjanczyk\lo1olkusz\SimpleHtmlDom\SimpleHtmlDom;
 
 class CronTask
 {
@@ -36,13 +35,12 @@ class CronTask
         Database::init(Config::getInstance()->getDatabaseConfig());
 
         $url = self::URL;
-        $dom = file_get_html($url);
+        $dom = SimpleHtmlDom::fromUrl($url);
 
         if ($dom === false) {
             echo "cannot get {$url}\n";
             return;
         }
-
         $this->updateLuckyNumbers($dom);
         $this->updateReplacements($dom);
 
