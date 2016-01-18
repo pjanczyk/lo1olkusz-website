@@ -18,29 +18,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace pjanczyk\lo1olkusz\Model;
+namespace pjanczyk\lo1olkusz\DAO;
 
 use PDO;
 use pjanczyk\lo1olkusz\Database;
+use pjanczyk\lo1olkusz\Model\LuckyNumber;
 
-class ReplacementsRepository
+class LuckyNumberRepository
 {
     /**
-     * @param string $class
      * @param string $date
-     * @return null|Replacements
+     * @return LuckyNumber|null
      */
-    public function getByClassAndDate($class, $date)
+    public function getByDate($date)
     {
         $stmt = Database::get()->prepare(
-            'SELECT class, date, value, UNIX_TIMESTAMP(lastModified) AS lastModified FROM replacements
-WHERE date=:date AND class=:class');
-
+            'SELECT date, value, UNIX_TIMESTAMP(lastModified) AS lastModified FROM luckyNumbers WHERE date=:date');
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
-        $stmt->bindParam(':class', $class, PDO::PARAM_STR);
         $stmt->execute();
 
-        $obj = $stmt->fetchObject('pjanczyk\lo1olkusz\Model\Replacements');
+        $obj = $stmt->fetchObject('pjanczyk\lo1olkusz\Model\LuckyNumber');
 
         if ($obj === false) return null;
         return $obj;
@@ -49,62 +46,46 @@ WHERE date=:date AND class=:class');
     /**
      * @param string $date
      * @param int $lastModified
-     * @return array(Replacements)
+     * @return array(LuckyNumber)
      */
     public function getByDateAndLastModified($date, $lastModified)
     {
         $stmt = Database::get()->prepare(
-            'SELECT class, date, value, UNIX_TIMESTAMP(lastModified) AS lastModified FROM replacements
+            'SELECT date, value, UNIX_TIMESTAMP(lastModified) AS lastModified FROM luckyNumbers
 WHERE date>=:date AND lastModified>=FROM_UNIXTIME(:lastModified)');
 
         $stmt->bindParam(':date', $date);
         $stmt->bindParam(':lastModified', $lastModified, PDO::PARAM_INT);
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\Model\Replacements');
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\Model\LuckyNumber');
     }
 
     /**
-     * Return array of replacements without their values
-     * @return array(Replacements)
+     * @return array(LuckyNumber)
      */
     public function listAll()
     {
         $stmt = Database::get()->prepare(
-            'SELECT class, date, UNIX_TIMESTAMP(lastModified) AS lastModified FROM replacements
-ORDER BY date DESC, class ASC');
-
+            'SELECT date, value, UNIX_TIMESTAMP(lastModified) AS lastModified FROM luckyNumbers ORDER BY date DESC');
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\Model\Replacements');
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'pjanczyk\lo1olkusz\Model\LuckyNumber');
     }
 
     /**
-     * @return int
-     */
-    public function count()
-    {
-        $stmt = Database::get()->prepare('SELECT COUNT(*) FROM replacements');
-        $stmt->execute();
-
-        return (int)$stmt->fetchColumn();
-    }
-
-    /**
-     * @param string $class
      * @param string $date
      * @param int $value
      * @return bool
      */
-    public function setValue($class, $date, $value)
+    public function setValue($date, $value)
     {
         $stmt = Database::get()->prepare(
-            'INSERT INTO replacements (class, date, value) VALUES (:class, :date, :value)
-ON DUPLICATE KEY UPDATE value=:value');
+            'INSERT INTO luckyNumbers (date, value) VALUES (:date, :value) ON DUPLICATE KEY UPDATE value=:value');
 
-        $stmt->bindParam(':class', $class, PDO::PARAM_STR);
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
-        $stmt->bindValue(':value', json_encode($value), PDO::PARAM_STR);
+        $stmt->bindParam(':value', $value, PDO::PARAM_INT);
 
         return $stmt->execute();
     }

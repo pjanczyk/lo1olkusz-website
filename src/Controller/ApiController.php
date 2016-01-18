@@ -25,13 +25,13 @@ use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\Cron\CronTask;
 use pjanczyk\lo1olkusz\Json;
 use pjanczyk\lo1olkusz\Model\Bells;
-use pjanczyk\lo1olkusz\Model\BellsRepository;
-use pjanczyk\lo1olkusz\Model\LuckyNumberRepository;
-use pjanczyk\lo1olkusz\Model\NewsService;
-use pjanczyk\lo1olkusz\Model\ReplacementsRepository;
-use pjanczyk\lo1olkusz\Model\StatisticRepository;
+use pjanczyk\lo1olkusz\DAO\BellsRepository;
+use pjanczyk\lo1olkusz\DAO\LuckyNumberRepository;
+use pjanczyk\lo1olkusz\Service\NewsService;
+use pjanczyk\lo1olkusz\DAO\ReplacementsRepository;
+use pjanczyk\lo1olkusz\DAO\StatisticRepository;
 use pjanczyk\lo1olkusz\Model\Timetable;
-use pjanczyk\lo1olkusz\Model\TimetableRepository;
+use pjanczyk\lo1olkusz\DAO\TimetableRepository;
 
 class ApiController extends Controller
 {

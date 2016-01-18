@@ -20,9 +20,6 @@
 
 namespace pjanczyk\lo1olkusz\Model;
 
-/**
- * Entity
- */
 class LuckyNumber
 {
     /** @var string */

@@ -23,8 +23,8 @@ namespace pjanczyk\lo1olkusz\Controller\Dashboard;
 use pjanczyk\lo1olkusz\Auth;
 use pjanczyk\lo1olkusz\Controller\Controller;
 use pjanczyk\lo1olkusz\Config;
-use pjanczyk\lo1olkusz\Model\SettingRepository;
-use pjanczyk\lo1olkusz\Model\StatisticRepository;
+use pjanczyk\lo1olkusz\DAO\SettingRepository;
+use pjanczyk\lo1olkusz\DAO\StatisticRepository;
 
 class SettingController extends Controller
 {

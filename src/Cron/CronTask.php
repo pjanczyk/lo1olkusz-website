@@ -22,8 +22,8 @@ namespace pjanczyk\lo1olkusz\Cron;
 
 use pjanczyk\lo1olkusz\Database;
 use pjanczyk\lo1olkusz\Config;
-use pjanczyk\lo1olkusz\Model\LuckyNumberRepository;
-use pjanczyk\lo1olkusz\Model\ReplacementsRepository;
+use pjanczyk\lo1olkusz\DAO\LuckyNumberRepository;
+use pjanczyk\lo1olkusz\DAO\ReplacementsRepository;
 use pjanczyk\lo1olkusz\SimpleHtmlDom\SimpleHtmlDom;
 
 class CronTask

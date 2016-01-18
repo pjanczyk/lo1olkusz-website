@@ -18,7 +18,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace pjanczyk\lo1olkusz\Model;
+namespace pjanczyk\lo1olkusz\Service;
+
+use pjanczyk\lo1olkusz\DAO\BellsRepository;
+use pjanczyk\lo1olkusz\DAO\LuckyNumberRepository;
+use pjanczyk\lo1olkusz\DAO\ReplacementsRepository;
+use pjanczyk\lo1olkusz\DAO\SettingRepository;
+use pjanczyk\lo1olkusz\DAO\TimetableRepository;
+use pjanczyk\lo1olkusz\Model\News;
 
 class NewsService
 {

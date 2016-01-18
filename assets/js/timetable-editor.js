@@ -1,3 +1,9 @@
+/**
+ * Copyright (C) 2016  Piotr Janczyk
+ * Part of lo1olkusz unofficial app - website.
+ * Available under GNU Affero General Public License <http://www.gnu.org/licenses/>.
+ */
+
 angular.module('timetableEditor', [])
     .directive('timetableEditor', function() {
         return {

@@ -20,7 +20,7 @@
 
 namespace pjanczyk\lo1olkusz\Controller;
 
-use pjanczyk\lo1olkusz\Model\StatisticRepository;
+use pjanczyk\lo1olkusz\DAO\StatisticRepository;
 
 class ContactController extends Controller
 {

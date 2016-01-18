@@ -20,7 +20,6 @@
 
 namespace pjanczyk\lo1olkusz\Model;
 
-
 class Bells
 {
     public $lastModified;

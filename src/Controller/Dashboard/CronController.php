@@ -22,7 +22,6 @@ namespace pjanczyk\lo1olkusz\Controller\Dashboard;
 
 use pjanczyk\lo1olkusz\Auth;
 use pjanczyk\lo1olkusz\Controller\Controller;
-use pjanczyk\lo1olkusz\Cron\CronTask;
 
 class CronController extends Controller
 {

@@ -18,10 +18,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace pjanczyk\lo1olkusz\Model;
+namespace pjanczyk\lo1olkusz\DAO;
 
 use PDO;
 use pjanczyk\lo1olkusz\Database;
+use pjanczyk\lo1olkusz\Model\Timetable;
 
 class TimetableRepository
 {

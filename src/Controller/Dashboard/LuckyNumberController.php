@@ -22,7 +22,7 @@ namespace pjanczyk\lo1olkusz\Controller\Dashboard;
 
 use pjanczyk\lo1olkusz\Auth;
 use pjanczyk\lo1olkusz\Controller\Controller;
-use pjanczyk\lo1olkusz\Model\LuckyNumberRepository;
+use pjanczyk\lo1olkusz\DAO\LuckyNumberRepository;
 
 class LuckyNumberController extends Controller
 {
