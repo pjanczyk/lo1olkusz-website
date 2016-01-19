@@ -38,24 +38,25 @@ Auth::$disableSSL = true;
 Auth::init();
 
 $route = [
-    '' => 'pjanczyk\lo1olkusz\Controller\HomeController',
-    'contact' => 'pjanczyk\lo1olkusz\Controller\ContactController',
-    'download' => 'pjanczyk\lo1olkusz\Controller\DownloadController',
+    '' => 'HomeController',
+    'contact' => 'ContactController',
+    'download' => 'DownloadController',
     'dashboard' => [
-        '' => 'pjanczyk\lo1olkusz\Controller\Dashboard\HomeController',
-        'login' => 'pjanczyk\lo1olkusz\Controller\Dashboard\LoginController',
-        'replacements' => 'pjanczyk\lo1olkusz\Controller\Dashboard\ReplacementController',
-        'lucky-numbers' => 'pjanczyk\lo1olkusz\Controller\Dashboard\LuckyNumberController',
-        'settings' => 'pjanczyk\lo1olkusz\Controller\Dashboard\SettingController',
-        'timetables' => 'pjanczyk\lo1olkusz\Controller\Dashboard\TimetableController',
-        'cron' => 'pjanczyk\lo1olkusz\Controller\Dashboard\CronController'
+        '' => 'Dashboard\HomeController',
+        'login' => 'Dashboard\LoginController',
+        'replacements' => 'Dashboard\ReplacementController',
+        'lucky-numbers' => 'Dashboard\LuckyNumberController',
+        'settings' => 'Dashboard\SettingController',
+        'timetables' => 'Dashboard\TimetableController',
+        'cron' => 'Dashboard\CronController'
     ],
-    'api' => 'pjanczyk\lo1olkusz\Controller\ApiController'
+    'api' => 'ApiController'
 ];
 
 $path = isset($_GET['p']) ? $_GET['p'] : '';
 
 Router::newInstance()
+    ->setNamespace('pjanczyk\\lo1olkusz\\Controller\\')
     ->setControllerMap($route)
     ->setErrorCallback(function () {
         header('HTTP/1.0 404 Not Found');

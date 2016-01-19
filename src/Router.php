@@ -31,6 +31,7 @@ namespace pjanczyk\lo1olkusz;
 class Router
 {
     private $map;
+    private $namespace;
     private $errorCallback;
     private $controllerName;
     private $action;
@@ -65,10 +66,21 @@ class Router
         return $this;
     }
 
+    /**
+     * @param string $namespace
+     * @return Router
+     */
+    public function setNamespace($namespace)
+    {
+        $this->namespace = $namespace;
+        return $this;
+    }
+
     public function route($path)
     {
         if ($this->parsePath($path)) {
-            $controller = new $this->controllerName;
+            $controllerName = $this->namespace . $this->controllerName;
+            $controller = new $controllerName;
 
             $action = $_SERVER['REQUEST_METHOD'] . '_' . str_replace('-', '_', $this->action) . '_' . count($this->params);
 
@@ -116,5 +128,4 @@ class Router
         }
         return false;
     }
-
 }
