@@ -26,7 +26,7 @@ namespace pjanczyk\lo1olkusz;
  * with signature "<REQUEST_METHOD>_<ACTION>_<NUMBER_OF_PARAMS>"
  * E.g. if controllerMap is set to ["users" => "UserController"]:
  *  "POST /users/edit/John" is mapped to UserController::POST_edit_1("John")
- *  "GET /users" is mapped to UserController:GET__0()
+ *  "GET /users" is mapped to UserController::GET__0()
  */
 class Router
 {
