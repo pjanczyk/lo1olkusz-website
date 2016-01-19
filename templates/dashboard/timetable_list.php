@@ -1,4 +1,4 @@
-<?php /** @var array(Timetable) $timetables */ ?>
+<?php /** @var pjanczyk\lo1olkusz\Model\Timetable[] $timetables */ ?>
 
 <?php include 'templates/dashboard/header.php' ?>
 
