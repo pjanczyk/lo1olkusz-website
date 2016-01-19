@@ -25,6 +25,7 @@ use pjanczyk\lo1olkusz\Controller\Controller;
 
 class CronController extends Controller
 {
+    // GET /cron
     public function GET__0()
     {
         Auth::forceLoggingIn();

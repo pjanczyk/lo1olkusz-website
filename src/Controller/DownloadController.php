@@ -26,6 +26,7 @@ use pjanczyk\lo1olkusz\DAO\StatisticRepository;
 
 class DownloadController extends Controller
 {
+    // GET /download
     public function GET__0()
     {
         $settings = new SettingRepository;

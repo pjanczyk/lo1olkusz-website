@@ -33,6 +33,7 @@ class SettingController extends Controller
         Auth::forceLoggingIn();
     }
 
+    // GET /dashboard/settings
     public function GET__0()
     {
         $settings = new SettingRepository;
@@ -76,6 +77,7 @@ class SettingController extends Controller
         $template->render();
     }
 
+    // POST /dashboard/settings
     public function POST__0()
     {
         $this->GET__0();

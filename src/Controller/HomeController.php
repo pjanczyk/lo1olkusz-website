@@ -24,6 +24,7 @@ use pjanczyk\lo1olkusz\DAO\StatisticRepository;
 
 class HomeController extends Controller
 {
+    // GET /
     public function GET__0()
     {
         $statistics = new StatisticRepository;

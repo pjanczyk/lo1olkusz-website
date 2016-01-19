@@ -26,6 +26,7 @@ use pjanczyk\lo1olkusz\Service\NewsService;
 
 class HomeController extends Controller
 {
+    // GET /dashboard
     public function GET__0()
     {
         Auth::forceSSL();

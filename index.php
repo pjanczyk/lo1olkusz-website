@@ -53,8 +53,13 @@ $route = [
     'api' => 'pjanczyk\lo1olkusz\Controller\ApiController'
 ];
 
-Router::route($route, function () {
-    header('HTTP/1.0 404 Not Found');
-    include '404.html';
-    exit;
-});
+$path = isset($_GET['p']) ? $_GET['p'] : '';
+
+Router::newInstance()
+    ->setControllerMap($route)
+    ->setErrorCallback(function () {
+        header('HTTP/1.0 404 Not Found');
+        include '404.html';
+        exit;
+    })
+    ->route($path);

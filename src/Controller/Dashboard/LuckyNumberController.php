@@ -26,6 +26,7 @@ use pjanczyk\lo1olkusz\DAO\LuckyNumberRepository;
 
 class LuckyNumberController extends Controller
 {
+    // GET /dashboard/lucky-numbers
     public function GET__0()
     {
         Auth::forceSSL();

@@ -31,6 +31,7 @@ class TimetableController extends Controller
         Auth::forceSSL();
     }
 
+    // GET /dashboard/timetables
     public function GET__0()
     {
         $repo = new TimetableRepository;
@@ -40,6 +41,7 @@ class TimetableController extends Controller
         $template->render();
     }
 
+    // GET /dashboard/timetables/add
     public function GET_add_0()
     {
         Auth::forceLoggingIn();
@@ -48,6 +50,7 @@ class TimetableController extends Controller
         $this->includeTemplate('dashboard/timetable_view')->render();
     }
 
+    // GET /dashboard/timetables/edit/<class>
     public function GET_edit_1($class)
     {
         Auth::forceLoggingIn();
@@ -58,6 +61,7 @@ class TimetableController extends Controller
         $template->render();
     }
 
+    // GET /dashboard/timetables/import
     public function GET_import_0()
     {
         Auth::forceLoggingIn();
@@ -66,6 +70,7 @@ class TimetableController extends Controller
         $this->includeTemplate('dashboard/timetable_importer')->render();
     }
 
+    // GET /dashboard/timetables/bells
     public function GET_bells_0()
     {
         Auth::forceLoggingIn();

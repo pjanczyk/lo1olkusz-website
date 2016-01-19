@@ -31,6 +31,7 @@ class ReplacementController extends Controller
         Auth::forceSSL();
     }
 
+    // GET /dashboard/replacements
     public function GET__0()
     {
         $repo = new ReplacementsRepository;
@@ -52,6 +53,7 @@ class ReplacementController extends Controller
         $template->render();
     }
 
+    // GET /dashboard/replacements/view/<date>/<class>
     public function GET_view_2($date, $class) {
         $model = new ReplacementsRepository;
         $replacements = $model->getByClassAndDate($class, $date);

@@ -25,6 +25,7 @@ use pjanczyk\lo1olkusz\Controller\Controller;
 
 class LoginController extends Controller
 {
+    // GET /dashboard/login
     public function GET__0()
     {
         if (Auth::isAuthenticated()) {
@@ -50,11 +51,13 @@ class LoginController extends Controller
         $template->render();
     }
 
+    // POST /dashboard/login
     public function POST__0()
     {
         $this->GET__0();
     }
 
+    // GET /dashboard/logout
     public function GET_logout_0() {
         Auth::logout();
         header("Location: " . Auth::getProtocol() . $_SERVER["HTTP_HOST"] . '/dashboard/login');
