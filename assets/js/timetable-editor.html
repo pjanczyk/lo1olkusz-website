@@ -1,0 +1,30 @@
+<div class="timetable">
+    <div class="timetable-day" ng-repeat="(dayNo, day) in value">
+        <div class="pnl-header">
+            {{dayOfWeek(dayNo)}}
+            <div class="pull-right">
+                <button ng-if="!day.$editing" ng-click="edit(day)" class="btn btn-sm">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </button>
+                <button ng-if="day.$editing" ng-click="discard(day)" class="btn btn-sm btn-danger">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+                <button ng-if="day.$editing" ng-click="apply(day)" class="btn btn-sm btn-success">
+                    <span class="glyphicon glyphicon-ok"></span>
+                </button>
+            </div>
+        </div>
+        <textarea ng-if="day.$editing" class="code" ng-model="day.$raw"></textarea>
+        <div ng-if="!day.$editing" ng-repeat="(hourNo, hour) in day" class="list-item">
+            <div class="hour">{{hourNo}}.</div>
+            <div class="subject-container">
+                <div class="subject" ng-repeat="subject in hour">
+                    <span class="name">{{subject.name}}</span>
+                    <span ng-if="subject.classroom" class="classroom">{{subject.classroom}}</span>
+                    <span ng-if="subject.group" class="group">({{subject.group}})</span>
+                    <span ng-if="subject.error" class="error">[BŁĄD]</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

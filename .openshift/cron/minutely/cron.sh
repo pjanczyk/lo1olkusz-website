@@ -1,0 +1,8 @@
+#!/bin/bash
+export TZ="/usr/share/zoneinfo/Europe/Warsaw"
+NOW=$(date +"%F %T")
+FILE=${OPENSHIFT_LOG_DIR}/cron.log
+echo "[$NOW]" >> ${FILE}
+
+cd ${OPENSHIFT_REPO_DIR}
+php ./run_cron.php &>> ${FILE}
