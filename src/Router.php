@@ -26,6 +26,16 @@ class Router
     private static $action;
     private static $params;
 
+    /**
+     * Provides a simple routing.
+     * Routes a request to the specific controller and calls its method
+     * with signature "<REQUEST_METHOD>_<ACTION>_<NUMBER_OF_PARAMS>"
+     * E.g. if $map = ["users" => "UserController"]:
+     *  "POST /users/edit/John" is mapped to UserController::POST_edit_1("John")
+     *  "GET /users" is mapped to UserController:GET__0()
+     * @param array $map
+     * @param callable $errorCallback Called on error
+     */
     public static function route($map, $errorCallback)
     {
         if (self::parsePath($map)) {
