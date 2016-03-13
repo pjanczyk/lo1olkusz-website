@@ -68,7 +68,12 @@ WHERE lastModified>=FROM_UNIXTIME(:lastModified) LIMIT 1');
      */
     public function set($value)
     {
-        $stmt = Database::get()->prepare('UPDATE bells SET value=:value LIMIT 1');
+        $stmt = Database::get()->prepare(
+            'START TRANSACTION;
+            DELETE FROM bells;
+            INSERT INTO bells (value) VALUES (:value);
+            COMMIT;'
+        );
         $stmt->bindValue(':value', json_encode($value));
         $stmt->execute();
 
