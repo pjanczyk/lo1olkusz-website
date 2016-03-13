@@ -23,7 +23,6 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL | E_STRICT);
 
 require 'autoloader.php';
-require 'config.php';
 
 use pjanczyk\lo1olkusz\Auth;
 use pjanczyk\lo1olkusz\Database;
