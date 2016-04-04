@@ -56,6 +56,7 @@
                         <div>
                         <h1 class="cover-heading">Wszystkie informacje w&nbsp;jednym miejscu</h1>
                         <p class="lead">Plan lekcji, zastępstwa i szczęśliwy numerek na&nbsp;dany&nbsp;dzień</p>
+                        <p class="lead">Powiadomienia o zastępstawch i&nbsp;szczęśliwych numerkach</p>
                         <p class="lead">
                             <a href="/download" class="btn btn-lg btn-default">
                                 <img src="/assets/img/android_icon.png"/>
