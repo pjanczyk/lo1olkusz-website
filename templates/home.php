@@ -70,7 +70,8 @@
 
             <div class="mastfoot">
                 <div class="inner">
-                    <p>&copy; 2016 <a href="mailto:kontakt.pjanczyk@gmail.com">Piotr Janczyk<a/></p>
+                    <p class="thanks">Podziękowania dla Michała Kiełtyki, od&nbsp;którego zaczerpnięty został pomysł stworzenia tej&nbsp;aplikacji.</p>
+                    <p>&copy; 2016 <a href="mailto:kontakt.pjanczyk@gmail.com">Piotr Janczyk</a></p>
                 </div>
             </div>
 
