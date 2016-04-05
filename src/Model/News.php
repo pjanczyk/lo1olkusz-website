@@ -24,11 +24,11 @@ class News
 {
     /** @var int */
     public $timestamp;
-    /** @var array(Replacements) */
+    /** @var Replacements[] */
     public $replacements;
-    /** @var array(LuckyNumber) */
+    /** @var LuckyNumber[] */
     public $luckyNumbers;
-    /** @var array(Timetable) */
+    /** @var Timetable[] */
     public $timetables;
     /** @var Bells */
     public $bells;
