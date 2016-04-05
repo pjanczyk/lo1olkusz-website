@@ -24,7 +24,7 @@ use pjanczyk\lo1olkusz\Auth;
 use pjanczyk\lo1olkusz\Controller\Controller;
 use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\DAO\SettingRepository;
-use pjanczyk\lo1olkusz\DAO\StatisticRepository;
+use pjanczyk\lo1olkusz\Statistics\StatisticsApi;
 
 class SettingController extends Controller
 {
@@ -59,15 +59,17 @@ class SettingController extends Controller
             }
         }
 
-        $statistics = new StatisticRepository;
-
         $template = $this->includeTemplate('dashboard/settings');
         $template->alerts = $alerts;
         $template->version = $settings->getVersion();
 
-        $template->statRest = $statistics->getStatistics(StatisticRepository::REST_API, 14);
-        $template->statDownload = $statistics->getStatistics(StatisticRepository::DOWNLOAD, 14);
-        $template->statHome = $statistics->getStatistics(StatisticRepository::HOME_PAGE, 14);
+        $statisticsApi = new StatisticsApi;
+        $timeMax = time();
+        $timeMin = time() - 13 * 24 * 60 * 60;
+        $dateMax = date('Y-m-d', $timeMax);
+        $dateMin = date('Y-m-d', $timeMin);
+
+        $template->statisticsApi = $statisticsApi->getNumberOfUsersPerDay($dateMin, $dateMax);
 
         if (file_exists($apkPath)) {
             $template->apkMd5 = md5_file($apkPath);

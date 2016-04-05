@@ -29,9 +29,9 @@ use pjanczyk\lo1olkusz\DAO\BellsRepository;
 use pjanczyk\lo1olkusz\DAO\LuckyNumberRepository;
 use pjanczyk\lo1olkusz\Service\NewsService;
 use pjanczyk\lo1olkusz\DAO\ReplacementsRepository;
-use pjanczyk\lo1olkusz\DAO\StatisticRepository;
 use pjanczyk\lo1olkusz\Model\Timetable;
 use pjanczyk\lo1olkusz\DAO\TimetableRepository;
+use pjanczyk\lo1olkusz\Statistics\StatisticsApi;
 
 class ApiController extends Controller
 {
@@ -48,10 +48,10 @@ class ApiController extends Controller
         }
 
         $version = intval(getParameter('v', '0'));
-        $androidId = getParameter('aid', '');
+        $aid = getParameter('aid', '');
 
-        $statistics = new StatisticRepository;
-        $statistics->increaseVisits(StatisticRepository::REST_API, date('Y-m-d'), $version, $androidId);
+        $statistics = new StatisticsApi;
+        $statistics->increaseCounter(date('Y-m-d'), $version, $aid);
     }
 
     // GET api/news

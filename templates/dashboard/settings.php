@@ -45,23 +45,19 @@
                 Statystyki
             </div>
             <div class="panel-body">
-                <h4>REST api</h4>
+                <h4>Zapytania API</h4>
                 <table>
                     <thead>
                         <tr>
-                            <th></th>
-                            <th></th>
-                            <th>Zap.</th>
-                            <th>Unik.</th>
+                            <th>Data</th>
+                            <th>Użytkowników</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($statRest as $s): ?>
+                        <?php foreach($statisticsApi as $s): ?>
                             <tr>
                                 <td><?=$s->date?></td>
-                                <td>v<?=$s->version?></td>
-                                <td><?=$s->visits?></td>
-                                <td><?=$s->uniqueVisits?></td>
+                                <td><?=$s->users?></td>
                             </tr>
                         <?php endforeach ?>
                     </tbody>
