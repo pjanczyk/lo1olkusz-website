@@ -1,6 +1,7 @@
 <?php include 'templates/dashboard/header.php' ?>
 
 <div class="page-header">
+    <span class="last-modified pull-right"><?=date('r')?></span>
     <h1>Ustawienia</h1>
 </div>
 
