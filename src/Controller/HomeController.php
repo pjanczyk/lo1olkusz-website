@@ -20,16 +20,11 @@
 
 namespace pjanczyk\lo1olkusz\Controller;
 
-use pjanczyk\lo1olkusz\DAO\StatisticRepository;
-
 class HomeController extends Controller
 {
     // GET /
     public function GET__0()
     {
-        $statistics = new StatisticRepository;
-        $statistics->increaseVisits(StatisticRepository::HOME_PAGE, date('Y-m-d'), 0, '');
-
         $this->includeTemplate('home')->render();
     }
 }
