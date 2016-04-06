@@ -94,4 +94,17 @@ ORDER BY date DESC');
         return $stmt->fetchAll(\PDO::FETCH_OBJ);
     }
 
+    /**
+     * @return int Number of unique users
+     */
+    public static function getTotalNumberOfUsers()
+    {
+        $stmt = Database::get()->prepare(
+            'SELECT COUNT(DISTINCT uid) FROM statistics_api');
+
+        $stmt->execute();
+
+        return $stmt->fetchColumn();
+    }
+
 }

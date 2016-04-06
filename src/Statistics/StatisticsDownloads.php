@@ -40,4 +40,12 @@ ON DUPLICATE KEY UPDATE count=count+1');
 
         $stmt->execute();
     }
+
+    public static function getTotalNumberOfDownloads() {
+        $stmt = Database::get()->prepare(
+            'SELECT SUM(count) FROM statistics_downloads');
+        $stmt->execute();
+
+        return $stmt->fetchColumn();
+    }
 }
