@@ -20,11 +20,20 @@
 
 namespace pjanczyk\lo1olkusz\Controller;
 
+use pjanczyk\lo1olkusz\Statistics\StatisticsApi;
+use pjanczyk\lo1olkusz\Statistics\StatisticsDownloads;
+
 class HomeController extends Controller
 {
     // GET /
     public function GET__0()
     {
-        $this->includeTemplate('home')->render();
+        $statisticsApi = new StatisticsApi;
+        $statisticsDownloads = new StatisticsDownloads;
+
+        $template = $this->includeTemplate('home');
+        $template->downloadCount = $statisticsDownloads->getTotalNumberOfDownloads();
+        $template->userCount = $statisticsApi->getTotalNumberOfUsers();
+        $template->render();
     }
 }

@@ -62,6 +62,9 @@
                                 <img src="/assets/img/android_icon.png"/>
                                 Pobierz
                             </a>
+                            <br/>
+                            <span class="statistics"><?=$downloadCount?> pobrań, <?=$userCount?> użytkowników</span>
+                            <!--<p class="required-version">Android 4.0+</p>-->
                         </p>
                         </div>
                     </div>
