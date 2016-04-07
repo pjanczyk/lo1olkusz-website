@@ -11,7 +11,7 @@
     <link rel="icon" type="image/png" href="/assets/img/favicon-32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="/assets/img/favicon-48.png" sizes="48x48" />
 
-    <title>lo1olkusz app</title>
+    <title>lo1olkusz unofficial app</title>
 
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=latin,latin-ext' rel='stylesheet'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
