@@ -94,7 +94,7 @@ ORDER BY date DESC, class ASC');
     /**
      * @param string $class
      * @param string $date
-     * @param int $value
+     * @param array $value
      * @return bool
      */
     public function setValue($class, $date, $value)
