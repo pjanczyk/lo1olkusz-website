@@ -19,7 +19,7 @@
 
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=latin,latin-ext' rel='stylesheet'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link href="/assets/css/cover.css" rel="stylesheet">
+    <link href="/assets/css/cover.css?rev=2" rel="stylesheet">
 </head>
 
 <body>
