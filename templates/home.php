@@ -58,18 +58,17 @@
                     </div>
                     <div class="product-description col-sm-6 col-sm-pull-6">
                         <div>
-                        <h1 class="cover-heading">Wszystkie informacje w&nbsp;jednym miejscu</h1>
-                        <p class="lead">Plan lekcji, zastępstwa i szczęśliwy numerek na&nbsp;dany&nbsp;dzień</p>
-                        <p class="lead">Powiadomienia o zastępstawch i&nbsp;szczęśliwych numerkach</p>
-                        <p class="lead">
-                            <a href="/download" class="btn btn-lg btn-default">
-                                <img src="/assets/img/android_icon.png"/>
-                                Pobierz
-                            </a>
-                            <br/>
-                            <span class="statistics"><?=$downloadCount?> pobrań, <?=$userCount?> użytkowników</span>
-                            <!--<p class="required-version">Android 4.0+</p>-->
-                        </p>
+                            <h1 class="cover-heading">Wszystkie informacje w&nbsp;jednym miejscu</h1>
+                            <p class="lead">Plan lekcji, zastępstwa i szczęśliwy numerek na&nbsp;dany&nbsp;dzień</p>
+                            <p class="lead">Powiadomienia o zastępstawch i&nbsp;szczęśliwych numerkach</p>
+                            <div class="btn-download-box">
+                                <a href="/download" class="btn btn-lg btn-download">
+                                    <img src="/assets/img/android_icon.png"/>
+                                    Pobierz
+                                </a>
+                                <div class="required-version">Android 4.0+</div>
+                                <div class="statistics"><?= $userCount ?> użytkowników</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -77,7 +76,7 @@
 
             <div class="mastfoot">
                 <div class="inner">
-                    <p class="thanks">Podziękowania dla Michała Kiełtyki, od&nbsp;którego zaczerpnięty został pomysł stworzenia tej&nbsp;aplikacji.</p>
+                    <p class="thanks">Podziękowania dla <span class="weight-400">Michała Kiełtyki</span>, od&nbsp;którego zaczerpnięty został pomysł stworzenia tej&nbsp;aplikacji.</p>
                     <p>&copy; 2016 <a href="mailto:kontakt.pjanczyk@gmail.com">Piotr Janczyk</a></p>
                 </div>
             </div>
