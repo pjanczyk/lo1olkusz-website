@@ -4,9 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#131d62">
 
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Wszystkie informacje w jednym miejscu. Plan lekcji, zastępstwa i szczęśliwy numerek na dany dzień. Powiadomienia o zastępstawch i szczęśliwych numerkach.">
+    <meta name="author" content="Piotr Janczyk">
     <link rel="icon" type="image/png" href="/assets/img/favicon-16.png" sizes="16x16" />
     <link rel="icon" type="image/png" href="/assets/img/favicon-32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="/assets/img/favicon-48.png" sizes="48x48" />
@@ -14,7 +15,7 @@
     <link rel="icon" type="image/png" href="/assets/img/favicon-144.png" sizes="144x144" />
     <link rel="icon" type="image/png" href="/assets/img/favicon-192.png" sizes="192x192" />
 
-    <title>lo1olkusz unofficial app</title>
+    <title>lo1olkusz - nieoficjalna aplikacja na Androida</title>
 
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=latin,latin-ext' rel='stylesheet'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
