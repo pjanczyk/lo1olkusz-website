@@ -68,10 +68,32 @@ body {
     margin-bottom: 10px;
 }
 
-.masthead-brand > img {
+.masthead-brand > .logo-icon {
+    width: 48px;
+    height: 48px;
     vertical-align: top;
     filter: drop-shadow(0 1px 3px rgba(0, 0, 0, .25));
     -webkit-filter: drop-shadow(0 1px 3px rgba(0, 0, 0, .25));
+    background-image: url("/assets/img/favicon-48.png");
+    background-size: contain;
+}
+
+@media (min-resolution: 2dppx) {
+    .masthead-brand > .logo-icon {
+        background-image: url("/assets/img/favicon-96.png");
+    }
+}
+
+@media (min-resolution: 3dppx) {
+    .masthead-brand > .logo-icon {
+        background-image: url("/assets/img/favicon-144.png");
+    }
+}
+
+@media (min-resolution: 4dppx) {
+    .masthead-brand > .logo-icon {
+        background-image: url("/assets/img/favicon-192.png");
+    }
 }
 
 .masthead-brand > div {

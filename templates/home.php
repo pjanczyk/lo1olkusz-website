@@ -10,6 +10,9 @@
     <link rel="icon" type="image/png" href="/assets/img/favicon-16.png" sizes="16x16" />
     <link rel="icon" type="image/png" href="/assets/img/favicon-32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="/assets/img/favicon-48.png" sizes="48x48" />
+    <link rel="icon" type="image/png" href="/assets/img/favicon-96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/assets/img/favicon-144.png" sizes="144x144" />
+    <link rel="icon" type="image/png" href="/assets/img/favicon-192.png" sizes="192x192" />
 
     <title>lo1olkusz unofficial app</title>
 
@@ -30,7 +33,7 @@
             <div class="masthead clearfix">
                 <div class="inner">
                     <h3 class="masthead-brand">
-                        <img src="/assets/img/favicon-48.png"/>
+                        <div class="logo-icon"></div>
                         <div>
                             <p>lo1olkusz</p>
                             <p><small>nieoficjalna aplikacja</small></p>
