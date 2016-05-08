@@ -93,7 +93,7 @@ ON DUPLICATE KEY UPDATE value=:value');
 
     public function delete($class)
     {
-        $stmt = Database::get()->prepare('DELETE FROM timetables WHERE class=:class');
+        $stmt = Database::get()->prepare('UPDATE timetables SET value=NULL WHERE class=:class');
         $stmt->bindParam(':class', $class);
 
         $stmt->execute();
