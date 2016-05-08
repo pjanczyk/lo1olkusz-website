@@ -23,7 +23,7 @@
         var replacedList = [];
 
         subjectNames.forEach(function (e) {
-            // 'A2 H BIOL 47' -> '@ H @ 47'
+            // 'A2 H BIOL 47' -> '$0$ H $1$ 47'
             var expr = e[0];
             var nameReplace = e[1];
             var groupReplace = e[2];
@@ -36,13 +36,13 @@
                     group: groupReplace ? match.replace(re, groupReplace) : null
                 });
 
-                return '@';
+                return '$' + (replacedList.length - 1) + '$';
             });
         });
 
         var results = [];
 
-        var parts = text.split('@');
+        var parts = text.split('$');
         var part0 = parts.shift().trim();
         if (part0 !== '') {
             results.push({
@@ -51,8 +51,9 @@
             });
         }
 
-        parts.forEach(function (part, idx) {
-            part = part.trim();
+        for (var i = 0; i < parts.length / 2; i++) {
+            var idx = parseInt(parts[2 * i]);
+            var part = parts[2 * i + 1].trim();
 
             var replaced = replacedList[idx];
             var subject = {
@@ -61,7 +62,7 @@
                 classroom: part
             };
             results.push(subject);
-        });
+        }
 
         return results;
     }
