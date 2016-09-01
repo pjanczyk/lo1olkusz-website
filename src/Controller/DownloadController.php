@@ -20,18 +20,20 @@
 
 namespace pjanczyk\lo1olkusz\Controller;
 
-use pjanczyk\lo1olkusz\Config;
-use pjanczyk\lo1olkusz\DAO\SettingRepository;
-use pjanczyk\lo1olkusz\Statistics\StatisticsDownloads;
-
 class DownloadController extends Controller
 {
+    const GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.pjanczyk.lo1olkusz&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1';
+
     // GET /download
     public function GET__0()
     {
+        header('Location: ' . self::GOOGLE_PLAY_URL, true, 302);
+        exit();
+
+        /*
         $settings = new SettingRepository;
         $version = $settings->getVersion();
-        
+
         $statistics = new StatisticsDownloads;
         $statistics->increaseCounter(date('Y-m-d'), $version);
 
@@ -46,5 +48,6 @@ class DownloadController extends Controller
             header('HTTP/1.0 404 Not Found');
             readfile('html/404.html');
         }
+        */
     }
 }
