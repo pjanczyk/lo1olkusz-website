@@ -44,7 +44,7 @@
                     <nav>
                         <ul class="nav masthead-nav">
                             <li class="active"><a href="/">Home</a></li>
-                            <li><a href="/download">Pobierz</a></li>
+                            <li><a href="https://play.google.com/store/apps/details?id=com.pjanczyk.lo1olkusz&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1">Pobierz</a></li>
                             <li><a href="https://github.com/pjanczyk/lo1olkusz">GitHub</a></li>
                         </ul>
                     </nav>
@@ -61,14 +61,12 @@
                             <h1 class="cover-heading">Wszystkie informacje w&nbsp;jednym miejscu</h1>
                             <p class="lead">Plan lekcji, zastępstwa i szczęśliwy numerek na&nbsp;dany&nbsp;dzień</p>
                             <p class="lead">Powiadomienia o zastępstawch i&nbsp;szczęśliwych numerkach</p>
-                            <div class="btn-download-box">
-                                <a href="/download" class="btn btn-lg btn-download">
-                                    <img src="/assets/img/android_icon.png"/>
-                                    Pobierz
-                                </a>
-                                <div class="required-version">Android 4.0+</div>
-                                <div class="statistics"><?= $userCount ?> użytkowników</div>
-                            </div>
+
+                            <a style="display: inline-block; margin: -15px"
+                               href="https://play.google.com/store/apps/details?id=com.pjanczyk.lo1olkusz&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1">
+                                <img style="width: 240px" alt="undefined"
+                                     src="https://play.google.com/intl/en_us/badges/images/generic/pl_badge_web_generic.png"/>
+                            </a>
                         </div>
                     </div>
                 </div>
