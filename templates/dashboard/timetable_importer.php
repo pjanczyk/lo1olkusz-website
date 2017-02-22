@@ -4,7 +4,6 @@
 
 <link rel="stylesheet" type="text/css" href="/assets/css/timetable-importer.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src="/assets/js/csv-parser.js"></script>
 <script src="/assets/js/timetable-editor.js"></script>
 <script src="/assets/js/timetable-importer.js"></script>
 
@@ -18,28 +17,15 @@
 
 	<div class="row">
 		<div class="col-md-12">
-			<label>1. CSV</label>
-			<textarea class="code" ng-model="importer.inputCsv"></textarea>
+			<label>JSON: </label>
+            <input type="file" id="files" style="display:inline-block"/>
+            <button ng-click="importer.loadFile()" class="btn btn-primary">
+                <span class="glyphicon glyphicon-refresh"></span>
+                Konwertuj
+            </button>
 		</div>
 	</div>
 
-	<div class="row">
-		<div class="col-md-6">
-			<label>2. Znajdź i zamień tekst w komórce tabeli <code><i>regex</i> -&gt; <i>zamień_na</i></code></label>
-			<textarea class="code" ng-model="importer.inputReplace"></textarea>
-		</div>
-		<div class="col-md-6">
-			<label>3. Wykryj nazwy przedmiotów <code><i>regex</i> -&gt; <i>nazwa_przedmiotu</i> [-&gt; <i>grupa</i>]</code></label>
-			<textarea class="code" ng-model="importer.inputSubjects"></textarea>
-		</div>
-	</div>
-	<br>
-	<button ng-click="importer.parseCsv()" class="btn btn-lg btn-primary btn-center">
-		<span class="glyphicon glyphicon-refresh"></span>
-		Konwertuj
-	</button>
-
-	<br/>
 	<hr/>
 	<br/>
 
