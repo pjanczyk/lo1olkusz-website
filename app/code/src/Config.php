@@ -34,16 +34,14 @@ class Config
         return self::$instance;
     }
 
-    private $dataDir;
-    private $logDir;
+    private $cronLogPath;
     private $dbConfig;
 
     private function __construct()
     {
         $config = require __DIR__ . '/../config.php';
 
-        $this->dataDir = $config['data_dir'];
-        $this->logDir = $config['log_dir'];
+        $this->cronLogPath = $config['cron_log_path'];
 
         $dbHost = $config['db_host'];
         $dbPort = $config['db_port'];
@@ -61,13 +59,8 @@ class Config
         return $this->dbConfig;
     }
 
-    public function getApkFilePath()
-    {
-        return $this->dataDir . '/apk';
-    }
-
     public function getLogsPath()
     {
-        return $this->logDir . '/cron.log';
+        return $this->cronLogPath;
     }
 }

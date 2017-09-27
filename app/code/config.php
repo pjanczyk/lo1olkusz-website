@@ -1,8 +1,7 @@
 <?php
 
 return [
-    'data_dir' => '/tmp',
-    'log_dir' => '/var/log',
+	'cron_log_path' => getenv('CRON_LOG_PATH'),
     'db_host' => getenv('DB_HOST'),
     'db_port' => getenv('DB_PORT'),
     'db_database' => getenv('DB_DATABASE'),

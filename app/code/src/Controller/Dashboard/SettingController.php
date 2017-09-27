@@ -22,7 +22,6 @@ namespace pjanczyk\lo1olkusz\Controller\Dashboard;
 
 use pjanczyk\lo1olkusz\Auth;
 use pjanczyk\lo1olkusz\Controller\Controller;
-use pjanczyk\lo1olkusz\Config;
 use pjanczyk\lo1olkusz\DAO\SettingRepository;
 use pjanczyk\lo1olkusz\Statistics\StatisticsApi;
 
@@ -38,26 +37,7 @@ class SettingController extends Controller
     {
         $settings = new SettingRepository;
 
-        $apkPath = Config::getInstance()->getApkFilePath();
-
         $alerts = [];
-
-        if (isset($_FILES['apk']) && $_FILES['apk']['error'] == UPLOAD_ERR_OK) {
-            Auth::forceLoggingIn();
-
-            $tempPath = $_FILES['apk']["tmp_name"];
-            if (move_uploaded_file($tempPath, $apkPath)) {
-                $alerts[] = 'Zaktualizowano plik APK';
-            }
-        }
-
-        if (isset($_POST['version'])) {
-            Auth::forceLoggingIn();
-
-            if ($settings->setVersion($_POST['version'])) {
-                $alerts[] = 'Zaktualizowano wersję aplikacji';
-            }
-        }
 
         $template = $this->includeTemplate('dashboard/settings');
         $template->alerts = $alerts;
@@ -70,11 +50,6 @@ class SettingController extends Controller
         $dateMin = date('Y-m-d', $timeMin);
 
         $template->statisticsApi = $statisticsApi->getNumberOfUsersPerDay($dateMin, $dateMax);
-
-        if (file_exists($apkPath)) {
-            $template->apkMd5 = md5_file($apkPath);
-            $template->apkLastModified = filemtime($apkPath);
-        }
 
         $template->render();
     }

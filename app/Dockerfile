@@ -18,4 +18,6 @@ COPY crontab /etc/cron.d/app-task
 # copy app's source files
 COPY code/ /var/www/html/
 
+ENV CRON_LOG_PATH /var/log/cron.log
+
 CMD cron && apache2-foreground
