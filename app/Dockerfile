@@ -14,6 +14,8 @@ COPY php.ini /usr/local/etc/php/
 
 # copy cron task
 COPY crontab /etc/cron.d/app-task
+COPY crontask.sh /usr/local/bin
+RUN chmod +x /usr/local/bin/crontask.sh
 
 # copy app's source files
 COPY code/ /var/www/html/
