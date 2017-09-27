@@ -44,24 +44,9 @@ class ReplacementsParser
      */
     public function getReplacements($dom)
     {
-        $itemPage = $dom->root()->find('div[class=item-page]', 0);
+        $table = $dom->root()->find('table', 0);
+        if ($table == null) return null;
 
-        if ($itemPage === null) return null;
-
-        $h4 = $itemPage->find('h4', 0);
-        $table = $itemPage->find('table', 0);
-
-        if ($h4 === null || $table === null) return null;
-
-        //parse date
-        $date = ReplacementsParser::parseDate(trim($h4->text()));
-
-        if ($date === null) {
-            $this->errors[] = "incorrect date format: " . $h4->text();
-            return null;
-        }
-
-        //parse content
         $rows = $table->find('tr');
 
         /** @var Replacements[] $replacements */
@@ -70,75 +55,62 @@ class ReplacementsParser
         $current = null;
 
         foreach ($rows as $i => $row) {
-            $cells = $row->find('th, td');
+        	if (count($row->find('th')) > 0) continue;
 
-            if (count($cells) === 1) { //class name, e.g. | 2a |
-                $current = new Replacements;
-                $current->date = $date;
-                $current->class = $cells[0]->text();
-                $current->value = [];
+        	$cells = $row->find('td');
 
-                $replacements[] = $current;
-            } else if (count($cells) === 2) { //replacement entry, e.g. | 1 | j. niemiecki, mgr T. Wajdzik |
-                if ($current === null) {
-                    $this->errors[] = "row: {$i}, no class name occurred before replacement text";
-                    continue; //skip this row
-                }
+        	if (count($cells) != 7) {
+		        $this->errors[] = "count($cells) != 7";
+        		break;
+	        }
 
-                $hourText = $cells[0]->text();
-                $text = $cells[1]->text();
+	        $date = trim($cells[0]->text());
+        	$class = trim($cells[1]->text());
+        	$hour = trim($cells[2]->text());
+        	$subject = trim($cells[3]->text());
+        	$teacher = trim($cells[4]->text());
+        	$classroom = trim($cells[5]->text());
+			$details = trim($cells[6]->text());
 
-                if (!is_numeric($hourText)) {
-                    $this->errors[] = "row: {$i}, invalid hour no.: '{$hourText}'";
-                    continue; //skip this row
-                }
-                $hour = intval($hourText);
+			if (preg_match('/\d{4}-\d{2}-\d{2}/', $date) !== 1) {
+				$this->errors[] = "Invalid date: $date";
+				continue;
+			}
 
-                $current->value[$hour] = $text;
-            }
+	        if ($class == '') {
+		        $this->errors[] = "Empty class: $class";
+		        continue;
+	        }
+	        $class = mb_strtolower($class);
+
+	        if (preg_match('/\d+/', $hour) !== 1) {
+		        $this->errors[] = "Invalid hour: $hour";
+				continue;
+			}
+	        $hour = intval($hour);
+
+	        $index = $date . '$$' . $class;
+	        if (isset($replacements[$index])) {
+		        $currentRepl = $replacements[$index];
+	        } else {
+		        $currentRepl = new Replacements;
+		        $currentRepl->date = $date;
+		        $currentRepl->class = $class;
+		        $currentRepl->value = [];
+		        $replacements[$index] = $currentRepl;
+	        }
+
+	        $fields = [];
+			if ($subject != '') $fields[] = $subject;
+			if ($teacher != '') $fields[] = $teacher;
+			if ($classroom != '') $fields[] = "sala $classroom";
+			if ($details != '') $fields[] = $details;
+
+	        $currentRepl->value[$hour] = join(', ', $fields);
         }
 
-        return $replacements;
+        return array_values($replacements);
     }
 
-    /**
-     * Parses a date from a text in format "d MMMM yyyy".
-     * @param string $dateText
-     * @return string|null date in format "yyyy-mm-dd"
-     */
-    private static function parseDate($dateText)
-    {
-        $array = explode(' ', $dateText);
-
-        $months = ["stycznia" => 1,
-            "lutego" => 2,
-            "marca" => 3,
-            "kwietnia" => 4,
-            "maja" => 5,
-            "czerwca" => 6,
-            "lipca" => 7,
-            "sierpnia" => 8,
-            "września" => 9,
-            "października" => 10,
-            "listopada" => 11,
-            "grudnia" => 12];
-
-        if (count($array) === 3
-            && is_numeric($array[0])
-            && isset($months[$array[1]])
-            && is_numeric($array[2])
-        ) {
-
-            $day = intval($array[0]);
-            $month = $months[$array[1]];
-            $year = intval($array[2]);
-
-            $dateTime = new \DateTime;
-            $dateTime->setDate($year, $month, $day);
-            return $dateTime->format("Y-m-d");
-        } else {
-            return null;
-        }
-    }
 }
 

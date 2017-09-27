@@ -28,27 +28,29 @@ use pjanczyk\lo1olkusz\SimpleHtmlDom\SimpleHtmlDom;
 
 class CronTask
 {
-    const URL = 'http://lo1.olkusz.pl/aktualnosci/zast';
+	const LUCKY_NUMBER_URL = 'http://lo1.olkusz.pl';
+	const REPLACEMENT_URL = 'https://lo1olkusz.edu.pl/netstudent/replacements.php';
 
     public function run()
     {
         Database::init(Config::getInstance()->getDatabaseConfig());
 
-        $url = self::URL;
-        $dom = SimpleHtmlDom::fromUrl($url);
-
-        if ($dom === false) {
-            echo "cannot get {$url}\n";
-            return;
-        }
-        $this->updateLuckyNumbers($dom);
-        $this->updateReplacements($dom);
+        $this->updateLuckyNumbers();
+        $this->updateReplacements();
 
         echo "done\n";
     }
 
-    private function updateLuckyNumbers($dom)
+    private function updateLuckyNumbers()
     {
+	    $url = self::LUCKY_NUMBER_URL;
+	    $dom = SimpleHtmlDom::fromUrl($url);
+
+	    if ($dom === false) {
+		    echo "cannot get {$url}\n";
+		    return;
+	    }
+
         $model = new LuckyNumberRepository;
         $parser = new LuckyNumberParser;
         $remote = $parser->getLuckyNumber($dom);
@@ -64,8 +66,16 @@ class CronTask
         }
     }
 
-    private function updateReplacements($dom)
+    private function updateReplacements()
     {
+	    $url = self::REPLACEMENT_URL;
+	    $dom = SimpleHtmlDom::fromUrl($url);
+
+	    if ($dom === false) {
+		    echo "cannot get {$url}\n";
+		    return;
+	    }
+
         $model = new ReplacementsRepository;
         $parser = new ReplacementsParser;
         $remoteList = $parser->getReplacements($dom);
