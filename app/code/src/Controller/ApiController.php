@@ -212,9 +212,8 @@ class ApiController extends Controller
         $path = Config::getInstance()->getLogsPath();
         header('Content-Type: text');
         header('Access-Control-Allow-Origin: *');
-        if (file_exists($path)) {
-            readfile($path);
-        }
+
+        readfile($path);
     }
 
     // DELETE api/logs
@@ -225,9 +224,9 @@ class ApiController extends Controller
         }
 
         $path = Config::getInstance()->getLogsPath();
-        if (file_exists($path)) {
-            unlink($path);
-        }
+
+        fclose(fopen($path,'w')); // truncate file
+
         Json::OK(['message' => 'Deleted']);
     }
 
