@@ -1,0 +1,12 @@
+# production environment
+# based on `docker-compose.yml`
+
+version: '3.2'
+
+services:
+  db:
+    restart: always
+  app:
+    restart: always
+    ports:
+      - 81:80

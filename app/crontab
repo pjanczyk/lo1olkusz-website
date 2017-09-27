@@ -1,0 +1,2 @@
+# Echo current time and execute /var/www/html/run_cron.
+* * * * * root { echo "[$(date +"%F %T %Z")]"; cd '/var/www/html'; php run_cron; } >> /var/log/cron.log 2>&1

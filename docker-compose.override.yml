@@ -1,0 +1,15 @@
+# development environment
+# based on `docker-compose.yml`
+
+version: '3.2'
+
+services:
+  app:
+    build: ./app
+    volumes:
+      - ./app/code:/var/www/html
+      - ./app/php.development.ini:/usr/local/etc/php/php.ini
+    ports:
+      - 8000:80
+    environment:
+      DEBUG_ENABLED: 1
