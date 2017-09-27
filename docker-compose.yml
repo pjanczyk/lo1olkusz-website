@@ -19,3 +19,10 @@ services:
       DB_USER: root
       DB_PASSWORD: ${DB_ROOT_PASSWORD}
       DB_DATABASE: lo1olkusz
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.7
+    depends_on:
+      - db
+    environment:
+      PMA_USER: root
+      PMA_PASSWORD: ${DB_ROOT_PASSWORD}

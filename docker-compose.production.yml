@@ -10,3 +10,7 @@ services:
     restart: always
     ports:
       - 81:80
+  phpmyadmin:
+    restart: always
+    ports:
+      - 82:80
