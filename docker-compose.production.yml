@@ -1,16 +1,30 @@
 # production environment
 # based on `docker-compose.yml`
 
+# 'jwilder/nginx-proxy' container is expected to be running connected to 'proxy' network.
+
 version: '3.2'
 
 services:
   db:
-    restart: always
+    restart: unless-stopped
+    networks:
+      - default
   app:
-    restart: always
-    ports:
-      - 81:80
+    restart: unless-stopped
+    networks:
+      - default
+      - proxy
+    environment:
+      - VIRTUAL_HOST=lo1olkusz.tk,lo1olkusz.piotrjanczyk.tk
   phpmyadmin:
-    restart: always
-    ports:
-      - 82:80
+    restart: unless-stopped
+    networks:
+      - default
+      - proxy
+    environment:
+      - VIRTUAL_HOST=phpmyadmin.lo1olkusz.piotrjanczyk.tk
+
+networks:
+  proxy:
+    external: true
