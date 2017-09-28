@@ -11,14 +11,10 @@ services:
       MYSQL_DATABASE: lo1olkusz
   app:
     image: pjanczyk/lo1olkusz-backend-app
+    volumes:
+      - .env:/usr/local/etc/.env:ro
     depends_on:
       - db
-    environment:
-      DB_HOST: db
-      DB_PORT: 3306
-      DB_USER: root
-      DB_PASSWORD: ${DB_ROOT_PASSWORD}
-      DB_DATABASE: lo1olkusz
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:4.7
     depends_on:
