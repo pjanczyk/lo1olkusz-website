@@ -7,7 +7,6 @@ services:
       - ./volumes/db-data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-      # database created on image startup
       MYSQL_DATABASE: lo1olkusz
   app:
     image: pjanczyk/lo1olkusz-backend-app
@@ -19,6 +18,3 @@ services:
     image: phpmyadmin/phpmyadmin:4.7
     depends_on:
       - db
-    environment:
-      PMA_USER: root
-      PMA_PASSWORD: ${DB_ROOT_PASSWORD}
