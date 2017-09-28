@@ -47,7 +47,7 @@ class LuckyNumberParser
         try {
             return LuckyNumberParser::parseText($text);
         } catch (Exception $e) {
-            $this->errors[] = "Niewłaściwy format danych: " . $e->getMessage();
+            $this->errors[] = "Unsupported format: " . $e->getMessage();
             return null;
         }
     }
