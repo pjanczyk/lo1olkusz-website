@@ -17,6 +17,7 @@ services:
       - proxy
     environment:
       - VIRTUAL_HOST=lo1olkusz.tk,lo1olkusz.piotrjanczyk.tk
+      - HTTPS_METHOD=nohttps
   phpmyadmin:
     restart: unless-stopped
     networks:
@@ -24,7 +25,7 @@ services:
       - proxy
     environment:
       - VIRTUAL_HOST=phpmyadmin.lo1olkusz.piotrjanczyk.tk
-
+      - HTTPS_METHOD=nohttps
 networks:
   proxy:
     external: true
